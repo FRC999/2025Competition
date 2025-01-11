@@ -6,6 +6,11 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -76,14 +81,14 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   public DriveSubsystem(double OdometryUpdateFrequency) {
         super(
           TalonFX::new, TalonFX::new, CANcoder::new,
-          TunerConstants.DrivetrainConstants, OdometryUpdateFrequency, configureSwerveChassis());
+          TunerConstants.DrivetrainConstants, OdometryUpdateFrequency, (SwerveModuleConstants[]) configureSwerveChassis().toArray());
         imu = this.getPigeon2();
     }
 
   public DriveSubsystem() {
         super(
           TalonFX::new, TalonFX::new, CANcoder::new,
-          TunerConstants.DrivetrainConstants, configureSwerveChassis());
+          TunerConstants.DrivetrainConstants, (SwerveModuleConstants[]) configureSwerveChassis().toArray());
         imu = this.getPigeon2();
 
         this.registerTelemetry(this::telemeterize);
@@ -107,8 +112,9 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     return mSysIdRoutine.dynamic(direction);
   }
 
-  public static SwerveModuleConstants [] configureSwerveChassis() {
-    return new SwerveModuleConstants[] {
+  public static ArrayList<SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>> configureSwerveChassis() {
+    return new ArrayList<>() {{
+      add(
         TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD0.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD0.getDriveMotorID(),
@@ -119,10 +125,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD0.isDriveMotorInverted(),
             SwerveModuleConstantsEnum.MOD0.isAngleMotorInverted(),
             SwerveModuleConstantsEnum.MOD0.isCANCoderIverted()
-            )
-            ,
+            ));
+            
 
-        TunerConstants.ConstantCreator.createModuleConstants(
+        add(TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD1.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD1.getDriveMotorID(),
             SwerveModuleConstantsEnum.MOD1.getCancoderID(),
@@ -132,10 +138,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD1.isDriveMotorInverted(),
             SwerveModuleConstantsEnum.MOD1.isAngleMotorInverted(),
             SwerveModuleConstantsEnum.MOD1.isCANCoderIverted()
-            )
-            ,
+            ));
+            
 
-        TunerConstants.ConstantCreator.createModuleConstants(
+        add(TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD2.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD2.getDriveMotorID(),
             SwerveModuleConstantsEnum.MOD2.getCancoderID(),
@@ -145,10 +151,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD2.isDriveMotorInverted(),
             SwerveModuleConstantsEnum.MOD2.isAngleMotorInverted(),
             SwerveModuleConstantsEnum.MOD2.isCANCoderIverted()
-            )
-            ,
+            ));
+            
 
-        TunerConstants.ConstantCreator.createModuleConstants(
+        add(TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD3.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD3.getDriveMotorID(),
             SwerveModuleConstantsEnum.MOD3.getCancoderID(),
@@ -158,8 +164,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD3.isDriveMotorInverted(),
             SwerveModuleConstantsEnum.MOD3.isAngleMotorInverted(),
             SwerveModuleConstantsEnum.MOD3.isCANCoderIverted()
-            )
-    };
+            ));
+    }};
   }
 
   public void drive(double xVelocity_m_per_s, double yVelocity_m_per_s, double omega_rad_per_s) {
@@ -453,7 +459,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
             DriverStation.getAlliance().ifPresent((allianceColor) -> {
                 this.setOperatorPerspectiveForward(
-                        allianceColor == Alliance.Red ? SwerveChassis.redAlliancePerspectiveRotation
+                        allianceColor == Alliance.Red 
+                                ? SwerveChassis.redAlliancePerspectiveRotation
                                 : SwerveChassis.blueAlliancePerspectiveRotation);
                 hasAppliedOperatorPerspective = true;
             });
