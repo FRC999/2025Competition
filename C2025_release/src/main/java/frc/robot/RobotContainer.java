@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,13 +22,28 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+  public static Controller xboxDriveController;
+  public static Controller xboxGPMController;
+  public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static boolean isAllianceRed = false;
   public static boolean isReversingControllerAndIMUForRed = true;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    configureDriverInterface(); 
     configureBindings();
+
+    driveSubsystem.setDefaultCommand(
+      new DriveManuallyCommand(
+          () -> getDriverXAxis(),
+          () -> getDriverYAxis(),
+          () -> getDriverOmegaAxis()));
+  }
+
+  private void configureDriverInterface(){
+    xboxDriveController = new Controller(ControllerDevice.XBOX_CONTROLLER);
+    xboxGPMController = new Controller(ControllerDevice.XBOX_CONTROLLER_GPM);
   }
 
     // Alliance color determination
@@ -44,6 +62,22 @@ public class RobotContainer {
   }
   public static void toggleReversingControllerAndIMUForRed() {
     isReversingControllerAndIMUForRed = !isReversingControllerAndIMUForRed;
+  }
+
+   // Driver preferred controls
+   private double getDriverXAxis() {
+    //return -xboxController.getLeftStickY();
+    return -xboxDriveController.getRightStickY();
+  }
+
+  private double getDriverYAxis() {
+    //return -xboxController.getLeftStickX();
+    return -xboxDriveController.getRightStickX();
+  }
+
+  private double getDriverOmegaAxis() {
+    //return -xboxController.getLeftStickOmega();
+    return -xboxDriveController.getLeftStickX() * 0.6;
   }
 
   /**
