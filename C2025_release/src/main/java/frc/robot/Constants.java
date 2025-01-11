@@ -32,10 +32,6 @@ import com.ctre.phoenix6.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.units.measure.LinearVelocity;
-import edu.wpi.first.units.measure.Voltage;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -346,5 +342,145 @@ public final class Constants {
 
 		// Configs for the Pigeon 2; leave this null to skip applying Pigeon 2 configs
 		private static final Pigeon2Configuration pigeonConfigs = null;
+	}
+
+		public static final class OIConstants {
+		public static final int driverControllerPort = 0;
+
+		public static final int bblPort = 4;
+		public static final int bbrPort = 3;
+
+		public static final int driverInterfaceSwitchButton = 1;
+
+		public static final int robotCentricButton = 5; // XBOX L1 button
+
+		public static final ControllerDeviceType driverInterfaceType = ControllerDeviceType.XBOX_ONEDRIVE;
+
+		public static final int CALIBRATION_JOYSTICK_SLIDER_AXLE = 3;
+
+		public static enum ControllerDeviceType {
+			LOGITECH,
+			PS5,
+			XBOX, // RightJ F/B, LeftJ L/R, L2/R2 - rotation
+			XBOX_ONEDRIVE // RIghtJ F/B/L/R, LeftJ - rotation
+		}
+
+		public static enum ControllerDevice {
+			DRIVESTICK(
+					0, // Port Number
+					ControllerDeviceType.LOGITECH,
+					0.02, // deadband X
+					0.02, // deadband Y
+					0.02, // deadband Omega
+					true, // cubeControllerLeft
+					true // cubeControllerRight
+			),
+
+			// DRIVESTICK1,2,3 are used only for GPM calibration
+			DRIVESTICK1(
+					1, // Port Number
+					ControllerDeviceType.LOGITECH,
+					0.02, // deadband X
+					0.02, // deadband Y
+					0.02, // deadband Omega
+					true, // cubeControllerLeft
+					true // cubeControllerRight
+			),
+
+			DRIVESTICK2(
+					2, // Port Number
+					ControllerDeviceType.LOGITECH,
+					0.02, // deadband X
+					0.02, // deadband Y
+					0.02, // deadband Omega
+					true, // cubeControllerLeft
+					true // cubeControllerRight
+			),
+
+			DRIVESTICK3(
+					3, // Port Number
+					ControllerDeviceType.LOGITECH,
+					0.02, // deadband X
+					0.02, // deadband Y
+					0.02, // deadband Omega
+					true, // cubeControllerLeft
+					true // cubeControllerRight
+			),
+
+			TURNSTICK( // Controls the rotation of the swervebot
+					2, // Port Number
+					ControllerDeviceType.LOGITECH,
+					0.02, // deadband X
+					0.02, // deadband Y
+					0.02, // deadband Omega
+					true, // cubeControllerLeft
+					true // cubeControllerRight
+			),
+
+			XBOX_CONTROLLER(
+					5, // Port Number for Xbox controller
+					ControllerDeviceType.XBOX,
+					0.03, // deadband X for Xbox
+					0.03, // deadband Y for Xbox //TODO: ALL DEADBAND FOR XBOX IS PLACEHOLDER
+					0.03, // deadband Omega for Xbox
+					false, // No cube controller configuration for Xbox yet
+					false),
+
+			XBOX_CONTROLLER_GPM(
+					4, // Port Number for Xbox controller
+					ControllerDeviceType.XBOX,
+					0.03, // deadband X for Xbox
+					0.03, // deadband Y for Xbox //TODO: ALL DEADBAND FOR XBOX IS PLACEHOLDER
+					0.03, // deadband Omega for Xbox
+					false, // No cube controller configuration for Xbox yet
+					false);
+
+			private ControllerDeviceType controllerDeviceType;
+			private int portNumber;
+			private double deadbandX;
+			private double deadbandY;
+			private double deadbandOmega;
+			private boolean cubeControllerLeftStick;
+			private boolean cubeControllerRightStick;
+
+			ControllerDevice(int pn, ControllerDeviceType cdt, double dx, double dy, double dm, boolean ccL,
+					boolean ccR) {
+				this.portNumber = pn;
+				this.controllerDeviceType = cdt;
+				this.deadbandX = dx;
+				this.deadbandY = dy;
+				this.deadbandOmega = dm;
+				this.cubeControllerLeftStick = ccL;
+				this.cubeControllerRightStick = ccR;
+			}
+
+			public ControllerDeviceType getControllerDeviceType() {
+				return controllerDeviceType;
+			}
+
+			public int getPortNumber() {
+				return portNumber;
+			}
+
+			public double getDeadbandX() {
+				return deadbandX;
+			}
+
+			public double getDeadbandY() {
+				return deadbandY;
+			}
+
+			public double getDeadbandOmega() {
+				return deadbandOmega;
+			}
+
+			public boolean isCubeControllerLeftStick() {
+				return cubeControllerLeftStick;
+			}
+
+			public boolean isCubeControllerRightStick() {
+				return cubeControllerRightStick;
+			}
+		}
 	}
 }
