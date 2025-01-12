@@ -50,9 +50,12 @@ public final class Constants {
 		public static class TunerConstants {
 			public static final double steerGainsKP = 100;
 			public static final double steerGainsKI = 0;
-			public static final double steerGainsKD = 2.0;
-			public static final double steerGainsKS = 0.2;
-			public static final double steerGainsKV = 2.66;
+			//public static final double steerGainsKD = 2.0;
+			public static final double steerGainsKD = 0.5;
+			//public static final double steerGainsKS = 0.2;
+			public static final double steerGainsKS = 0.1;
+			//public static final double steerGainsKV = 2.66;
+			public static final double steerGainsKV = 1.59;
 			public static final double steerGainsKA = 0;
 
 			private static final Slot0Configs steerGains = new Slot0Configs()
@@ -65,7 +68,7 @@ public final class Constants {
 			public static final double driveGainsKD = 0;
 			public static final double driveGainsKS = 0;
 			public static final double driveGainsKV = 0.124;
-			public static final double driveGainsKA = 0;
+			//public static final double driveGainsKA = 0;
 
 			private static final Slot0Configs driveGains = new Slot0Configs()
 					.withKP(driveGainsKP).withKI(driveGainsKI).withKD(driveGainsKD)
@@ -97,13 +100,16 @@ public final class Constants {
 
 			// Theoretical free speed (m/s) at 12v applied output;
 			// This needs to be tuned to your individual robot
-			public static final LinearVelocity speedAt12Volts = MetersPerSecond.of(6.21); //TODO: the old value was 5.21
+			//public static final LinearVelocity speedAt12Volts = MetersPerSecond.of(6.21); //TODO: the old value was 5.21
+			public static final LinearVelocity speedAt12Volts = MetersPerSecond.of(5.21); //TODO: the old value was 5.21
 
 			// Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
 			// This may need to be tuned to your individual robot
-			private static final double kCoupleRatio = 3; //TODO: the old value was 3.5714285714285716
+			//private static final double kCoupleRatio = 3; //TODO: the old value was 3.5714285714285716
+			private static final double kCoupleRatio = 3.5714285714285716; //TODO: the old value was 3.5714285714285716
 
-			private static final double kDriveGearRatio = 5.142857142857142; //TODO" the old value was 6.122448979591837 * (1/2.09)
+			//private static final double kDriveGearRatio = 5.142857142857142; //TODO" the old value was 6.122448979591837 * (1/2.09)
+			private static final double kDriveGearRatio = 6.122448979591837;
 			private static final double kSteerGearRatio = 12.8 ; //TODO: the old value was 21.428571428571427
 			private static final Distance wheelRadius = Inches.of(2); //TODO: the old value was Inches.of(5.33 / 5.71)
 
