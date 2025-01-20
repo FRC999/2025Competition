@@ -116,7 +116,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   public static SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>[] configureSwerveChassis() {
     return new SwerveModuleConstants[]{
       
-        TunerConstants.ConstantCreator.createModuleConstants(
+      // Front Left  
+      TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD0.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD0.getDriveMotorID(),
             SwerveModuleConstantsEnum.MOD0.getCancoderID(),
@@ -128,7 +129,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD0.isCANCoderIverted()
             ),
             
-
+        // Front Right
         TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD1.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD1.getDriveMotorID(),
@@ -141,7 +142,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD1.isCANCoderIverted()
             ),
             
-
+        // Back Left
         TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD2.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD2.getDriveMotorID(),
@@ -154,7 +155,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
             SwerveModuleConstantsEnum.MOD2.isCANCoderIverted()
             ),
             
-
+        // Back Right
         TunerConstants.ConstantCreator.createModuleConstants(
             SwerveModuleConstantsEnum.MOD3.getAngleMotorID(),
             SwerveModuleConstantsEnum.MOD3.getDriveMotorID(),

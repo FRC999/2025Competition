@@ -105,18 +105,18 @@ public final class Constants {
 
 			// Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
 			// This may need to be tuned to your individual robot
-			//private static final double kCoupleRatio = 3; //TODO: the old value was 3.5714285714285716
-			private static final double kCoupleRatio = 3.5714285714285716; //TODO: the old value was 3.5714285714285716
+			private static final double kCoupleRatio = 3; //TODO: the old value was 3.5714285714285716
+			//private static final double kCoupleRatio = 3.5714285714285716; //TODO: the old value was 3.5714285714285716
 
-			//private static final double kDriveGearRatio = 5.142857142857142; //TODO" the old value was 6.122448979591837 * (1/2.09)
-			private static final double kDriveGearRatio = 6.122448979591837;
+			private static final double kDriveGearRatio = 5.142857142857142; //TODO" the old value was 6.122448979591837 * (1/2.09)
+			//private static final double kDriveGearRatio = 6.122448979591837;
 			private static final double kSteerGearRatio = 12.8 ; //TODO: the old value was 21.428571428571427
-			private static final Distance wheelRadius = Inches.of(2); //TODO: the old value was Inches.of(5.33 / 5.71)
+			private static final Distance wheelRadius = Inches.of(SwerveChassis.WHEEL_DIAMETER/2.0); //TODO: the old value was Inches.of(5.33 / 5.71)
 
 			private static final boolean kInvertLeftSide = false;
 			private static final boolean kInvertRightSide = true;
 
-			public static final CANBus kCANBus = new CANBus("", "./logs/example.hoot");
+			public static final CANBus kCANBus = new CANBus("Default Name", "./logs/example.hoot");
 
 			// These are only used for simulation
 			private static final MomentOfInertia kSteerInertia = KilogramSquareMeters.of(0.01);
@@ -158,8 +158,8 @@ public final class Constants {
 
 		public static class SwerveChassis {
 
-			public static final double TRACK_WIDTH = 0.525; // left to right
-			public static final double WHEEL_BASE = 0.525; // front to back
+			public static final double TRACK_WIDTH = Meters.convertFrom(19.5, Inches); // left to right
+			public static final double WHEEL_BASE = Meters.convertFrom(19.5, Inches); // front to back
 			public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
 			public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
@@ -220,44 +220,44 @@ public final class Constants {
 
 			public static enum SwerveModuleConstantsEnum {
 				MOD0( // Front Left,
-						1, // driveMotorID
-						2, // angleMotorID
-						20, // CanCoder Id
+						3, // driveMotorID
+						4, // angleMotorID
+						31, // CanCoder Id
 						// -0.296142578125, // angleOffset of cancoder to mark zero-position
-						-0.296142578125 + 0.013672, // angleOffset of cancoder to mark zero-position
+						0.022582890625, // angleOffset of cancoder to mark zero-position
 						false, // Inversion for drive motor
-						true, // Inversion for angle motor
+						false, // Inversion for angle motor
 						false // inversion for CANcoder
 				),
 				MOD1( // Front Right
-						3, // driveMotorID
-						4, // angleMotorID
-						21, // CanCoder Id
+						1, // driveMotorID
+						2, // angleMotorID
+						30, // CanCoder Id
 						// 0.041015625, // angleOffset of cancoder to mark zero-position
-						0.029541015625, // angleOffset of cancoder to mark zero-position
+						-0.3797604921875, // angleOffset of cancoder to mark zero-position
 						true, // Inversion for drive motor
-						true, // Inversion for angle motor
+						false, // Inversion for angle motor
 						false // inversion for CANcoder
 				),
 				MOD2( // Back Left
-						5, // driveMotorID
-						6, // angleMotorID
-						22, // CanCoder Id
+						7, // driveMotorID
+						8, // angleMotorID
+						33, // CanCoder Id
 						// -0.296142578125, // angleOffset of cancoder to mark zero-position
-						0.326171875 - 0.009033, // angleOffset of cancoder to mark zero-position
+						0.421386796875, // angleOffset of cancoder to mark zero-position
 						false, // Inversion for drive motor
-						true, // Inversion for angle motor
+						false, // Inversion for angle motor
 						false // inversion for CANcoder
 				),
 				MOD3( // Back Right
-						7, // driveMotorID
-						8, // angleMotorID
-						23, // CanCoder Id
+						5, // driveMotorID
+						6, // angleMotorID
+						32, // CanCoder Id
 						// 0.326171875, // angleOffset of cancoder to mark zero-position
 						//0.0576171875, // angleOffset of cancoder to mark zero-position
-						0.044677734375, // angleOffset of cancoder to mark zero-position
+						0.088256890625, // angleOffset of cancoder to mark zero-position
 						true, // Inversion for drive motor
-						true, // Inversion for angle motor
+						false, // Inversion for angle motor
 						false // inversion for CANcoder
 				);
 
