@@ -6,12 +6,19 @@ package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
+import frc.robot.commands.StopRobot;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.SmartDashboardSubsystem;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -27,6 +34,7 @@ public class RobotContainer {
   public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static boolean isAllianceRed = false;
   public static boolean isReversingControllerAndIMUForRed = true;
+  public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -90,6 +98,21 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    try {
+      testAuto();
+    }
+    catch (Exception e) {
+       System.out.println("test auto error: " + e);
+    }
+  }
+
+   public void testAuto() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
+      .onFalse(new StopRobot());
+    new JoystickButton(xboxDriveController, 2)
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+      .onFalse(new StopRobot());
   }
 
   /**

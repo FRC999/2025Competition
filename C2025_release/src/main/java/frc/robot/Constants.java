@@ -108,7 +108,7 @@ public final class Constants {
 			private static final double kCoupleRatio = 3; //TODO: the old value was 3.5714285714285716
 			//private static final double kCoupleRatio = 3.5714285714285716; //TODO: the old value was 3.5714285714285716
 
-			private static final double kDriveGearRatio = 5.142857142857142; //TODO" the old value was 6.122448979591837 * (1/2.09)
+			private static final double kDriveGearRatio = 5.142857142857142*(0.13/5.22); //TODO" the old value was 6.122448979591837 * (1/2.09)
 			//private static final double kDriveGearRatio = 6.122448979591837;
 			private static final double kSteerGearRatio = 12.8 ; //TODO: the old value was 21.428571428571427
 			private static final Distance wheelRadius = Inches.of(SwerveChassis.WHEEL_DIAMETER/2.0); //TODO: the old value was Inches.of(5.33 / 5.71)
@@ -116,7 +116,7 @@ public final class Constants {
 			private static final boolean kInvertLeftSide = false;
 			private static final boolean kInvertRightSide = true;
 
-			public static final CANBus kCANBus = new CANBus("Default Name", "./logs/example.hoot");
+			public static final CANBus kCANBus = new CANBus("canivore1", "./logs/example.hoot");
 
 			// These are only used for simulation
 			private static final MomentOfInertia kSteerInertia = KilogramSquareMeters.of(0.01);
@@ -176,8 +176,7 @@ public final class Constants {
 														// 1.0
 
 			// Customize the following values to your prototype
-			public static final double metersPerRotationFX = ((6.75 / 6.12) * (107.66 / 100.0) * (1.0 / 48622.0))
-					* 2048.0; // measure this number on the robot - remeasure on carpet
+			public static final double metersPerRotationFX = (5.589/89.11199955)*(5.589/5.716); // measure this number on the robot - remeasure on carpet
 			// drive motor only
 			public static final double degreePerRotationFX = (1.0 / 122.11575) * 2048; // Angle motor only
 			// On our swerve prototype 1 angular rotation of
@@ -344,7 +343,7 @@ public final class Constants {
 		public static int shooter = 40;
 	}
 	public static class IMUConstants {
-		public static final int kPigeonId = 15; //TODO: adjust the id according to the robot (C2025 is 40)
+		public static final int kPigeonId = 40; //TODO: adjust the id according to the robot (C2025 is 40)
 
 		// Configs for the Pigeon 2; leave this null to skip applying Pigeon 2 configs
 		private static final Pigeon2Configuration pigeonConfigs = null;
