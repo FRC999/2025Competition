@@ -487,5 +487,68 @@ public final class Constants {
 				return cubeControllerRightStick;
 			}
 		}
+		
 	}
-}
+
+	public static final class GPMConstants{
+		public static final class ElevatorConstants {
+
+			public static enum ElevatorMotorConstantsEnum {
+				FOLLOWERMOTOR( // Front Left - main motor
+						10, // CANID
+						false, // Inversion
+						false // Follower
+				),
+				LEADERMOTOR( // Front Left
+						11, // CANID
+						true, // Inversion
+						true // Follower
+				);
+	
+				private int elevatorMotorID; // CAN ID
+				private boolean elevatorMotorInverted;
+				private boolean elevatorMotorFollower;
+	
+				ElevatorMotorConstantsEnum(int cid, boolean i, boolean f) {
+					this.elevatorMotorID = cid;
+					this.elevatorMotorInverted = i;
+					this.elevatorMotorFollower = f;
+				}
+	
+				public int getElevatorMotorID() {
+					return elevatorMotorID;
+				}
+	
+				public boolean getElevatorMotorInverted() {
+					return elevatorMotorInverted;
+				}
+	
+				public boolean getElevatorMotorFollower() {
+					return elevatorMotorFollower;
+				}
+			}
+
+			// PID
+			public static int PID_Elevator_Idx = 0; // 0 - closed loop; 1 - open loop
+			public static int elevator_configureTimeoutMs = 30;
+			//coppied from turret constants
+			public static final double elevator_NeutralDeadband = 0.001;
+			public static final int elevator_closedLoopPeriodMs = 30;
+			
+			public static final double elevatorAbsoluteZero = 2800;
+			//TO CHANGE - PID values copied from turret constants
+			public static final int elevator_SLOT_0 = 0;
+			public static final double elevator_kP = 1.5;
+			public static final double elevator_kI = 0.0;
+			public static final double elevator_kD = 0;
+			public static final double elevator_kG = 0;
+			public static final double elevator_Acceleration = 500; // raw sensor units per 100 ms per second
+			public static final double elevator_CruiseVelocity = 1000; // raw sensor units per 100 ms
+			public static final int elevator_Smoothing = 3; // CurveStrength. 0 to use Trapezoidal Motion Profile. [1,8] for S-Curve (greater value yields greater smoothing).
+			public static final double elevator_DefaultAcceptableError = 1; // Sensor units
+			public static final double elevator_Izone = 500;
+			public static final double elevator_PeakOutput = 0.7; // Closed Loop peak output
+			public static final double elevator_PIDTolerance = 100;
+		}	
+	}
+	}
