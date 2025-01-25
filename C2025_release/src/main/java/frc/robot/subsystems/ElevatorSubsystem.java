@@ -56,10 +56,11 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     slot0Configs.kG = Constants.GPMConstants.ElevatorConstants.elevator_kG;
     talonFXConfigurator.apply(slot0Configs, 0.050);
 
-        StatusCode status = StatusCode.StatusCodeNotInitialized;
+    StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
       status = elevatorMotorLeader.getConfigurator().apply(config);
-      if (status.isOK()) break;
+      if (status.isOK())
+        break;
     }
     if (!status.isOK()) {
       System.out.println("Could not configure device. Error: " + status.toString());
