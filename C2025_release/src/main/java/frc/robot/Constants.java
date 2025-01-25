@@ -491,6 +491,13 @@ public final class Constants {
 	}
 
 	public static final class GPMConstants{
+		public static final class ClimberConstants {
+
+		}
+
+		public static final class IntakeConstants {
+			
+		}
 		public static final class ElevatorConstants {
 
 			public static enum ElevatorMotorConstantsEnum {
