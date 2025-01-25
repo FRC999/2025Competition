@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import java.time.LocalTime;
+
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -105,21 +109,21 @@ public class IntakeSubsystem extends SubsystemBase {
     // apply signals
     sparkMaxConfig.apply(signalsConfig);
 
-    ClosedLoopConfig closedLoopConfig = new ClosedLoopConfig();
-    // --- PID Setup
-    // set the PID sensor to motor encoder for hardware PID
-    closedLoopConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-    // set arm PID coefficients - LIFT
-    closedLoopConfig.p(IntakePIDConstants.kP);
-    closedLoopConfig.i(IntakePIDConstants.kI);
-    closedLoopConfig.d(IntakePIDConstants.kD);
-    closedLoopConfig.iZone(IntakePIDConstants.Izone);
-    //p.setFF(ArmPIDConstants.kF);
-    // kMaxOutput = 1 ; range is -1, 1
-    closedLoopConfig.outputRange(-IntakePIDConstants.kMaxOutput, IntakePIDConstants.kMaxOutput);
+    // ClosedLoopConfig closedLoopConfig = new ClosedLoopConfig();
+    // // --- PID Setup
+    // // set the PID sensor to motor encoder for hardware PID
+    // closedLoopConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    // // set arm PID coefficients - LIFT
+    // closedLoopConfig.p(IntakePIDConstants.kP);
+    // closedLoopConfig.i(IntakePIDConstants.kI);
+    // closedLoopConfig.d(IntakePIDConstants.kD);
+    // closedLoopConfig.iZone(IntakePIDConstants.Izone);
+    // //p.setFF(ArmPIDConstants.kF);
+    // // kMaxOutput = 1 ; range is -1, 1
+    // closedLoopConfig.outputRange(-IntakePIDConstants.kMaxOutput, IntakePIDConstants.kMaxOutput);
 
-    // Apply closed loop configuration
-    sparkMaxConfig.apply(closedLoopConfig);
+    // // Apply closed loop configuration
+    // sparkMaxConfig.apply(closedLoopConfig);
 
     motor.configure(sparkMaxConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
@@ -139,7 +143,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public boolean isIntakeDown() {
     return (Intake.INTAKE_DOWN_LIMIT_SWITCH_PRESENT && !intakeDownLimitSwitch.get());
   }
-
 
   @Override
   public void periodic() {
