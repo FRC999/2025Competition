@@ -326,14 +326,18 @@ public final class Constants {
 			public static final double INTAKE_NOTE_FORWARD_POWER = 0.35;
 			public static final double INTAKE_NOTE_SPEW_POWER = -0.35;
 
-			public static final boolean NOTE_SENSOR_PRESENT = true; // turn to TRUE when sensor will be configured
-			public static final int NOTE_SENSOR_SWITCH_DIO_PORT_NUMBER = 4;
+			public static final boolean GPM_SENSOR_PRESENT = true; // turn to TRUE when sensor will be configured
+			public static final int GPM_SENSOR_SWITCH_DIO_PORT_NUMBER = 4;
 
 			public static final boolean INTAKE_DOWN_LIMIT_SWITCH_PRESENT = true;
 			public static final int INTAKE_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 8; // DIO port number for the intake
 																					// limit switch
 
 		}
+	}
+
+	public static final class EnableCurrentLimiter {
+		public static final boolean intake = true;
 	}
 
 	public static final class CurrentLimiter {
@@ -496,7 +500,62 @@ public final class Constants {
 		}
 
 		public static final class IntakeConstants {
-			
+			public static enum IntakeMotorConstantsEnum {
+				ROLLERMOTOR( // Front Left - main motor
+						12, // CANID
+						false, // Inversion
+						false // Follower
+				),
+				ROTATIONALMOTOR( // Front Left
+						13, // CANID
+						true, // Inversion
+						true // Follower
+				);
+	
+				private int intakeMotorID; // CAN ID
+				private boolean intakeMotorInverted;
+	
+				IntakeMotorConstantsEnum(int cid, boolean i, boolean f) {
+					this.intakeMotorID = cid;
+					this.intakeMotorInverted = i;
+				}
+	
+				public int getIntakeMotorID() {
+					return intakeMotorID;
+				}
+	
+				public boolean getIntakeMotorInverted() {
+					return intakeMotorInverted;
+				}
+			}
+			public static final class IntakePIDConstants {
+
+				public static final double kP = 0.02;
+				public static final double kI = 0.000;
+				public static final double kD = 2.0;
+				public static final double kF = 0;
+				public static final double kMaxOutput = 0.6;
+				public static final double Acceleration = 6750; // raw sensor units per 100 ms per second
+				public static final double CruiseVelocity = 6750; // raw sensor units per 100 ms
+				public static final int Smoothing = 3; // CurveStrength. 0 to use Trapezoidal Motion Profile. [1,8] for
+														// S-Curve (greater value yields greater smoothing).
+				public static final double DefaultAcceptableError = 5; // Sensor units
+				public static final double Izone = 500;
+				public static final double PeakOutput = 0.5; // Closed Loop peak output
+				public static final double NeutralDeadband = 0.001;
+				public static final int periodMs = 10; // status frame period
+				public static final int timeoutMs = 30; // status frame timeout
+				public static final int closedLoopPeriod = 1; // 1ms for TalonSRX and locally connected encoder
+
+				public static final double anglePIDTolerance = 0.5; // degree tolerance when rotating arm to angle using
+																	// PID
+			}
+
+			public static final double rampRate = 0.25;
+			// TODO: Check conversion factors; find the ones that work best with PID
+			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
+			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
+			public static final double nominalVoltage = 12.0;
 		}
 		public static final class ElevatorConstants {
 
@@ -557,5 +616,35 @@ public final class Constants {
 			public static final double elevator_PeakOutput = 0.7; // Closed Loop peak output
 			public static final double elevator_PIDTolerance = 100;
 		}	
+
+		public static final class ArmConstants {
+			public static final int ARM_MOTOR_CAN_ID = 51;
+			// public static final boolean INTAKE_SENSOR_PHASE = false;
+			public static final boolean ARM_INVERTED = false; // positive power - note in
+
+			public static final class ArmPIDConstants {
+
+				public static final double kP = 0.02;
+				public static final double kI = 0.000;
+				public static final double kD = 2.0;
+				public static final double kF = 0;
+				public static final double kMaxOutput = 0.6;
+				public static final double Acceleration = 6750; // raw sensor units per 100 ms per second
+				public static final double CruiseVelocity = 6750; // raw sensor units per 100 ms
+				public static final int Smoothing = 3; // CurveStrength. 0 to use Trapezoidal Motion Profile. [1,8] for
+														// S-Curve (greater value yields greater smoothing).
+				public static final double DefaultAcceptableError = 5; // Sensor units
+				public static final double Izone = 500;
+				public static final double PeakOutput = 0.5; // Closed Loop peak output
+				public static final double NeutralDeadband = 0.001;
+				public static final int periodMs = 10; // status frame period
+				public static final int timeoutMs = 30; // status frame timeout
+				public static final int closedLoopPeriod = 1; // 1ms for TalonSRX and locally connected encoder
+
+				public static final double anglePIDTolerance = 0.5; // degree tolerance when rotating arm to angle using
+																	// PID
+
+			}
+		}
 	}
 	}
