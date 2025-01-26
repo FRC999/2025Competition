@@ -328,11 +328,6 @@ public final class Constants {
 
 			public static final boolean GPM_SENSOR_PRESENT = true; // turn to TRUE when sensor will be configured
 			public static final int GPM_SENSOR_SWITCH_DIO_PORT_NUMBER = 4;
-
-			public static final boolean INTAKE_DOWN_LIMIT_SWITCH_PRESENT = true;
-			public static final int INTAKE_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 8; // DIO port number for the intake
-																					// limit switch
-
 		}
 	}
 
@@ -592,29 +587,50 @@ public final class Constants {
 				public boolean getElevatorMotorFollower() {
 					return elevatorMotorFollower;
 				}
+
 			}
 
-			// PID
-			public static int PID_Elevator_Idx = 0; // 0 - closed loop; 1 - open loop
-			public static int elevator_configureTimeoutMs = 30;
-			//coppied from turret constants
-			public static final double elevator_NeutralDeadband = 0.001;
-			public static final int elevator_closedLoopPeriodMs = 30;
-			
-			public static final double elevatorAbsoluteZero = 2800;
-			//TO CHANGE - PID values copied from turret constants
-			public static final int elevator_SLOT_0 = 0;
-			public static final double elevator_kP = 1.5;
-			public static final double elevator_kI = 0.0;
-			public static final double elevator_kD = 0;
-			public static final double elevator_kG = 0;
-			public static final double elevator_Acceleration = 500; // raw sensor units per 100 ms per second
-			public static final double elevator_CruiseVelocity = 1000; // raw sensor units per 100 ms
-			public static final int elevator_Smoothing = 3; // CurveStrength. 0 to use Trapezoidal Motion Profile. [1,8] for S-Curve (greater value yields greater smoothing).
-			public static final double elevator_DefaultAcceptableError = 1; // Sensor units
-			public static final double elevator_Izone = 500;
-			public static final double elevator_PeakOutput = 0.7; // Closed Loop peak output
-			public static final double elevator_PIDTolerance = 100;
+			public static class ElevatorPIDConstants {
+				public static class PositionDutyCycleConstants {
+					public static final double elevator_kP = 0.1;
+					public static final double elevator_kI = 0.0;
+					public static final double elevator_kD = 0.01;
+					public static final double elevator_kV = 0.12;
+				}
+
+				public static class PositionVoltageConstants {
+					public static final double elevator_kP = 0.1;
+					public static final double elevator_kI = 0.0;
+					public static final double elevator_kD = 0.01;
+				}
+
+				public static class MotionMagicDutyCycleConstants {
+					public static final int slot = 0;
+					public static final double elevator_kP = 0.64;
+					public static final double elevator_kI = 0.0;
+					public static final double elevator_kD = 0.0;
+					public static final double MotionMagicCruiseVelocity = 50.0;
+					public static final double motionMagicAcceleration = 100.0;
+					public static final double motionMagicJerk = 1000.0;
+				}
+
+				public static class MotionMagicVoltageConstants {
+					public static final int slot = 0;
+					public static final double elevator_kP = 0.4;
+					public static final double elevator_kI = 0.0;
+					public static final double elevator_kD = 0.06;
+					public static final double elevator_kS = 0.24;
+					public static final double elevator_kV = 0.12;
+					public static final double MotionMagicCruiseVelocity = 50.0;
+					public static final double motionMagicAcceleration = 100.0;
+					public static final double motionMagicJerk = 1000.0;
+				}
+			}
+
+			public static final boolean elevator_Limit_Switch_isPresent = true;
+			public static final int elevator_Limit_Switch_port = 8; // DIO port number for the intake
+																					// limit switch
+			public static final double zeroPositionAbsoluteEncoder = 0; //TODO: Measure on Robot
 		}	
 
 		public static final class ArmConstants {
@@ -624,25 +640,40 @@ public final class Constants {
 
 			public static final class ArmPIDConstants {
 
-				public static final double kP = 0.02;
-				public static final double kI = 0.000;
-				public static final double kD = 2.0;
-				public static final double kF = 0;
-				public static final double kMaxOutput = 0.6;
-				public static final double Acceleration = 6750; // raw sensor units per 100 ms per second
-				public static final double CruiseVelocity = 6750; // raw sensor units per 100 ms
-				public static final int Smoothing = 3; // CurveStrength. 0 to use Trapezoidal Motion Profile. [1,8] for
-														// S-Curve (greater value yields greater smoothing).
-				public static final double DefaultAcceptableError = 5; // Sensor units
-				public static final double Izone = 500;
-				public static final double PeakOutput = 0.5; // Closed Loop peak output
-				public static final double NeutralDeadband = 0.001;
-				public static final int periodMs = 10; // status frame period
-				public static final int timeoutMs = 30; // status frame timeout
-				public static final int closedLoopPeriod = 1; // 1ms for TalonSRX and locally connected encoder
+				public static class PositionDutyCycleConstants {
+					public static final double arm_kP = 0.1;
+					public static final double arm_kI = 0.0;
+					public static final double arm_kD = 0.01;
+					public static final double arm_kV = 0.12;
+				}
 
-				public static final double anglePIDTolerance = 0.5; // degree tolerance when rotating arm to angle using
-																	// PID
+				public static class PositionVoltageConstants {
+					public static final double arm_kP = 0.1;
+					public static final double arm_kI = 0.0;
+					public static final double arm_kD = 0.01;
+				}
+
+				public static class MotionMagicDutyCycleConstants {
+					public static final int slot = 0;
+					public static final double arm_kP = 0.64;
+					public static final double arm_kI = 0.0;
+					public static final double arm_kD = 0.0;
+					public static final double MotionMagicCruiseVelocity = 50.0;
+					public static final double motionMagicAcceleration = 100.0;
+					public static final double motionMagicJerk = 1000.0;
+				}
+
+				public static class MotionMagicVoltageConstants {
+					public static final int slot = 0;
+					public static final double arm_kP = 0.4;
+					public static final double arm_kI = 0.0;
+					public static final double arm_kD = 0.06;
+					public static final double arm_kS = 0.24;
+					public static final double arm_kV = 0.12;
+					public static final double MotionMagicCruiseVelocity = 50.0;
+					public static final double motionMagicAcceleration = 100.0;
+					public static final double motionMagicJerk = 1000.0;
+				}
 
 			}
 		}
