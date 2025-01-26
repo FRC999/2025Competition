@@ -66,14 +66,7 @@ public class IntakeSubsystem extends SubsystemBase {
       }
     }
 
-    if (Intake.INTAKE_DOWN_LIMIT_SWITCH_PRESENT) {
-      try {
-        intakeDownLimitSwitch = new DigitalInput(Intake.INTAKE_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER);
-        System.out.println("*** Intake Down Limit Switch initialized");
-      } catch (Exception e) {
-        System.out.println("Unable to get intake down limit switch value");
-      }
-    }
+    
   }
 
   private void configureIntakeMotors(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p, IntakeMotorConstantsEnum c,
@@ -140,9 +133,7 @@ public class IntakeSubsystem extends SubsystemBase {
     return (!Intake.GPM_SENSOR_PRESENT) || !GPMsensors.get();
   }
 
-  public boolean isIntakeDown() {
-    return (Intake.INTAKE_DOWN_LIMIT_SWITCH_PRESENT && !intakeDownLimitSwitch.get());
-  }
+  
 
   @Override
   public void periodic() {
