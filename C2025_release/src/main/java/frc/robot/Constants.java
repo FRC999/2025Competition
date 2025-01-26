@@ -496,7 +496,8 @@ public final class Constants {
 
 	public static final class GPMConstants{
 		public static final class ClimberConstants {
-
+			public static final int CLIMBER_MOTOR_CAN_ID = 52;
+			public static final double defautClimberMotorPower = 0.6;
 		}
 
 		public static final class IntakeConstants {
