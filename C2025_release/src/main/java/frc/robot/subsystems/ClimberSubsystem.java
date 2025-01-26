@@ -7,10 +7,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.GPMConstants.ClimberConstants;
+import frc.robot.Constants.SwerveConstants.Intake;
 
 public class ClimberSubsystem extends SubsystemBase {
    private TalonFX climberMotor;
@@ -28,15 +31,16 @@ public class ClimberSubsystem extends SubsystemBase {
 
     var motorconfigs = new MotorOutputConfigs();
     var talonFXConfigurator = climberMotor.getConfigurator();
+    motorconfigs.Inverted = (Intake.INTAKE_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
     talonFXConfigurator.apply(motorconfigs);
   }
 
-  public void climbUP(double power) {
-    climberMotor.set(power);
+  public void climbUP() {
+    climberMotor.set(Constants.GPMConstants.ClimberConstants.climbUpPower);
   }
 
-  public void climbDown(double power) {
-    climberMotor.set(-power);
+  public void climbDown() {
+    climberMotor.set(Constants.GPMConstants.ClimberConstants.climbDownPower);
   }
 
   public void stopClimbMotor() {
