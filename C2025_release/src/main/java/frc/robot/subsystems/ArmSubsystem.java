@@ -16,7 +16,9 @@ import frc.robot.Constants.SwerveConstants.Intake;
 
 import java.time.LocalTime;
 
+import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusCode;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -26,6 +28,7 @@ import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -41,11 +44,41 @@ public class ArmSubsystem extends SubsystemBase {
 
    private RelativeEncoder armEncoder;
    private double armEncoderZero;
-  
+   private CANcoder armCANCoder;
+
+
   public ArmSubsystem() {
     armMotor = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
+    armCANCoder = new CANcoder(ArmConstants.CANCODER_CAN_ID);
 
     configureArmMotor();
+    configureCANCoder();
+    calibrateZeroArmPosition();
+  }
+
+  public void configureCANCoder() {
+    /* Configure CANcoder */
+    var toApply = new CANcoderConfiguration();
+
+    /* User can change the configs if they want, or leave it empty for factory-default */
+    armCANCoder.getConfigurator().apply(toApply);
+
+    /* Speed up signals to an appropriate rate */
+    BaseStatusSignal.setUpdateFrequencyForAll(100, armCANCoder.getPosition(), armCANCoder.getVelocity());
+  }
+
+  public double getAbsoluteCANCoderValue() {
+    return armCANCoder.getAbsolutePosition().getValueAsDouble();
+  }
+
+  public double getRelativeCANCoderValue() {
+    return armCANCoder.getPosition().getValueAsDouble();
+  }
+
+  public void calibrateZeroArmPosition() {
+    armEncoderZero = (ArmConstants.CANCODER_ABSOLUTE_HORIZONTAL_VALUE - getAbsoluteCANCoderValue()) 
+        * ArmConstants.MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS 
+        + getMotorEncoder();
   }
 
   private void configureArmMotor() {
@@ -58,13 +91,13 @@ public class ArmSubsystem extends SubsystemBase {
     motorconfigs.NeutralMode = NeutralModeValue.Brake;
     motorconfigs.Inverted = (ArmConstants.ARM_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
     var talonFXConfigurator = armMotor.getConfigurator();
-    TalonFXConfiguration config = new TalonFXConfiguration();
-    configurePositionDutyCycle(config);
+    TalonFXConfiguration pidConfig = new TalonFXConfiguration();
+    configurePositionDutyCycle(pidConfig);
     talonFXConfigurator.apply(motorconfigs);
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
-      status = talonFXConfigurator.apply(config);
+      status = talonFXConfigurator.apply(pidConfig);
       if (status.isOK())
         break;
     }
@@ -126,9 +159,9 @@ public class ArmSubsystem extends SubsystemBase {
 
     motMagVoltage.Slot = MotionMagicVoltageConstants.slot;
   }
-  
 
-  public double getEncoder() {
+
+  public double getMotorEncoder() {
     return armMotor.getRotorPosition().getValueAsDouble();
   }
 

@@ -639,8 +639,29 @@ public final class Constants {
 			// public static final boolean INTAKE_SENSOR_PHASE = false;
 			public static final boolean ARM_INVERTED = false; // positive power - note in
 
-			public static final class ArmPIDConstants {
+			public static final int CANCODER_CAN_ID = 31;
+			public static final double CANCODER_ABSOLUTE_HORIZONTAL_VALUE = 0.0; //TODO: CHECK ON ROBOT :)
+			public static final double MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS = 0.0; //TODO: CHECK ON ROBOT :)
 
+			public static enum armHeights{ // meters off the ground for the piece placement
+				ConeIntake(0.0),
+				AlgaeIntake(0.0),
+				ReefLevelOne(0.0),
+				ReefLevelTwo(0.0),
+				ReefLevelThree(0.0),
+				ReefLevelFour(0.0),
+				Barge(0.0),
+				Processor(0.0);
+				private double armHeightForGamepiecePlacement;
+				armHeights(double height) {
+				  this.armHeightForGamepiecePlacement = height;
+				}
+				public double getHeight() {
+				  return armHeightForGamepiecePlacement;
+				}
+			  }
+
+			public static final class ArmPIDConstants {
 				public static class PositionDutyCycleConstants {
 					public static final double arm_kP = 0.1;
 					public static final double arm_kI = 0.0;
