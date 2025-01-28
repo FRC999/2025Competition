@@ -106,11 +106,11 @@ public class ArmSubsystem extends SubsystemBase {
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
   }
-  public void runIntake(double speed) {
+  public void runArm(double speed) {
     armMotor.set(speed);
   }
 
-  public void stopIntake() {
+  public void stopArm() {
     armMotor.set(0);
   }
 

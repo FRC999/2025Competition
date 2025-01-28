@@ -7,9 +7,11 @@ package frc.robot;
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutonomousTrajectory2Poses;
+import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
+import frc.robot.commands.StopArm;
 import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopRobot;
 import frc.robot.subsystems.ArmSubsystem;
@@ -56,7 +58,8 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureDriverInterface(); 
     configureBindings();
-    calibrateElevator();
+    //calibrateElevator();
+    //calibrateArm();
 
     driveSubsystem.setDefaultCommand(
       new DriveManuallyCommand(
@@ -135,6 +138,12 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 1)
     .onTrue(new CalibrateElevatorDeterminekG())
     .onFalse(new StopElevator());
+  }
+
+  public void calibrateArm() {
+    new JoystickButton(xboxDriveController, 2)
+    .onTrue(new CalibrateArmMoveManually())
+    .onFalse(new StopArm());
   }
 
   /**
