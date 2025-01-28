@@ -35,13 +35,13 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   private TalonFX elevatorMotorFollower;
   private DigitalInput limitSwitch;
   private double zeroPosition; //Relative Encoder Setting for zero position of elevator
+
+  
+  MotionMagicDutyCycle motMagDutyCycle = new MotionMagicDutyCycle(0);
+  MotionMagicVoltage motMagVoltage = new MotionMagicVoltage(0);
+  PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0);
+  
   public ElevatorSubsystem() {
-    initializeElevator();
-    initializeLimitSwitch();
-    setPositionDutyCycle();
-    setPositionVoltage();
-    setMotionMagicDutyCycle();
-    setMotionMagicVoltage();
   }
 
   public void initializeLimitSwitch() {
@@ -68,42 +68,40 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     talonFXConfigurator.apply(motorconfigs);
     elevatorMotorLeader.setSafetyEnabled(false);
 
-  }
-
-  private void setPositionDutyCycle() {
-    var slot0Configs = new Slot0Configs();
-    slot0Configs.kV = PositionDutyCycleConstants.elevator_kV;
-    slot0Configs.kP = PositionDutyCycleConstants.elevator_kP;
-    slot0Configs.kI = PositionDutyCycleConstants.elevator_kI;
-    slot0Configs.kD = PositionDutyCycleConstants.elevator_kD;
-    elevatorMotorLeader.getConfigurator().apply(slot0Configs, 0.050);
-  }
-
-  private void setPositionVoltage() {
-    TalonFXConfiguration config = new TalonFXConfiguration();
-    config.Slot0.kP = PositionVoltageConstants.elevator_kP;
-    config.Slot0.kI = PositionVoltageConstants.elevator_kI;
-    config.Slot0.kD = PositionVoltageConstants.elevator_kD;
-    
-    config.Voltage.withPeakForwardVoltage(Volts.of(8))
-        .withPeakReverseVoltage(Volts.of(-8));
-    
-    PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0);
+    TalonFXConfiguration pidConfig = new TalonFXConfiguration();
+    configurePositionDutyCycle(pidConfig);
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
-      status = elevatorMotorLeader.getConfigurator().apply(config);
+      status = talonFXConfigurator.apply(pidConfig);
       if (status.isOK())
         break;
     }
     if (!status.isOK()) {
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
+
   }
 
-  private void setMotionMagicDutyCycle() {
-    MotionMagicDutyCycle motMagDutyCycle = new MotionMagicDutyCycle(0);
-    TalonFXConfiguration config = new TalonFXConfiguration();
+  private void configurePositionDutyCycle(TalonFXConfiguration config) {
+    config.Slot0.kV = PositionDutyCycleConstants.elevator_kV;
+    config.Slot0.kP = PositionDutyCycleConstants.elevator_kP;
+    config.Slot0.kI = PositionDutyCycleConstants.elevator_kI;
+    config.Slot0.kD = PositionDutyCycleConstants.elevator_kD;
+  }
+
+  private void configurePositionVoltage(TalonFXConfiguration config) {
+    config.Slot0.kP = PositionVoltageConstants.elevator_kP;
+    config.Slot0.kI = PositionVoltageConstants.elevator_kI;
+    config.Slot0.kD = PositionVoltageConstants.elevator_kD;
+    
+    config.Voltage.withPeakForwardVoltage(Volts.of(8))
+        .withPeakReverseVoltage(Volts.of(-8));
+
+    
+  }
+
+  private void configureMotionMagicDutyCycle(TalonFXConfiguration config) {
     //config.Slot0.kS = 0.24; // add 0.24 V to overcome friction
     //config.Slot0.kV = 0.12; // apply 12 V for a target velocity of 100 rps
     //PID on Position
@@ -120,9 +118,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     motMagDutyCycle.Slot = MotionMagicDutyCycleConstants.slot;
   }
 
-  private void setMotionMagicVoltage() {
-    MotionMagicVoltage motMagVoltage = new MotionMagicVoltage(0);
-    TalonFXConfiguration config = new TalonFXConfiguration();
+  private void configureMotionMagicVoltage(TalonFXConfiguration config) {
     config.Slot0.kS = MotionMagicVoltageConstants.elevator_kS; // add 0.24 V to overcome friction
     config.Slot0.kV = MotionMagicVoltageConstants.elevator_kV; // apply 12 V for a target velocity of 100 rps
     //PID on Position
@@ -133,8 +129,6 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     config.MotionMagic.MotionMagicCruiseVelocity = MotionMagicVoltageConstants.MotionMagicCruiseVelocity;
     config.MotionMagic.MotionMagicAcceleration = MotionMagicVoltageConstants.motionMagicAcceleration;
     config.MotionMagic.MotionMagicJerk = MotionMagicVoltageConstants.motionMagicJerk;
-
-    elevatorMotorLeader.getConfigurator().apply(config, 0.050);
 
     motMagVoltage.Slot = MotionMagicVoltageConstants.slot;
   }
