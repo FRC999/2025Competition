@@ -4,8 +4,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class SmartDashboardSubsystem extends SubsystemBase {
@@ -36,6 +38,13 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     updateIMUTelemetry();
     updateChassisTelemetry();
     updateOdometryTelemetry();
+    updateArmTelemetry();
+  }
+
+  public void updateArmTelemetry(){
+    SmartDashboard.putNumber("Arm Absolute CANcoder Value", RobotContainer.armSubsystem.getAbsoluteCANCoderValue());
+    SmartDashboard.putNumber("Arm Relative CANcoder Value", RobotContainer.armSubsystem.getRelativeCANCoderValue());
+    SmartDashboard.putNumber("Arm Motor Encoder Value", RobotContainer.armSubsystem.getMotorEncoder());
   }
 
   @Override

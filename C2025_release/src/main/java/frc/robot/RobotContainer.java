@@ -12,6 +12,7 @@ import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopRobot;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -40,6 +41,7 @@ public class RobotContainer {
   public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;

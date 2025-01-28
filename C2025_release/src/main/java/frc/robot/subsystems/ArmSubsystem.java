@@ -182,8 +182,8 @@ public class ArmSubsystem extends SubsystemBase {
     return armMotor.getRotorPosition().getValueAsDouble();
   }
 
-  public void getMotorPower(Constants.GPMConstants.ArmConstants.ArmHeights height) { 
-    
+  public void setArmPositionWithHeight(Constants.GPMConstants.ArmConstants.ArmHeights height) { 
+    setPositionDutyCycle(armEncoderZero + height.getHeight());
   }
 
   @Override
