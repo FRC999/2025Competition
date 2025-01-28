@@ -171,6 +171,14 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     setPositionDutyCycle(zeroPosition+height.getHeight());
   }
 
+  public void runElevator(double speed) {
+    elevatorMotorLeader.set(speed);
+  }
+
+  public void stopElevator() {
+    elevatorMotorLeader.set(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
