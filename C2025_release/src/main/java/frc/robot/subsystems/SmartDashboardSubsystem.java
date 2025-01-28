@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DebugTelemetrySubsystems;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
@@ -34,17 +35,36 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("IMU Yaw", RobotContainer.driveSubsystem.getYaw());
   }
 
-  public void updateAllDisplays(){
-    updateIMUTelemetry();
-    updateChassisTelemetry();
-    updateOdometryTelemetry();
-    updateArmTelemetry();
-  }
-
-  public void updateArmTelemetry(){
+  public void updateArmTelemetry() {
     SmartDashboard.putNumber("Arm Absolute CANcoder Value", RobotContainer.armSubsystem.getAbsoluteCANCoderValue());
     SmartDashboard.putNumber("Arm Relative CANcoder Value", RobotContainer.armSubsystem.getRelativeCANCoderValue());
     SmartDashboard.putNumber("Arm Motor Encoder Value", RobotContainer.armSubsystem.getMotorEncoder());
+  }
+
+  public void updateElevatorTelemetry() {
+    SmartDashboard.putNumber("Elevator Motor Encoder Value", RobotContainer.elevatorSubsystem.getMotorEncoder());
+  }
+
+  public void updateAllDisplays(){
+    if (DebugTelemetrySubsystems.imu) {
+      updateIMUTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.chasis) {
+      updateChassisTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.odometry) {
+      updateOdometryTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.arm) {
+      updateArmTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.elevator) {
+      updateElevatorTelemetry();
+    }
   }
 
   @Override

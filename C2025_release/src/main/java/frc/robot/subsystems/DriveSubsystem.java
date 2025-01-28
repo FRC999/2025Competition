@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.SwerveConstants.TunerConstants;
 import frc.robot.RobotContainer;
@@ -79,6 +80,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem(double OdometryUpdateFrequency) {
+
+    
         super(
           TalonFX::new, TalonFX::new, CANcoder::new,
           TunerConstants.DrivetrainConstants, OdometryUpdateFrequency, configureSwerveChassis());
@@ -86,6 +89,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     }
 
   public DriveSubsystem() {
+
+
         super(
           TalonFX::new, TalonFX::new, CANcoder::new,
           TunerConstants.DrivetrainConstants, (SwerveModuleConstants[]) configureSwerveChassis());

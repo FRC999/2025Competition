@@ -46,6 +46,24 @@ public final class Constants {
 		public static final int kDriverControllerPort = 0;
 	}
 
+	public static final class EnabledSubsystems {
+		public static final boolean arm = true;
+		public static final boolean climber = true;
+		public static final boolean elevator = true;
+		public static final boolean intake = true;
+		public static final boolean chasis = true;
+	}
+
+	public static final class DebugTelemetrySubsystems {
+		
+		public static final boolean odometry = true;
+		public static final boolean imu = true;
+		public static final boolean arm = true;
+		public static final boolean intake = true;
+		public static final boolean elevator = true;
+		public static final boolean chasis = true;
+	}
+
 	public static class SwerveConstants {
 		public static class TunerConstants {
 			public static final double steerGainsKP = 100;

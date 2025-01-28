@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CurrentLimiter;
 import frc.robot.Constants.EnableCurrentLimiter;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeMotorConstantsEnum;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakePIDConstants;
@@ -44,6 +45,12 @@ public class IntakeSubsystem extends SubsystemBase {
   private DigitalInput intakeDownLimitSwitch;
 
   public IntakeSubsystem() {
+
+    // Check if need to initialize arm
+    if (!EnabledSubsystems.intake) {
+      return;
+    }
+
     intakeMotor = new SparkMax(IntakeMotorConstantsEnum.ROLLERMOTOR.getIntakeMotorID(), MotorType.kBrushless);
 
     intakePIDController = intakeMotor.getClosedLoopController();
