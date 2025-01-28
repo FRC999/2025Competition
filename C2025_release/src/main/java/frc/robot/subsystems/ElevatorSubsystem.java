@@ -21,6 +21,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ElevatorConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.MotionMagicDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.MotionMagicVoltageConstants;
@@ -42,6 +43,12 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0);
 
   public ElevatorSubsystem() {
+
+    // Check if need to initialize arm
+    if (!EnabledSubsystems.elevator) {
+      return;
+    }
+
   }
 
   public void initializeLimitSwitch() {

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import static edu.wpi.first.units.Units.Volts;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmHeights;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicDutyCycleConstants;
@@ -49,6 +50,12 @@ public class ArmSubsystem extends SubsystemBase {
 
 
   public ArmSubsystem() {
+
+    // Check if need to initialize arm
+    if (!EnabledSubsystems.arm) {
+      return;
+    }
+
     armMotor = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
     armCANCoder = new CANcoder(ArmConstants.CANCODER_CAN_ID);
 

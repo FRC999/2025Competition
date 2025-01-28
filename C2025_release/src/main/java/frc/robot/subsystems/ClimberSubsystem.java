@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ClimberConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
 
@@ -20,6 +21,12 @@ public class ClimberSubsystem extends SubsystemBase {
    private RelativeEncoder climberEncoder;
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
+
+    // Check if need to initialize arm
+    if (!EnabledSubsystems.climber) {
+      return;
+    }
+
     climberMotor = new TalonFX(ClimberConstants.CLIMBER_MOTOR_CAN_ID);
 
     configureClimberMotor();
