@@ -40,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   MotionMagicDutyCycle motMagDutyCycle = new MotionMagicDutyCycle(0);
   MotionMagicVoltage motMagVoltage = new MotionMagicVoltage(0);
   PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0);
-  
+
   public ElevatorSubsystem() {
   }
 
@@ -90,6 +90,10 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     config.Slot0.kD = PositionDutyCycleConstants.elevator_kD;
   }
 
+  private void setPositionDutyCycle(double position){
+    elevatorMotorLeader.setControl(new PositionDutyCycle(position));
+  }
+
   private void configurePositionVoltage(TalonFXConfiguration config) {
     config.Slot0.kP = PositionVoltageConstants.elevator_kP;
     config.Slot0.kI = PositionVoltageConstants.elevator_kI;
@@ -97,8 +101,10 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     
     config.Voltage.withPeakForwardVoltage(Volts.of(8))
         .withPeakReverseVoltage(Volts.of(-8));
+  }
 
-    
+  private void setPositonVoltage(double position){
+    elevatorMotorLeader.setControl(positionVoltage.withPosition(position));
   }
 
   private void configureMotionMagicDutyCycle(TalonFXConfiguration config) {
@@ -118,6 +124,10 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     motMagDutyCycle.Slot = MotionMagicDutyCycleConstants.slot;
   }
 
+  private void setMotionMagicDutyCycle(double position){
+    elevatorMotorLeader.setControl(motMagDutyCycle.withPosition(position));
+  }
+
   private void configureMotionMagicVoltage(TalonFXConfiguration config) {
     config.Slot0.kS = MotionMagicVoltageConstants.elevator_kS; // add 0.24 V to overcome friction
     config.Slot0.kV = MotionMagicVoltageConstants.elevator_kV; // apply 12 V for a target velocity of 100 rps
@@ -132,8 +142,12 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
     motMagVoltage.Slot = MotionMagicVoltageConstants.slot;
   }
+
+  private void setMotionMagicVoltage(double position){
+    elevatorMotorLeader.setControl(motMagVoltage.withPosition(position));
+  }
   
-  public double getElevatorEncoder() {
+  public double getMotorEncoder() {
     return elevatorMotorLeader.getRotorPosition().getValueAsDouble();
   }
 
@@ -143,7 +157,11 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   private void setZeroPosition() {
-    zeroPosition = getElevatorEncoder();
+    zeroPosition = getMotorEncoder();
+  }
+
+  public void setElevatorPositionWithHeight(Constants.GPMConstants.ElevatorConstants.ElevatorHeights height) { 
+    setPositionDutyCycle(zeroPosition+height.getHeight());
   }
 
   @Override
