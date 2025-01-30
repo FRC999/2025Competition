@@ -736,7 +736,8 @@ public final class Constants {
 					public static final double motionMagicAcceleration = 100.0;
 					public static final double motionMagicJerk = 1000.0;
 				}
-
+				
+				public static final double tolerance = 1.0;
 			}
 		}
 	}

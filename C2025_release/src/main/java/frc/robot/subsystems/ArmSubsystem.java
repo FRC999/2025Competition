@@ -10,10 +10,13 @@ import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmHeights;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicVoltageConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.PositionDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.PositionVoltageConstants;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
 
 import java.time.LocalTime;
@@ -193,6 +196,11 @@ public class ArmSubsystem extends SubsystemBase {
   public void setArmPositionWithHeight(ArmHeights height) { 
     setPositionDutyCycle(armEncoderZero + height.getHeight());
   }
+
+  public boolean isAtPosition(ArmHeights position){
+    return Math.abs(position.getHeight() - getMotorEncoder())<=ArmPIDConstants.tolerance;
+  }
+
 
   @Override
   public void periodic() {
