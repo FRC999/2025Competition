@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.RelativeEncoder;
@@ -48,6 +49,10 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void climbDown() {
     climberMotor.set(Constants.GPMConstants.ClimberConstants.climbDownPower);
+  }
+
+  public void climbToSpeed(double speed) {
+    climberMotor.set(speed);
   }
 
   public void stopClimbMotor() {
