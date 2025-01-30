@@ -10,6 +10,7 @@ import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -23,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ElevatorConstants;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.MotionMagicDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.MotionMagicVoltageConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.PositionDutyCycleConstants;
@@ -167,7 +170,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     zeroPosition = getMotorEncoder();
   }
 
-  public void setElevatorPositionWithHeight(Constants.GPMConstants.ElevatorConstants.ElevatorHeights height) { 
+  public void setElevatorPositionWithHeight(ElevatorHeights height) { 
     setPositionDutyCycle(zeroPosition+height.getHeight());
   }
 
@@ -176,7 +179,11 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public void stopElevator() {
-    elevatorMotorLeader.set(0);
+    elevatorMotorLeader.setControl(new DutyCycleOut(0));
+  }
+
+  public boolean isAtHeight(ElevatorHeights height){
+    return Math.abs(height.getHeight() - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
   }
 
   @Override

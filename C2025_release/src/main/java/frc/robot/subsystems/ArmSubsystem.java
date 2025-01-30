@@ -26,6 +26,7 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
@@ -118,7 +119,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void stopArm() {
-    armMotor.set(0);
+    armMotor.setControl(new DutyCycleOut(0));
   }
 
 
@@ -189,7 +190,7 @@ public class ArmSubsystem extends SubsystemBase {
     return armMotor.getRotorPosition().getValueAsDouble();
   }
 
-  public void setArmPositionWithHeight(Constants.GPMConstants.ArmConstants.ArmHeights height) { 
+  public void setArmPositionWithHeight(ArmHeights height) { 
     setPositionDutyCycle(armEncoderZero + height.getHeight());
   }
 
