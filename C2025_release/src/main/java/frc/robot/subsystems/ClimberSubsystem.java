@@ -23,7 +23,7 @@ public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
 
-    // Check if need to initialize arm
+    // Check if need to initialize climber
     if (!EnabledSubsystems.climber) {
       return;
     }
@@ -41,6 +41,10 @@ public class ClimberSubsystem extends SubsystemBase {
     var talonFXConfigurator = climberMotor.getConfigurator();
     motorconfigs.Inverted = (Intake.INTAKE_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
     talonFXConfigurator.apply(motorconfigs);
+  }
+
+  public double getMotorEncoder() {
+    return climberMotor.getRotorPosition().getValueAsDouble();
   }
 
   public void climbUP() {

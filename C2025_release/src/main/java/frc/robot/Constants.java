@@ -61,6 +61,7 @@ public final class Constants {
 		public static final boolean arm = true;
 		public static final boolean intake = true;
 		public static final boolean elevator = true;
+		public static final boolean climber = true;
 		public static final boolean chasis = true;
 	}
 
@@ -736,7 +737,7 @@ public final class Constants {
 					public static final double motionMagicAcceleration = 100.0;
 					public static final double motionMagicJerk = 1000.0;
 				}
-				
+
 				public static final double tolerance = 1.0;
 			}
 		}

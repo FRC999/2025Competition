@@ -6,12 +6,17 @@ package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmRunWithSpeed;
+import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.ElevatorRunWithSpeed;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
+import frc.robot.commands.StartClimberWithSpeed;
 import frc.robot.commands.StopArm;
+import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopRobot;
 import frc.robot.subsystems.ArmSubsystem;
@@ -132,6 +137,24 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 2)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
       .onFalse(new StopRobot());
+  }
+
+  public void testArm() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new ArmRunWithSpeed(0.2))
+      .onFalse(new StopArm());
+  }
+
+  public void testElevator() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new ElevatorRunWithSpeed(0.2))
+      .onFalse(new StopElevator());
+  }
+
+  public void testClimber() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new StartClimberWithSpeed(0.2))
+      .onFalse(new StopClimber());
   }
 
   public void calibrateElevator() {
