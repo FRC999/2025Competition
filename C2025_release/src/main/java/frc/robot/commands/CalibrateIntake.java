@@ -22,10 +22,8 @@ public class CalibrateIntake extends Command {
   @Override
   public void initialize() {
     System.out.println("**** Calibrating Intake ...");
-    System.out.println("Start time: " + LocalTime.now());
     double intakePower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
     RobotContainer.intakeSubsystem.runIntake(intakePower);
-    System.out.println("End time: " + LocalTime.now());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +36,9 @@ public class CalibrateIntake extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println("*** Intake Calibration Ended ***");
+  }
 
   // Returns true when the command should end.
   @Override
