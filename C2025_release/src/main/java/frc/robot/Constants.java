@@ -27,6 +27,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix6.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -47,10 +48,10 @@ public final class Constants {
 	}
 
 	public static final class EnabledSubsystems {
-		public static final boolean arm = true;
-		public static final boolean climber = true;
-		public static final boolean elevator = true;
-		public static final boolean intake = true;
+		public static final boolean arm = false;
+		public static final boolean climber = false;
+		public static final boolean elevator = false;
+		public static final boolean intake = false;
 		public static final boolean chasis = true;
 	}
 
@@ -58,10 +59,10 @@ public final class Constants {
 		
 		public static final boolean odometry = true;
 		public static final boolean imu = true;
-		public static final boolean arm = true;
-		public static final boolean intake = true;
-		public static final boolean elevator = true;
-		public static final boolean climber = true;
+		public static final boolean arm = false;
+		public static final boolean intake = false;
+		public static final boolean elevator = false;
+		public static final boolean climber = false;
 		public static final boolean chasis = true;
 	}
 
@@ -177,18 +178,18 @@ public final class Constants {
 
 		public static class SwerveChassis {
 
-			public static final double TRACK_WIDTH = Meters.convertFrom(19.5, Inches); // left to right
-			public static final double WHEEL_BASE = Meters.convertFrom(19.5, Inches); // front to back
+			public static final double TRACK_WIDTH = Meters.convertFrom(18.00, Inches); // left to right
+			public static final double WHEEL_BASE = Meters.convertFrom(18.00, Inches); // front to back
 			public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
 			public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
 			public static final double MaxSpeed = TunerConstants.speedAt12Volts.magnitude(); // kSpeedAt12VoltsMps
 																								// desired top speed
 			public static final double maxAcceleration = 41.68; // this is Max linear acceleration units: m/s^2
-			public static final double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular
+			public static final double MaxAngularRate = 0.75 * Math.PI; // 3/4 of a rotation per second max angular
 																		// velocity
 			public static final double maxAngularAcceleration = 37.6992; // this is max angular acceleration units:
-																			// rad/s^2
+																		// rad/s^2
 			public static final double robotMass = 56.7; // kg
 			public static final double robotInertia = 60.0; // KG*M^2 - for rotation
 			public static final double wheelCOF = 1.2; // coefficient of friction for the wheels; colsons on carpet is

@@ -22,6 +22,7 @@ import com.pathplanner.lib.util.DriveFeedforwards;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -38,6 +39,8 @@ import frc.robot.Constants.SwerveConstants.SwerveChassis.SwerveModuleConstantsEn
 
 public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> implements Subsystem {
 
+
+  public InterpolatingDoubleTreeMap chassisAngularVelocityConversion = new InterpolatingDoubleTreeMap(); 
   /* Keep track if we've ever applied the operator perspective before or not */
   private boolean hasAppliedOperatorPerspective = false;
 
@@ -177,6 +180,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
   public void drive(double xVelocity_m_per_s, double yVelocity_m_per_s, double omega_rad_per_s) {
     //System.out.println("X: " + xVelocity_m_per_s + " y: " + yVelocity_m_per_s + " o:" + omega_rad_per_s/SwerveChassis.MaxAngularRate);
+    SmartDashboard.putString("Manual Drive Command Velocities","X: " + xVelocity_m_per_s + " y: " + yVelocity_m_per_s + " o:" + omega_rad_per_s);
     this.setControl(
       drive.withVelocityX(xVelocity_m_per_s)
         .withVelocityY(yVelocity_m_per_s)
@@ -297,6 +301,33 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
     // Front UP - positive Pitch
     return -imu.getPitch().getValueAsDouble();
+  }
+
+  public double getChassisAngularVelocityConversion(double velocity){
+    return chassisAngularVelocityConversion.get(velocity);
+  }
+
+  public void setChassisAngularVelocityConversion() {
+    chassisAngularVelocityConversion.put(0.47, 0.2);
+    chassisAngularVelocityConversion.put(0.67, 0.25);
+    chassisAngularVelocityConversion.put(0.86, 0.3);
+    chassisAngularVelocityConversion.put(1.07, 0.35);
+    chassisAngularVelocityConversion.put(1.34, 0.4);
+    chassisAngularVelocityConversion.put(1.56, 0.45);
+    chassisAngularVelocityConversion.put(1.76, 0.5);
+    chassisAngularVelocityConversion.put(1.97, 0.55);
+    chassisAngularVelocityConversion.put(2.14, 0.6);
+    chassisAngularVelocityConversion.put(2.32, 0.65);
+    chassisAngularVelocityConversion.put(2.52, 0.7);
+    chassisAngularVelocityConversion.put(2.73, 0.75);
+    chassisAngularVelocityConversion.put(2.93, 0.8);
+    chassisAngularVelocityConversion.put(3.67, 1.0);
+    chassisAngularVelocityConversion.put(4.44, 1.2);
+    chassisAngularVelocityConversion.put(5.16, 1.4);
+    chassisAngularVelocityConversion.put(5.54, 1.5);
+    chassisAngularVelocityConversion.put(5.95, 1.6);
+    chassisAngularVelocityConversion.put(6.71, 1.8);
+    chassisAngularVelocityConversion.put(7.45, 2.0);
   }
 
   /**

@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.RobotContainer;
@@ -49,7 +50,7 @@ public class DriveManuallyCommand extends Command {
 		double yInput = mVySupplier.getAsDouble();
 		double omegaInput = mOmegaSupplier.getAsDouble();
 
-    //System.out.println("X: " + xInput + " Y: " + yInput + " Z: " + omegaInput);
+    SmartDashboard.putString("Joystick Values: ", "X: " + xInput + " Y: " + yInput + " Z: " + omegaInput);
 
 
     RobotContainer.driveSubsystem.drive(
