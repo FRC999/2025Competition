@@ -77,7 +77,10 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     if (DebugTelemetrySubsystems.climber) {
       updateClimberTelemetry();
     }
-    updateIntakeTelemetry();
+    if(DebugTelemetrySubsystems.intake) {
+      updateIntakeTelemetry();
+    }
+    
   }
 
   @Override
