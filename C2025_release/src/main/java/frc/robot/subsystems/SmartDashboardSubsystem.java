@@ -33,6 +33,8 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   
   public void updateIMUTelemetry() {
     SmartDashboard.putNumber("IMU Yaw", RobotContainer.driveSubsystem.getYaw());
+    SmartDashboard.putNumber("Rotation2D: ", RobotContainer.driveSubsystem.getRotation2d().getRadians()); 
+    SmartDashboard.putNumber("Imu Speed: ", RobotContainer.driveSubsystem.getPigeon2Speed());
   }
 
   public void updateArmTelemetry() {

@@ -389,6 +389,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     return imu.getRotation2d();
   }
 
+  public double getPigeon2Speed() {
+    return imu.getAngularVelocityZWorld().getValueAsDouble();
+  }
+
   /** Zeroes the heading of the robot. */
   public void zeroHeading() {
     if (RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed) {
