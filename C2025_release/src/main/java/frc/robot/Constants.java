@@ -187,7 +187,7 @@ public final class Constants {
 			public static final double MaxSpeed = TunerConstants.speedAt12Volts.magnitude(); // kSpeedAt12VoltsMps
 																								// desired top speed
 			public static final double maxAcceleration = 41.68; // this is Max linear acceleration units: m/s^2
-			public static final double MaxAngularRate = 0.75 * Math.PI; // 3/4 of a rotation per second max angular
+			public static final double MaxAngularRate = 2.0 * Math.PI; // 3/4 of a rotation per second max angular
 																		// velocity
 			public static final double maxAngularAcceleration = 37.6992; // this is max angular acceleration units:
 																		// rad/s^2

@@ -308,26 +308,26 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   }
 
   public void setChassisAngularVelocityConversion() {
-    chassisAngularVelocityConversion.put(0.47, 0.2);
-    chassisAngularVelocityConversion.put(0.67, 0.25);
-    chassisAngularVelocityConversion.put(0.86, 0.3);
-    chassisAngularVelocityConversion.put(1.07, 0.35);
-    chassisAngularVelocityConversion.put(1.34, 0.4);
-    chassisAngularVelocityConversion.put(1.56, 0.45);
-    chassisAngularVelocityConversion.put(1.76, 0.5);
-    chassisAngularVelocityConversion.put(1.97, 0.55);
-    chassisAngularVelocityConversion.put(2.14, 0.6);
-    chassisAngularVelocityConversion.put(2.32, 0.65);
-    chassisAngularVelocityConversion.put(2.52, 0.7);
-    chassisAngularVelocityConversion.put(2.73, 0.75);
-    chassisAngularVelocityConversion.put(2.93, 0.8);
-    chassisAngularVelocityConversion.put(3.67, 1.0);
-    chassisAngularVelocityConversion.put(4.44, 1.2);
-    chassisAngularVelocityConversion.put(5.16, 1.4);
-    chassisAngularVelocityConversion.put(5.54, 1.5);
-    chassisAngularVelocityConversion.put(5.95, 1.6);
-    chassisAngularVelocityConversion.put(6.71, 1.8);
-    chassisAngularVelocityConversion.put(7.45, 2.0);
+    chassisAngularVelocityConversion.put(0.43, 0.2);
+    chassisAngularVelocityConversion.put(0.60, 0.25);
+    chassisAngularVelocityConversion.put(0.78, 0.3);
+    chassisAngularVelocityConversion.put(0.96, 0.35);
+    chassisAngularVelocityConversion.put(1.17, 0.4);
+    chassisAngularVelocityConversion.put(1.39, 0.45);
+    chassisAngularVelocityConversion.put(1.57, 0.5);
+    chassisAngularVelocityConversion.put(1.75, 0.55);
+    chassisAngularVelocityConversion.put(1.92, 0.6);
+    chassisAngularVelocityConversion.put(2.10, 0.65);
+    chassisAngularVelocityConversion.put(2.26, 0.7);
+    chassisAngularVelocityConversion.put(2.43, 0.75);
+    chassisAngularVelocityConversion.put(2.60, 0.8);
+    chassisAngularVelocityConversion.put(3.28, 1.0);
+    chassisAngularVelocityConversion.put(3.94, 1.2);
+    chassisAngularVelocityConversion.put(4.61, 1.4);
+    chassisAngularVelocityConversion.put(4.94, 1.5);
+    chassisAngularVelocityConversion.put(5.27, 1.6);
+    chassisAngularVelocityConversion.put(5.96, 1.8);
+    chassisAngularVelocityConversion.put(6.63, 2.0);
   }
 
   /**
@@ -390,7 +390,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   }
 
   public double getPigeon2Speed() {
-    return imu.getAngularVelocityZWorld().getValueAsDouble();
+    return Math.toRadians(imu.getAngularVelocityZWorld().getValueAsDouble());
   }
 
   /** Zeroes the heading of the robot. */
