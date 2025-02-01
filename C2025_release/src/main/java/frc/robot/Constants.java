@@ -554,6 +554,13 @@ public final class Constants {
 			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
+
+			public static final class CanRangeConstants{
+				public static final int CanRangeID = 60;
+				public static final double newProximityThreshold = 10.0;
+				public static final double newUpdateFrequency = 5.0;
+			}
+			
 		}
 		public static final class ElevatorConstants {
 

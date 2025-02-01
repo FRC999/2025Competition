@@ -32,10 +32,15 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("IMU Yaw", RobotContainer.driveSubsystem.getYaw());
   }
 
+  public void updateIntakeTelemetry() {
+    SmartDashboard.putNumber("CANrange Distance: ", RobotContainer.intakeSubsystem.getRange());
+  }
+
   public void updateAllDisplays(){
     updateIMUTelemetry();
     updateChassisTelemetry();
     updateOdometryTelemetry();
+    updateIntakeTelemetry();
   }
 
   @Override
