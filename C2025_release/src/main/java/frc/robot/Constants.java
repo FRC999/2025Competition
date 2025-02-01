@@ -46,6 +46,25 @@ public final class Constants {
 		public static final int kDriverControllerPort = 0;
 	}
 
+	public static final class EnabledSubsystems {
+		public static final boolean arm = true;
+		public static final boolean climber = true;
+		public static final boolean elevator = true;
+		public static final boolean intake = true;
+		public static final boolean chasis = true;
+	}
+
+	public static final class DebugTelemetrySubsystems {
+		
+		public static final boolean odometry = true;
+		public static final boolean imu = true;
+		public static final boolean arm = true;
+		public static final boolean intake = true;
+		public static final boolean elevator = true;
+		public static final boolean climber = true;
+		public static final boolean chasis = true;
+	}
+
 	public static class SwerveConstants {
 		public static class TunerConstants {
 			public static final double steerGainsKP = 100;
@@ -564,6 +583,24 @@ public final class Constants {
 		}
 		public static final class ElevatorConstants {
 
+			public static enum ElevatorHeights{ // meters off the ground for the piece placement
+				Down(0.0),
+				AlgaeIntake(0.0),
+				ReefLevelOne(0.0),
+				ReefLevelTwo(0.0),
+				ReefLevelThree(0.0),
+				ReefLevelFour(0.0),
+				Barge(0.0),
+				Processor(0.0);
+				private double elevatorHeightForGamepiecePlacement;
+				ElevatorHeights(double height) {
+				  this.elevatorHeightForGamepiecePlacement = height;
+				}
+				public double getHeight() {
+				  return elevatorHeightForGamepiecePlacement;
+				}
+			  }
+
 			public static enum ElevatorMotorConstantsEnum {
 				FOLLOWERMOTOR( // Front Left - main motor
 						10, // CANID
@@ -635,6 +672,8 @@ public final class Constants {
 					public static final double motionMagicAcceleration = 100.0;
 					public static final double motionMagicJerk = 1000.0;
 				}
+
+				public static final double tolerance = 1.0;
 			}
 
 			public static final boolean elevator_Limit_Switch_isPresent = true;
@@ -652,7 +691,7 @@ public final class Constants {
 			public static final double CANCODER_ABSOLUTE_HORIZONTAL_VALUE = 0.0; //TODO: CHECK ON ROBOT :)
 			public static final double MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS = 0.0; //TODO: CHECK ON ROBOT :)
 
-			public static enum armHeights{ // meters off the ground for the piece placement
+			public static enum ArmHeights{ // meters off the ground for the piece placement
 				ConeIntake(0.0),
 				AlgaeIntake(0.0),
 				ReefLevelOne(0.0),
@@ -662,7 +701,7 @@ public final class Constants {
 				Barge(0.0),
 				Processor(0.0);
 				private double armHeightForGamepiecePlacement;
-				armHeights(double height) {
+				ArmHeights(double height) {
 				  this.armHeightForGamepiecePlacement = height;
 				}
 				public double getHeight() {
@@ -706,6 +745,7 @@ public final class Constants {
 					public static final double motionMagicJerk = 1000.0;
 				}
 
+				public static final double tolerance = 1.0;
 			}
 		}
 	}

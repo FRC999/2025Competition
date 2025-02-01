@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DebugTelemetrySubsystems;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class SmartDashboardSubsystem extends SubsystemBase {
@@ -32,14 +35,48 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("IMU Yaw", RobotContainer.driveSubsystem.getYaw());
   }
 
+  public void updateArmTelemetry() {
+    SmartDashboard.putNumber("Arm Absolute CANcoder Value", RobotContainer.armSubsystem.getAbsoluteCANCoderValue());
+    SmartDashboard.putNumber("Arm Relative CANcoder Value", RobotContainer.armSubsystem.getRelativeCANCoderValue());
+    SmartDashboard.putNumber("Arm Motor Encoder Value", RobotContainer.armSubsystem.getMotorEncoder());
+  }
+
+  public void updateElevatorTelemetry() {
+    SmartDashboard.putNumber("Elevator Motor Encoder Value", RobotContainer.elevatorSubsystem.getMotorEncoder());
+  }
+
+  public void updateClimberTelemetry() {
+    SmartDashboard.putNumber("Climber Motor Encoder Value", RobotContainer.climberSubsystem.getMotorEncoder());
+  }
+
   public void updateIntakeTelemetry() {
     SmartDashboard.putNumber("CANrange Distance: ", RobotContainer.intakeSubsystem.getRange());
   }
 
   public void updateAllDisplays(){
-    updateIMUTelemetry();
-    updateChassisTelemetry();
-    updateOdometryTelemetry();
+    if (DebugTelemetrySubsystems.imu) {
+      updateIMUTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.chasis) {
+      updateChassisTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.odometry) {
+      updateOdometryTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.arm) {
+      updateArmTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.elevator) {
+      updateElevatorTelemetry();
+    }
+
+    if (DebugTelemetrySubsystems.climber) {
+      updateClimberTelemetry();
+    }
     updateIntakeTelemetry();
   }
 

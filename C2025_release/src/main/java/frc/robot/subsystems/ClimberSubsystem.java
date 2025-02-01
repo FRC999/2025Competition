@@ -6,12 +6,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ClimberConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
 
@@ -20,6 +22,12 @@ public class ClimberSubsystem extends SubsystemBase {
    private RelativeEncoder climberEncoder;
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
+
+    // Check if need to initialize climber
+    if (!EnabledSubsystems.climber) {
+      return;
+    }
+
     climberMotor = new TalonFX(ClimberConstants.CLIMBER_MOTOR_CAN_ID);
 
     configureClimberMotor();
@@ -35,12 +43,20 @@ public class ClimberSubsystem extends SubsystemBase {
     talonFXConfigurator.apply(motorconfigs);
   }
 
+  public double getMotorEncoder() {
+    return climberMotor.getRotorPosition().getValueAsDouble();
+  }
+
   public void climbUP() {
     climberMotor.set(Constants.GPMConstants.ClimberConstants.climbUpPower);
   }
 
   public void climbDown() {
     climberMotor.set(Constants.GPMConstants.ClimberConstants.climbDownPower);
+  }
+
+  public void climbToSpeed(double speed) {
+    climberMotor.set(speed);
   }
 
   public void stopClimbMotor() {

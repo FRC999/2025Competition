@@ -6,10 +6,20 @@ package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmRunWithSpeed;
+import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
+import frc.robot.commands.CalibrateArmMoveManually;
+import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.ElevatorRunWithSpeed;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
+import frc.robot.commands.StartClimberWithSpeed;
+import frc.robot.commands.StopArm;
+import frc.robot.commands.StopClimber;
+import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopRobot;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -18,6 +28,7 @@ import frc.robot.subsystems.SmartDashboardSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -37,11 +48,14 @@ public class RobotContainer {
   public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
   public static boolean isAllianceRed = false;
   public static boolean isReversingControllerAndIMUForRed = true;
+
+  public static Joystick driveStick1;
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -49,6 +63,8 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureDriverInterface(); 
     configureBindings();
+    //calibrateElevator();
+    //calibrateArm();
 
     driveSubsystem.setDefaultCommand(
       new DriveManuallyCommand(
@@ -121,6 +137,36 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 2)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
       .onFalse(new StopRobot());
+  }
+
+  public void testArm() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new ArmRunWithSpeed(0.2))
+      .onFalse(new StopArm());
+  }
+
+  public void testElevator() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new ElevatorRunWithSpeed(0.2))
+      .onFalse(new StopElevator());
+  }
+
+  public void testClimber() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new StartClimberWithSpeed(0.2))
+      .onFalse(new StopClimber());
+  }
+
+  public void calibrateElevator() {
+    new JoystickButton(xboxDriveController, 1)
+    .onTrue(new CalibrateElevatorDeterminekG())
+    .onFalse(new StopElevator());
+  }
+
+  public void calibrateArm() {
+    new JoystickButton(xboxDriveController, 2)
+    .onTrue(new CalibrateArmMoveManually())
+    .onFalse(new StopArm());
   }
 
   /**
