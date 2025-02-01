@@ -4,49 +4,42 @@
 
 package frc.robot.commands;
 
-import java.time.LocalTime;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.OIConstants;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CalibrateElevatorDeterminekG extends Command {
-  /** Creates a new CalibrateElevatorDetermineKg. */
-  public CalibrateElevatorDeterminekG() {
+public class ElevatorToLevelAndHold extends Command {
+
+  private ElevatorHeights setHeight;
+  /** Creates a new ElevatorToLevelAndHold. */
+  public ElevatorToLevelAndHold(ElevatorHeights height) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.elevatorSubsystem);
+    setHeight = height;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("**** Calibrating Elevator ...");
-    System.out.println("Start time: " + LocalTime.now());
-    double elevatorPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(elevatorPower*0.1);
-    
+    System.out.println("Elevator going to height: " + setHeight);
+    RobotContainer.elevatorSubsystem.setElevatorPositionWithHeight(setHeight);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double elevatorPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(elevatorPower*0.1);
-    SmartDashboard.putNumber("Calibration - Elevator Power", elevatorPower*0.1);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.elevatorSubsystem.runElevator(0);
-    System.out.println("End time: " + LocalTime.now());
+    System.out.println("Elevator at height: " + setHeight);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return RobotContainer.elevatorSubsystem.isAtHeight(setHeight);
   }
 }

@@ -47,6 +47,14 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Motor Encoder Value", RobotContainer.elevatorSubsystem.getMotorEncoder());
   }
 
+  public void updateClimberTelemetry() {
+    SmartDashboard.putNumber("Climber Motor Encoder Value", RobotContainer.climberSubsystem.getMotorEncoder());
+  }
+
+  public void updateIntakeTelemetry() {
+    SmartDashboard.putNumber("CANrange Distance: ", RobotContainer.intakeSubsystem.getRange());
+  }
+
   public void updateAllDisplays(){
     if (DebugTelemetrySubsystems.imu) {
       updateIMUTelemetry();
@@ -67,6 +75,14 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     if (DebugTelemetrySubsystems.elevator) {
       updateElevatorTelemetry();
     }
+
+    if (DebugTelemetrySubsystems.climber) {
+      updateClimberTelemetry();
+    }
+    if(DebugTelemetrySubsystems.intake) {
+      updateIntakeTelemetry();
+    }
+    
   }
 
   @Override

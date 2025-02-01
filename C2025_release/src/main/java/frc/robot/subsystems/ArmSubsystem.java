@@ -10,10 +10,13 @@ import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmHeights;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicVoltageConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.PositionDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.PositionVoltageConstants;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
 
 import java.time.LocalTime;
@@ -26,6 +29,7 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
@@ -113,12 +117,12 @@ public class ArmSubsystem extends SubsystemBase {
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
   }
-  public void runIntake(double speed) {
+  public void runArm(double speed) {
     armMotor.set(speed);
   }
 
-  public void stopIntake() {
-    armMotor.set(0);
+  public void stopArm() {
+    armMotor.setControl(new DutyCycleOut(0));
   }
 
 
@@ -189,9 +193,14 @@ public class ArmSubsystem extends SubsystemBase {
     return armMotor.getRotorPosition().getValueAsDouble();
   }
 
-  public void setArmPositionWithHeight(Constants.GPMConstants.ArmConstants.ArmHeights height) { 
+  public void setArmPositionWithHeight(ArmHeights height) { 
     setPositionDutyCycle(armEncoderZero + height.getHeight());
   }
+
+  public boolean isAtPosition(ArmHeights position){
+    return Math.abs(position.getHeight() - getMotorEncoder())<=ArmPIDConstants.tolerance;
+  }
+
 
   @Override
   public void periodic() {

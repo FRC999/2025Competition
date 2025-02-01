@@ -6,9 +6,15 @@ package frc.robot.subsystems;
 
 import java.time.LocalTime;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.CANrangeConfiguration;
+import com.ctre.phoenix6.configs.ProximityParamsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.ToFParamsConfigs;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.UpdateModeValue;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -28,6 +34,7 @@ import frc.robot.Constants.CurrentLimiter;
 import frc.robot.Constants.EnableCurrentLimiter;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants.CanRangeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeMotorConstantsEnum;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakePIDConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
@@ -43,6 +50,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public static DigitalInput GPMsensors;
   private DigitalInput intakeDownLimitSwitch;
+
+  private CANrange intakeCanRange;
+  CANrangeConfiguration canRangeConfiguration;
+  StatusSignal distance;
 
   public IntakeSubsystem() {
 
@@ -73,7 +84,20 @@ public class IntakeSubsystem extends SubsystemBase {
       }
     }
 
-    
+    intakeCanRange = new CANrange(CanRangeConstants.CanRangeID);    
+    configureCanRange();
+    distance = intakeCanRange.getDistance();
+  }
+
+  private void configureCanRange() {
+    canRangeConfiguration = new CANrangeConfiguration();
+    canRangeConfiguration.withProximityParams(new ProximityParamsConfigs().withProximityThreshold(CanRangeConstants.newProximityThreshold));
+    canRangeConfiguration.withToFParams(new ToFParamsConfigs().withUpdateMode(UpdateModeValue.LongRangeUserFreq).withUpdateFrequency(CanRangeConstants.newUpdateFrequency));
+    intakeCanRange.getConfigurator().apply(canRangeConfiguration);
+  }
+
+  public double getRange() {
+    return distance.refresh().getValueAsDouble();
   }
 
   private void configureIntakeMotors(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p, IntakeMotorConstantsEnum c,
