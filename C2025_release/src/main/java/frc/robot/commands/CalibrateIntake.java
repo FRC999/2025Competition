@@ -12,37 +12,33 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.RobotContainer;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CalibrateElevatorDeterminekG extends Command {
-  /** Creates a new CalibrateElevatorDetermineKg. */
-  public CalibrateElevatorDeterminekG() {
+public class CalibrateIntake extends Command {
+  /** Creates a new CalibrateIntake. */
+  public CalibrateIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("**** Calibrating Elevator ...");
+    System.out.println("**** Calibrating Intake ...");
     System.out.println("Start time: " + LocalTime.now());
-    double elevatorPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(elevatorPower*0.1);
-    
+    double intakePower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
+    RobotContainer.intakeSubsystem.runIntake(intakePower);
+    System.out.println("End time: " + LocalTime.now());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double elevatorPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(elevatorPower*0.1);
-    SmartDashboard.putNumber("Calibration - Elevator Power", elevatorPower*0.1);
+    double intakePower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
+    RobotContainer.intakeSubsystem.runIntake(intakePower);
+    SmartDashboard.putNumber("Calibration - Intake Power", intakePower);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    RobotContainer.elevatorSubsystem.runElevator(0);
-    System.out.println("End time: " + LocalTime.now());
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
