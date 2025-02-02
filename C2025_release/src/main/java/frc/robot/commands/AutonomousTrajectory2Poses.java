@@ -63,7 +63,9 @@ public class AutonomousTrajectory2Poses extends SequentialCommandGroup {
           new IdealStartingState(0.0, startPose.getRotation()) ,
           new GoalEndState(0.0, endPose.getRotation()),
           false // reversed
-        )
+        ),
+        "Custom2Pose"
+
       )
     );
   }

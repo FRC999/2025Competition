@@ -40,7 +40,7 @@ public class RunTrajectorySequenceRobotAtStartPoint extends SequentialCommandGro
         this(
           TrajectoryHelpers.replanTrajectory(
             PathPlannerPath.fromPathFile(trajectoryName),
-            maxVelocity, maxAngularVelocity, maxAcceleration, maxAngularAcceleration)
+            maxVelocity, maxAngularVelocity, maxAcceleration, maxAngularAcceleration), trajectoryName
             
         );
         System.out.println("initalized trajectory: "+ trajectoryName + "V:"+maxVelocity+" A:"+maxAngularVelocity);
@@ -49,12 +49,12 @@ public class RunTrajectorySequenceRobotAtStartPoint extends SequentialCommandGro
   public RunTrajectorySequenceRobotAtStartPoint(String trajectoryName) throws Exception{
 
     this(
-          PathPlannerPath.fromPathFile(trajectoryName)
+          PathPlannerPath.fromPathFile(trajectoryName), trajectoryName
         );
         System.out.println("initalized trajectory: "+ trajectoryName);
   }
 
-  public RunTrajectorySequenceRobotAtStartPoint(PathPlannerPath traj) {
+  public RunTrajectorySequenceRobotAtStartPoint(PathPlannerPath traj, String trajectoryName) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
@@ -68,7 +68,7 @@ public class RunTrajectorySequenceRobotAtStartPoint extends SequentialCommandGro
       robotConfig = RobotConfig.fromGUISettings();
       addCommands(
           // new InstantCommand(RobotContainer.driveSubsystem::zeroDriveEncoders),
-          new PrintCommand("****Starting trajectory****"),
+          new PrintCommand("****Starting trajectory****" + trajectoryName),
           // new WaitCommand(0.4),
           new InstantCommand(() -> RobotContainer.driveSubsystem
               .setYawForTrajectory(drivePath.getStartingHolonomicPose().orElse(new Pose2d()).getRotation().getDegrees())),
