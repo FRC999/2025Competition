@@ -40,9 +40,9 @@ import frc.robot.Constants.SwerveConstants.SwerveChassis.SwerveModuleConstantsEn
 public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> implements Subsystem {
 
 
-  public InterpolatingDoubleTreeMap chassisAngularVelocityConversion = new InterpolatingDoubleTreeMap(); 
+  public static InterpolatingDoubleTreeMap chassisAngularVelocityConversion = new InterpolatingDoubleTreeMap(); 
   /* Keep track if we've ever applied the operator perspective before or not */
-  private boolean hasAppliedOperatorPerspective = false;
+  private boolean hasAppliedOperatorPerspective = false; // red/blue side boolean decider
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(SwerveChassis.MaxSpeed * 0.1).withRotationalDeadband(SwerveChassis.MaxAngularRate * 0.1) // Add a 10% deadband
@@ -100,6 +100,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         imu = this.getPigeon2();
 
         this.registerTelemetry(this::telemeterize);
+
+        setChassisAngularVelocityConversion();
     }
 
    /**
@@ -199,7 +201,9 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   }
 
   public ChassisSpeeds getChassisSpeeds() {
-    return this.getState().Speeds;
+    ChassisSpeeds ctrSpeed =  this.getState().Speeds;
+    //ctrSpeed.omegaRadiansPerSecond = getChassisAngularVelocityConversion(ctrSpeed.omegaRadiansPerSecond);
+    return ctrSpeed;
   }
 
   public void driveWithChassisSpeeds(ChassisSpeeds speeds) {
@@ -214,7 +218,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     drive(
       speeds.vxMetersPerSecond,
       speeds.vyMetersPerSecond,
-      speeds.omegaRadiansPerSecond
+      getChassisAngularVelocityConversion(speeds.omegaRadiansPerSecond)
     );
   }
 
@@ -303,31 +307,31 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     return -imu.getPitch().getValueAsDouble();
   }
 
-  public double getChassisAngularVelocityConversion(double velocity){
+  public static double getChassisAngularVelocityConversion(double velocity){
     return chassisAngularVelocityConversion.get(velocity);
   }
 
-  public void setChassisAngularVelocityConversion() {
-    chassisAngularVelocityConversion.put(0.43, 0.2);
-    chassisAngularVelocityConversion.put(0.60, 0.25);
-    chassisAngularVelocityConversion.put(0.78, 0.3);
-    chassisAngularVelocityConversion.put(0.96, 0.35);
-    chassisAngularVelocityConversion.put(1.17, 0.4);
-    chassisAngularVelocityConversion.put(1.39, 0.45);
-    chassisAngularVelocityConversion.put(1.57, 0.5);
-    chassisAngularVelocityConversion.put(1.75, 0.55);
-    chassisAngularVelocityConversion.put(1.92, 0.6);
-    chassisAngularVelocityConversion.put(2.10, 0.65);
-    chassisAngularVelocityConversion.put(2.26, 0.7);
-    chassisAngularVelocityConversion.put(2.43, 0.75);
-    chassisAngularVelocityConversion.put(2.60, 0.8);
-    chassisAngularVelocityConversion.put(3.28, 1.0);
-    chassisAngularVelocityConversion.put(3.94, 1.2);
-    chassisAngularVelocityConversion.put(4.61, 1.4);
-    chassisAngularVelocityConversion.put(4.94, 1.5);
-    chassisAngularVelocityConversion.put(5.27, 1.6);
-    chassisAngularVelocityConversion.put(5.96, 1.8);
-    chassisAngularVelocityConversion.put(6.63, 2.0);
+  public static void setChassisAngularVelocityConversion() {
+    chassisAngularVelocityConversion.put(0.43, 0.2*Math.PI);
+    chassisAngularVelocityConversion.put(0.60, 0.25*Math.PI);
+    chassisAngularVelocityConversion.put(0.78, 0.3*Math.PI);
+    chassisAngularVelocityConversion.put(0.96, 0.35*Math.PI);
+    chassisAngularVelocityConversion.put(1.17, 0.4*Math.PI);
+    chassisAngularVelocityConversion.put(1.39, 0.45*Math.PI);
+    chassisAngularVelocityConversion.put(1.57, 0.5*Math.PI);
+    chassisAngularVelocityConversion.put(1.75, 0.55*Math.PI);
+    chassisAngularVelocityConversion.put(1.92, 0.6*Math.PI);
+    chassisAngularVelocityConversion.put(2.10, 0.65*Math.PI);
+    chassisAngularVelocityConversion.put(2.26, 0.7*Math.PI);
+    chassisAngularVelocityConversion.put(2.43, 0.75*Math.PI);
+    chassisAngularVelocityConversion.put(2.60, 0.8*Math.PI);
+    chassisAngularVelocityConversion.put(3.28, 1.0*Math.PI);
+    chassisAngularVelocityConversion.put(3.94, 1.2*Math.PI);
+    chassisAngularVelocityConversion.put(4.61, 1.4*Math.PI);
+    chassisAngularVelocityConversion.put(4.94, 1.5*Math.PI);
+    chassisAngularVelocityConversion.put(5.27, 1.6*Math.PI);
+    chassisAngularVelocityConversion.put(5.96, 1.8*Math.PI);
+    chassisAngularVelocityConversion.put(6.63, 2.0*Math.PI);
   }
 
   /**

@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -129,6 +130,8 @@ public class RobotContainer {
     catch (Exception e) {
        System.out.println("test auto error: " + e);
     }
+
+    //testTurn();
   }
 
    public void testAuto() throws Exception {
@@ -136,8 +139,8 @@ public class RobotContainer {
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
       .onFalse(new StopRobot());
     new JoystickButton(xboxDriveController, 2)
-     .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
-     .onFalse(new StopRobot());
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+      .onFalse(new StopRobot());
   }
 
   public void testArm() throws Exception {
@@ -172,7 +175,8 @@ public class RobotContainer {
 
   public void testTurn() {
     new JoystickButton(xboxDriveController, 3)
-    .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, 2)))
+    .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, driveSubsystem.getChassisAngularVelocityConversion(0.5))))
+    //.onTrue(new PrintCommand("V: " + driveSubsystem.getChassisAngularVelocityConversion(2.0)))
     .onFalse(new InstantCommand(() -> driveSubsystem.stopRobot()));
   }
 
