@@ -53,6 +53,7 @@ public final class Constants {
 		public static final boolean elevator = false;
 		public static final boolean intake = false;
 		public static final boolean chasis = true;
+		public static final boolean reef = true;
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -64,6 +65,7 @@ public final class Constants {
 		public static final boolean elevator = false;
 		public static final boolean climber = false;
 		public static final boolean chasis = true;
+		public static final boolean reef = true;
 	}
 
 
@@ -578,6 +580,12 @@ public final class Constants {
 
 			public static final class CanRangeConstants{
 				public static final int CanRangeID = 60;
+				public static final double newProximityThreshold = 10.0;
+				public static final double newUpdateFrequency = 5.0;
+			}
+
+			public static final class ReefFinderConstants{
+				public static final int reefCANRangeID = 61; 
 				public static final double newProximityThreshold = 10.0;
 				public static final double newUpdateFrequency = 5.0;
 			}

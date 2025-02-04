@@ -55,6 +55,11 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CANrange Distance: ", RobotContainer.intakeSubsystem.getRange());
   }
 
+  public void updateReefFinderTelemetry() {
+    SmartDashboard.putBoolean("Reef Target Visibility: ", RobotContainer.reefFinderSubsystem.isTargetVisible());
+    SmartDashboard.putNumber("Distance to Reef Target: ", RobotContainer.reefFinderSubsystem.getDistanceToTarget());
+  }
+
   public void updateAllDisplays(){
     if (DebugTelemetrySubsystems.imu) {
       updateIMUTelemetry();
@@ -81,6 +86,10 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     }
     if(DebugTelemetrySubsystems.intake) {
       updateIntakeTelemetry();
+    }
+
+    if(DebugTelemetrySubsystems.reef) {
+      updateReefFinderTelemetry();
     }
     
   }

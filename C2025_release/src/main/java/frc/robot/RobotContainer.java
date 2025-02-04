@@ -24,6 +24,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -51,6 +52,7 @@ public class RobotContainer {
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static final ArmSubsystem armSubsystem = new ArmSubsystem();
+  public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
