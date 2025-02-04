@@ -13,6 +13,7 @@ public class PanToReefTarget extends Command {
   /** Creates a new PanToReefTarget. */
 
   double setYVelocity;
+  int counter = 0;
   public PanToReefTarget(double yVelocity) {
     // Use addRequirements() here to declare subsystem dependencies.
     setYVelocity = yVelocity;
@@ -33,13 +34,24 @@ public class PanToReefTarget extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.driveSubsystem.stopRobot();
     System.out.println("*** PanToReefTarget command ended " + interrupted);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println("****t: " + RobotContainer.reefFinderSubsystem.isTargetVisible() + " d: "+ RobotContainer.reefFinderSubsystem.getDistanceToTarget() + " c " + counter);
+    if (RobotContainer.reefFinderSubsystem.isTargetVisible() && 
+      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget && counter == 0) {
+      RobotContainer.driveSubsystem.drive(0, -setYVelocity, 0);
+      counter++;
+    }
+    if (RobotContainer.reefFinderSubsystem.isTargetVisible() && 
+      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget && counter != 0) {
+      counter++;
+    }
     return RobotContainer.reefFinderSubsystem.isTargetVisible() && 
-      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget;
+      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget && counter > 10;
   }
 }

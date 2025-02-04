@@ -92,13 +92,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     }
 
   public DriveSubsystem() {
-
-
         super(
           TalonFX::new, TalonFX::new, CANcoder::new,
           TunerConstants.DrivetrainConstants, (SwerveModuleConstants[]) configureSwerveChassis());
         imu = this.getPigeon2();
-
         this.registerTelemetry(this::telemeterize);
 
         setChassisAngularVelocityConversion();

@@ -129,7 +129,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      testAuto();
+      //testAuto();
+      testReef();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -150,6 +151,9 @@ public class RobotContainer {
   public void testReef() throws Exception {
     new JoystickButton(xboxDriveController, 1)
       .onTrue(new PanToReefTarget(0.1*SwerveChassis.MaxSpeed))
+      .onFalse(new StopRobot());
+    new JoystickButton(xboxDriveController, 2)
+      .onTrue(new PanToReefTarget(-0.1*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
   }
 

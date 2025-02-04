@@ -19,12 +19,13 @@ import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.signals.UpdateModeValue;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 public class ReefFinderSubsystem extends SubsystemBase {
 
     private CANrange rangeSensor;
-    StatusSignal distance;
+    StatusSignal<Distance> distance;
     StatusSignal<Boolean> targetVisible;
 
     public ReefFinderSubsystem() {

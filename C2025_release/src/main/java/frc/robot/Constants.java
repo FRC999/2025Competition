@@ -588,7 +588,7 @@ public final class Constants {
 				public static final int reefCANRangeID = 61; 
 				public static final double newProximityThreshold = 10.0;
 				public static final double newUpdateFrequency = 5.0;
-				public static final double minDistanceToTarget = 0.35;
+				public static final double minDistanceToTarget = 0.50;
 			}
 			
 		}
