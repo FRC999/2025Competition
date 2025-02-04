@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
+import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
@@ -13,6 +14,7 @@ import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
+import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.StartClimberWithSpeed;
 import frc.robot.commands.StopArm;
@@ -136,12 +138,18 @@ public class RobotContainer {
     //testTurn();
   }
 
-   public void testAuto() throws Exception {
+  public void testAuto() throws Exception {
     new JoystickButton(xboxDriveController, 1)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
       .onFalse(new StopRobot());
     new JoystickButton(xboxDriveController, 2)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+      .onFalse(new StopRobot());
+  }
+
+  public void testReef() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new PanToReefTarget(0.1*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
   }
 
