@@ -68,11 +68,11 @@ public class RobotContainer {
     //calibrateElevator();
     //calibrateArm();
 
-    driveSubsystem.setDefaultCommand(
-      new DriveManuallyCommand(
-          () -> getDriverXAxis(),
-          () -> getDriverYAxis(),
-          () -> getDriverOmegaAxis()));
+    // driveSubsystem.setDefaultCommand(
+    //   new DriveManuallyCommand(
+    //       () -> getDriverXAxis(),
+    //       () -> getDriverYAxis(),
+    //       () -> getDriverOmegaAxis()));
   }
 
   private void configureDriverInterface(){
@@ -125,7 +125,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      testAuto();
+      //testAuto();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);

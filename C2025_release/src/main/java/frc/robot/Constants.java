@@ -48,18 +48,18 @@ public final class Constants {
 	}
 
 	public static final class EnabledSubsystems {
-		public static final boolean arm = false;
+		public static final boolean arm = true;
 		public static final boolean climber = false;
 		public static final boolean elevator = false;
 		public static final boolean intake = false;
-		public static final boolean chasis = true;
+		public static final boolean chasis = false;
 	}
 
 	public static final class DebugTelemetrySubsystems {
 		
-		public static final boolean odometry = true;
-		public static final boolean imu = true;
-		public static final boolean arm = false;
+		public static final boolean odometry = false;
+		public static final boolean imu = false;
+		public static final boolean arm = true;
 		public static final boolean intake = false;
 		public static final boolean elevator = false;
 		public static final boolean climber = false;
@@ -521,20 +521,14 @@ public final class Constants {
 		public static final class IntakeConstants {
 			public static enum IntakeMotorConstantsEnum {
 				ROLLERMOTOR( // Front Left - main motor
-						12, // CANID
-						false, // Inversion
-						false // Follower
-				),
-				ROTATIONALMOTOR( // Front Left
-						13, // CANID
-						true, // Inversion
-						true // Follower
+						59, // CANID
+						false // Inversion
 				);
 	
 				private int intakeMotorID; // CAN ID
 				private boolean intakeMotorInverted;
 	
-				IntakeMotorConstantsEnum(int cid, boolean i, boolean f) {
+				IntakeMotorConstantsEnum(int cid, boolean i) {
 					this.intakeMotorID = cid;
 					this.intakeMotorInverted = i;
 				}
@@ -685,11 +679,11 @@ public final class Constants {
 		}	
 
 		public static final class ArmConstants {
-			public static final int ARM_MOTOR_CAN_ID = 51;
+			public static final int ARM_MOTOR_CAN_ID = 58;
 			// public static final boolean INTAKE_SENSOR_PHASE = false;
 			public static final boolean ARM_INVERTED = false; // positive power - note in
 
-			public static final int CANCODER_CAN_ID = 31;
+			public static final int THROUGHBORE_ENCODER_CAN_ID = 62;
 			public static final double CANCODER_ABSOLUTE_HORIZONTAL_VALUE = 0.0; //TODO: CHECK ON ROBOT :)
 			public static final double MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS = 0.0; //TODO: CHECK ON ROBOT :)
 

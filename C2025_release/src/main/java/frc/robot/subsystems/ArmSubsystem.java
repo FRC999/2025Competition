@@ -61,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     armMotor = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
-    armCANCoder = new CANcoder(ArmConstants.CANCODER_CAN_ID);
+    armCANCoder = new CANcoder(ArmConstants.THROUGHBORE_ENCODER_CAN_ID);
 
     configureArmMotor();
     configureCANCoder();
