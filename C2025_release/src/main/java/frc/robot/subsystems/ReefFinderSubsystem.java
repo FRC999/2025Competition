@@ -13,6 +13,7 @@ import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CANrangeConfiguration;
+import com.ctre.phoenix6.configs.FovParamsConfigs;
 import com.ctre.phoenix6.configs.ProximityParamsConfigs;
 import com.ctre.phoenix6.configs.ToFParamsConfigs;
 import com.ctre.phoenix6.hardware.CANrange;
@@ -49,7 +50,11 @@ public class ReefFinderSubsystem extends SubsystemBase {
         .withProximityThreshold(ReefFinderConstants.newProximityThreshold));
     config.withToFParams(new ToFParamsConfigs()
         .withUpdateMode(UpdateModeValue.ShortRangeUserFreq)
-        .withUpdateFrequency(CanRangeConstants.newUpdateFrequency));
+        .withUpdateFrequency(ReefFinderConstants.newUpdateFrequency));
+    config.withFovParams(new FovParamsConfigs()
+        .withFOVRangeX(ReefFinderConstants.reefFOVRangeX)
+        .withFOVRangeY(ReefFinderConstants.reefFOVRangeY)
+        );
     rangeSensor.getConfigurator().apply(config);
   }
 

@@ -11,6 +11,8 @@ import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
+import frc.robot.commands.CalibrateChassisAngularDeadband;
+import frc.robot.commands.CalibrateChassisLinearDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
@@ -28,6 +30,9 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
+
+import javax.print.attribute.standard.JobHoldUntil;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -82,6 +87,8 @@ public class RobotContainer {
   private void configureDriverInterface(){
     xboxDriveController = new Controller(ControllerDevice.XBOX_CONTROLLER);
     xboxGPMController = new Controller(ControllerDevice.XBOX_CONTROLLER_GPM);
+    
+    driveStick1 = new Joystick(0);
   }
 
     // Alliance color determination
@@ -137,6 +144,7 @@ public class RobotContainer {
     }
 
     //testTurn();
+    //calibrateChassisDeadband();
   }
 
   public void testAuto() throws Exception {
@@ -150,10 +158,10 @@ public class RobotContainer {
 
   public void testReef() throws Exception {
     new JoystickButton(xboxDriveController, 1)
-      .onTrue(new PanToReefTarget(0.1*SwerveChassis.MaxSpeed))
+      .onTrue(new PanToReefTarget(0.05*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
     new JoystickButton(xboxDriveController, 2)
-      .onTrue(new PanToReefTarget(-0.1*SwerveChassis.MaxSpeed))
+      .onTrue(new PanToReefTarget(-0.05*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
   }
 
@@ -189,9 +197,18 @@ public class RobotContainer {
 
   public void testTurn() {
     new JoystickButton(xboxDriveController, 3)
-    .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, driveSubsystem.getChassisAngularVelocityConversion(0.5))))
-    //.onTrue(new PrintCommand("V: " + driveSubsystem.getChassisAngularVelocityConversion(2.0)))
-    .onFalse(new InstantCommand(() -> driveSubsystem.stopRobot()));
+      .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, driveSubsystem.getChassisAngularVelocityConversion(0.5))))
+      //.onTrue(new PrintCommand("V: " + driveSubsystem.getChassisAngularVelocityConversion(2.0)))
+      .onFalse(new InstantCommand(() -> driveSubsystem.stopRobot()));
+  }
+
+  public void calibrateChassisDeadband() {
+    // new JoystickButton(driveStick1, 1)
+    //   .onTrue(new CalibrateChassisLinearDeadband())
+    //   .onFalse(new StopRobot());
+    new JoystickButton(driveStick1, 1)
+       .onTrue(new CalibrateChassisAngularDeadband())
+       .onFalse(new StopRobot());
   }
 
   /**

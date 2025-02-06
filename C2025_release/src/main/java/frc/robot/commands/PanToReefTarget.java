@@ -25,6 +25,7 @@ public class PanToReefTarget extends Command {
   public void initialize() {
     System.out.println("*** PanToReefTarget command started ");
     RobotContainer.driveSubsystem.drive(0, setYVelocity, 0);
+    counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,15 +44,15 @@ public class PanToReefTarget extends Command {
   public boolean isFinished() {
     System.out.println("****t: " + RobotContainer.reefFinderSubsystem.isTargetVisible() + " d: "+ RobotContainer.reefFinderSubsystem.getDistanceToTarget() + " c " + counter);
     if (RobotContainer.reefFinderSubsystem.isTargetVisible() && 
-      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget && counter == 0) {
+      (RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.maxDistanceToTarget 
+      && RobotContainer.reefFinderSubsystem.getDistanceToTarget()>=ReefFinderConstants.minDistanceToTarget )
+      && counter == 0) {
       RobotContainer.driveSubsystem.drive(0, -setYVelocity, 0);
       counter++;
     }
-    if (RobotContainer.reefFinderSubsystem.isTargetVisible() && 
-      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget && counter != 0) {
+    if ( counter != 0) {
       counter++;
     }
-    return RobotContainer.reefFinderSubsystem.isTargetVisible() && 
-      RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.minDistanceToTarget && counter > 10;
+    return counter > 3;
   }
 }

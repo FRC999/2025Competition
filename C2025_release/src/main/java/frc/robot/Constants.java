@@ -197,7 +197,8 @@ public final class Constants {
 			public static final double robotInertia = 60.0; // KG*M^2 - for rotation
 			public static final double wheelCOF = 1.2; // coefficient of friction for the wheels; colsons on carpet is
 														// 1.0
-
+			public static final double chassisLinearMoveDeadband = 0.02; //determined by calibration method 
+			public static final double chassisAngularMoveDeadband = 0.05; //determined by calibration method
 			// Customize the following values to your prototype
 			public static final double metersPerRotationFX = (5.589/89.11199955)*(5.589/5.716); // measure this number on the robot - remeasure on carpet
 			// drive motor only
@@ -232,8 +233,9 @@ public final class Constants {
 			public static final double ANGLE_CHASSIS_KD = 0.0;
 
 			public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-					.withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+					.withDeadband(MaxSpeed * chassisLinearMoveDeadband).withRotationalDeadband(MaxAngularRate * chassisAngularMoveDeadband) // Add a 10% deadband
 					.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+			
 
 			/* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
 			public static final Rotation2d blueAlliancePerspectiveRotation = Rotation2d.fromDegrees(0);
@@ -581,14 +583,17 @@ public final class Constants {
 			public static final class CanRangeConstants{
 				public static final int CanRangeID = 60;
 				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 5.0;
+				public static final double newUpdateFrequency = 50.0;
 			}
 
 			public static final class ReefFinderConstants{
 				public static final int reefCANRangeID = 61; 
 				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 5.0;
-				public static final double minDistanceToTarget = 0.50;
+				public static final double newUpdateFrequency = 10.0;
+				public static final double maxDistanceToTarget = 0.4;
+				public static final double minDistanceToTarget = 0.2;
+				public static final double reefFOVRangeX = 6.75;
+				public static final double reefFOVRangeY = 6.75;
 			}
 			
 		}
