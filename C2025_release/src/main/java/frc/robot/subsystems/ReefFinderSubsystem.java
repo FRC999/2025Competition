@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
-import frc.robot.Constants.GPMConstants.IntakeConstants.CanRangeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
 
 import com.ctre.phoenix6.StatusSignal;

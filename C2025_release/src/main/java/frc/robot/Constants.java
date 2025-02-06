@@ -580,12 +580,6 @@ public final class Constants {
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
 
-			public static final class CanRangeConstants{
-				public static final int CanRangeID = 60;
-				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 50.0;
-			}
-
 			public static final class ReefFinderConstants{
 				public static final int reefCANRangeID = 61; 
 				public static final double newProximityThreshold = 10.0;
@@ -594,6 +588,16 @@ public final class Constants {
 				public static final double minDistanceToTarget = 0.2;
 				public static final double reefFOVRangeX = 6.75;
 				public static final double reefFOVRangeY = 6.75;
+			}
+
+			public static final class IntakeCoralConstants{
+				public static final int intakeCANRangeID = 61; 
+				public static final double newProximityThreshold = 10.0;
+				public static final double newUpdateFrequency = 10.0;
+				public static final double maxDistanceToTarget = 0.015;
+				public static final double minDistanceToTarget = 0.005;
+				public static final double intakeFOVRangeX = 6.75;
+				public static final double intakeFOVRangeY = 6.75;
 			}
 			
 		}
