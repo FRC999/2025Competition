@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
 import frc.robot.RobotContainer;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -42,11 +42,8 @@ public class IntakeCoralCommand extends Command {
   @Override
   public boolean isFinished() {
     System.out.println("****t: " + RobotContainer.intakeSubsystem.isTargetVisible() + " d: "+ RobotContainer.intakeSubsystem.getDistanceToTarget() + " c " + counter);
-    if (RobotContainer.intakeSubsystem.isTargetVisible() && 
-      (RobotContainer.intakeSubsystem.getDistanceToTarget()<=IntakeCoralConstants.maxDistanceToTarget 
-      && RobotContainer.intakeSubsystem.getDistanceToTarget()>=IntakeCoralConstants.minDistanceToTarget )
-      && counter == 0) {
-      RobotContainer.intakeSubsystem.stopIntake();
+    if (RobotContainer.intakeSubsystem.isTargetVisible() &&
+       counter == 0) {
       counter++;
     }
     if ( counter != 0) {

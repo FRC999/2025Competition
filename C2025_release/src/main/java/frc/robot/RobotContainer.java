@@ -16,12 +16,14 @@ import frc.robot.commands.CalibrateChassisLinearDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
+import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.StartClimberWithSpeed;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -53,7 +55,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public static final DriveSubsystem driveSubsystem = null;// = new DriveSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
   public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
@@ -144,6 +146,7 @@ public class RobotContainer {
 
     //testTurn();
     //calibrateChassisDeadband();
+    testIntake();
   }
 
   public void testAuto() throws Exception {
@@ -199,6 +202,16 @@ public class RobotContainer {
       .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, driveSubsystem.getChassisAngularVelocityConversion(0.5))))
       //.onTrue(new PrintCommand("V: " + driveSubsystem.getChassisAngularVelocityConversion(2.0)))
       .onFalse(new InstantCommand(() -> driveSubsystem.stopRobot()));
+  }
+
+  public void testIntake() {
+    new JoystickButton(xboxDriveController, 1)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(0.5),intakeSubsystem))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 2)
+    .onTrue(new IntakeCoralCommand(0.2))
+    .onFalse(new StopIntake());
   }
 
   public void calibrateChassisDeadband() {

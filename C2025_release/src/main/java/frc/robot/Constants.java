@@ -48,24 +48,24 @@ public final class Constants {
 	}
 
 	public static final class EnabledSubsystems {
-		public static final boolean arm = true;
+		public static final boolean arm = false;
 		public static final boolean climber = false;
 		public static final boolean elevator = false;
-		public static final boolean intake = false;
-		public static final boolean chasis = true;
-		public static final boolean reef = true;
+		public static final boolean intake = true;
+		public static final boolean chasis = false;
+		public static final boolean reef = false;
 	}
 
 	public static final class DebugTelemetrySubsystems {
 		
 		public static final boolean odometry = false;
 		public static final boolean imu = false;
-		public static final boolean arm = true;
-		public static final boolean intake = false;
+		public static final boolean arm = false;
+		public static final boolean intake = true;
 		public static final boolean elevator = false;
 		public static final boolean climber = false;
-		public static final boolean chasis = true;
-		public static final boolean reef = true;
+		public static final boolean chasis = false;
+		public static final boolean reef = false;
 	}
 
 
@@ -526,7 +526,7 @@ public final class Constants {
 			public static enum IntakeMotorConstantsEnum {
 				ROLLERMOTOR( // Front Left - main motor
 						59, // CANID
-						false // Inversion
+						true // Inversion
 				);
 	
 				private int intakeMotorID; // CAN ID
@@ -573,6 +573,9 @@ public final class Constants {
 			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
+			public static final double coralIntakeSpeed = 0.2; 
+			public static final double coralShootingSpeedL23 = 0.5; 
+			public static final double coralShootingSpeedL4 = 0.2; 
 
 			public static final class ReefFinderConstants{
 				public static final int reefCANRangeID = 61; 
@@ -584,14 +587,14 @@ public final class Constants {
 				public static final double reefFOVRangeY = 6.75;
 			}
 
-			public static final class IntakeCoralConstants{
-				public static final int intakeCANRangeID = 61; 
+			public static final class IntakeCoralCANRangeConstants{
+				public static final int intakeCANRangeID = 60; 
 				public static final double newProximityThreshold = 10.0;
 				public static final double newUpdateFrequency = 10.0;
 				public static final double maxDistanceToTarget = 0.015;
 				public static final double minDistanceToTarget = 0.005;
-				public static final double intakeFOVRangeX = 6.75;
-				public static final double intakeFOVRangeY = 6.75;
+				public static final double intakeFOVRangeX = 27;
+				public static final double intakeFOVRangeY = 27;
 			}
 			
 		}

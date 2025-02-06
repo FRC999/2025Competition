@@ -36,7 +36,7 @@ import frc.robot.Constants.CurrentLimiter;
 import frc.robot.Constants.EnableCurrentLimiter;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
-import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeMotorConstantsEnum;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakePIDConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
@@ -73,38 +73,29 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePIDEncoder = intakeMotor.getEncoder();
 
     // Main Motor; should not follow the other motor
-    configureIntakeMotors(intakeMotor, intakePIDEncoder, intakePIDController, IntakeMotorConstantsEnum.ROLLERMOTOR, null);
+    configureIntakeMotor(intakeMotor, intakePIDEncoder, intakePIDController, IntakeMotorConstantsEnum.ROLLERMOTOR);
 
 
-    System.out.println("*** Intake initialized");
-
-    if (Intake.GPM_SENSOR_PRESENT) {
-      try {
-        GPMsensors = new DigitalInput(Intake.GPM_SENSOR_SWITCH_DIO_PORT_NUMBER);
-        System.out.println("*** Note sensor initialized");
-      } catch (Exception e) {
-        System.out.println("Unable to get note sensor value");
-      }
-    }
 
     // Initialize the CANRange sensor with the appropriate CAN ID
-    intakeSensor = new CANrange(ReefFinderConstants.reefCANRangeID); // Replace '1' with the actual CAN ID of your sensor
+    intakeSensor = new CANrange(IntakeCoralCANRangeConstants.intakeCANRangeID); // Replace '1' with the actual CAN ID of your sensor
 
     // Configure the sensor for short-distance detection
     configureCANRange();
     distanceToTarget = intakeSensor.getDistance();
+    System.out.println("*** Intake initialized");
   }
 
     private void configureCANRange() {
     CANrangeConfiguration config = new CANrangeConfiguration();
     config.withProximityParams(new ProximityParamsConfigs()
-        .withProximityThreshold(IntakeCoralConstants.newProximityThreshold));
+        .withProximityThreshold(IntakeCoralCANRangeConstants.newProximityThreshold));
     config.withToFParams(new ToFParamsConfigs()
         .withUpdateMode(UpdateModeValue.ShortRangeUserFreq)
-        .withUpdateFrequency(IntakeCoralConstants.newUpdateFrequency));
+        .withUpdateFrequency(IntakeCoralCANRangeConstants.newUpdateFrequency));
     config.withFovParams(new FovParamsConfigs()
-        .withFOVRangeX(IntakeCoralConstants.intakeFOVRangeX)
-        .withFOVRangeY(IntakeCoralConstants.intakeFOVRangeY)
+        .withFOVRangeX(IntakeCoralCANRangeConstants.intakeFOVRangeX)
+        .withFOVRangeY(IntakeCoralCANRangeConstants.intakeFOVRangeY)
         );
     intakeSensor.getConfigurator().apply(config);
   }
@@ -113,8 +104,7 @@ public class IntakeSubsystem extends SubsystemBase {
     return distanceToTarget.refresh().getValueAsDouble();
   }
 
-  private void configureIntakeMotors(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p, IntakeMotorConstantsEnum c,
-      SparkMax motorToFollow) {
+  private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p, IntakeMotorConstantsEnum c) {
 
     SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
 
@@ -166,6 +156,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void runIntake(double speed) {
+    System.out.println("Running Intake with speed: " +  speed);
     intakeMotor.set(speed);
   }
 
@@ -173,9 +164,8 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(0);
   }
 
-  public boolean isNoteInIntake() {
-    return (!Intake.GPM_SENSOR_PRESENT) || !GPMsensors.get();
-  }
+  
+
 
   public double getDistanceToTarget() {
     return distanceToTarget.refresh().getValueAsDouble();
