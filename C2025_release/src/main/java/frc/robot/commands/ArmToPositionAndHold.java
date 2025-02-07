@@ -6,14 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.GPMConstants.ArmConstants.ArmHeights;;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmAngles;;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ArmToPositionAndHold extends Command {
   /** Creates a new ArmToPositionAndHold. */
 
-  private ArmHeights setPosition;
-  public ArmToPositionAndHold(ArmHeights position) {
+  private ArmAngles setPosition;
+  public ArmToPositionAndHold(ArmAngles position) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.armSubsystem);
     setPosition = position;
@@ -24,7 +24,7 @@ public class ArmToPositionAndHold extends Command {
   @Override
   public void initialize() {
     System.out.println("Arm going to position: " + setPosition);
-    RobotContainer.armSubsystem.setArmPositionWithHeight(setPosition);
+    RobotContainer.armSubsystem.setArmPositionWithAngle(setPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

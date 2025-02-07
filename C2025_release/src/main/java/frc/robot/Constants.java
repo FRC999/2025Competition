@@ -708,21 +708,21 @@ public final class Constants {
 			public static final double CANCODER_ABSOLUTE_HORIZONTAL_VALUE = 0.0; //TODO: CHECK ON ROBOT :)
 			public static final double MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS = 0.0; //TODO: CHECK ON ROBOT :)
 
-			public static enum ArmHeights{ // meters off the ground for the piece placement
-				ConeIntake(0.0),
-				AlgaeIntake(0.0),
-				ReefLevelOne(0.0),
-				ReefLevelTwo(0.0),
-				ReefLevelThree(0.0),
-				ReefLevelFour(0.0),
+			public static enum ArmAngles{ // angle of the arm for the piece placement/pickup
+				ConeIntake(0.0),     //TODO: Needs values from robot
+				AlgaeIntake(0.0),    //TODO: Needs values from robot
+				ReefLevelOne(0.0),   //TODO: Needs values from robot
+				ReefLevelTwo(0.0),   //TODO: Needs values from robot
+				ReefLevelThree(0.0), //TODO: Needs values from robot
+				ReefLevelFour(0.0),  //TODO: Needs values from robot
 				Barge(0.0),
 				Processor(0.0);
-				private double armHeightForGamepiecePlacement;
-				ArmHeights(double height) {
-				  this.armHeightForGamepiecePlacement = height;
+				private double armAngleForGamepiecePlacement;
+				ArmAngles(double angle) {
+				  this.armAngleForGamepiecePlacement = angle;
 				}
-				public double getHeight() {
-				  return armHeightForGamepiecePlacement;
+				public double getAngle() {
+				  return armAngleForGamepiecePlacement;
 				}
 			  }
 
