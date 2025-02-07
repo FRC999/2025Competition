@@ -212,6 +212,18 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 2)
     .onTrue(new IntakeCoralCommand(0.2))
     .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 3)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.5),intakeSubsystem))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 4)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(1.0),intakeSubsystem))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 5)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.2),intakeSubsystem))
+    .onFalse(new StopIntake());
   }
 
   public void calibrateChassisDeadband() {
