@@ -16,6 +16,8 @@ import frc.robot.commands.CalibrateChassisLinearDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
+import frc.robot.commands.IntakeAlgaeInCommand;
+import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
@@ -146,8 +148,9 @@ public class RobotContainer {
        System.out.println("test auto error: " + e);
     }
 
-    testTurn();
-    setYaws();
+    // testTurn();
+    // setYaws();
+    testIntake(); 
   }
 
   public void setYaws() {
@@ -238,6 +241,10 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 5)
     .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.2),intakeSubsystem))
     .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 6)
+      .onTrue(new IntakeAlgaeInCommand())
+      .onFalse(new IntakeAlgaeOutSequence());
   }
 
   public void calibrateChassisDeadband() {
