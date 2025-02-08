@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ArmConstants;
-import frc.robot.Constants.GPMConstants.ArmConstants.ArmAngles;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicVoltageConstants;
@@ -39,15 +39,21 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.config.BaseConfig;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.AbsoluteEncoderConfig;
+import com.revrobotics.spark.config.SignalsConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
-   private TalonFX armMotor; // Kraken
+   private TalonFX armMotorKraken; // Kraken
    private final CurrentLimitsConfigs currentLimits = new CurrentLimitsConfigs();
 
    private MotionMagicDutyCycle motMagDutyCycle = new MotionMagicDutyCycle(0); // for MotionMagic Duty Cycle
@@ -55,10 +61,10 @@ public class ArmSubsystem extends SubsystemBase {
    private MotionMagicVoltage motMagVoltage = new MotionMagicVoltage(0); // for MotionMagic Voltage
 
    private RelativeEncoder armEncoder;
-   private double armEncoderZero;
+   private double armKrakenEncoderZero = 0;
 
    private SparkMax sparkMax;
-  private SparkAbsoluteEncoder armSparkEncoder;
+  private SparkAbsoluteEncoder armSparkThroughboreEncoder;
 
 
   public ArmSubsystem() {
@@ -68,21 +74,57 @@ public class ArmSubsystem extends SubsystemBase {
       return;
     }
 
-    armMotor = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
+    armMotorKraken = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
 
     // Initialize the Spark MAX (motor type doesn't matter if no motor is connected)
     sparkMax = new SparkMax(ArmConstants.THROUGHBORE_ENCODER_CAN_ID, MotorType.kBrushless);
 
     // Initialize the through-bore absolute encoder
-    armSparkEncoder = sparkMax.getAbsoluteEncoder();
+    armSparkThroughboreEncoder = sparkMax.getAbsoluteEncoder();
 
     configureArmMotor();
+    configureThroughboreEncoder();
+    getArmSparkThroughboreEncoderPosition();
+    getArmSparkThroughboreEncoderPosition();
+    getArmSparkThroughboreEncoderPosition();
+    getArmSparkThroughboreEncoderPosition();
     //calibrateZeroArmPosition();
   }
 
+  private void configureThroughboreEncoder() {
+    SignalsConfig signalsConfig = new SignalsConfig();
 
-  public double getArmSparkEncoderPosition() {
-    return armSparkEncoder.getPosition(); // Get the current position
+    // kstatus0
+    signalsConfig.faultsPeriodMs(100);
+    signalsConfig.appliedOutputPeriodMs(100);
+    signalsConfig.outputCurrentPeriodMs(100);
+
+    // kstatus1
+    signalsConfig.motorTemperaturePeriodMs(250);
+    //signalsConfig.primaryEncoderVelocityPeriodMs(250);
+    signalsConfig.absoluteEncoderPositionPeriodMs(10);
+
+
+    AbsoluteEncoderConfig config = new AbsoluteEncoderConfig();
+    config.zeroOffset(0);
+    SparkMaxConfig througboreSparkConfig = new SparkMaxConfig();
+    througboreSparkConfig.apply(signalsConfig);
+    througboreSparkConfig.apply(config);
+    REVLibError status = null;
+    for (int i = 0; i < 5; ++i) {
+      status = sparkMax.configure(througboreSparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+      if (status == REVLibError.kOk)
+        break;
+    }
+    if ( status != null && status != REVLibError.kOk) {
+      System.out.println("Could not apply configs, error code: " + status.toString());
+    }
+    
+  }
+
+
+  public double getArmSparkThroughboreEncoderPosition() {
+    return armSparkThroughboreEncoder.getPosition(); // Get the current position
 }
   // public void calibrateZeroArmPosition() {
   //   armEncoderZero = (ArmConstants.CANCODER_ABSOLUTE_HORIZONTAL_VALUE - getAbsoluteCANCoderValue()) 
@@ -93,16 +135,19 @@ public class ArmSubsystem extends SubsystemBase {
   private void configureArmMotor() {
 
     //intakeMotor.configFactoryDefault();
-    armMotor.getConfigurator().apply(new TalonFXConfiguration()); // reset the motor to defaults
-    armMotor.setSafetyEnabled(false);
+    armMotorKraken.getConfigurator().apply(new TalonFXConfiguration()); // reset the motor to defaults
+    armMotorKraken.setSafetyEnabled(false);
+
 
     var motorconfigs = new MotorOutputConfigs();
     motorconfigs.NeutralMode = NeutralModeValue.Brake;
     motorconfigs.Inverted = (ArmConstants.ARM_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
-    var talonFXConfigurator = armMotor.getConfigurator();
-    TalonFXConfiguration pidConfig = new TalonFXConfiguration();
-    configurePositionDutyCycle(pidConfig);
-    talonFXConfigurator.apply(motorconfigs);
+    var talonFXConfigurator = armMotorKraken.getConfigurator();
+    //talonFXConfigurator.apply(motorconfigs);
+
+    TalonFXConfiguration pidConfig = new TalonFXConfiguration().withMotorOutput(motorconfigs);
+    //configurePositionDutyCycle(pidConfig);
+    configureMotionMagicDutyCycle(pidConfig);
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
@@ -115,11 +160,11 @@ public class ArmSubsystem extends SubsystemBase {
     }
   }
   public void runArm(double speed) {
-    armMotor.set(speed);
+    armMotorKraken.set(speed);
   }
 
   public void stopArm() {
-    armMotor.setControl(new DutyCycleOut(0));
+    armMotorKraken.setControl(new DutyCycleOut(0));
   }
 
 
@@ -131,7 +176,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   private void setPositionDutyCycle(double position){
-    armMotor.setControl(new PositionDutyCycle(position));
+    armMotorKraken.setControl(new PositionDutyCycle(position));
   }
 
   private void configurePositionVoltage(TalonFXConfiguration config) {
@@ -144,7 +189,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   private void setPositonVoltage(double position){
-    armMotor.setControl(positionVoltage.withPosition(position));
+    armMotorKraken.setControl(positionVoltage.withPosition(position));
   }
 
   private void configureMotionMagicDutyCycle(TalonFXConfiguration config) {
@@ -162,8 +207,13 @@ public class ArmSubsystem extends SubsystemBase {
     motMagDutyCycle.Slot = MotionMagicDutyCycleConstants.slot;
   }
 
-  private void setMotionMagicDutyCycle(double position){
-    armMotor.setControl(motMagDutyCycle.withPosition(position));
+  public void setMotionMagicDutyCycle(double position){
+    armMotorKraken.setControl(motMagDutyCycle.withPosition(position));
+    System.out.println("***Pos: " + position);
+  }
+
+  public double getArmKrakenEncoderZeroPosition() {
+    return armKrakenEncoderZero;
   }
 
   private void configureMotionMagicVoltage(TalonFXConfiguration config) {
@@ -182,20 +232,36 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   private void setMotionMagicVoltage(double position){
-    armMotor.setControl(motMagVoltage.withPosition(position));
+    armMotorKraken.setControl(motMagVoltage.withPosition(position));
   }
 
 
-  public double getMotorEncoder() {
-    return armMotor.getRotorPosition().getValueAsDouble();
+  public double getKrakenMotorEncoder() {
+    return armMotorKraken.getRotorPosition().getValueAsDouble();
   }
 
-  public void setArmPositionWithAngle(ArmAngles angle) { 
-    setPositionDutyCycle(armEncoderZero + angle.getAngle());
+  public void setArmPositionWithAngle(ArmPositions angle) { 
+    setPositionDutyCycle(armKrakenEncoderZero + angle.getPosition());
   }
 
-  public boolean isAtPosition(ArmAngles position){
-    return Math.abs(position.getAngle() - getMotorEncoder())<=ArmPIDConstants.tolerance;
+  public boolean isAtPosition(ArmPositions position){
+    return Math.abs(position.getPosition() - getKrakenMotorEncoder())<=ArmPIDConstants.tolerance;
+  }
+
+  public void calibrateZeroArmPosition() {
+    double krakenEncoder = getKrakenMotorEncoder();
+    double throughboreEncoder = getArmSparkThroughboreEncoderPosition();
+    if(throughboreEncoder < 0.5){
+      throughboreEncoder = 1.0 + throughboreEncoder;
+    }
+    armKrakenEncoderZero = krakenEncoder - 
+      ((-ArmConstants.THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE + throughboreEncoder)
+      * ArmConstants.MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
+    System.out.println("EP1: " + throughboreEncoder);
+    System.out.println("EP2: " + ((ArmConstants.THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE - throughboreEncoder)
+    * ArmConstants.MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS));
+    System.out.println("EP3: " + krakenEncoder);
+    System.out.println("armKrakenZeroEncoder: " + armKrakenEncoderZero);
   }
 
 

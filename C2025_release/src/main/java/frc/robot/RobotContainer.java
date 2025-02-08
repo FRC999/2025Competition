@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
+import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
@@ -27,6 +28,7 @@ import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.TestArmToPosition;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -87,6 +89,10 @@ public class RobotContainer {
     //       () -> getDriverXAxis(),
     //       () -> getDriverYAxis(),
     //       () -> getDriverOmegaAxis()));
+
+    if (EnabledSubsystems.arm) {
+      armSubsystem.calibrateZeroArmPosition();
+    }
   }
 
   private void configureDriverInterface(){
@@ -150,7 +156,8 @@ public class RobotContainer {
 
     // testTurn();
     // setYaws();
-    testIntake(); 
+    //testIntake();
+    testArm(); 
   }
 
   public void setYaws() {
@@ -176,10 +183,18 @@ public class RobotContainer {
       .onFalse(new StopRobot());
   }
 
-  public void testArm() throws Exception {
+  public void testArm() {
+    // new JoystickButton(xboxDriveController, 1)
+    //   .onTrue(new ArmRunWithSpeed(0.2))
+    //   .onFalse(new StopArm());
+
     new JoystickButton(xboxDriveController, 1)
-      .onTrue(new ArmRunWithSpeed(0.2))
-      .onFalse(new StopArm());
+    .onTrue(new TestArmToPosition(10.0))
+    .onFalse(new StopArm());
+
+    new JoystickButton(xboxDriveController, 2)
+    .onTrue(new TestArmToPosition(0))
+    .onFalse(new StopArm());
   }
 
   public void testElevator() throws Exception {
@@ -193,6 +208,7 @@ public class RobotContainer {
       .onTrue(new StartClimberWithSpeed(0.2))
       .onFalse(new StopClimber());
   }
+
 
   public void calibrateElevator() {
     new JoystickButton(xboxDriveController, 1)

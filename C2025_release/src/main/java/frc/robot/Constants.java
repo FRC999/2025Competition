@@ -707,27 +707,28 @@ public final class Constants {
 		public static final class ArmConstants {
 			public static final int ARM_MOTOR_CAN_ID = 58;
 			// public static final boolean INTAKE_SENSOR_PHASE = false;
-			public static final boolean ARM_INVERTED = false; // positive power - note in
+			public static final boolean ARM_INVERTED = true; // positive power - note in
 
 			public static final int THROUGHBORE_ENCODER_CAN_ID = 62;
-			public static final double CANCODER_ABSOLUTE_HORIZONTAL_VALUE = 0.0; //TODO: CHECK ON ROBOT :)
-			public static final double MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS = 0.0; //TODO: CHECK ON ROBOT :)
+			public static final double THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE = 0.73; //TODO: CHECK ON ROBOT :)
+			public static final double MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS = (24.372070 - 0.060059)/(1.0 - 0.703 + 0.237); //TODO: CHECK ON ROBOT :)
+			public static final double THROUGHBORE_ENCODER_ZERO_OFFSET = 0.4;
 
-			public static enum ArmAngles{ // angle of the arm for the piece placement/pickup
-				ConeIntake(0.0),     //TODO: Needs values from robot
-				AlgaeIntake(0.0),    //TODO: Needs values from robot
+			public static enum ArmPositions{ // position of the arm for the piece placement/pickup as throughbore numbers
+				CoralIntake(0.0),    
+				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
 				ReefLevelOne(0.0),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
 				ReefLevelFour(0.0),  //TODO: Needs values from robot
-				Barge(0.0),
-				Processor(0.0);
-				private double armAngleForGamepiecePlacement;
-				ArmAngles(double angle) {
-				  this.armAngleForGamepiecePlacement = angle;
+				Barge((1-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),
+				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
+				private double armPositionForGamepiecePlacement;
+				ArmPositions(double position) {
+				  this.armPositionForGamepiecePlacement = position;
 				}
-				public double getAngle() {
-				  return armAngleForGamepiecePlacement;
+				public double getPosition() {
+				  return armPositionForGamepiecePlacement;
 				}
 			  }
 
@@ -750,9 +751,9 @@ public final class Constants {
 					public static final double arm_kP = 0.64;
 					public static final double arm_kI = 0.0;
 					public static final double arm_kD = 0.0;
-					public static final double MotionMagicCruiseVelocity = 50.0;
-					public static final double motionMagicAcceleration = 100.0;
-					public static final double motionMagicJerk = 1000.0;
+					public static final double MotionMagicCruiseVelocity = 75.0;
+					public static final double motionMagicAcceleration = 150.0;
+					public static final double motionMagicJerk = 1500.0;
 				}
 
 				public static class MotionMagicVoltageConstants {
