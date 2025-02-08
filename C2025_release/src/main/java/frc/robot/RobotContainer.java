@@ -5,20 +5,25 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
+import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
-import frc.robot.commands.CalibrateDriveTrainTurnMinimumPower;
+import frc.robot.commands.CalibrateChassisAngularDeadband;
+import frc.robot.commands.CalibrateChassisLinearDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
+import frc.robot.commands.IntakeCoralCommand;
+import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.StartClimberWithSpeed;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.subsystems.ArmSubsystem;
@@ -26,7 +31,11 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
+
+import javax.print.attribute.standard.JobHoldUntil;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -47,12 +56,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public static final DriveSubsystem driveSubsystem = null;// = new DriveSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
   public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static final ArmSubsystem armSubsystem = new ArmSubsystem();
+  public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
@@ -70,17 +80,19 @@ public class RobotContainer {
     //calibrateElevator();
     //calibrateArm();
 
-    driveSubsystem.setDefaultCommand(
-      new DriveManuallyCommand(
-          () -> getDriverXAxis(),
-          () -> getDriverYAxis(),
-          () -> getDriverOmegaAxis()));
+    // driveSubsystem.setDefaultCommand(
+    //   new DriveManuallyCommand(
+    //       () -> getDriverXAxis(),
+    //       () -> getDriverYAxis(),
+    //       () -> getDriverOmegaAxis()));
   }
 
   private void configureDriverInterface(){
     driveStick1 = new Joystick(0); //TODO: ONLY FOR TESTING; MUST BE COMMENTED FOR COMP
     xboxDriveController = new Controller(ControllerDevice.XBOX_CONTROLLER);
     xboxGPMController = new Controller(ControllerDevice.XBOX_CONTROLLER_GPM);
+    
+    driveStick1 = new Joystick(0);
   }
 
     // Alliance color determination
@@ -128,7 +140,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      testAuto();
+      //testAuto();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -143,12 +155,21 @@ public class RobotContainer {
       .onTrue(new InstantCommand(() -> driveSubsystem.zeroYaw()));
   }
 
-   public void testAuto() throws Exception {
+  public void testAuto() throws Exception {
     new JoystickButton(xboxDriveController, 1)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
       .onFalse(new StopRobot());
     new JoystickButton(xboxDriveController, 2)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+      .onFalse(new StopRobot());
+  }
+
+  public void testReef() throws Exception {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new PanToReefTarget(0.05*SwerveChassis.MaxSpeed))
+      .onFalse(new StopRobot());
+    new JoystickButton(xboxDriveController, 2)
+      .onTrue(new PanToReefTarget(-0.05*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
   }
 
@@ -195,6 +216,37 @@ public class RobotContainer {
     // new JoystickButton(xboxDriveController, 3)
     //    .onTrue(new CalibrateDriveTrainTurnMinimumPower())
     //    .onFalse(new StopRobot());
+  }
+
+  public void testIntake() {
+    new JoystickButton(xboxDriveController, 1)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(0.5),intakeSubsystem))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 2)
+    .onTrue(new IntakeCoralCommand(0.2))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 3)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.5),intakeSubsystem))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 4)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(1.0),intakeSubsystem))
+    .onFalse(new StopIntake());
+
+    new JoystickButton(xboxDriveController, 5)
+    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.2),intakeSubsystem))
+    .onFalse(new StopIntake());
+  }
+
+  public void calibrateChassisDeadband() {
+    // new JoystickButton(driveStick1, 1)
+    //   .onTrue(new CalibrateChassisLinearDeadband())
+    //   .onFalse(new StopRobot());
+    new JoystickButton(driveStick1, 1)
+       .onTrue(new CalibrateChassisAngularDeadband())
+       .onFalse(new StopRobot());
   }
 
   /**

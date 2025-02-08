@@ -51,19 +51,21 @@ public final class Constants {
 		public static final boolean arm = false;
 		public static final boolean climber = false;
 		public static final boolean elevator = false;
-		public static final boolean intake = false;
-		public static final boolean chasis = true;
+		public static final boolean intake = true;
+		public static final boolean chasis = false;
+		public static final boolean reef = false;
 	}
 
 	public static final class DebugTelemetrySubsystems {
 		
-		public static final boolean odometry = true;
-		public static final boolean imu = true;
+		public static final boolean odometry = false;
+		public static final boolean imu = false;
 		public static final boolean arm = false;
-		public static final boolean intake = false;
+		public static final boolean intake = true;
 		public static final boolean elevator = false;
 		public static final boolean climber = false;
-		public static final boolean chasis = true;
+		public static final boolean chasis = false;
+		public static final boolean reef = false;
 	}
 
 
@@ -195,7 +197,8 @@ public final class Constants {
 			public static final double robotInertia = 60.0; // KG*M^2 - for rotation
 			public static final double wheelCOF = 1.2; // coefficient of friction for the wheels; colsons on carpet is
 														// 1.0
-
+			public static final double chassisLinearMoveDeadband = 0.02; //determined by calibration method 
+			public static final double chassisAngularMoveDeadband = 0.05; //determined by calibration method
 			// Customize the following values to your prototype
 			public static final double metersPerRotationFX = (5.589/89.11199955)*(5.589/5.716); // measure this number on the robot - remeasure on carpet
 			// drive motor only
@@ -230,8 +233,9 @@ public final class Constants {
 			public static final double ANGLE_CHASSIS_KD = 0.0;
 
 			public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-					.withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+					.withDeadband(MaxSpeed * chassisLinearMoveDeadband).withRotationalDeadband(MaxAngularRate * chassisAngularMoveDeadband) // Add a 10% deadband
 					.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+			
 
 			/* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
 			public static final Rotation2d blueAlliancePerspectiveRotation = Rotation2d.fromDegrees(0);
@@ -521,20 +525,14 @@ public final class Constants {
 		public static final class IntakeConstants {
 			public static enum IntakeMotorConstantsEnum {
 				ROLLERMOTOR( // Front Left - main motor
-						12, // CANID
-						false, // Inversion
-						false // Follower
-				),
-				ROTATIONALMOTOR( // Front Left
-						13, // CANID
-						true, // Inversion
-						true // Follower
+						59, // CANID
+						true // Inversion
 				);
 	
 				private int intakeMotorID; // CAN ID
 				private boolean intakeMotorInverted;
 	
-				IntakeMotorConstantsEnum(int cid, boolean i, boolean f) {
+				IntakeMotorConstantsEnum(int cid, boolean i) {
 					this.intakeMotorID = cid;
 					this.intakeMotorInverted = i;
 				}
@@ -575,11 +573,28 @@ public final class Constants {
 			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
+			public static final double coralIntakeSpeed = 0.2; 
+			public static final double coralShootingSpeedL23 = 0.5; 
+			public static final double coralShootingSpeedL4 = 0.2; 
 
-			public static final class CanRangeConstants{
-				public static final int CanRangeID = 60;
+			public static final class ReefFinderConstants{
+				public static final int reefCANRangeID = 61; 
 				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 5.0;
+				public static final double newUpdateFrequency = 10.0;
+				public static final double maxDistanceToTarget = 0.4;
+				public static final double minDistanceToTarget = 0.2;
+				public static final double reefFOVRangeX = 6.75;
+				public static final double reefFOVRangeY = 6.75;
+			}
+
+			public static final class IntakeCoralCANRangeConstants{
+				public static final int intakeCANRangeID = 60; 
+				public static final double newProximityThreshold = 10.0;
+				public static final double newUpdateFrequency = 10.0;
+				public static final double maxDistanceToTarget = 0.015;
+				public static final double minDistanceToTarget = 0.005;
+				public static final double intakeFOVRangeX = 27;
+				public static final double intakeFOVRangeY = 27;
 			}
 			
 		}
@@ -685,29 +700,29 @@ public final class Constants {
 		}	
 
 		public static final class ArmConstants {
-			public static final int ARM_MOTOR_CAN_ID = 51;
+			public static final int ARM_MOTOR_CAN_ID = 58;
 			// public static final boolean INTAKE_SENSOR_PHASE = false;
 			public static final boolean ARM_INVERTED = false; // positive power - note in
 
-			public static final int CANCODER_CAN_ID = 31;
+			public static final int THROUGHBORE_ENCODER_CAN_ID = 62;
 			public static final double CANCODER_ABSOLUTE_HORIZONTAL_VALUE = 0.0; //TODO: CHECK ON ROBOT :)
 			public static final double MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS = 0.0; //TODO: CHECK ON ROBOT :)
 
-			public static enum ArmHeights{ // meters off the ground for the piece placement
-				ConeIntake(0.0),
-				AlgaeIntake(0.0),
-				ReefLevelOne(0.0),
-				ReefLevelTwo(0.0),
-				ReefLevelThree(0.0),
-				ReefLevelFour(0.0),
+			public static enum ArmAngles{ // angle of the arm for the piece placement/pickup
+				ConeIntake(0.0),     //TODO: Needs values from robot
+				AlgaeIntake(0.0),    //TODO: Needs values from robot
+				ReefLevelOne(0.0),   //TODO: Needs values from robot
+				ReefLevelTwo(0.0),   //TODO: Needs values from robot
+				ReefLevelThree(0.0), //TODO: Needs values from robot
+				ReefLevelFour(0.0),  //TODO: Needs values from robot
 				Barge(0.0),
 				Processor(0.0);
-				private double armHeightForGamepiecePlacement;
-				ArmHeights(double height) {
-				  this.armHeightForGamepiecePlacement = height;
+				private double armAngleForGamepiecePlacement;
+				ArmAngles(double angle) {
+				  this.armAngleForGamepiecePlacement = angle;
 				}
-				public double getHeight() {
-				  return armHeightForGamepiecePlacement;
+				public double getAngle() {
+				  return armAngleForGamepiecePlacement;
 				}
 			  }
 

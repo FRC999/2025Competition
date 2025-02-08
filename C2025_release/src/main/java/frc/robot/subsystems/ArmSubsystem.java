@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ArmConstants;
-import frc.robot.Constants.GPMConstants.ArmConstants.ArmHeights;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmAngles;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicVoltageConstants;
@@ -61,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     armMotor = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
-    armCANCoder = new CANcoder(ArmConstants.CANCODER_CAN_ID);
+    armCANCoder = new CANcoder(ArmConstants.THROUGHBORE_ENCODER_CAN_ID);
 
     configureArmMotor();
     configureCANCoder();
@@ -193,12 +193,12 @@ public class ArmSubsystem extends SubsystemBase {
     return armMotor.getRotorPosition().getValueAsDouble();
   }
 
-  public void setArmPositionWithHeight(ArmHeights height) { 
-    setPositionDutyCycle(armEncoderZero + height.getHeight());
+  public void setArmPositionWithAngle(ArmAngles angle) { 
+    setPositionDutyCycle(armEncoderZero + angle.getAngle());
   }
 
-  public boolean isAtPosition(ArmHeights position){
-    return Math.abs(position.getHeight() - getMotorEncoder())<=ArmPIDConstants.tolerance;
+  public boolean isAtPosition(ArmAngles position){
+    return Math.abs(position.getAngle() - getMotorEncoder())<=ArmPIDConstants.tolerance;
   }
 
 

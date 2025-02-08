@@ -5,26 +5,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.GPMConstants.ArmConstants.ArmAngles;;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ArmToPositionAndHold extends Command {
-  /** Creates a new ArmToPositionAndHold. */
-
-  private ArmAngles setPosition;
-  public ArmToPositionAndHold(ArmAngles position) {
+public class IntakeCoralCommand extends Command {
+  /** Creates a new IntakeCommand. */
+  int counter = 0;
+  double setYVelocity;
+  public IntakeCoralCommand(double yVelocity) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.armSubsystem);
-    setPosition = position;
-  
+    addRequirements(RobotContainer.intakeSubsystem);
+    setYVelocity = yVelocity;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Arm going to position: " + setPosition);
-    RobotContainer.armSubsystem.setArmPositionWithAngle(setPosition);
+    System.out.println("*** IntakeCoralCommand started ");
+    RobotContainer.intakeSubsystem.runIntake(setYVelocity);
+    counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,12 +34,21 @@ public class ArmToPositionAndHold extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Arm at position: " + setPosition);
+    RobotContainer.intakeSubsystem.stopIntake();
+    System.out.println("*** IntakeCoral command ended " + interrupted);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.armSubsystem.isAtPosition(setPosition);
+    System.out.println("****t: " + RobotContainer.intakeSubsystem.isTargetVisible() + " d: "+ RobotContainer.intakeSubsystem.getDistanceToTarget() + " c " + counter);
+    if (RobotContainer.intakeSubsystem.isTargetVisible() &&
+       counter == 0) {
+      counter++;
+    }
+    if ( counter != 0) {
+      counter++;
+    }
+    return counter > 10;
   }
 }

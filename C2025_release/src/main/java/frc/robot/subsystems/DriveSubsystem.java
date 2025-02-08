@@ -45,7 +45,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   private boolean hasAppliedOperatorPerspective = false; // red/blue side boolean decider
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-      .withDeadband(SwerveChassis.MaxSpeed * 0.1).withRotationalDeadband(SwerveChassis.MaxAngularRate * 0.1) // Add a 10% deadband
+      .withDeadband(SwerveChassis.MaxSpeed * SwerveChassis.chassisLinearMoveDeadband).withRotationalDeadband(SwerveChassis.MaxAngularRate * SwerveChassis.chassisAngularMoveDeadband) // Add a 10% deadband
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric
                                                                // driving in open loop
 
@@ -93,12 +93,15 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
   public DriveSubsystem() {
 
-
         super(
           TalonFX::new, TalonFX::new, CANcoder::new,
           TunerConstants.DrivetrainConstants, (SwerveModuleConstants[]) configureSwerveChassis());
-        imu = this.getPigeon2();
 
+        if (!EnabledSubsystems.chasis) {
+          return;
+        }
+
+        imu = this.getPigeon2();
         this.registerTelemetry(this::telemeterize);
 
         setChassisAngularVelocityConversion();

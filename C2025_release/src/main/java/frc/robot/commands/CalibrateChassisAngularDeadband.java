@@ -4,42 +4,39 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
+import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.GPMConstants.ArmConstants.ArmAngles;;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ArmToPositionAndHold extends Command {
-  /** Creates a new ArmToPositionAndHold. */
-
-  private ArmAngles setPosition;
-  public ArmToPositionAndHold(ArmAngles position) {
+public class CalibrateChassisAngularDeadband extends Command {
+  /** Creates a new CalibrateChassisLinearDeadband. */
+  public CalibrateChassisAngularDeadband() {
+    addRequirements(RobotContainer.driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.armSubsystem);
-    setPosition = position;
-  
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    System.out.println("Arm going to position: " + setPosition);
-    RobotContainer.armSubsystem.setArmPositionWithAngle(setPosition);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    RobotContainer.driveSubsystem.drive(0, 0, SwerveChassis.MaxAngularRate * RobotContainer.driveStick1.getRawAxis(3) * 0.1);
+    SmartDashboard.putNumber("C J: ", RobotContainer.driveStick1.getRawAxis(3) * 0.1);
+    SmartDashboard.putNumber("C V: ", RobotContainer.driveStick1.getRawAxis(3) * 0.1 * SwerveChassis.MaxAngularRate);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    System.out.println("Arm at position: " + setPosition);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.armSubsystem.isAtPosition(setPosition);
+    return false;
   }
 }
