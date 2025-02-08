@@ -576,6 +576,10 @@ public final class Constants {
 			public static final double coralIntakeSpeed = 0.2; 
 			public static final double coralShootingSpeedL23 = 0.5; 
 			public static final double coralShootingSpeedL4 = 0.2; 
+			public static final double algaeIntakePower = -0.5;
+			public static final double algaeHoldPower = -0.2;
+			public static final double algaeExpelPower = 1.0;
+
 
 			public static final class ReefFinderConstants{
 				public static final int reefCANRangeID = 61; 
