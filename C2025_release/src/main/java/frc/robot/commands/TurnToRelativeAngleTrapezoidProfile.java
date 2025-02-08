@@ -18,9 +18,9 @@ public class TurnToRelativeAngleTrapezoidProfile extends Command {
 // Software PID turn constants
 	//private final double kP = 0.15958;
   private final double kP = 0.11958;
-	private final double kI = 0.02;
+	private final double kI = 0.0;
 	private final double kD = 0.0;
-	private final double minOmega = 0.37;
+	private final double minOmega = 0.7;
 
   private int counter = 0; 
   private int counterFinal = 200; 
@@ -37,9 +37,9 @@ public class TurnToRelativeAngleTrapezoidProfile extends Command {
 	private TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(kMaxSpeed, kMaxAccel);
   private final ProfiledPIDController ppc = new ProfiledPIDController(kP, kI, kD, constraints);
 
-  private final double tolerance = 0.5; // degrees of tolerance to end the command
+  private final double tolerance = .5; // degrees of tolerance to end the command
 	private final double finalGoal = 0.0;
-  private final double minFeedForward = 0.02; // min power to start turning; cannot be less than this
+  private final double minFeedForward = 0.1; // min power to start turning; cannot be less than this
 
 
   
@@ -60,7 +60,10 @@ public class TurnToRelativeAngleTrapezoidProfile extends Command {
     double initialAngle = angleSupplier.getAsDouble();
     ppc.reset(initialAngle,0); // set current angle and 0 angular velocity as current state
     ppc.setGoal(initialAngle + rotateToAngleRelative);
+    ppc.setTolerance(tolerance);
     System.out.println("initial: " + initialAngle + " " + (initialAngle + rotateToAngleRelative));
+
+    //If angle is below 25, subtract 2 deg
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -70,9 +73,9 @@ public class TurnToRelativeAngleTrapezoidProfile extends Command {
     double ff = ppc.calculate(angleSupplier.getAsDouble());
     //System.out.println("FF0:"+ff + " " + kMaxSpeed);
     ff=(ff>=0)?MathUtil.clamp(ff,minFeedForward*kMaxAngularRate, kMaxAngularRate):MathUtil.clamp(ff,-kMaxAngularRate, -minFeedForward*kMaxAngularRate);
-    RobotContainer.driveSubsystem.drive(0,0,ff);
-    //System.out.println("FF:"+ff);
     
+    RobotContainer.driveSubsystem.drive(0,0,ff);
+    System.out.println("FF:"+ff);
   }
 
 
