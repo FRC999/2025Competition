@@ -10,6 +10,7 @@ import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
+import frc.robot.commands.CalibrateDriveTrainTurnMinimumPower;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
@@ -19,6 +20,7 @@ import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -76,6 +78,7 @@ public class RobotContainer {
   }
 
   private void configureDriverInterface(){
+    driveStick1 = new Joystick(0); //TODO: ONLY FOR TESTING; MUST BE COMMENTED FOR COMP
     xboxDriveController = new Controller(ControllerDevice.XBOX_CONTROLLER);
     xboxGPMController = new Controller(ControllerDevice.XBOX_CONTROLLER_GPM);
   }
@@ -131,7 +134,13 @@ public class RobotContainer {
        System.out.println("test auto error: " + e);
     }
 
-    //testTurn();
+    testTurn();
+    setYaws();
+  }
+
+  public void setYaws() {
+    new JoystickButton(xboxDriveController, 8)
+      .onTrue(new InstantCommand(() -> driveSubsystem.zeroYaw()));
   }
 
    public void testAuto() throws Exception {
@@ -174,10 +183,18 @@ public class RobotContainer {
   }
 
   public void testTurn() {
+    // new JoystickButton(xboxDriveController, 3)
+    // .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, driveSubsystem.getChassisAngularVelocityConversion(0.5))))
+    // //.onTrue(new PrintCommand("V: " + driveSubsystem.getChassisAngularVelocityConversion(2.0)))
+    // .onFalse(new InstantCommand(() -> driveSubsystem.stopRobot()));
+
     new JoystickButton(xboxDriveController, 3)
-    .onTrue(new InstantCommand(() -> driveSubsystem.drive(0, 0, driveSubsystem.getChassisAngularVelocityConversion(0.5))))
-    //.onTrue(new PrintCommand("V: " + driveSubsystem.getChassisAngularVelocityConversion(2.0)))
-    .onFalse(new InstantCommand(() -> driveSubsystem.stopRobot()));
+      .onTrue(new TurnToRelativeAngleTrapezoidProfile(35, () -> driveSubsystem.getYaw()))
+      .onFalse(new StopRobot());
+
+    // new JoystickButton(xboxDriveController, 3)
+    //    .onTrue(new CalibrateDriveTrainTurnMinimumPower())
+    //    .onFalse(new StopRobot());
   }
 
   /**
