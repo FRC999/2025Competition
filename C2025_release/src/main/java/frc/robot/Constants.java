@@ -48,7 +48,7 @@ public final class Constants {
 	}
 
 	public static final class EnabledSubsystems {
-		public static final boolean arm = false;
+		public static final boolean arm = true;
 		public static final boolean climber = false;
 		public static final boolean elevator = false;
 		public static final boolean intake = true;
@@ -60,7 +60,7 @@ public final class Constants {
 		
 		public static final boolean odometry = false;
 		public static final boolean imu = false;
-		public static final boolean arm = false;
+		public static final boolean arm = true;
 		public static final boolean intake = true;
 		public static final boolean elevator = false;
 		public static final boolean climber = false;

@@ -38,8 +38,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updateArmTelemetry() {
-    SmartDashboard.putNumber("Arm Absolute CANcoder Value", RobotContainer.armSubsystem.getAbsoluteCANCoderValue());
-    SmartDashboard.putNumber("Arm Relative CANcoder Value", RobotContainer.armSubsystem.getRelativeCANCoderValue());
+    SmartDashboard.putNumber("Arm ThroughBore Encoder", RobotContainer.armSubsystem.getArmSparkEncoderPosition());
     SmartDashboard.putNumber("Arm Motor Encoder Value", RobotContainer.armSubsystem.getMotorEncoder());
   }
 

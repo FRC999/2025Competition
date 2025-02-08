@@ -19,6 +19,7 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
 
+import java.security.spec.EncodedKeySpec;
 import java.time.LocalTime;
 
 import com.ctre.phoenix6.BaseStatusSignal;
@@ -39,6 +40,11 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.config.BaseConfig;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.AbsoluteEncoderConfig;
+import com.revrobotics.spark.SparkMax;
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
    private TalonFX armMotor; // Kraken
@@ -50,7 +56,9 @@ public class ArmSubsystem extends SubsystemBase {
 
    private RelativeEncoder armEncoder;
    private double armEncoderZero;
-   private CANcoder armCANCoder;
+
+   private SparkMax sparkMax;
+  private SparkAbsoluteEncoder armSparkEncoder;
 
 
   public ArmSubsystem() {
@@ -61,37 +69,26 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     armMotor = new TalonFX(ArmConstants.ARM_MOTOR_CAN_ID);
-    armCANCoder = new CANcoder(ArmConstants.THROUGHBORE_ENCODER_CAN_ID);
+
+    // Initialize the Spark MAX (motor type doesn't matter if no motor is connected)
+    sparkMax = new SparkMax(ArmConstants.THROUGHBORE_ENCODER_CAN_ID, MotorType.kBrushless);
+
+    // Initialize the through-bore absolute encoder
+    armSparkEncoder = sparkMax.getAbsoluteEncoder();
 
     configureArmMotor();
-    configureCANCoder();
-    calibrateZeroArmPosition();
+    //calibrateZeroArmPosition();
   }
 
-  public void configureCANCoder() {
-    /* Configure CANcoder */
-    var toApply = new CANcoderConfiguration();
 
-    /* User can change the configs if they want, or leave it empty for factory-default */
-    armCANCoder.getConfigurator().apply(toApply);
-
-    /* Speed up signals to an appropriate rate */
-    BaseStatusSignal.setUpdateFrequencyForAll(100, armCANCoder.getPosition(), armCANCoder.getVelocity());
-  }
-
-  public double getAbsoluteCANCoderValue() {
-    return armCANCoder.getAbsolutePosition().getValueAsDouble();
-  }
-
-  public double getRelativeCANCoderValue() {
-    return armCANCoder.getPosition().getValueAsDouble();
-  }
-
-  public void calibrateZeroArmPosition() {
-    armEncoderZero = (ArmConstants.CANCODER_ABSOLUTE_HORIZONTAL_VALUE - getAbsoluteCANCoderValue()) 
-        * ArmConstants.MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS 
-        + getMotorEncoder();
-  }
+  public double getArmSparkEncoderPosition() {
+    return armSparkEncoder.getPosition(); // Get the current position
+}
+  // public void calibrateZeroArmPosition() {
+  //   armEncoderZero = (ArmConstants.CANCODER_ABSOLUTE_HORIZONTAL_VALUE - getAbsoluteCANCoderValue()) 
+  //       * ArmConstants.MOTOR_ROTATIONS_PER_CANCODER_ROTATIONS 
+  //       + getMotorEncoder();
+  // }
 
   private void configureArmMotor() {
 
