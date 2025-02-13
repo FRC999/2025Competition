@@ -16,20 +16,19 @@ public class LLVisionSubsystem extends SubsystemBase {
   /** Creates a new LLVisionSubsystem. */
   public LLVisionSubsystem() {}
 
-  public void initialize(){
+  public void initialize() {
     try {
       // Load the built-in AprilTag field layout for the current game
       fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
-  } catch (Exception e) {
+    } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTag field layout: " + e.getMessage(), true);
       fieldLayout = null;
-  }
-}
+    }
 
   }
 
   public Pose2d getRobotAprilTagPose() {
-    return;
+    return null;
   }
 
   public boolean isAprilTagVisible() {
@@ -52,6 +51,7 @@ public class LLVisionSubsystem extends SubsystemBase {
       } else {
           System.out.println("AprilTag " + tagId + " not found in the field layout.");
       }
+    }
   }
 }
 
