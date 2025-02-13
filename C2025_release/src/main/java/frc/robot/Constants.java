@@ -772,4 +772,18 @@ public final class Constants {
 			}
 		}
 	}
+
+	public static final class VisionConstants {
+		public static enum aprilTagCoordinates {
+
+		}
 	}
+
+	public static final class AutoConstants {
+		public static enum autoPoses {
+
+			//
+
+		}
+	}
+}
