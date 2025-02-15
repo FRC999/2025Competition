@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
+import frc.robot.Constants.EnabledSubsystems;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -14,12 +16,16 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class LLVisionSubsystem extends SubsystemBase {
   public static AprilTagFieldLayout fieldLayout;
   /** Creates a new LLVisionSubsystem. */
-  public LLVisionSubsystem() {}
+  public LLVisionSubsystem() {
+    if(!EnabledSubsystems.ll){
+      return;
+    }
+  }
 
   public void initialize() {
     try {
       // Load the built-in AprilTag field layout for the current game
-      fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
+      fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
     } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTag field layout: " + e.getMessage(), true);
       fieldLayout = null;
@@ -31,8 +37,8 @@ public class LLVisionSubsystem extends SubsystemBase {
     return null;
   }
 
-  public boolean isAprilTagVisible() {
-    return false;
+  public boolean isAprilTagVisible(String cameraName) {
+    return LimelightHelpers.getTV(cameraName); 
   }
 
   

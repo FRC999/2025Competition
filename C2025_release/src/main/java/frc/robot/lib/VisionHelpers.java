@@ -14,11 +14,11 @@ import edu.wpi.first.math.geometry.Pose3d;
 
 
 /** Add your docs here. */
-public interface VisionHelpers {
+public class VisionHelpers {
 
     
 
-    public default double getDistanceBetweenCenterCameraCoral(Double alpha, Double beta, double h, double d) {
+    public static double getDistanceBetweenCenterCameraCoral(Double alpha, Double beta, double h, double d) {
         if(!alpha.isNaN() && beta.isNaN()){
             return calculateDistanceUsingAlpha(alpha, h, d);
         } else if (alpha.isNaN() && !beta.isNaN()){
@@ -33,17 +33,17 @@ public interface VisionHelpers {
         return 0;
     }
 
-    public default double calculateDistanceUsingAlpha(Double alpha, double h, double d){
+    public static double calculateDistanceUsingAlpha(Double alpha, double h, double d){
         double x = (h-Math.tan(90 - Math.abs(alpha))*d/2.0)/Math.tan(90 - Math.abs(alpha));
         return x;
     }
 
-    public default double calculateDistanceUsingBeta(Double beta, double h, double d){
+    public static double calculateDistanceUsingBeta(Double beta, double h, double d){
         double x = d/2.0 - h*Math.tan(Math.abs(beta));
         return x;
     }
 
-    public default double calculateTheta (double d, Double alpha, Double beta, double h ) {
+    public static double calculateTheta (double d, Double alpha, Double beta, double h ) {
         double c = (Math.sin(90-beta) * d)/Math.sin(Math.abs(alpha) * Math.abs(beta));
         double x = (Math.sin(90 - Math.abs(alpha)) * c);
         double l = (x / Math.tan(90 - Math.abs(alpha)));
@@ -64,7 +64,7 @@ public interface VisionHelpers {
 
     
 
-    public default Pose3d getTagPose(int tagId) {
+    public static Pose3d getTagPose(int tagId) {
         if (LLVisionSubsystem.fieldLayout != null) {
             Optional<Pose3d> tagPose = LLVisionSubsystem.fieldLayout.getTagPose(tagId);
             if (tagPose.isPresent()) {
@@ -81,7 +81,7 @@ public interface VisionHelpers {
      *
      * @return True if the field layout is valid, false otherwise.
      */
-    public default boolean isFieldLayoutValid() {
+    public static boolean isFieldLayoutValid() {
         return LLVisionSubsystem.fieldLayout != null;
     }
 }
