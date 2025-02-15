@@ -5,6 +5,7 @@
 package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ctre.phoenix6.CANBus;
@@ -775,9 +776,9 @@ public final class Constants {
 		}
 	}
 
-	public static final class VisionConstants {
-		public static enum aprilTagCoordinates {
-
+	public static final class VisionHelperConstants {
+		public static class RobotPoseConstants {
+			public static HashMap<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
 		}
 	}
 

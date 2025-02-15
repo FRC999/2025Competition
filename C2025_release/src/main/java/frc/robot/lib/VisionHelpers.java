@@ -9,6 +9,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.subsystems.LLVisionSubsystem;
 import edu.wpi.first.math.geometry.Pose3d;
 
@@ -16,7 +17,7 @@ import edu.wpi.first.math.geometry.Pose3d;
 /** Add your docs here. */
 public class VisionHelpers {
 
-    
+
 
     public static double getDistanceBetweenCenterCameraCoral(Double alpha, Double beta, double h, double d) {
         if(!alpha.isNaN() && beta.isNaN()){
@@ -74,6 +75,25 @@ public class VisionHelpers {
             }
         }
         return null;
+    }
+
+    public static void populateRobotPosesHash() {
+        RobotPoseConstants.visionRobotPoses.put("Coral Station 1", new Pose2d(33.51, 25.80, new Rotation2d(360 - 54)));
+        RobotPoseConstants.visionRobotPoses.put("Coral Station 2", new Pose2d(33.51, 291.20, new Rotation2d(360 - 306)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 1R", new Pose2d(144.0, 158.50, new Rotation2d(360 - 180)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 1L", new Pose2d());
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 2R", new Pose2d(160.39, 186.83, new Rotation2d(360 - 120)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 2L", new Pose2d());
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 3R", new Pose2d(193.10, 186.83, new Rotation2d(360 - 60)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 3L", new Pose2d());
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 4R", new Pose2d(209.49, 158.50, new Rotation2d(360 - 0)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 4L", new Pose2d());
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 5R", new Pose2d(193.10, 130.17, new Rotation2d(360 - 300)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 5L", new Pose2d());
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 6R", new Pose2d(160.39, 130.17, new Rotation2d(360 - 240)));
+        RobotPoseConstants.visionRobotPoses.put("Reef Side 6L", new Pose2d());
+        RobotPoseConstants.visionRobotPoses.put("Barge", new Pose2d(325.68, 241.64, new Rotation2d(360 - 180)));
+        RobotPoseConstants.visionRobotPoses.put("Processor", new Pose2d(455.15, 317.15, new Rotation2d(360 - 270)));
     }
 
     /**
