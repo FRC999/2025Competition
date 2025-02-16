@@ -1,5 +1,7 @@
 package frc.robot.lib;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.opencv.core.Mat;
@@ -91,26 +93,26 @@ public class VisionHelpers {
      * BLUE - CLOCKWISE from it from driver point of view (tags 19 for BLUE)
      */
     public static void createHashMapOfTags() {
-        RobotPoseConstants.visionRobotPoses.put("RedCoralLOW", getTagPose(1).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedCoralHIGH", getTagPose(2).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedReef1", getTagPose(7).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedReef2", getTagPose(8).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedReef3", getTagPose(9).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedReef4", getTagPose(10).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedReef5", getTagPose(11).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedReef6", getTagPose(6).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedBarge",  getTagPose(5).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("RedProcessor",  getTagPose(3).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueCoralLOW", getTagPose(12).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueCoralHIGH", getTagPose(13).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueReef1", getTagPose(18).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueReef2", getTagPose(19).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueReef3", getTagPose(20).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueReef4", getTagPose(21).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueReef5", getTagPose(22).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueReef6", getTagPose(17).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueBarge",  getTagPose(14).toPose2d());
-        RobotPoseConstants.visionRobotPoses.put("BlueProcessor",  getTagPose(16).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedCoralLOW", getTagPose(1).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedCoralHIGH", getTagPose(2).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedReef1", getTagPose(7).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedReef2", getTagPose(8).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedReef3", getTagPose(9).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedReef4", getTagPose(10).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedReef5", getTagPose(11).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedReef6", getTagPose(6).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedBarge",  getTagPose(5).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedProcessor",  getTagPose(3).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluCoralLOW", getTagPose(12).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluCoralHIGH", getTagPose(13).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluReef1", getTagPose(18).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluReef2", getTagPose(19).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluReef3", getTagPose(20).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluReef4", getTagPose(21).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluReef5", getTagPose(22).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluReef6", getTagPose(17).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluBarge",  getTagPose(14).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluProcessor",  getTagPose(16).toPose2d());
     }
 
     /**
@@ -125,14 +127,44 @@ public class VisionHelpers {
     }
 
     public static void addRobotPosesForCoralPlacement() {
-        movePoseXY (
-            RobotPoseConstants.visionRobotPoses.put("RedReef1Left",
-                RobotPoseConstants.visionRobotPoses.get("RedReef1")
-                    .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
+
+        for (String key : RobotPoseConstants.visionRobotPoses.keySet()) { // Fill robot poses
+            if (key.contains("Reef") && key.contains("Tag")) {
+                RobotPoseConstants.visionRobotPoses.put( // e.g. RobotBluReef1Left
+                    "Robot" + key.substring(3,6) + "Reef" + 
+                        key.substring(10,11) + "Left", // Reef Side //RedReef1Left",
+                    movePoseXY( //e.g. RobotRedReef1Left
+                        RobotPoseConstants.visionRobotPoses.get(key)
+                            .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
+                        , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
+                        , VisionHelperConstants.distanceBetweenReefPoles / 2.0 // Move bot to the left
                     )
-            , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE/2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
-            , - VisionHelperConstants.distanceBetweenReefPoles/2.0 // Move bot to the left
-        );
+                );
+                RobotPoseConstants.visionRobotPoses.put( // e.g. RobotBluReef1Left
+                    "Robot" + key.substring(3,6) + "Reef" + 
+                        key.substring(10,11) + "Right", // Reef Side //RedReef1Left",
+                    movePoseXY( //e.g. RobotRedReef1Left
+                        RobotPoseConstants.visionRobotPoses.get(key)
+                            .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
+                        , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
+                        , -VisionHelperConstants.distanceBetweenReefPoles / 2.0 // Move bot to the left
+                    )
+                );
+
+            } else if ( (key.contains("Coral") || key.contains("Processor"))
+                && key.contains("Tag")) {
+                    RobotPoseConstants.visionRobotPoses.put( // e.g. RobotBluReef1Left
+                        "Robot" + key.substring(3),
+                    movePoseXY( //e.g. RobotRedReef1Left
+                        RobotPoseConstants.visionRobotPoses.get(key)
+                            .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
+                        , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
+                        , 0
+                    )
+                );
+            }
+
+        }
   
     }
 
