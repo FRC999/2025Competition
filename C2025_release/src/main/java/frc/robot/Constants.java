@@ -718,7 +718,8 @@ public final class Constants {
 			public static final double THROUGHBORE_ENCODER_ZERO_OFFSET = 0.4;
 
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup as throughbore numbers
-				CoralIntake(0.0),    
+				CoralIntake(0.0),
+				CoralCruise(0.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
 				ReefLevelOne(0.0),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
