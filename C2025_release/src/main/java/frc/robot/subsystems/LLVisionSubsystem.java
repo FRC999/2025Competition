@@ -25,7 +25,7 @@ public class LLVisionSubsystem extends SubsystemBase {
   public void initialize() {
     try {
       // Load the built-in AprilTag field layout for the current game
-      fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+      fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark); //TODO: May need to change field type before the competition
     } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTag field layout: " + e.getMessage(), true);
       fieldLayout = null;

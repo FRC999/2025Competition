@@ -777,6 +777,8 @@ public final class Constants {
 	}
 
 	public static final class VisionHelperConstants {
+		public static final double distanceBetweenReefPoles = Units.inchesToMeters(12.94); // page 162 https://firstfrc.blob.core.windows.net/frc2025/FieldAssets/2025FieldDrawings.pdf
+		public static final double bumperWidth = Units.inchesToMeters(2.5);
 		public static class RobotPoseConstants {
 			public static HashMap<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
 		}
