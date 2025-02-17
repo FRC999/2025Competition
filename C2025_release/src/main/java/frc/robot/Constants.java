@@ -775,8 +775,8 @@ public final class Constants {
 		}
 	}
 
-	public static final class VisionConstants {
-		public static enum aprilTagCoordinates {
+	public static final class VisionHelperConstants {
+		public static enum RobotPoseConstants {
 
 		}
 	}
