@@ -99,8 +99,6 @@ public class RobotContainer {
     driveStick1 = new Joystick(0); //TODO: ONLY FOR TESTING; MUST BE COMMENTED FOR COMP
     xboxDriveController = new Controller(ControllerDevice.XBOX_CONTROLLER);
     xboxGPMController = new Controller(ControllerDevice.XBOX_CONTROLLER_GPM);
-    
-    driveStick1 = new Joystick(0);
   }
 
     // Alliance color determination
