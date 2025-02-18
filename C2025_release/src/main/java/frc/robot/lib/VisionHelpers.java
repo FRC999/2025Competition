@@ -1,8 +1,11 @@
 package frc.robot.lib;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import javax.print.DocFlavor.STRING;
 
 import org.opencv.core.Mat;
 
@@ -12,6 +15,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Robot;
 import frc.robot.Constants.VisionHelperConstants;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
@@ -128,7 +132,12 @@ public class VisionHelpers {
 
     public static void addRobotPosesForCoralPlacement() {
 
-        for (String key : RobotPoseConstants.visionRobotPoses.keySet()) { // Fill robot poses
+
+        List<String> keys = new ArrayList<>();
+        for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
+            keys.add(k);
+        }
+        for (String key : keys) { // Fill robot poses
             if (key.contains("Reef") && key.contains("Tag")) {
                 RobotPoseConstants.visionRobotPoses.put( // e.g. RobotBluReef1Left
                     "Robot" + key.substring(3,6) + "Reef" + 
@@ -165,7 +174,7 @@ public class VisionHelpers {
             }
 
         }
-  
+        System.out.println(RobotPoseConstants.visionRobotPoses);
     }
 
     /**
