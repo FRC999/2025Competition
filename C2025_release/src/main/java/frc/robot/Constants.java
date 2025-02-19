@@ -49,10 +49,10 @@ public final class Constants {
 	}
 
 	public static final class EnabledSubsystems {
-		public static final boolean arm = true;
+		public static final boolean arm = false;
 		public static final boolean climber = false;
 		public static final boolean elevator = false;
-		public static final boolean intake = true;
+		public static final boolean intake = false;
 		public static final boolean chasis = false;
 		public static final boolean reef = false;
 		public static final boolean ll = true;
@@ -62,8 +62,8 @@ public final class Constants {
 		
 		public static final boolean odometry = false;
 		public static final boolean imu = false;
-		public static final boolean arm = true;
-		public static final boolean intake = true;
+		public static final boolean arm = false;
+		public static final boolean intake = false;
 		public static final boolean elevator = false;
 		public static final boolean climber = false;
 		public static final boolean chasis = false;
@@ -781,7 +781,7 @@ public final class Constants {
 		public static final double distanceBetweenReefPoles = Units.inchesToMeters(12.94); // page 162 https://firstfrc.blob.core.windows.net/frc2025/FieldAssets/2025FieldDrawings.pdf
 		public static final double bumperWidth = Units.inchesToMeters(2.5);
 		public static class RobotPoseConstants {
-			public static HashMap<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
+			public static Map<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
 		}
 	}
 

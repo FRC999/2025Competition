@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.EnabledSubsystems;
+import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -21,9 +22,7 @@ public class LLVisionSubsystem extends SubsystemBase {
     if(!EnabledSubsystems.ll){
       return;
     }
-  }
 
-  public void initialize() {
     try {
       // Load the built-in AprilTag field layout for the current game
       fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark); //TODO: May need to change field type before the competition
@@ -41,6 +40,15 @@ public class LLVisionSubsystem extends SubsystemBase {
     return null;
   }
 
+  public Pose2d getKnownPose(String poseName) {
+    //System.out.println(RobotPoseConstants.visionRobotPoses.keySet());
+    if(RobotPoseConstants.visionRobotPoses.containsKey(poseName)){
+      return RobotPoseConstants.visionRobotPoses.get(poseName);
+    } else {
+      return null; 
+    }
+  }
+
   public boolean isAprilTagVisible(String cameraName) {
     return LimelightHelpers.getTV(cameraName); 
   }
@@ -56,11 +64,11 @@ public class LLVisionSubsystem extends SubsystemBase {
       int tagId = 1;
       Pose3d tagPose = fieldLayout.getTagPose(tagId).orElse(null);
 
-      if (tagPose != null) {
-          System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
-      } else {
-          System.out.println("AprilTag " + tagId + " not found in the field layout.");
-      }
+      // if (tagPose != null) {
+      //     System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
+      // } else {
+      //     System.out.println("AprilTag " + tagId + " not found in the field layout.");
+      // }
     }
   }
 }

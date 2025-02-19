@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
+import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmRunWithSpeed;
@@ -35,8 +36,12 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.print.attribute.standard.JobHoldUntil;
 
@@ -67,6 +72,7 @@ public class RobotContainer {
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static final ArmSubsystem armSubsystem = new ArmSubsystem();
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
+  public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
@@ -155,7 +161,8 @@ public class RobotContainer {
     // testTurn();
     // setYaws();
     //testIntake();
-    testArm(); 
+   // testArm(); 
+   testVisionCoordoinates();
   }
 
   public void setYaws() {
@@ -268,6 +275,20 @@ public class RobotContainer {
     new JoystickButton(driveStick1, 1)
        .onTrue(new CalibrateChassisAngularDeadband())
        .onFalse(new StopRobot());
+  }
+
+  public void testVisionCoordoinates() {
+    System.out.println("****Poses:  ");
+    // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
+    // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Right"));
+    
+      List<String> keys = new ArrayList<>();
+        for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
+            keys.add(k);
+        }
+        for (String key : keys) { 
+          System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
+        }
   }
 
   /**
