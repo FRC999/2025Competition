@@ -79,7 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     elevatorMotorLeader.setSafetyEnabled(false);
 
     TalonFXConfiguration pidConfig = new TalonFXConfiguration();
-    configurePositionDutyCycle(pidConfig);
+    configureMotionMagicDutyCycle(pidConfig);
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
@@ -171,7 +171,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public void setElevatorPositionWithHeight(ElevatorHeights height) { 
-    setPositionDutyCycle(zeroPosition+height.getHeight());
+    setMotionMagicDutyCycle(zeroPosition+height.getHeight());
   }
 
   public void runElevator(double speed) {

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.EnabledSubsystems;
+import frc.robot.lib.VisionHelpers;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -25,11 +26,14 @@ public class LLVisionSubsystem extends SubsystemBase {
   public void initialize() {
     try {
       // Load the built-in AprilTag field layout for the current game
-      fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+      fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark); //TODO: May need to change field type before the competition
     } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTag field layout: " + e.getMessage(), true);
       fieldLayout = null;
     }
+
+    VisionHelpers.createHashMapOfTags(); // load Pose2d of all apriltags
+    VisionHelpers.addRobotPosesForCoralPlacement(); // load Pose2d of robot to place/pickup elements
 
   }
 

@@ -41,6 +41,7 @@ import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeMotorConstantsEnum
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakePIDConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
 import frc.robot.Constants.SwerveConstants.Intake;
+import frc.robot.RobotContainer;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -177,6 +178,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public double getOutputCurrent() {
     return intakeMotor.getOutputCurrent();
+  }
+
+  public boolean isAlgaeHeld() {
+    return getOutputCurrent() >= IntakeConstants.algaeStallCurrent;
   }
 
   @Override

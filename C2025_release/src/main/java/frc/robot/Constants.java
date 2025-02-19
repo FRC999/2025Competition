@@ -5,6 +5,7 @@
 package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ctre.phoenix6.CANBus;
@@ -717,7 +718,8 @@ public final class Constants {
 			public static final double THROUGHBORE_ENCODER_ZERO_OFFSET = 0.4;
 
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup as throughbore numbers
-				CoralIntake(0.0),    
+				CoralIntake(0.0),
+				CoralCruise(0.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
 				ReefLevelOne(0.0),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
@@ -776,8 +778,10 @@ public final class Constants {
 	}
 
 	public static final class VisionHelperConstants {
-		public static enum RobotPoseConstants {
-
+		public static final double distanceBetweenReefPoles = Units.inchesToMeters(12.94); // page 162 https://firstfrc.blob.core.windows.net/frc2025/FieldAssets/2025FieldDrawings.pdf
+		public static final double bumperWidth = Units.inchesToMeters(2.5);
+		public static class RobotPoseConstants {
+			public static HashMap<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
 		}
 	}
 
