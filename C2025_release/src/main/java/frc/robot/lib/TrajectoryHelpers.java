@@ -1,7 +1,12 @@
 package frc.robot.lib;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.PathPoint;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -78,5 +83,36 @@ public class TrajectoryHelpers {
             , traj.getGoalEndState()
              );
     }
+
+    /**
+     * This mehthod will change a trajectory to the one relative to the different starting pose2d.
+     * Example - trajectory goes from 1,1,0 to 2,1,0 (meaning forward 1m, no change in heading)
+     * Start pose is 4,5,90 (meaning pointing up)
+     * So the trajectory will be redone going from 4,5,90 to 4,6,90 (meaning - going 1m forward from robot point of view)
+     * @param traj
+     * @param pose
+     * @return
+     */
+    // public static PathPlannerPath changeTrajectoryWithDifferentStartingPose(PathPlannerPath traj, Pose2d pose) {
+        
+    //     // Get properties of the current trajectory, so it can be recontrsucted
+    //     List<Pose2d> plist = traj.getPathPoses();
+    //     PathConstraints pc = traj.getGlobalConstraints();
+    //     GoalEndState ges = traj.getGoalEndState();
+
+    //     List<Pose2d> olist = new ArrayList<>();
+    //     Pose2d initialPose;
+    //     int count = 0;
+        // if (plist.size() > 0) {
+        //     initialPose = traj.getStartingHolonomicPose().get();
+        //     for (PathPoint p : plist) {
+        //         if (count++ > 0) {
+
+        //         }
+        //     }
+        // } else { // no poses, do not modufy
+        //     return traj;
+        // }
+    // }
 
 }
