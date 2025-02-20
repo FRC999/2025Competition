@@ -117,6 +117,8 @@ public class VisionHelpers {
         RobotPoseConstants.visionRobotPoses.put("TagBluReef6", getTagPose(17).toPose2d());
         RobotPoseConstants.visionRobotPoses.put("TagBluBarge",  getTagPose(14).toPose2d());
         RobotPoseConstants.visionRobotPoses.put("TagBluProcessor",  getTagPose(16).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagBluBargeByProcessor",  getTagPose(15).toPose2d());
+        RobotPoseConstants.visionRobotPoses.put("TagRedBargeByProcessor",  getTagPose(4).toPose2d());
     }
 
     /**
