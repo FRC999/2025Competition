@@ -11,30 +11,30 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoRed24PointsLeft extends SequentialCommandGroup {
-  /** Creates a new AutoRed24PointsLeft. */
-  public AutoRed24PointsLeft() {
+public class AutoBlu24PointsLeft extends SequentialCommandGroup {
+  /** Creates a new AutoBlu24PointsLeft. */
+  public AutoBlu24PointsLeft() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     try {
       addCommands(
-          new RunTrajectorySequenceRobotAtStartPoint("Red-BargetoReef11"),
+          new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef11"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
           new IntakeCoralOutCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-Reef11toCoralBottom"),
+          new RunTrajectorySequenceRobotAtStartPoint("Blu-Reef11ToCoralTop"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.CoralIntake, ArmPositions.CoralIntake),
           new IntakeCoralCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-CoralBottomtoReef10"),
+          new RunTrajectorySequenceRobotAtStartPoint("Blu-CoralTopToReef9"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
           new IntakeCoralOutCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-Reef10toCoralBottom"),
+          new RunTrajectorySequenceRobotAtStartPoint("Blu-Reef9toCoralTop"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.CoralIntake, ArmPositions.CoralIntake),
           new IntakeCoralCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-CoralBottomToReef9"),
+          new RunTrajectorySequenceRobotAtStartPoint("Blu-CoralTopToReef10"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
           new IntakeCoralOutCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise)
