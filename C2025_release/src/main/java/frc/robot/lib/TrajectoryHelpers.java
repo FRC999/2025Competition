@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.IdealStartingState;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.PathPoint;
@@ -89,30 +90,53 @@ public class TrajectoryHelpers {
      * Example - trajectory goes from 1,1,0 to 2,1,0 (meaning forward 1m, no change in heading)
      * Start pose is 4,5,90 (meaning pointing up)
      * So the trajectory will be redone going from 4,5,90 to 4,6,90 (meaning - going 1m forward from robot point of view)
-     * @param traj
-     * @param pose
+     * @param traj - Trajectory that needs to be modified
+     * @param pose - Starting Pose
      * @return
      */
-    // public static PathPlannerPath changeTrajectoryWithDifferentStartingPose(PathPlannerPath traj, Pose2d pose) {
+    public static PathPlannerPath changeTrajectoryWithDifferentStartingPose(PathPlannerPath traj, Pose2d pose) {
         
-    //     // Get properties of the current trajectory, so it can be recontrsucted
-    //     List<Pose2d> plist = traj.getPathPoses();
-    //     PathConstraints pc = traj.getGlobalConstraints();
-    //     GoalEndState ges = traj.getGoalEndState();
+        // Get properties of the current trajectory, so it can be recontrsucted
+        List<Pose2d> plist = traj.getPathPoses();
+        PathConstraints pc = traj.getGlobalConstraints();
+        IdealStartingState istate = traj.getIdealStartingState();
+        GoalEndState ges = traj.getGoalEndState();
 
-    //     List<Pose2d> olist = new ArrayList<>();
-    //     Pose2d initialPose;
-    //     int count = 0;
-        // if (plist.size() > 0) {
-        //     initialPose = traj.getStartingHolonomicPose().get();
-        //     for (PathPoint p : plist) {
-        //         if (count++ > 0) {
+        List<Pose2d> olist = new ArrayList<>();
+        
+        olist.add(pose); // First pose in the new trajectory is the starting pose
 
-        //         }
-        //     }
-        // } else { // no poses, do not modufy
-        //     return traj;
-        // }
-    // }
+        Pose2d initialPose = traj.getStartingHolonomicPose().get(); // All subsequent poses need to be transforms in relaton to the initial pose
+
+        int count = 0;
+        
+        for (Pose2d p : plist) {
+            if (count++ > 0) { // The initial pose must be skipped
+                /**
+                 * p.minus(initialPose) is a difference between current trajectory pose and the initial one
+                 * So, we add that difference to the robot pose to get the next transformed pose of the trajectory
+                 */
+                olist.add
+                    (pose.transformBy( 
+                        p.minus(initialPose)
+                    )
+                );
+            }
+        }
+
+        return new PathPlannerPath(
+            PathPlannerPath.waypointsFromPoses(olist ),
+            pc,
+            new IdealStartingState(
+                istate.velocity(),
+                istate.rotation().plus(pose.getRotation().minus(initialPose.getRotation()))
+            ),
+            new GoalEndState(
+                ges.velocityMPS(),
+                ges.rotation().plus(pose.getRotation().minus(initialPose.getRotation()))
+            )
+        );
+
+    }
 
 }
