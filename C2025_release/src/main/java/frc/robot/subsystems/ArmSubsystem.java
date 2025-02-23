@@ -241,10 +241,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void setArmPositionWithAngle(ArmPositions angle) { 
-    setPositionDutyCycle(armKrakenEncoderZero + angle.getPosition());
+    setMotionMagicDutyCycle(armKrakenEncoderZero + angle.getPosition());
   }
 
   public boolean isAtPosition(ArmPositions position){
+    System.out.println("ME: " + getKrakenMotorEncoder() + " P: " + position.getPosition());
     return Math.abs(position.getPosition() - getKrakenMotorEncoder())<=ArmPIDConstants.tolerance;
   }
 

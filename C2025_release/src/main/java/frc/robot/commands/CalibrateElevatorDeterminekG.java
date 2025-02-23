@@ -25,7 +25,7 @@ public class CalibrateElevatorDeterminekG extends Command {
     System.out.println("**** Calibrating Elevator ...");
     System.out.println("Start time: " + LocalTime.now());
     double elevatorPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(elevatorPower*0.1);
+    RobotContainer.elevatorSubsystem.runElevatorWithDutyCycle(elevatorPower*0.1);
     
   }
 
@@ -33,14 +33,14 @@ public class CalibrateElevatorDeterminekG extends Command {
   @Override
   public void execute() {
     double elevatorPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(elevatorPower*0.1);
-    SmartDashboard.putNumber("Calibration - Elevator Power", elevatorPower*0.1);
+    RobotContainer.elevatorSubsystem.runElevatorWithDutyCycle(elevatorPower*0.4);
+    SmartDashboard.putNumber("Calibration - Elevator Power", elevatorPower*0.4);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.elevatorSubsystem.runElevator(0);
+    RobotContainer.elevatorSubsystem.stopElevatorAndHold();
     System.out.println("End time: " + LocalTime.now());
   }
 

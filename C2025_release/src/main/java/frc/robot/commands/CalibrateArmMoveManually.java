@@ -31,7 +31,7 @@ public class CalibrateArmMoveManually extends Command {
   @Override
   public void execute() {
     double armPower = RobotContainer.driveStick1.getRawAxis(OIConstants.CALIBRATION_JOYSTICK_SLIDER_AXLE);
-    RobotContainer.elevatorSubsystem.runElevator(armPower*0.5);
+    RobotContainer.elevatorSubsystem.runElevatorWithDutyCycle(armPower*0.5);
     SmartDashboard.putNumber("Calibration - Arm Power", armPower*0.5);
   }
 

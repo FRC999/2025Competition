@@ -97,7 +97,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
 
-    if (ElevatorConstants.IS_LIMIT_SWITCH_PRESSED) {
+    if (ElevatorConstants.IS_LIMIT_SWITCH_PRESENT) {
       try {
         limitSwitch = new DigitalInput(ElevatorConstants.ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER);
         System.out.println("*** Elvator Down Limit Switch initialized");
@@ -184,7 +184,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
 
   public boolean isLimitSwitchPressed() {
-      return limitSwitch.get();
+    return (limitSwitch.get());
   }
 
   private void setZeroPosition() {
@@ -195,8 +195,12 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     setMotionMagicDutyCycle(zeroPosition+height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation);
   }
 
-  public void runElevator(double speed) {
+  public void runElevatorWithDutyCycle(double speed) {
     elevatorMotorLeader.set(speed);
+  }
+
+  public void runElevatorWithVoltage(double input) {
+    elevatorMotorLeader.setVoltage(input*12);
   }
 
   public void stopElevator() {
@@ -204,17 +208,21 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     elevatorMotorFollower.setControl(new DutyCycleOut(0));
   }
 
+  public void stopElevatorAndHold() {
+    elevatorMotorLeader.setControl(new DutyCycleOut(ElevatorConstants.holdingDutyCycleConstant));
+  }
+
   public boolean isAtHeight(ElevatorHeights height){
     return Math.abs(height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
   }
 
-  public double elevatorHeightChassisSpeedAdjustmentCoefficient() {
+  public double elevatorHeightChassisSpeedAdjustmentCoefficient() { //TODO: change not to convert into meters 
     double coefficient = 0.0;
 
     if (getElevatorHeight() <= ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight()) {
       coefficient = 1.0;
     } else {
-      coefficient = 1 - ((getElevatorHeight() - ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight())
+      coefficient = 1 - ((getElevatorHeight() - ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight()) 
           / (ElevatorHeights.MaxHeight.getHeight() - ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight()))
           * 0.5;
     }

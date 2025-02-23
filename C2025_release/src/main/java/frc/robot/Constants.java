@@ -52,7 +52,7 @@ public final class Constants {
 		public static final boolean arm = true;
 		public static final boolean climber = false;
 		public static final boolean elevator = true;
-		public static final boolean intake = false;
+		public static final boolean intake = true;
 		public static final boolean chasis = true;
 		public static final boolean reef = false;
 		public static final boolean ll = false;
@@ -63,7 +63,7 @@ public final class Constants {
 		public static final boolean odometry = false;
 		public static final boolean imu = false;
 		public static final boolean arm = true;
-		public static final boolean intake = false;
+		public static final boolean intake = true;
 		public static final boolean elevator = true;
 		public static final boolean climber = false;
 		public static final boolean chasis = true;
@@ -598,11 +598,11 @@ public final class Constants {
 			public static final class IntakeCoralCANRangeConstants{
 				public static final int intakeCANRangeID = 60; 
 				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 10.0;
+				public static final double newUpdateFrequency = 5.0;
 				public static final double maxDistanceToTarget = 0.015;
 				public static final double minDistanceToTarget = 0.005;
-				public static final double intakeFOVRangeX = 27;
-				public static final double intakeFOVRangeY = 27;
+				public static final double intakeFOVRangeX = 10;
+				public static final double intakeFOVRangeY = 10;
 			}
 			
 		}
@@ -636,7 +636,8 @@ public final class Constants {
 			public static final int FOLLOWERMOTOR_CAN_ID = 10; 
 			public static final boolean ELEVATOR_MOTOR_INVERTED = true; 
 			public static final int ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 0;  
-			public static final boolean IS_LIMIT_SWITCH_PRESSED = false; 
+			public static final boolean IS_LIMIT_SWITCH_PRESENT = true; 
+			public static final double holdingDutyCycleConstant = 0.046;
 
 			public static class ElevatorPIDConstants {
 				public static class PositionDutyCycleConstants {
@@ -690,13 +691,13 @@ public final class Constants {
 			public static final double THROUGHBORE_ENCODER_ZERO_OFFSET = 0.4;
 
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup as throughbore numbers
-				CoralIntake(0.0),
+				CoralIntake(-1.8),
 				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
-				ReefLevelOne(0.0),   //TODO: Needs values from robot
+				ReefLevelOne(-0.3),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
-				ReefLevelFour(0.0),  //TODO: Needs values from robot
+				ReefLevelFour(5.0),  //TODO: Needs values from robot
 				Barge((1-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),
 				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
 				private double armPositionForGamepiecePlacement;
@@ -724,12 +725,12 @@ public final class Constants {
 
 				public static class MotionMagicDutyCycleConstants {
 					public static final int slot = 0;
-					public static final double arm_kP = 0.64;
+					public static final double arm_kP = 0.64; //0.64
 					public static final double arm_kI = 0.0;
 					public static final double arm_kD = 0.0;
-					public static final double MotionMagicCruiseVelocity = 75.0;
-					public static final double motionMagicAcceleration = 150.0;
-					public static final double motionMagicJerk = 1500.0;
+					public static final double MotionMagicCruiseVelocity = 50.0; //75.0
+					public static final double motionMagicAcceleration = 100.0; //150.0
+					public static final double motionMagicJerk = 1000.0; //1500.0
 				}
 
 				public static class MotionMagicVoltageConstants {
@@ -744,7 +745,7 @@ public final class Constants {
 					public static final double motionMagicJerk = 1000.0;
 				}
 
-				public static final double tolerance = 1.0;
+				public static final double tolerance = 3.0;
 			}
 		}
 	}

@@ -21,6 +21,7 @@ import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
 import frc.robot.commands.IntakeAlgaeInCommand;
 import frc.robot.commands.IntakeAlgaeOutSequence;
+import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
@@ -28,6 +29,7 @@ import frc.robot.commands.StartClimberWithSpeed;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
+import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
 import frc.robot.commands.TestArmToPosition;
@@ -161,8 +163,8 @@ public class RobotContainer {
 
     // testTurn();
     // setYaws();
-    //testIntake();
-    //testArm(); 
+    testIntake();
+    testArm(); 
    //testVisionCoordoinates();
     calibrateElevator(); 
    
@@ -197,7 +199,7 @@ public class RobotContainer {
     //   .onFalse(new StopArm());
 
     new JoystickButton(xboxDriveController, 1)
-      .onTrue(new TestArmToPosition(10.0))
+      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.ReefLevelFour))
       .onFalse(new StopArm());
 
     new JoystickButton(xboxDriveController, 2)
@@ -205,7 +207,7 @@ public class RobotContainer {
       .onFalse(new StopArm());
 
     new JoystickButton(xboxDriveController, 3)
-      .onTrue(new TestArmToPosition(1))
+      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake))
       .onFalse(new StopArm());
 
     new JoystickButton(xboxDriveController, 4)
@@ -229,7 +231,10 @@ public class RobotContainer {
   public void calibrateElevator() {
     new JoystickButton(driveStick1, 1)
     .onTrue(new CalibrateElevatorDeterminekG())
-    .onFalse(new StopElevator());
+    .onFalse(new StopElevatorAndHold());
+
+    new JoystickButton(driveStick1, 2)
+    .onTrue(new StopElevator());
   }
 
   public void calibrateArm() {
@@ -254,29 +259,31 @@ public class RobotContainer {
   }
 
   public void testIntake() {
-    new JoystickButton(xboxDriveController, 1)
+    new JoystickButton(xboxDriveController, 5)
     .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(0.5),intakeSubsystem))
     .onFalse(new StopIntake());
 
-    new JoystickButton(xboxDriveController, 2)
-    .onTrue(new IntakeCoralCommand(0.2))
-    .onFalse(new StopIntake());
-
-    new JoystickButton(xboxDriveController, 3)
-    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.5),intakeSubsystem))
-    .onFalse(new StopIntake());
-
-    new JoystickButton(xboxDriveController, 4)
-    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(1.0),intakeSubsystem))
-    .onFalse(new StopIntake());
-
-    new JoystickButton(xboxDriveController, 5)
-    .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.2),intakeSubsystem))
-    .onFalse(new StopIntake());
-
     new JoystickButton(xboxDriveController, 6)
-      .onTrue(new IntakeAlgaeInCommand())
-      .onFalse(new IntakeAlgaeOutSequence());
+    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
+
+    new JoystickButton(driveStick1, 11)
+    .onTrue(new StopArm());
+
+    // new JoystickButton(xboxDriveController, 3)
+    // .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.5),intakeSubsystem))
+    // .onFalse(new StopIntake());
+
+    // new JoystickButton(xboxDriveController, 4)
+    // .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(1.0),intakeSubsystem))
+    // .onFalse(new StopIntake());
+
+    // new JoystickButton(xboxDriveController, 5)
+    // .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.2),intakeSubsystem))
+    // .onFalse(new StopIntake());
+
+    // new JoystickButton(xboxDriveController, 6)
+    //   .onTrue(new IntakeAlgaeInCommand())
+    //   .onFalse(new IntakeAlgaeOutSequence());
   }
 
   public void calibrateChassisDeadband() {
