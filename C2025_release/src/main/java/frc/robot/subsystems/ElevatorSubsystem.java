@@ -59,17 +59,6 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     configureElevatorMotors();
   }
 
-  public void initializeLimitSwitch() {
-    if (ElevatorConstants.elevator_Limit_Switch_isPresent) {
-      try {
-        limitSwitch = new DigitalInput(ElevatorConstants.elevator_Limit_Switch_port);
-        System.out.println("*** Intake Down Limit Switch initialized");
-      } catch (Exception e) {
-        System.out.println("Unable to get intake down limit switch value");
-      }
-    }
-  }
-
 
   public void configureElevatorMotors() {
     elevatorMotorLeader.getConfigurator().apply(new TalonFXConfiguration()); // reset the motor to defaults
@@ -106,6 +95,15 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     }
     if (!status.isOK()) {
       System.out.println("Could not apply configs, error code: " + status.toString());
+    }
+
+    if (ElevatorConstants.IS_LIMIT_SWITCH_PRESSED) {
+      try {
+        limitSwitch = new DigitalInput(ElevatorConstants.ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER);
+        System.out.println("*** Elvator Down Limit Switch initialized");
+      } catch (Exception e) {
+        System.out.println("Unable to get elevator down limit switch value");
+      }
     }
 
     elevatorMotorFollower.setControl(new Follower(ElevatorConstants.LEADERMOTOR_CAN_ID, false));
