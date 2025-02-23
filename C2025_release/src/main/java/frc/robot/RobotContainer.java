@@ -65,7 +65,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  public static final DriveSubsystem driveSubsystem = null;// = new DriveSubsystem();
+  public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
   public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
@@ -90,11 +90,11 @@ public class RobotContainer {
     //calibrateElevator();
     //calibrateArm();
 
-    // driveSubsystem.setDefaultCommand(
-    //   new DriveManuallyCommand(
-    //       () -> getDriverXAxis(),
-    //       () -> getDriverYAxis(),
-    //       () -> getDriverOmegaAxis()));
+    driveSubsystem.setDefaultCommand(
+      new DriveManuallyCommand(
+          () -> getDriverXAxis(),
+          () -> getDriverYAxis(),
+          () -> getDriverOmegaAxis()));
 
     if (EnabledSubsystems.arm) {
       armSubsystem.calibrateZeroArmPosition();
@@ -162,7 +162,7 @@ public class RobotContainer {
     // setYaws();
     //testIntake();
    // testArm(); 
-   testVisionCoordoinates();
+   //testVisionCoordoinates();
   }
 
   public void setYaws() {
