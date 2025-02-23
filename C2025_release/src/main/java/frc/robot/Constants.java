@@ -610,13 +610,16 @@ public final class Constants {
 
 			public static enum ElevatorHeights{ // meters off the ground for the piece placement
 				Down(0.0),
-				AlgaeIntake(0.0),
+				AlgaeIntakeDown(0.0),
+				AlgaeIntakeMid(0.0),
+				AlgaeIntakeUp(0.0),
 				ReefLevelOne(0.0),
 				ReefLevelTwo(0.0),
 				ReefLevelThree(0.0),
 				ReefLevelFour(0.0),
 				Barge(0.0),
-				Processor(0.0);
+				Processor(0.0),
+				CoralIntake(0.0);
 				private double elevatorHeightForGamepiecePlacement;
 				ElevatorHeights(double height) {
 				  this.elevatorHeightForGamepiecePlacement = height;
