@@ -199,6 +199,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   public void stopElevator() {
     elevatorMotorLeader.setControl(new DutyCycleOut(0));
+    elevatorMotorFollower.setControl(new DutyCycleOut(0));
   }
 
   public boolean isAtHeight(ElevatorHeights height){

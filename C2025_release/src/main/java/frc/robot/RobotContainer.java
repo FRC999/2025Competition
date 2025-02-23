@@ -162,8 +162,9 @@ public class RobotContainer {
     // testTurn();
     // setYaws();
     //testIntake();
-    testArm(); 
+    //testArm(); 
    //testVisionCoordoinates();
+    calibrateElevator(); 
    
   }
 
