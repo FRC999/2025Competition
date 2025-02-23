@@ -621,7 +621,8 @@ public final class Constants {
 				Barge(0.0),
 				Processor(0.0),
 				CoralIntake(0.0),
-				MinimumHeight(1.0);
+				MinimumChassisSpeedReductionHeight(1.0),
+				MaxHeight(0.0);
 				private double elevatorHeightForGamepiecePlacement;
 				ElevatorHeights(double height) {
 				  this.elevatorHeightForGamepiecePlacement = height;
