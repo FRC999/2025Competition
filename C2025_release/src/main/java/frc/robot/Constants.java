@@ -634,7 +634,7 @@ public final class Constants {
 			public static final int LEADERMOTOR_CAN_ID = 11; 
 			public static final int FOLLOWERMOTOR_CAN_ID = 10; 
 			public static final boolean ELEVATOR_MOTOR_INVERTED = true; 
-			public static final int ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 8;  
+			public static final int ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 0;  
 			public static final boolean IS_LIMIT_SWITCH_PRESSED = false; 
 
 			public static class ElevatorPIDConstants {
