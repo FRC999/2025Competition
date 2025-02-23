@@ -9,6 +9,7 @@ import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
@@ -161,8 +162,9 @@ public class RobotContainer {
     // testTurn();
     // setYaws();
     //testIntake();
-   // testArm(); 
+    testArm(); 
    //testVisionCoordoinates();
+   
   }
 
   public void setYaws() {
@@ -194,11 +196,19 @@ public class RobotContainer {
     //   .onFalse(new StopArm());
 
     new JoystickButton(xboxDriveController, 1)
-    .onTrue(new TestArmToPosition(10.0))
-    .onFalse(new StopArm());
+      .onTrue(new TestArmToPosition(10.0))
+      .onFalse(new StopArm());
 
     new JoystickButton(xboxDriveController, 2)
-    .onTrue(new TestArmToPosition(0))
+      .onTrue(new TestArmToPosition(0))
+      .onFalse(new StopArm());
+
+    new JoystickButton(xboxDriveController, 3)
+      .onTrue(new TestArmToPosition(1))
+      .onFalse(new StopArm());
+
+    new JoystickButton(xboxDriveController, 4)
+    .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise))
     .onFalse(new StopArm());
   }
 
