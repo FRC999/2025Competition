@@ -607,6 +607,7 @@ public final class Constants {
 			
 		}
 		public static final class ElevatorConstants {
+			public static final double elevatorMotorMetersPerRotation = 1.0;
 
 			public static enum ElevatorHeights{ // meters off the ground for the piece placement
 				Down(0.0),
@@ -619,7 +620,8 @@ public final class Constants {
 				ReefLevelFour(0.0),
 				Barge(0.0),
 				Processor(0.0),
-				CoralIntake(0.0);
+				CoralIntake(0.0),
+				MinimumHeight(1.0);
 				private double elevatorHeightForGamepiecePlacement;
 				ElevatorHeights(double height) {
 				  this.elevatorHeightForGamepiecePlacement = height;

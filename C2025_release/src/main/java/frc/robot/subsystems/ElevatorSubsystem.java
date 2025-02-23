@@ -190,7 +190,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public void setElevatorPositionWithHeight(ElevatorHeights height) { 
-    setMotionMagicDutyCycle(zeroPosition+height.getHeight());
+    setMotionMagicDutyCycle(zeroPosition+height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation);
   }
 
   public void runElevator(double speed) {
@@ -203,7 +203,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public boolean isAtHeight(ElevatorHeights height){
-    return Math.abs(height.getHeight() - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
+    return Math.abs(height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
   }
 
   @Override
