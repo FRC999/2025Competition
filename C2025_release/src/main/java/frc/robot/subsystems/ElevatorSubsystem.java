@@ -178,6 +178,10 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     return elevatorMotorLeader.getRotorPosition().getValueAsDouble();
   }
 
+  public double getElevatorHeight() {
+    return elevatorMotorLeader.getRotorPosition().getValueAsDouble() * ElevatorConstants.elevatorMotorMetersPerRotation;
+  }
+
 
   public boolean isLimitSwitchPressed() {
       return limitSwitch.get();
@@ -202,6 +206,20 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   public boolean isAtHeight(ElevatorHeights height){
     return Math.abs(height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
+  }
+
+  public double elevatorHeightChassisSpeedAdjustmentCoefficient() {
+    double coefficient = 0.0;
+
+    if (getElevatorHeight() <= ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight()) {
+      coefficient = 1.0;
+    } else {
+      coefficient = 1 - ((getElevatorHeight() - ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight())
+          / (ElevatorHeights.MaxHeight.getHeight() - ElevatorHeights.MinimumChassisSpeedReductionHeight.getHeight()))
+          * 0.5;
+    }
+
+    return coefficient;
   }
 
   @Override
