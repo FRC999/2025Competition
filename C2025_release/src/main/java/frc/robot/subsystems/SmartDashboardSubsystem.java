@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.DebugTelemetrySubsystems;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -44,6 +45,9 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
   public void updateElevatorTelemetry() {
     SmartDashboard.putNumber("Elevator Motor Encoder Value", RobotContainer.elevatorSubsystem.getMotorEncoder());
+    if (Constants.GPMConstants.ElevatorConstants.IS_LIMIT_SWITCH_PRESSED) {
+      SmartDashboard.putBoolean("Elevator Down : ", RobotContainer.elevatorSubsystem.isLimitSwitchPressed());
+    }
   }
 
   public void updateClimberTelemetry() {

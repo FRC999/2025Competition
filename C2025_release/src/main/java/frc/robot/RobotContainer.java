@@ -227,7 +227,7 @@ public class RobotContainer {
 
 
   public void calibrateElevator() {
-    new JoystickButton(xboxDriveController, 1)
+    new JoystickButton(driveStick1, 1)
     .onTrue(new CalibrateElevatorDeterminekG())
     .onFalse(new StopElevator());
   }
