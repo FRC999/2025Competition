@@ -49,24 +49,24 @@ public final class Constants {
 	}
 
 	public static final class EnabledSubsystems {
-		public static final boolean arm = false;
+		public static final boolean arm = true;
 		public static final boolean climber = false;
-		public static final boolean elevator = false;
+		public static final boolean elevator = true;
 		public static final boolean intake = false;
-		public static final boolean chasis = false;
+		public static final boolean chasis = true;
 		public static final boolean reef = false;
-		public static final boolean ll = true;
+		public static final boolean ll = false;
 	}
 
 	public static final class DebugTelemetrySubsystems {
 		
 		public static final boolean odometry = false;
 		public static final boolean imu = false;
-		public static final boolean arm = false;
+		public static final boolean arm = true;
 		public static final boolean intake = false;
-		public static final boolean elevator = false;
+		public static final boolean elevator = true;
 		public static final boolean climber = false;
-		public static final boolean chasis = false;
+		public static final boolean chasis = true;
 		public static final boolean reef = false;
 		public static final boolean ll = false;
 	}
@@ -631,41 +631,9 @@ public final class Constants {
 				}
 			  }
 
-			public static enum ElevatorMotorConstantsEnum {
-				FOLLOWERMOTOR( // Front Left - main motor
-						10, // CANID
-						false, // Inversion
-						false // Follower
-				),
-				LEADERMOTOR( // Front Left
-						11, // CANID
-						true, // Inversion
-						true // Follower
-				);
-	
-				private int elevatorMotorID; // CAN ID
-				private boolean elevatorMotorInverted;
-				private boolean elevatorMotorFollower;
-	
-				ElevatorMotorConstantsEnum(int cid, boolean i, boolean f) {
-					this.elevatorMotorID = cid;
-					this.elevatorMotorInverted = i;
-					this.elevatorMotorFollower = f;
-				}
-	
-				public int getElevatorMotorID() {
-					return elevatorMotorID;
-				}
-	
-				public boolean getElevatorMotorInverted() {
-					return elevatorMotorInverted;
-				}
-	
-				public boolean getElevatorMotorFollower() {
-					return elevatorMotorFollower;
-				}
-
-			}
+			public static final int LEADERMOTOR_CAN_ID = 11; 
+			public static final int FOLLOWERMOTOR_CAN_ID = 10; 
+			public static final boolean ELEVATOR_MOTOR_INVERTED = false;  
 
 			public static class ElevatorPIDConstants {
 				public static class PositionDutyCycleConstants {
@@ -724,7 +692,7 @@ public final class Constants {
 
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup as throughbore numbers
 				CoralIntake(0.0),
-				CoralCruise(0.0), // after coral intake - position, so the elevator can be safely raised
+				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
 				ReefLevelOne(0.0),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot

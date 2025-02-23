@@ -18,6 +18,7 @@ import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -52,6 +53,10 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
       return;
     }
 
+    elevatorMotorLeader =  new TalonFX(ElevatorConstants.LEADERMOTOR_CAN_ID);
+    elevatorMotorFollower =  new TalonFX(ElevatorConstants.FOLLOWERMOTOR_CAN_ID);
+
+    configureElevatorMotors();
   }
 
   public void initializeLimitSwitch() {
@@ -65,31 +70,45 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     }
   }
 
-  public void initializeElevator() {
-    elevatorMotorLeader =  new TalonFX(Constants.GPMConstants.ElevatorConstants.ElevatorMotorConstantsEnum.LEADERMOTOR.getElevatorMotorID());
-    elevatorMotorFollower =  new TalonFX(Constants.GPMConstants.ElevatorConstants.ElevatorMotorConstantsEnum.LEADERMOTOR.getElevatorMotorID());
-    
-    elevatorMotorFollower.setControl(new Follower(elevatorMotorLeader.getDeviceID(), false));
+
+  public void configureElevatorMotors() {
     elevatorMotorLeader.getConfigurator().apply(new TalonFXConfiguration()); // reset the motor to defaults
-    var talonFXConfigurator = elevatorMotorLeader.getConfigurator();
+    elevatorMotorFollower.getConfigurator().apply(new TalonFXConfiguration());
+
+    elevatorMotorFollower.setSafetyEnabled(false);
+    elevatorMotorLeader.setSafetyEnabled(false);
+    
+    var talonFXConfiguratorLeader = elevatorMotorLeader.getConfigurator();
+    var talonFXConfiguratorFollower = elevatorMotorFollower.getConfigurator(); 
     
     var motorconfigs = new MotorOutputConfigs();
-    motorconfigs.Inverted = (Intake.INTAKE_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
-    talonFXConfigurator.apply(motorconfigs);
-    elevatorMotorLeader.setSafetyEnabled(false);
+    motorconfigs.NeutralMode = NeutralModeValue.Brake; 
 
-    TalonFXConfiguration pidConfig = new TalonFXConfiguration();
+    motorconfigs.Inverted = (ElevatorConstants.ELEVATOR_MOTOR_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
+    
+    TalonFXConfiguration pidConfig = new TalonFXConfiguration().withMotorOutput(motorconfigs);
     configureMotionMagicDutyCycle(pidConfig);
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
-      status = talonFXConfigurator.apply(pidConfig);
+      status = talonFXConfiguratorLeader.apply(pidConfig);
       if (status.isOK())
         break;
     }
     if (!status.isOK()) {
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
+
+    for (int i = 0; i < 5; ++i) {
+      status = talonFXConfiguratorFollower.apply(pidConfig);
+      if (status.isOK())
+        break;
+    }
+    if (!status.isOK()) {
+      System.out.println("Could not apply configs, error code: " + status.toString());
+    }
+
+    elevatorMotorFollower.setControl(new Follower(ElevatorConstants.LEADERMOTOR_CAN_ID, false));
 
   }
 
@@ -180,6 +199,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   public void stopElevator() {
     elevatorMotorLeader.setControl(new DutyCycleOut(0));
+    elevatorMotorFollower.setControl(new DutyCycleOut(0));
   }
 
   public boolean isAtHeight(ElevatorHeights height){
