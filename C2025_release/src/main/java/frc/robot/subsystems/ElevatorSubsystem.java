@@ -179,7 +179,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public double getElevatorHeight() {
-    return elevatorMotorLeader.getRotorPosition().getValueAsDouble() * ElevatorConstants.elevatorMotorMetersPerRotation;
+    return elevatorMotorLeader.getRotorPosition().getValueAsDouble();
   }
 
 
@@ -192,7 +192,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public void setElevatorPositionWithHeight(ElevatorHeights height) { 
-    setMotionMagicDutyCycle(zeroPosition+height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation);
+    setMotionMagicDutyCycle(zeroPosition+height.getHeight());
   }
 
   public void runElevatorWithDutyCycle(double speed) {
@@ -205,7 +205,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   public void stopElevator() {
     elevatorMotorLeader.setControl(new DutyCycleOut(0));
-    elevatorMotorFollower.setControl(new DutyCycleOut(0));
+    //elevatorMotorFollower.setControl(new DutyCycleOut(0));
   }
 
   public void stopElevatorAndHold() {
@@ -213,7 +213,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   }
 
   public boolean isAtHeight(ElevatorHeights height){
-    return Math.abs(height.getHeight()/ElevatorConstants.elevatorMotorMetersPerRotation - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
+    return Math.abs(height.getHeight() - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
   }
 
   public double elevatorHeightChassisSpeedAdjustmentCoefficient() { //TODO: change not to convert into meters 

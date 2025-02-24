@@ -10,6 +10,7 @@ import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
@@ -19,6 +20,7 @@ import frc.robot.commands.CalibrateChassisLinearDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
+import frc.robot.commands.ElevatorToLevelAndHold;
 import frc.robot.commands.IntakeAlgaeInCommand;
 import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
@@ -32,7 +34,11 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.TestAllCoralLevelsCommand;
 import frc.robot.commands.TestArmToPosition;
+import frc.robot.commands.TestIntakeCoralPlaceOnFour;
+import frc.robot.commands.TestIntakeCoralPlaceOnThree;
+import frc.robot.commands.TestIntakeCoralPlaceOnTwo;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -156,6 +162,7 @@ public class RobotContainer {
   private void configureBindings() {
     try {
       //testAuto();
+      testElevator();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -163,10 +170,11 @@ public class RobotContainer {
 
     // testTurn();
     // setYaws();
-    testIntake();
-    testArm(); 
+    //testIntake();
+    //testArm(); 
    //testVisionCoordoinates();
-    calibrateElevator(); 
+    //calibrateElevator(); 
+    
    
   }
 
@@ -216,9 +224,38 @@ public class RobotContainer {
   }
 
   public void testElevator() throws Exception {
-    new JoystickButton(xboxDriveController, 1)
-      .onTrue(new ElevatorRunWithSpeed(0.2))
+    // new JoystickButton(xboxDriveController, 1)
+    //   .onTrue(new ElevatorRunWithSpeed(0.2))
+    //   .onFalse(new StopElevator());
+
+    new JoystickButton(driveStick1, 3)
+      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelTwo))
       .onFalse(new StopElevator());
+
+    new JoystickButton(driveStick1, 4)
+      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelThree))
+      .onFalse(new StopElevator());
+
+    new JoystickButton(driveStick1, 5)
+      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour))
+      .onFalse(new StopElevator());
+
+    new JoystickButton(driveStick1, 10)
+      .onTrue(new TestIntakeCoralPlaceOnTwo())
+      .onFalse(new StopElevator());
+
+    new JoystickButton(driveStick1, 8)
+      .onTrue(new TestIntakeCoralPlaceOnThree())
+      .onFalse(new StopElevator());
+
+    // new JoystickButton(driveStick1, 7)
+    //   .onTrue(new TestIntakeCoralPlaceOnFour())
+    //   .onFalse(new StopElevator());
+
+    new JoystickButton(driveStick1, 7)
+      .onTrue(new TestAllCoralLevelsCommand())
+      .onFalse(new StopElevator());
+
   }
 
   public void testClimber() throws Exception {

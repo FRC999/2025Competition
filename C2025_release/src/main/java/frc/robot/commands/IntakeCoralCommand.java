@@ -35,6 +35,7 @@ public class IntakeCoralCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.intakeSubsystem.stopIntake();
+    counter = 0;
     System.out.println("*** IntakeCoral command ended " + interrupted);
   }
 
@@ -42,13 +43,14 @@ public class IntakeCoralCommand extends Command {
   @Override
   public boolean isFinished() {
     System.out.println("****t: " + RobotContainer.intakeSubsystem.isTargetVisible() + " d: "+ RobotContainer.intakeSubsystem.getDistanceToTarget() + " c " + counter);
+
     if (RobotContainer.intakeSubsystem.isTargetVisible() &&
-       counter == 0) {
+       counter == 0 && RobotContainer.intakeSubsystem.getDistanceToTarget() < 0.2) {
       counter++;
     }
     if ( counter != 0) {
       counter++;
     }
-    return counter > 10;
+    return counter > 4;
   }
 }
