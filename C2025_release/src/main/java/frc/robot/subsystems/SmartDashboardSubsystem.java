@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DebugTelemetrySubsystems;
+import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
@@ -63,6 +65,27 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Distance to Reef Target: ", RobotContainer.reefFinderSubsystem.getDistanceToTarget());
   }
 
+  public void updateLLTelemetry() {
+
+    for (LLCamera llcamera : LLCamera.values()) {
+      String cn = llcamera.getCameraName();
+      
+      // Visibility
+      SmartDashboard.putBoolean("LLVisible "+cn, RobotContainer.llVisionSubsystem.isAprilTagVisible(cn));
+
+      // Get tag
+      if (RobotContainer.llVisionSubsystem.isAprilTagVisible(cn)) {
+        SmartDashboard.putNumber("LLID "+cn, LimelightHelpers.getFiducialID(cn));
+        SmartDashboard.putString("LLPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).toString());
+      }
+
+    }
+
+
+
+
+  }
+
   public void updateAllDisplays(){
     if (DebugTelemetrySubsystems.imu) {
       updateIMUTelemetry();
@@ -93,6 +116,10 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
     if(DebugTelemetrySubsystems.reef) {
       updateReefFinderTelemetry();
+    }
+
+    if(DebugTelemetrySubsystems.ll) {
+      updateLLTelemetry();
     }
     
   }

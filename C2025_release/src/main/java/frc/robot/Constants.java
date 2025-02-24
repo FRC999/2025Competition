@@ -742,6 +742,34 @@ public final class Constants {
 		}
 	}
 
+	public static final class LLVisionConstants {
+		public static enum LLCamera {
+			LLFRONT(
+				"limelight-front"
+			),
+
+			LLBACK(
+				"limelight-back"
+			),
+
+			LLLEFT(
+				"limelight-fl"
+			),
+
+			LLRIGHT(
+				"limelight-fr"
+			);
+			private String cameraname;
+			LLCamera(String cn) {
+				this.cameraname = cn;
+			}
+			public String getCameraName() {
+				return cameraname;
+			}
+		}
+
+	}
+
 	public static final class AutoConstants {
 		public static enum autoPoses {
 
