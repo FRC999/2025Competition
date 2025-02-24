@@ -15,40 +15,27 @@ import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagic
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.MotionMagicVoltageConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.PositionDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPIDConstants.PositionVoltageConstants;
-import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
-import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants;
-import frc.robot.Constants.SwerveConstants.Intake;
 
-import java.security.spec.EncodedKeySpec;
-import java.time.LocalTime;
-
-import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusCode;
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.config.BaseConfig;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.AbsoluteEncoderConfig;
 import com.revrobotics.spark.config.SignalsConfig;
-import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
 public class ArmSubsystem extends SubsystemBase {
@@ -60,7 +47,6 @@ public class ArmSubsystem extends SubsystemBase {
    private PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0); // for position voltage
    private MotionMagicVoltage motMagVoltage = new MotionMagicVoltage(0); // for MotionMagic Voltage
 
-   private RelativeEncoder armEncoder;
    private double armKrakenEncoderZero = 0;
 
    private SparkMax sparkMax;
@@ -245,7 +231,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public boolean isAtPosition(ArmPositions position){
-    System.out.println("ME: " + getKrakenMotorEncoder() + " P: " + position.getPosition());
+    // System.out.println("ME: " + getKrakenMotorEncoder() + " P: " + position.getPosition());
     return Math.abs(position.getPosition() - getKrakenMotorEncoder())<=ArmPIDConstants.tolerance;
   }
 
@@ -264,7 +250,6 @@ public class ArmSubsystem extends SubsystemBase {
     System.out.println("EP3: " + krakenEncoder);
     System.out.println("armKrakenZeroEncoder: " + armKrakenEncoderZero);
   }
-
 
   @Override
   public void periodic() {

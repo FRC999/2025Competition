@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import com.pathplanner.lib.path.PathPlannerPath;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;

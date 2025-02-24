@@ -13,6 +13,11 @@ public class ArmToPositionAndHold extends Command {
   /** Creates a new ArmToPositionAndHold. */
 
   private ArmPositions setPosition;
+
+  /**
+   * Move arm to position described in the ArmPosition ENUM via PID and hold (the command will not end PID)
+   * @param position - ArmPositon ENUM with values (rotations)
+   */
   public ArmToPositionAndHold(ArmPositions position) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.armSubsystem);

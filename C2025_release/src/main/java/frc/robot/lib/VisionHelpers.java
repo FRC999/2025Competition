@@ -1,21 +1,14 @@
 package frc.robot.lib;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.print.DocFlavor.STRING;
 
-import org.opencv.core.Mat;
-
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.Robot;
 import frc.robot.Constants.VisionHelperConstants;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;

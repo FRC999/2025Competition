@@ -8,7 +8,6 @@ import static edu.wpi.first.units.Units.Volts;
 
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
@@ -22,7 +21,6 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.ElevatorConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
@@ -31,7 +29,6 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.M
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.MotionMagicVoltageConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.PositionDutyCycleConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorPIDConstants.PositionVoltageConstants;
-import frc.robot.Constants.SwerveConstants.Intake;
 
 public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated 
   /** Creates a new ElevatorSubsystem. */

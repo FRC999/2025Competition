@@ -667,11 +667,14 @@ public final class Constants {
 			public static final boolean ARM_INVERTED = true; // positive power - note in
 
 			public static final int THROUGHBORE_ENCODER_CAN_ID = 62;
-			public static final double THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE = 0.73; //TODO: CHECK ON ROBOT :)
+			public static final double THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE = 0.73; // This position is NOT all the way back, but rather about 2 inches from it
 			public static final double MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS = (24.372070 - 0.060059)/(1.0 - 0.703 + 0.237); //TODO: CHECK ON ROBOT :)
-			public static final double THROUGHBORE_ENCODER_ZERO_OFFSET = 0.4;
 
-			public static enum ArmPositions{ // position of the arm for the piece placement/pickup as throughbore numbers
+			/**
+			 * This ENUM contains arm positions for piece pickup and placement, in Kraken motor rotations from calibrated ZERO
+			 * Calibrated ZERO is set via THROUUGHBORE ENCODER on the rotation arm shaft
+			 */
+			public static enum ArmPositions{ // position of the arm for the piece placement/pickup
 				CoralIntake(-1.8),
 				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
