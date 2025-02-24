@@ -114,6 +114,31 @@ public class VisionHelpers {
         RobotPoseConstants.visionRobotPoses.put("TagRedBargeByProcessor",  getTagPose(4).toPose2d());
     }
 
+    public static void mapTagIDToTagKey() {
+        RobotPoseConstants.tagNumberToKey.put(1,"TagRedCoralLOW");
+        RobotPoseConstants.tagNumberToKey.put(2,"TagRedCoralHIGH");
+        RobotPoseConstants.tagNumberToKey.put(7,"TagRedReef1");
+        RobotPoseConstants.tagNumberToKey.put(8,"TagRedReef2");
+        RobotPoseConstants.tagNumberToKey.put(9,"TagRedReef3");
+        RobotPoseConstants.tagNumberToKey.put(10,"TagRedReef4");
+        RobotPoseConstants.tagNumberToKey.put(11,"TagRedReef5");
+        RobotPoseConstants.tagNumberToKey.put(6, "TagRedReef6");
+        RobotPoseConstants.tagNumberToKey.put(5, "TagRedBarge");
+        RobotPoseConstants.tagNumberToKey.put(3, "TagRedProcessor");
+        RobotPoseConstants.tagNumberToKey.put(12, "TagBluCoralLOW");
+        RobotPoseConstants.tagNumberToKey.put(13, "TagBluCoralHIGH");
+        RobotPoseConstants.tagNumberToKey.put(18, "TagBluReef1");
+        RobotPoseConstants.tagNumberToKey.put(19, "TagBluReef2");
+        RobotPoseConstants.tagNumberToKey.put(20, "TagBluReef3");
+        RobotPoseConstants.tagNumberToKey.put(21, "TagBluReef4");
+        RobotPoseConstants.tagNumberToKey.put(22, "TagBluReef5");
+        RobotPoseConstants.tagNumberToKey.put(17, "TagBluReef6");
+        RobotPoseConstants.tagNumberToKey.put(14, "TagBluBarge");
+        RobotPoseConstants.tagNumberToKey.put(16, "TagBluProcessor");
+        RobotPoseConstants.tagNumberToKey.put(15, "TagBluBargeByProcessor");
+        RobotPoseConstants.tagNumberToKey.put(4, "TagRedBargeByProcessor");
+    }
+
     /**
      * Move the pose in a pose-centric (relative) way by X and Y without changing rotation
      * (e.g. if pose points LEFT (Rotation 90 degrees), the move of 0,1 moves the Y of the pose by +1)

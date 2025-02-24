@@ -739,6 +739,7 @@ public final class Constants {
 		public static final double bumperWidth = Units.inchesToMeters(2.5);
 		public static class RobotPoseConstants {
 			public static Map<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
+			public static Map<Integer, String> tagNumberToKey = new HashMap<Integer, String>();
 		}
 	}
 
