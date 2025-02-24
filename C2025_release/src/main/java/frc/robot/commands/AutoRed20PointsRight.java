@@ -11,33 +11,30 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoRed24PointsRight extends SequentialCommandGroup {
-  /** Creates a new AutoRed24PointsRight. */
-  public AutoRed24PointsRight() {
+public class AutoRed20PointsRight extends SequentialCommandGroup {
+  /** Creates a new AutoRed20PointsRight. */
+  public AutoRed20PointsRight() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     try {
       addCommands(
-          new RunTrajectorySequenceRobotAtStartPoint("Red-BargetoReef11"),
+          new RunTrajectorySequenceRobotAtStartPoint("Red-BargeToReef1"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
           new IntakeCoralOutCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-Reef11toCoralTop"),
-          new ElevatorToLevelForCoralPlacement(ElevatorHeights.CoralIntake, ArmPositions.CoralIntake),
-          new IntakeCoralCommand(0.2),
-          new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-CoralToptoReef10"),
-          new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
-          new IntakeCoralOutCommand(0.2),
-          new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
-          new RunTrajectorySequenceRobotAtStartPoint("Red-Reef10toCoralTop"),
+          new RunTrajectorySequenceRobotAtStartPoint("Red-Reef1toCoralTop"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.CoralIntake, ArmPositions.CoralIntake),
           new IntakeCoralCommand(0.2),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise),
           new RunTrajectorySequenceRobotAtStartPoint("Red-CoralTopToReef9"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
           new IntakeCoralOutCommand(0.2),
-          new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.CoralCruise)
+          new ElevatorToLevelForCoralPlacement(ElevatorHeights.AlgaeIntakeDown, ArmPositions.AlgaeIntake),
+          new IntakeAlgaeInCommand(),
+          new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.Processor),
+          new RunTrajectorySequenceRobotAtStartPoint("Red-Reef9ToProcessor"),
+          new ElevatorToLevelForCoralPlacement(ElevatorHeights.Processor, ArmPositions.Processor),
+          new IntakeAlgaeOutCommand()
       );
     } catch (Exception e) {
       System.out.println("***Error: " + e + "! ***");
