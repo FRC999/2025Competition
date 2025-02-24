@@ -22,8 +22,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.SignalsConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -37,11 +36,8 @@ import frc.robot.Constants.EnableCurrentLimiter;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
-import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeMotorConstantsEnum;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakePIDConstants;
-import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
-import frc.robot.Constants.SwerveConstants.Intake;
-import frc.robot.RobotContainer;
+
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -66,7 +62,7 @@ public class IntakeSubsystem extends SubsystemBase {
       return;
     }
 
-    intakeMotor = new SparkMax(IntakeMotorConstantsEnum.ROLLERMOTOR.getIntakeMotorID(), MotorType.kBrushless);
+    intakeMotor = new SparkMax(IntakeConstants.INTAKE_ROLLERMOTOR_CAN_ID, MotorType.kBrushless);
 
     intakePIDController = intakeMotor.getClosedLoopController();
 
@@ -74,7 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePIDEncoder = intakeMotor.getEncoder();
 
     // Main Motor; should not follow the other motor
-    configureIntakeMotor(intakeMotor, intakePIDEncoder, intakePIDController, IntakeMotorConstantsEnum.ROLLERMOTOR);
+    configureIntakeMotor(intakeMotor, intakePIDEncoder, intakePIDController);
 
 
 
@@ -105,13 +101,13 @@ public class IntakeSubsystem extends SubsystemBase {
     return distanceToTarget.refresh().getValueAsDouble();
   }
 
-  private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p, IntakeMotorConstantsEnum c) {
+  private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p) {
 
     SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
 
     //motor.restoreFactoryDefaults(); //restores the state of the motor to factory defaults
     motor.clearFaults();  //clears a fault that has occurred since the last time the faults were reset
-    sparkMaxConfig.inverted(c.getIntakeMotorInverted()); //sets motor inverted if getArmMotorInverted() returns true
+    sparkMaxConfig.inverted(IntakeConstants.INTAKE_ROLLERMOTOR_INVERTED); //sets motor inverted if getArmMotorInverted() returns true
 
     sparkMaxConfig.idleMode(IdleMode.kBrake); //sets motor into brake mode
     //motor.setIdleMode(IdleMode.kCoast); 

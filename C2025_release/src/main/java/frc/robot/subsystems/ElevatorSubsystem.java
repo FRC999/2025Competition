@@ -53,8 +53,8 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
       return;
     }
 
-    elevatorMotorLeader =  new TalonFX(ElevatorConstants.LEADERMOTOR_CAN_ID);
-    elevatorMotorFollower =  new TalonFX(ElevatorConstants.FOLLOWERMOTOR_CAN_ID);
+    elevatorMotorLeader =  new TalonFX(ElevatorConstants.ELEVATOR_LEADERMOTOR_CAN_ID);
+    elevatorMotorFollower =  new TalonFX(ElevatorConstants.ELEVATOR_FOLLOWERMOTOR_CAN_ID);
 
     configureElevatorMotors();
   }
@@ -106,7 +106,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
       }
     }
 
-    elevatorMotorFollower.setControl(new Follower(ElevatorConstants.LEADERMOTOR_CAN_ID, false));
+    elevatorMotorFollower.setControl(new Follower(ElevatorConstants.ELEVATOR_LEADERMOTOR_CAN_ID, false));
 
   }
 

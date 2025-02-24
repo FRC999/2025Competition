@@ -526,28 +526,9 @@ public final class Constants {
 		}
 
 		public static final class IntakeConstants {
-			public static enum IntakeMotorConstantsEnum {
-				ROLLERMOTOR( // Front Left - main motor
-						59, // CANID
-						true // Inversion
-				);
-	
-				private int intakeMotorID; // CAN ID
-				private boolean intakeMotorInverted;
-	
-				IntakeMotorConstantsEnum(int cid, boolean i) {
-					this.intakeMotorID = cid;
-					this.intakeMotorInverted = i;
-				}
-	
-				public int getIntakeMotorID() {
-					return intakeMotorID;
-				}
-	
-				public boolean getIntakeMotorInverted() {
-					return intakeMotorInverted;
-				}
-			}
+
+			public static final int INTAKE_ROLLERMOTOR_CAN_ID = 59;
+			public static final boolean INTAKE_ROLLERMOTOR_INVERTED = true;
 			public static final class IntakePIDConstants {
 
 				public static final double kP = 0.02;
@@ -632,8 +613,8 @@ public final class Constants {
 				}
 			  }
 
-			public static final int LEADERMOTOR_CAN_ID = 11; 
-			public static final int FOLLOWERMOTOR_CAN_ID = 10; 
+			public static final int ELEVATOR_LEADERMOTOR_CAN_ID = 11; 
+			public static final int ELEVATOR_FOLLOWERMOTOR_CAN_ID = 10; 
 			public static final boolean ELEVATOR_MOTOR_INVERTED = true; 
 			public static final int ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 0;  
 			public static final boolean IS_LIMIT_SWITCH_PRESENT = true; 
