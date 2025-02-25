@@ -28,7 +28,7 @@ import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
-import frc.robot.commands.StartClimberWithSpeed;
+import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
@@ -276,7 +276,7 @@ public class RobotContainer {
 
   public void testClimber() throws Exception {
     new JoystickButton(xboxDriveController, 1)
-      .onTrue(new StartClimberWithSpeed(0.2))
+      .onTrue(new ClimberStartWithSpeed(0.2))
       .onFalse(new StopClimber());
   }
 

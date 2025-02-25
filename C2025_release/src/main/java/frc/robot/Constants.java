@@ -520,15 +520,18 @@ public final class Constants {
 	public static final class GPMConstants{
 		public static final class ClimberConstants {
 			public static final int CLIMBER_MOTOR_CAN_ID = 52;
+
 			//public static final double defautClimberMotorPower = 0.6;
 			public static double climbUpPower = 0.1; //TODO: Change the value accordingly 
 			public static final double climbDownPower = 0.3; 
+			public static final boolean climberInverted = true;
 		}
 
 		public static final class IntakeConstants {
 
 			public static final int INTAKE_ROLLERMOTOR_CAN_ID = 59;
 			public static final boolean INTAKE_ROLLERMOTOR_INVERTED = true;
+			
 			public static final class IntakePIDConstants {
 
 				public static final double kP = 0.02;

@@ -10,10 +10,10 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class StartClimberWithSpeed extends InstantCommand {
+public class ClimberStartWithSpeed extends InstantCommand {
 
   private double setSpeed;
-  public StartClimberWithSpeed(double speed) {
+  public ClimberStartWithSpeed(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.climberSubsystem);
     setSpeed = speed;

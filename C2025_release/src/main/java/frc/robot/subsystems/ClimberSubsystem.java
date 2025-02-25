@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -34,11 +36,21 @@ public class ClimberSubsystem extends SubsystemBase {
   public void configureClimberMotor(){
     climberMotor.getConfigurator().apply(new TalonFXConfiguration()); // reset the motor to defaults
     climberMotor.setSafetyEnabled(false);
-
     var motorconfigs = new MotorOutputConfigs();
+    motorconfigs.NeutralMode = NeutralModeValue.Brake; 
+
     var talonFXConfigurator = climberMotor.getConfigurator();
-    motorconfigs.Inverted = (Intake.INTAKE_INVERTED ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
-    talonFXConfigurator.apply(motorconfigs);
+    motorconfigs.Inverted = (ClimberConstants.climberInverted ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
+
+    StatusCode status = StatusCode.StatusCodeNotInitialized;
+    for (int i = 0; i < 5; ++i) {
+      status = talonFXConfigurator.apply(motorconfigs);
+      if (status.isOK())
+        break;
+    }
+    if (!status.isOK()) {
+      System.out.println("Could not apply configs, error code: " + status.toString());
+    }
   }
 
   public double getMotorEncoder() {
