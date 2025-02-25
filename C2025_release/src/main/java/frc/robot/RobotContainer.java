@@ -10,6 +10,7 @@ import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
@@ -49,6 +50,7 @@ import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 
+import java.nio.file.attribute.AclEntryPermission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +64,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -228,33 +231,46 @@ public class RobotContainer {
     //   .onTrue(new ElevatorRunWithSpeed(0.2))
     //   .onFalse(new StopElevator());
 
-    new JoystickButton(driveStick1, 3)
-      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelTwo))
-      .onFalse(new StopElevator());
+    // new JoystickButton(driveStick1, 3)
+    //   .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelTwo))
+    //   .onFalse(new StopElevator());
 
-    new JoystickButton(driveStick1, 4)
-      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelThree))
-      .onFalse(new StopElevator());
+    // new JoystickButton(driveStick1, 4)
+    //   .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelThree))
+    //   .onFalse(new StopElevator());
 
-    new JoystickButton(driveStick1, 5)
-      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour))
-      .onFalse(new StopElevator());
+    // new JoystickButton(driveStick1, 5)
+    //   .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour))
+    //   .onFalse(new StopElevator());
 
-    new JoystickButton(driveStick1, 10)
-      .onTrue(new TestIntakeCoralPlaceOnTwo())
-      .onFalse(new StopElevator());
+    // new JoystickButton(driveStick1, 10)
+    //   .onTrue(new TestIntakeCoralPlaceOnTwo())
+    //   .onFalse(new StopElevator());
 
-    new JoystickButton(driveStick1, 8)
-      .onTrue(new TestIntakeCoralPlaceOnThree())
-      .onFalse(new StopElevator());
+    // new JoystickButton(driveStick1, 8)
+    //   .onTrue(new TestIntakeCoralPlaceOnThree())
+    //   .onFalse(new StopElevator());
 
     // new JoystickButton(driveStick1, 7)
     //   .onTrue(new TestIntakeCoralPlaceOnFour())
     //   .onFalse(new StopElevator());
 
+    // new JoystickButton(driveStick1, 7)
+    //   .onTrue(new TestAllCoralLevelsCommand())
+    //   .onFalse(new StopElevator());
+
+
     new JoystickButton(driveStick1, 7)
-      .onTrue(new TestAllCoralLevelsCommand())
-      .onFalse(new StopElevator());
+      .onTrue(
+        new ArmToPositionAndHold(ArmPositions.CoralCruise)
+        .andThen(new WaitCommand(1))
+        .andThen(new ArmToPositionAndHold(ArmPositions.ReefLevelFour))
+        .andThen(new WaitCommand(1))
+        .andThen(new ArmToPositionAndHold(ArmPositions.CoralCruise)) 
+      )
+      .onFalse(new StopArm());
+
+
 
   }
 

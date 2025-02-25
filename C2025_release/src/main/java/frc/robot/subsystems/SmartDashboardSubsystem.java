@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DebugTelemetrySubsystems;
+import frc.robot.Constants.VisionHelperConstants;
+import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -76,7 +78,8 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       // Get tag
       if (RobotContainer.llVisionSubsystem.isAprilTagVisible(cn)) {
         SmartDashboard.putNumber("LLID "+cn, LimelightHelpers.getFiducialID(cn));
-        SmartDashboard.putString("LLPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).toString());
+        SmartDashboard.putString("LLPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
+        SmartDashboard.putString("LLTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
       }
 
     }

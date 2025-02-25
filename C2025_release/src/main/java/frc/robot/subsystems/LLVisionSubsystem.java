@@ -63,11 +63,11 @@ public class LLVisionSubsystem extends SubsystemBase {
       int tagId = 1;
       Pose3d tagPose = fieldLayout.getTagPose(tagId).orElse(null);
 
-      // if (tagPose != null) {
-      //     System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
-      // } else {
-      //     System.out.println("AprilTag " + tagId + " not found in the field layout.");
-      // }
+      if (tagPose != null) {
+          System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
+      } else {
+          System.out.println("AprilTag " + tagId + " not found in the field layout.");
+      }
     }
   }
 }
