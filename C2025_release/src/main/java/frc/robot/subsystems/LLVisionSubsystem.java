@@ -6,7 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.EnabledSubsystems;
+import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -14,6 +16,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LLVisionSubsystem extends SubsystemBase {
   public static AprilTagFieldLayout fieldLayout;
@@ -69,6 +72,15 @@ public class LLVisionSubsystem extends SubsystemBase {
           System.out.println("AprilTag " + tagId + " not found in the field layout.");
       }
     }
+
+     for (LLCamera llcamera : LLCamera.values()) {
+      String cn = llcamera.getCameraName();
+
+      double yaw = RobotContainer.driveSubsystem.getYaw();
+      double yawrate = RobotContainer.driveSubsystem.getTurnRate();
+      LimelightHelpers.SetRobotOrientation(cn, yaw, yawrate, 0, 0, 0, 0);
+     }
+      
   }
 }
 

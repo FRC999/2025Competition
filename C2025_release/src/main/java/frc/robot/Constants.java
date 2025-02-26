@@ -61,7 +61,7 @@ public final class Constants {
 	public static final class DebugTelemetrySubsystems {
 		
 		public static final boolean odometry = false;
-		public static final boolean imu = false;
+		public static final boolean imu = true;
 		public static final boolean arm = true;
 		public static final boolean intake = true;
 		public static final boolean elevator = true;
