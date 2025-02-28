@@ -7,23 +7,24 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.GPMConstants.ArmConstants;
-import frc.robot.Constants.GPMConstants.IntakeConstants;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeCoralAndMoveToCruisePositionSequence extends SequentialCommandGroup {
-  /** Creates a new IntakeCoralAndMoveToCruisePositionSequence. */
-  public IntakeCoralAndMoveToCruisePositionSequence() {
+public class TestElevatorAlgaeLowPickupSequence extends SequentialCommandGroup {
+  /** Creates a new TestElevatorAlgaePickupSequence. */
+  public TestElevatorAlgaeLowPickupSequence() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake),
-      new PrintCommand("arm at intake position"),
-      new IntakeCoralCommand(IntakeConstants.coralIntakePower),
-      new PrintCommand("arm in intake"),
-      new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
-      new PrintCommand("arm at cruise position")
+        new PrintCommand("******Sequence started"), 
+        new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
+        new PrintCommand("Arm At cruise position"),
+        new ElevatorToLevelAndHold(ElevatorHeights.AlgaeReefLow),
+        new PrintCommand("Elevator at algae reef low"),
+        new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeIntake),
+        new IntakeAlgaeRollerInAndHold()
     );
   }
 }

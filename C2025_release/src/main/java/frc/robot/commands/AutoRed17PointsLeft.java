@@ -29,8 +29,8 @@ public class AutoRed17PointsLeft extends SequentialCommandGroup {
             new RunTrajectorySequenceRobotAtStartPoint("Red-CoralBottomToReef8"),
             new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
             new IntakeCoralOutCommand(0.2),
-            new ElevatorToLevelForCoralPlacement(ElevatorHeights.AlgaeIntakeDown, ArmPositions.AlgaeIntake),
-            new IntakeAlgaeInCommand(),
+            new ElevatorToLevelForCoralPlacement(ElevatorHeights.AlgaeReefLow, ArmPositions.AlgaeIntake),
+            new IntakeAlgaeRollerInAndHold(),
             new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.Processor)
       );
     } catch (Exception e) {

@@ -560,12 +560,12 @@ public final class Constants {
 			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
-			public static final double coralIntakeSpeed = 0.2; 
-			public static final double coralShootingSpeedL23 = 0.5; 
-			public static final double coralShootingSpeedL4 = 0.2; 
-			public static final double algaeIntakePower = -0.5;
+			public static final double coralIntakePower = 0.2; 
+			public static final double coralShootingPowerL23 = 0.5; 
+			public static final double coralShootingPowerL4 = 0.2; 
+			public static final double algaeIntakePower = -0.7;
 			public static final double algaeHoldPower = -0.2;
-			public static final double algaeExpelPower = 1.0;
+			public static final double algaeExpelPower = 0.2;
 			public static final double algaeStallCurrent = 38.0;
 
 
@@ -595,8 +595,8 @@ public final class Constants {
 
 			public static enum ElevatorHeights{ // meters off the ground for the piece placement
 				Down(0.0),
-				AlgaeIntakeDown(0.0),
-				AlgaeIntakeMid(0.0),
+				AlgaeReefLow(13.971),
+				AlgaeReefHigh(24.367),
 				AlgaeIntakeUp(0.0),
 				ReefLevelOne(2.0),
 				ReefLevelTwo(7.036113),
@@ -621,7 +621,7 @@ public final class Constants {
 			public static final boolean ELEVATOR_MOTOR_INVERTED = true; 
 			public static final int ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER = 0;  
 			public static final boolean IS_LIMIT_SWITCH_PRESENT = true; 
-			public static final double holdingDutyCycleConstant = 0.046;
+			public static final double holdingDutyCycleConstant = 0.04;
 
 			public static class ElevatorPIDConstants {
 				public static class PositionDutyCycleConstants {
@@ -680,7 +680,9 @@ public final class Constants {
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup
 				CoralIntake(-1.8),
 				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
-				AlgaeIntake((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),    //TODO: Needs values from robot
+				AlgaeIntake(19.6),  
+				//AlgaeIntake2(19.6),
+				AlgaeRelease(10),  //TODO: Needs values from robot
 				ReefLevelOne(-0.3),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
@@ -693,6 +695,21 @@ public final class Constants {
 				}
 				public double getPosition() {
 				  return armPositionForGamepiecePlacement;
+				}
+			  }
+
+			  public static enum ArmPower{ // position of the arm for the piece placement/pickup
+				CoralIntakePower(0.5),
+				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
+				AlgaeIntakePower(-0.2),  
+				AlgaeReleasePower(0.2);  //TODO: Needs values from robot
+		
+				private double armPower;
+				ArmPower(double power) {
+				  this.armPower = power;
+				}
+				public double getPower() {
+				  return armPower;
 				}
 			  }
 

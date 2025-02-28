@@ -9,9 +9,9 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeAlgaeInCommand extends Command {
+public class IntakeAlgaeRollerInAndHold extends Command {
   /** Creates a new IntakeAlgaeCommand. */
-  public IntakeAlgaeInCommand() {
+  public IntakeAlgaeRollerInAndHold() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.intakeSubsystem);
   }

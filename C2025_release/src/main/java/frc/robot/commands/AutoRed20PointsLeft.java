@@ -29,12 +29,12 @@ public class AutoRed20PointsLeft extends SequentialCommandGroup {
           new RunTrajectorySequenceRobotAtStartPoint("Red-CoralBottomToReef9"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour),
           new IntakeCoralOutCommand(0.2),
-          new ElevatorToLevelForCoralPlacement(ElevatorHeights.AlgaeIntakeDown, ArmPositions.AlgaeIntake),
-          new IntakeAlgaeInCommand(),
+          new ElevatorToLevelForCoralPlacement(ElevatorHeights.AlgaeReefLow, ArmPositions.AlgaeIntake),
+          new IntakeAlgaeRollerInAndHold(),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Down, ArmPositions.Processor),
           new RunTrajectorySequenceRobotAtStartPoint("Red-Reef9ToProcessor"),
           new ElevatorToLevelForCoralPlacement(ElevatorHeights.Processor, ArmPositions.Processor),
-          new IntakeAlgaeOutCommand()
+          new IntakeAlgaeRollOutCommand()
       );
     } catch (Exception e) {
       System.out.println("***Error: " + e + "! ***");

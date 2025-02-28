@@ -22,8 +22,9 @@ import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorRunWithSpeed;
 import frc.robot.commands.ElevatorToLevelAndHold;
-import frc.robot.commands.IntakeAlgaeInCommand;
+import frc.robot.commands.IntakeAlgaeRollerInAndHold;
 import frc.robot.commands.IntakeAlgaeOutSequence;
+import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.PanToReefTarget;
@@ -35,8 +36,11 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.Test2;
 import frc.robot.commands.TestAllCoralLevelsCommand;
 import frc.robot.commands.TestArmToPosition;
+import frc.robot.commands.TestElevatorAlgaeHighPickupSequence;
+import frc.robot.commands.TestElevatorAlgaeLowPickupSequence;
 import frc.robot.commands.TestIntakeCoralPlaceOnFour;
 import frc.robot.commands.TestIntakeCoralPlaceOnThree;
 import frc.robot.commands.TestIntakeCoralPlaceOnTwo;
@@ -174,9 +178,9 @@ public class RobotContainer {
     // testTurn();
     setYaws();
     //testIntake();
-    //testArm(); 
+    testArm(); 
    //testVisionCoordoinates();
-    //calibrateElevator(); 
+    calibrateElevator(); 
     
    
   }
@@ -209,21 +213,47 @@ public class RobotContainer {
     //   .onTrue(new ArmRunWithSpeed(0.2))
     //   .onFalse(new StopArm());
 
-    new JoystickButton(xboxDriveController, 1)
-      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.ReefLevelFour))
-      .onFalse(new StopArm());
+    // new JoystickButton(xboxDriveController, 1)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.ReefLevelFour))
+    //   .onFalse(new StopArm());
 
-    new JoystickButton(xboxDriveController, 2)
-      .onTrue(new TestArmToPosition(0))
-      .onFalse(new StopArm());
+    // new JoystickButton(xboxDriveController, 2)
+    //   .onTrue(new TestArmToPosition(0))
+    //   .onFalse(new StopArm());
 
-    new JoystickButton(xboxDriveController, 3)
-      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake))
-      .onFalse(new StopArm());
+    // new JoystickButton(xboxDriveController, 3)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake))
+    //   .onFalse(new StopArm());
 
-    new JoystickButton(xboxDriveController, 4)
-    .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise))
-    .onFalse(new StopArm());
+    new JoystickButton(driveStick1, 11)
+    .onTrue(new StopArm());
+
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeIntake));
+
+    new JoystickButton(driveStick1, 9)
+      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeRelease));
+
+    new JoystickButton(driveStick1, 7)
+      .onTrue(new IntakeAlgaeRollOutCommand());
+
+    new JoystickButton(driveStick1, 8)
+      .onTrue(new StopIntake());
+
+    new JoystickButton(driveStick1, 10)
+      .onTrue(new IntakeAlgaeRollerInAndHold());
+
+    new JoystickButton(driveStick1, 6)
+      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise));
+
+    new JoystickButton(driveStick1, 4)
+      .onTrue(new TestElevatorAlgaeHighPickupSequence());
+
+    new JoystickButton(driveStick1, 3)
+      .onTrue(new TestElevatorAlgaeLowPickupSequence());   
+      
+    new JoystickButton(driveStick1, 5)
+    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());   
   }
 
   public void testElevator() throws Exception {
@@ -319,8 +349,8 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 6)
     .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
 
-    new JoystickButton(driveStick1, 11)
-    .onTrue(new StopArm());
+    // new JoystickButton(driveStick1, 11)
+    // .onTrue(new StopArm());
 
     // new JoystickButton(xboxDriveController, 3)
     // .onTrue(new InstantCommand(() -> intakeSubsystem.runIntake(-0.5),intakeSubsystem))
