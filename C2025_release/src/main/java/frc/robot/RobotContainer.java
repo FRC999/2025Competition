@@ -12,6 +12,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
+import frc.robot.commands.AlgaePickupReadyFromLow;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
@@ -39,8 +40,7 @@ import frc.robot.commands.StopRobot;
 import frc.robot.commands.Test2;
 import frc.robot.commands.TestAllCoralLevelsCommand;
 import frc.robot.commands.TestArmToPosition;
-import frc.robot.commands.TestElevatorAlgaeHighPickupSequence;
-import frc.robot.commands.TestElevatorAlgaeLowPickupSequence;
+import frc.robot.commands.AlgaePickupReadyFromHigh;
 import frc.robot.commands.TestIntakeCoralPlaceOnFour;
 import frc.robot.commands.TestIntakeCoralPlaceOnThree;
 import frc.robot.commands.TestIntakeCoralPlaceOnTwo;
@@ -247,10 +247,10 @@ public class RobotContainer {
       .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise));
 
     new JoystickButton(driveStick1, 4)
-      .onTrue(new TestElevatorAlgaeHighPickupSequence());
+      .onTrue(new AlgaePickupReadyFromHigh());
 
     new JoystickButton(driveStick1, 3)
-      .onTrue(new TestElevatorAlgaeLowPickupSequence());   
+      .onTrue(new AlgaePickupReadyFromLow());   
       
     new JoystickButton(driveStick1, 5)
     .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());   
