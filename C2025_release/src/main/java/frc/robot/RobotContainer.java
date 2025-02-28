@@ -225,35 +225,35 @@ public class RobotContainer {
     //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake))
     //   .onFalse(new StopArm());
 
-    new JoystickButton(driveStick1, 11)
-    .onTrue(new StopArm());
+    // new JoystickButton(driveStick1, 11)
+    // .onTrue(new StopArm());
 
-    new JoystickButton(driveStick1, 12)
-      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeIntake));
+    // new JoystickButton(driveStick1, 12)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeIntake));
 
-    new JoystickButton(driveStick1, 9)
-      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeRelease));
+    // new JoystickButton(driveStick1, 9)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeRelease));
 
-    new JoystickButton(driveStick1, 7)
-      .onTrue(new IntakeAlgaeRollOutCommand());
+    // new JoystickButton(driveStick1, 7)
+    //   .onTrue(new IntakeAlgaeRollOutCommand());
 
-    new JoystickButton(driveStick1, 8)
-      .onTrue(new StopIntake());
+    // new JoystickButton(driveStick1, 8)
+    //   .onTrue(new StopIntake());
 
-    new JoystickButton(driveStick1, 10)
-      .onTrue(new IntakeAlgaeRollerInAndHold());
+    // new JoystickButton(driveStick1, 10)
+    //   .onTrue(new IntakeAlgaeRollerInAndHold());
 
-    new JoystickButton(driveStick1, 6)
-      .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise));
+    // new JoystickButton(driveStick1, 6)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise));
 
-    new JoystickButton(driveStick1, 4)
-      .onTrue(new AlgaePickupReadyFromHigh());
+    // new JoystickButton(driveStick1, 4)
+    //   .onTrue(new AlgaePickupReadyFromHigh());
 
-    new JoystickButton(driveStick1, 3)
-      .onTrue(new AlgaePickupReadyFromLow());   
+    // new JoystickButton(driveStick1, 3)
+    //   .onTrue(new AlgaePickupReadyFromLow());   
       
-    new JoystickButton(driveStick1, 5)
-    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());   
+    // new JoystickButton(driveStick1, 5)
+    // .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());   
   }
 
   public void testElevator() throws Exception {
@@ -299,8 +299,6 @@ public class RobotContainer {
         .andThen(new ArmToPositionAndHold(ArmPositions.CoralCruise)) 
       )
       .onFalse(new StopArm());
-
-
 
   }
 

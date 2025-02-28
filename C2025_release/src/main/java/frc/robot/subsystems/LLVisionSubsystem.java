@@ -6,11 +6,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
+
+import java.util.HashMap;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -20,6 +24,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LLVisionSubsystem extends SubsystemBase {
   public static AprilTagFieldLayout fieldLayout;
+
+  private HashMap<Double,Pose2d> posesMap = new HashMap<>();
+  private double bestPoseKey;
   /** Creates a new LLVisionSubsystem. */
   public LLVisionSubsystem() {
     if(!EnabledSubsystems.ll){
@@ -57,6 +64,19 @@ public class LLVisionSubsystem extends SubsystemBase {
     return LimelightHelpers.getTV(cameraName); 
   }
 
+  private void addCurrentLLPoseToHashMap(PoseEstimate pestimate) {
+    posesMap.put(pestimate.timestampSeconds,pestimate.pose);
+    if (pestimate.timestampSeconds<bestPoseKey) {
+      bestPoseKey=pestimate.timestampSeconds;
+    }
+  }
+
+  public Pose2d getBestPose2d() {
+    if (posesMap.isEmpty()) { return null;}
+    if (!posesMap.containsKey(bestPoseKey)) { return null;}
+    return posesMap.get(bestPoseKey);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -67,20 +87,33 @@ public class LLVisionSubsystem extends SubsystemBase {
       Pose3d tagPose = fieldLayout.getTagPose(tagId).orElse(null);
 
       if (tagPose != null) {
-          System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
+        System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
       } else {
-          System.out.println("AprilTag " + tagId + " not found in the field layout.");
+        System.out.println("AprilTag " + tagId + " not found in the field layout.");
       }
     }
 
-     for (LLCamera llcamera : LLCamera.values()) {
+
+    // Wipe out poses from previouos camera loop
+    posesMap.clear();
+    bestPoseKey=Double.MAX_VALUE;
+
+    for (LLCamera llcamera : LLCamera.values()) {
       String cn = llcamera.getCameraName();
 
       double yaw = RobotContainer.driveSubsystem.getYaw();
       double yawrate = RobotContainer.driveSubsystem.getTurnRate();
+
+      // Update LLs with current YAW, so they can return correct position for Megatag2
       LimelightHelpers.SetRobotOrientation(cn, yaw, yawrate, 0, 0, 0, 0);
-     }
-      
+
+      // Select the best coordinates
+      if (LimelightHelpers.getTV(cn)) {
+        addCurrentLLPoseToHashMap(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn));
+      }
+
+    }
+
   }
 }
 

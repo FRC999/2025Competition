@@ -83,9 +83,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       }
 
     }
-
-
-
+    SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
 
   }
 
