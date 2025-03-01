@@ -20,7 +20,7 @@ public class IntakeCoralAndMoveToCruisePositionSequence extends SequentialComman
     addCommands(
       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake),
       new PrintCommand("arm at intake position"),
-      new IntakeCoralCommand(0.2),
+      new IntakeCoralCommand(IntakeConstants.coralIntakePower),
       new PrintCommand("arm in intake"),
       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
       new PrintCommand("arm at cruise position")
