@@ -60,7 +60,7 @@ public final class Constants {
 
 	public static final class DebugTelemetrySubsystems {
 		
-		public static final boolean odometry = false;
+		public static final boolean odometry = true;
 		public static final boolean imu = true;
 		public static final boolean arm = true;
 		public static final boolean intake = true;
@@ -218,7 +218,7 @@ public final class Constants {
 			 * even if a trajectory includes a holonomic component.
 			 */
 			//public static final double DRIVE_CHASSIS_KP = 3.5;
-			public static final double DRIVE_CHASSIS_KP = 0.1;
+			public static final double DRIVE_CHASSIS_KP = 5.0;
 			public static final double DRIVE_CHASSIS_KI = 0.00;
 			public static final double DRIVE_CHASSIS_KD = 0;
 
@@ -231,9 +231,9 @@ public final class Constants {
 			 * trajectory if it includes holonomic rotation.
 			 * Make sure to test the values and adjust them as needed for your robot.
 			 */
-			public static final double ANGLE_CHASSIS_KP = 0.1;
-			public static final double ANGLE_CHASSIS_KI = 0.0;
-			public static final double ANGLE_CHASSIS_KD = 0.0;
+			public static final double ANGLE_CHASSIS_KP = 6.25;
+			public static final double ANGLE_CHASSIS_KI = 0.4;
+			public static final double ANGLE_CHASSIS_KD = 0.7;
 
 			public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
 					.withDeadband(MaxSpeed * chassisLinearMoveDeadband).withRotationalDeadband(MaxAngularRate * chassisAngularMoveDeadband) // Add a 10% deadband

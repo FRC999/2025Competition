@@ -376,7 +376,7 @@ public class RobotContainer {
     //   .onFalse(new IntakeAlgaeOutSequence());
   }
 
-  public void testMohawk() throws Exception {
+  public void testMohawk() throws Exception { //also some trajectory testing
     // new JoystickButton(driveStick1, 12)
     //    .onTrue(new AlgaePickupReadyFromHigh());
 
@@ -387,8 +387,8 @@ public class RobotContainer {
     //    .onTrue(new AlgaeSpitOut())
     //    .onFalse(new StopArm());
     
-    new JoystickButton(driveStick1, 9)
-       .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
+    // new JoystickButton(driveStick1, 9)
+    //    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
 
     // new JoystickButton(driveStick1, 8)
     //    .onTrue(new CoralPlaceOnTwo())
@@ -406,22 +406,26 @@ public class RobotContainer {
     //    .onTrue(new PanToReefTarget(0.1))
     //    .onFalse(new StopArm());
     
-    new JoystickButton(driveStick1, 4)
-       .onTrue(new StopArm());
+    // new JoystickButton(driveStick1, 4)
+    //    .onTrue(new StopArm());
     
     // new JoystickButton(driveStick1, 3)
     //    .onTrue(new CoralIntakeReadySequence());
 
-    // new JoystickButton(driveStick1,11 )
-    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+    new JoystickButton(driveStick1,11 )
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterLeft"))
+      .onFalse(new StopRobot());
+
+    // new JoystickButton(driveStick1,12 )
+    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
     
     // new JoystickButton(driveStick1,12 )
     //   .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2, 1, Rotation2d.fromDegrees(0))))
     //   .onFalse(new StopRobot());
 
-    new JoystickButton(driveStick1, 11)
-      .onTrue(new IntakeCoralOutCommand(IntakeConstants.coralShootingPowerL23)); 
+    // new JoystickButton(driveStick1, 11)
+    //   .onTrue(new IntakeCoralOutCommand(IntakeConstants.coralShootingPowerL23)); 
 
 
 

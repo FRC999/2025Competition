@@ -75,7 +75,8 @@ public class AutonomousTrajectoryRioCommand extends FollowPathCommand {
         super.execute();
 
         //TODO: TEST print - comment before competition
-        System.out.println("cp: " + RobotContainer.driveSubsystem.getPose());
+        System.out.println("**cp: " + RobotContainer.driveSubsystem.getPose());
+        System.out.println("**cs: " + RobotContainer.driveSubsystem.getChassisSpeeds());
     }
 
     // Called once the command ends or is interrupted.

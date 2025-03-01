@@ -197,6 +197,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
    * odometry was properly updated.
   */
   public Pose2d getPose() {
+    //System.out.println("cp: " + this.getState().Pose);
     return this.getState().Pose;
   }
 
@@ -215,10 +216,13 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   }
 
   public void driveWithChassisSpeeds(ChassisSpeeds speeds, DriveFeedforwards driveFeedforwards) {
+    SmartDashboard.putString("ChassisACommand", speeds.toString());
+    System.out.println("AC: " + speeds.toString());
     drive(
       speeds.vxMetersPerSecond,
       speeds.vyMetersPerSecond,
-      getChassisAngularVelocityConversion(speeds.omegaRadiansPerSecond)
+      //getChassisAngularVelocityConversion(speeds.omegaRadiansPerSecond)
+      speeds.omegaRadiansPerSecond
     );
   }
 
@@ -511,5 +515,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
                 hasAppliedOperatorPerspective = true;
             });
         }
+
+        //System.out.println("CS1: " + getChassisSpeeds());
   }
 }

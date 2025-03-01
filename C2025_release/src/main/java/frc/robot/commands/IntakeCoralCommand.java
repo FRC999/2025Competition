@@ -41,7 +41,7 @@ public class IntakeCoralCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("****t: " + RobotContainer.intakeSubsystem.isTargetVisible() + " d: "+ RobotContainer.intakeSubsystem.getDistanceToTarget() + " c " + counter);
+    //System.out.println("****t: " + RobotContainer.intakeSubsystem.isTargetVisible() + " d: "+ RobotContainer.intakeSubsystem.getDistanceToTarget() + " c " + counter);
 
     if (RobotContainer.intakeSubsystem.isTargetVisible() &&
        counter == 0 && RobotContainer.intakeSubsystem.getDistanceToTarget() < 0.2) {
