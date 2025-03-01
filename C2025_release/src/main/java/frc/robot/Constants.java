@@ -686,7 +686,7 @@ public final class Constants {
 				ReefLevelOne(-0.3),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
-				ReefLevelFour(9.0),  //TODO: Needs values from robot
+				ReefLevelFour(8.5),  //TODO: Needs values from robot
 				Barge((1-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),
 				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
 				private double armPositionForGamepiecePlacement;

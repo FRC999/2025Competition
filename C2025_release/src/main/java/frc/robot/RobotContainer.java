@@ -13,6 +13,7 @@ import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.AlgaePickupReadyFromLow;
+import frc.robot.commands.AlgaeSpitOut;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutonomousTrajectory2Poses;
@@ -31,6 +32,10 @@ import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
+import frc.robot.commands.CoralIntakeReadySequence;
+import frc.robot.commands.CoralPlaceOnFour;
+import frc.robot.commands.CoralPlaceOnThree;
+import frc.robot.commands.CoralPlaceOnTwo;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
 import frc.robot.commands.StopElevator;
@@ -169,7 +174,9 @@ public class RobotContainer {
   private void configureBindings() {
     try {
       //testAuto();
-      testElevator();
+      //testElevator();
+      testMohawk();
+
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -178,9 +185,9 @@ public class RobotContainer {
     // testTurn();
     setYaws();
     //testIntake();
-    testArm(); 
-   //testVisionCoordoinates();
-    calibrateElevator(); 
+    //testArm(); 
+       //testVisionCoordoinates();
+    //calibrateElevator(); 
     
    
   }
@@ -365,6 +372,54 @@ public class RobotContainer {
     // new JoystickButton(xboxDriveController, 6)
     //   .onTrue(new IntakeAlgaeInCommand())
     //   .onFalse(new IntakeAlgaeOutSequence());
+  }
+
+  public void testMohawk() throws Exception {
+    // new JoystickButton(driveStick1, 12)
+    //    .onTrue(new AlgaePickupReadyFromHigh());
+
+    // new JoystickButton(driveStick1, 11)
+    //    .onTrue(new AlgaePickupReadyFromLow());
+
+    // new JoystickButton(driveStick1, 10)
+    //    .onTrue(new AlgaeSpitOut())
+    //    .onFalse(new StopArm());
+    
+    // new JoystickButton(driveStick1, 9)
+    //    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence())
+    //    .onFalse(new StopArm());
+
+    // new JoystickButton(driveStick1, 8)
+    //    .onTrue(new CoralPlaceOnTwo())
+    //    .onFalse(new StopArm());
+
+    // new JoystickButton(driveStick1, 7)
+    //    .onTrue(new CoralPlaceOnThree())
+    //    .onFalse(new StopArm());
+
+    // new JoystickButton(driveStick1, 6)
+    //    .onTrue(new CoralPlaceOnFour())
+    //    .onFalse(new StopArm());
+
+    // new JoystickButton(driveStick1, 5)
+    //    .onTrue(new PanToReefTarget(0.1))
+    //    .onFalse(new StopArm());
+    
+    // new JoystickButton(driveStick1, 4)
+    //    .onTrue(new StopArm());
+    
+    // new JoystickButton(driveStick1, 3)
+    //    .onTrue(new CoralIntakeReadySequence());
+
+    new JoystickButton(driveStick1,11 )
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+      .onFalse(new StopRobot());
+    
+    new JoystickButton(driveStick1,12 )
+      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2, 1, Rotation2d.fromDegrees(0))))
+      .onFalse(new StopRobot());
+
+
   }
 
   public void calibrateChassisDeadband() {

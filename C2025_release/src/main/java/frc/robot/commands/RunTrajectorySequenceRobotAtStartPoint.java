@@ -73,11 +73,9 @@ public class RunTrajectorySequenceRobotAtStartPoint extends SequentialCommandGro
           new InstantCommand(() -> RobotContainer.driveSubsystem
               .setYawForTrajectory(drivePath.getStartingHolonomicPose().orElse(new Pose2d()).getRotation().getDegrees())),
           new InstantCommand(() -> RobotContainer.driveSubsystem.resetOdometry(drivePath.getStartingHolonomicPose().orElse(new Pose2d()))),
-          // new PrintCommand(
-          // "START IX:" + trajectoryPath.getInitialPose().getX()+
-          // " IY:" + trajectoryPath.getInitialPose().getY()+
-          // " IA:" + trajectoryPath.getInitialPose().getRotation().getDegrees()
-          // ), // Set the initial pose of the robot to the one in a trajectory
+          new PrintCommand(
+          "START IX:" + trajectoryPath.getStartingHolonomicPose().get()
+          ), // Set the initial pose of the robot to the one in a trajectory
           new AutonomousTrajectoryRioCommand(drivePath, robotConfig) 
           //, // Run a trajectory
           .finallyDo (

@@ -79,11 +79,11 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       if (RobotContainer.llVisionSubsystem.isAprilTagVisible(cn)) {
         SmartDashboard.putNumber("LLID "+cn, LimelightHelpers.getFiducialID(cn));
         SmartDashboard.putString("LLPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
-        SmartDashboard.putString("LLTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
+        SmartDashboard.putString("LLTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef2").toString());
       }
 
     }
-    SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
+    //SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
 
   }
 
