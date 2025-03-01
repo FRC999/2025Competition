@@ -236,19 +236,26 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void calibrateZeroArmPosition() {
+
+    System.out.println("*** Calibrating Arm ...");
     double krakenEncoder = getKrakenMotorEncoder();
     double throughboreEncoder = getArmSparkThroughboreEncoderPosition();
-    if(throughboreEncoder < 0.5){
-      throughboreEncoder = 1.0 + throughboreEncoder;
+    if(throughboreEncoder > ArmConstants.THROUGHBORE_ENCODER_BEYOND_ALL_THE_WAY_BACK && throughboreEncoder<=1){
+      System.out.println("== Throughbore roll over 0");
+      throughboreEncoder = throughboreEncoder - 1;
     }
     armKrakenEncoderZero = krakenEncoder - 
-      ((-ArmConstants.THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE + throughboreEncoder)
+      ((ArmConstants.THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE - throughboreEncoder)
       * ArmConstants.MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
     System.out.println("EP1: " + throughboreEncoder);
     System.out.println("EP2: " + ((ArmConstants.THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE - throughboreEncoder)
     * ArmConstants.MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS));
     System.out.println("EP3: " + krakenEncoder);
     System.out.println("armKrakenZeroEncoder: " + armKrakenEncoderZero);
+  }
+
+  public double armKrakenEncoderRelative() {
+    return getKrakenMotorEncoder() - armKrakenEncoderZero;
   }
 
   @Override

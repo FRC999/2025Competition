@@ -45,11 +45,13 @@ public class IntakeCoralCommand extends Command {
 
     if (RobotContainer.intakeSubsystem.isTargetVisible() &&
        counter == 0 && RobotContainer.intakeSubsystem.getDistanceToTarget() < 0.2) {
+        RobotContainer.intakeSubsystem.runIntake(0.05);
       counter++;
     }
     if ( counter != 0) {
       counter++;
     }
-    return counter > 4;
+
+    return counter > 0;
   }
 }

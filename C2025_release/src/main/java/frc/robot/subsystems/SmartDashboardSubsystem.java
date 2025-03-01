@@ -45,6 +45,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   public void updateArmTelemetry() {
     SmartDashboard.putNumber("Arm ThroughBore Encoder", RobotContainer.armSubsystem.getArmSparkThroughboreEncoderPosition());
     SmartDashboard.putNumber("Arm Motor Encoder Value", RobotContainer.armSubsystem.getKrakenMotorEncoder());
+    SmartDashboard.putNumber("Arm Relative Kraken: ", RobotContainer.armSubsystem.armKrakenEncoderRelative());
   }
 
   public void updateElevatorTelemetry() {

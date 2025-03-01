@@ -10,6 +10,7 @@ import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.AlgaePickupReadyFromLow;
@@ -29,6 +30,7 @@ import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralCommand;
+import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -385,9 +387,8 @@ public class RobotContainer {
     //    .onTrue(new AlgaeSpitOut())
     //    .onFalse(new StopArm());
     
-    // new JoystickButton(driveStick1, 9)
-    //    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence())
-    //    .onFalse(new StopArm());
+    new JoystickButton(driveStick1, 9)
+       .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
 
     // new JoystickButton(driveStick1, 8)
     //    .onTrue(new CoralPlaceOnTwo())
@@ -405,19 +406,23 @@ public class RobotContainer {
     //    .onTrue(new PanToReefTarget(0.1))
     //    .onFalse(new StopArm());
     
-    // new JoystickButton(driveStick1, 4)
-    //    .onTrue(new StopArm());
+    new JoystickButton(driveStick1, 4)
+       .onTrue(new StopArm());
     
     // new JoystickButton(driveStick1, 3)
     //    .onTrue(new CoralIntakeReadySequence());
 
-    new JoystickButton(driveStick1,11 )
-      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
-      .onFalse(new StopRobot());
+    // new JoystickButton(driveStick1,11 )
+    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+    //   .onFalse(new StopRobot());
     
-    new JoystickButton(driveStick1,12 )
-      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2, 1, Rotation2d.fromDegrees(0))))
-      .onFalse(new StopRobot());
+    // new JoystickButton(driveStick1,12 )
+    //   .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2, 1, Rotation2d.fromDegrees(0))))
+    //   .onFalse(new StopRobot());
+
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new IntakeCoralOutCommand(IntakeConstants.coralShootingPowerL23)); 
+
 
 
   }

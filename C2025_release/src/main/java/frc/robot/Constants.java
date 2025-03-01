@@ -572,7 +572,7 @@ public final class Constants {
 			public static final class ReefFinderConstants{
 				public static final int reefCANRangeID = 61; 
 				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 10.0;
+				public static final double newUpdateFrequency = 5.0;
 				public static final double maxDistanceToTarget = 0.4;
 				public static final double minDistanceToTarget = 0.2;
 				public static final double reefFOVRangeX = 6.75;
@@ -582,7 +582,7 @@ public final class Constants {
 			public static final class IntakeCoralCANRangeConstants{
 				public static final int intakeCANRangeID = 60; 
 				public static final double newProximityThreshold = 10.0;
-				public static final double newUpdateFrequency = 5.0;
+				public static final double newUpdateFrequency = 10.0;
 				public static final double maxDistanceToTarget = 0.015;
 				public static final double minDistanceToTarget = 0.005;
 				public static final double intakeFOVRangeX = 10;
@@ -670,15 +670,17 @@ public final class Constants {
 			public static final boolean ARM_INVERTED = true; // positive power - note in
 
 			public static final int THROUGHBORE_ENCODER_CAN_ID = 62;
-			public static final double THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE = 0.73; // This position is NOT all the way back, but rather about 2 inches from it
-			public static final double MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS = (24.372070 - 0.060059)/(1.0 - 0.703 + 0.237); //TODO: CHECK ON ROBOT :)
+			public static final double THROUGHBORE_ENCODER_ABSOLUTE_ZERO_VALUE = 0.635; // This position is NOT all the way back, but rather about 2 inches from it
+			public static final double THROUGHBORE_ENCODER_BEYOND_ALL_THE_WAY_BACK = 0.85; // we never should be able to get to that position when rotation the arm BACKWARDS
+			//public static final double MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS = (24.372070 - 0.060059)/(1.0 - 0.703 + 0.237); //TODO: CHECK ON ROBOT :)
+			public static final double MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS = (16.65 + 3.2749) / (0.68 - 0.25); //TODO: CHECK ON ROBOT :)
 
 			/**
 			 * This ENUM contains arm positions for piece pickup and placement, in Kraken motor rotations from calibrated ZERO
 			 * Calibrated ZERO is set via THROUUGHBORE ENCODER on the rotation arm shaft
 			 */
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup
-				CoralIntake(-1.8),
+				CoralIntake(-2.05),
 				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake(19.6),  
 				//AlgaeIntake2(19.6),
