@@ -73,6 +73,8 @@ public class AutonomousTrajectoryRioCommand extends FollowPathCommand {
     @Override
     public void execute() {
         super.execute();
+
+        //TODO: TEST print - comment before competition
         System.out.println("cp: " + RobotContainer.driveSubsystem.getPose());
     }
 
