@@ -60,13 +60,27 @@ public class LLVisionSubsystem extends SubsystemBase {
     }
   }
 
+  public boolean isAprilTagVisibleBySomeCamera() {
+    boolean result = false; 
+    for (LLCamera llcamera : LLCamera.values()) {
+      result = result || isAprilTagVisible(llcamera.getCameraName());
+      if(result){
+        return result; 
+      }
+    }
+    return result; 
+  }
+
   public boolean isAprilTagVisible(String cameraName) {
     return LimelightHelpers.getTV(cameraName); 
   }
 
   private void addCurrentLLPoseToHashMap(PoseEstimate pestimate) {
     posesMap.put(pestimate.timestampSeconds,pestimate.pose);
-    if (pestimate.timestampSeconds<bestPoseKey) {
+    if (pestimate.timestampSeconds>bestPoseKey) { // we got new winner - later timestamp
+      if(posesMap.size()>0) {
+        posesMap.remove(bestPoseKey); // so hashmap size will not constantly increase
+      }
       bestPoseKey=pestimate.timestampSeconds;
     }
   }
@@ -93,10 +107,12 @@ public class LLVisionSubsystem extends SubsystemBase {
       }
     }
 
+    // Wipe out poses from previous camera loop
+    if(!isAprilTagVisibleBySomeCamera()) {
+      posesMap.clear();
+    }
 
-    // Wipe out poses from previouos camera loop
-    posesMap.clear();
-    bestPoseKey=Double.MAX_VALUE;
+    bestPoseKey= 0;
 
     for (LLCamera llcamera : LLCamera.values()) {
       String cn = llcamera.getCameraName();

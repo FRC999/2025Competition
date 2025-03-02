@@ -84,11 +84,21 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       }
 
     }
-    //SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
+    if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+      SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
+    }
 
   }
 
+  public void updateAllianceSideTelemetry() {
+    SmartDashboard.putBoolean("IsAllianceRed: ", RobotContainer.isAllianceRed);
+    SmartDashboard.putBoolean("IsRedControlsEnabled: ", RobotContainer.isReversingControllerAndIMUForRed);
+  }
+
   public void updateAllDisplays(){
+
+    // updateAllianceSideTelemetry();
+
     if (DebugTelemetrySubsystems.imu) {
       updateIMUTelemetry();
     }

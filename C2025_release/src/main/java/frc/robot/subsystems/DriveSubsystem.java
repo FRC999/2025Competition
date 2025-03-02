@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -216,8 +217,9 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   }
 
   public void driveWithChassisSpeeds(ChassisSpeeds speeds, DriveFeedforwards driveFeedforwards) {
-    SmartDashboard.putString("ChassisACommand", speeds.toString());
+    //SmartDashboard.putString("ChassisACommand", speeds.toString());
     System.out.println("AC: " + speeds.toString());
+    System.out.println("Y: " + getYaw());
     drive(
       speeds.vxMetersPerSecond,
       speeds.vyMetersPerSecond,
@@ -379,17 +381,48 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
    */
   public double zeroYaw() {
     double previousYaw = getYaw();
+    System.out.println("Old Yaw: " + previousYaw);
     if (RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed) {
-      imu.setYaw(180.0);
+      System.out.println("Yaw 180 " + RobotContainer.isAllianceRed);
+
+      StatusCode status = StatusCode.StatusCodeNotInitialized;
+      for (int i = 0; i < 5; ++i) {
+        status = imu.setYaw(180.0);
+        if (status.isOK())
+          break;
+      }
+      if (!status.isOK()) {
+        System.out.println("Could not apply configs, error code: " + status.toString());
+      }
+  
     } else {
-      imu.setYaw(0);
+      System.out.println("Yaw NOT 180 " + RobotContainer.isAllianceRed);
+
+      StatusCode status = StatusCode.StatusCodeNotInitialized;
+      for (int i = 0; i < 5; ++i) {
+        status = imu.setYaw(0);
+        if (status.isOK())
+          break;
+      }
+      if (!status.isOK()) {
+        System.out.println("Could not apply configs, error code: " + status.toString());
+      }
     }
+    System.out.println("New Yaw: " + imu.getYaw());
     return previousYaw;
   }
 
   public double setYaw(double y) {
     double previousYaw = getYaw();
-    imu.setYaw(y);
+    StatusCode status = StatusCode.StatusCodeNotInitialized;
+      for (int i = 0; i < 5; ++i) {
+        status = imu.setYaw(y);
+        if (status.isOK())
+          break;
+      }
+      if (!status.isOK()) {
+        System.out.println("Could not apply configs, error code: " + status.toString());
+      }
     return previousYaw;
   }
 
@@ -445,6 +478,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     // alex test
     System.out.println("---- Trajectory AdjustmentIMU: "+ trajectoryAdjustmentIMU
       + " CP: "+ this.getPose().getRotation().getDegrees() + " A: " + y) ;
+    
+    setYaw(y);
+    this.resetRotation(Rotation2d.fromDegrees(y));
+
 
     return y; // our own setYaw that returns old angle
   }
@@ -457,6 +494,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
    * without losing the Yaw direction.
    */
   public void restoreYawAfterTrajectory() {
+    double currentYaw = this.getPose().getRotation().getDegrees();
+    setYaw(currentYaw + trajectoryAdjustmentIMU);
     System.out.println("Final pose: " + this.getPose());
     System.out.println(
         "Restoring original IMU after trajectory " + (this.getPose().getRotation().getDegrees() + trajectoryAdjustmentIMU));
@@ -464,6 +503,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
       new Pose2d(0, 0, 
         Rotation2d.fromDegrees(this.getPose().getRotation().getDegrees() + trajectoryAdjustmentIMU))
         );
+    this.resetRotation(Rotation2d.fromDegrees(currentYaw + trajectoryAdjustmentIMU));
   }
 
   /**
@@ -506,15 +546,15 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         /* This allows us to correct the perspective in case the robot code restarts mid-match */
         /* Otherwise, only check and apply the operator perspective if the DS is disabled */
         /* This ensures driving behavior doesn't change until an explicit disable event occurs during testing*/
-        if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
-            DriverStation.getAlliance().ifPresent((allianceColor) -> {
-                this.setOperatorPerspectiveForward(
-                        allianceColor == Alliance.Red 
-                                ? SwerveChassis.redAlliancePerspectiveRotation
-                                : SwerveChassis.blueAlliancePerspectiveRotation);
-                hasAppliedOperatorPerspective = true;
-            });
-        }
+        // if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
+        //     DriverStation.getAlliance().ifPresent((allianceColor) -> {
+        //         this.setOperatorPerspectiveForward(
+        //                 allianceColor == Alliance.Red 
+        //                         ? SwerveChassis.redAlliancePerspectiveRotation
+        //                         : SwerveChassis.blueAlliancePerspectiveRotation);
+        //         hasAppliedOperatorPerspective = true;
+        //     });
+        // }
 
         //System.out.println("CS1: " + getChassisSpeeds());
   }
