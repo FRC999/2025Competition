@@ -18,6 +18,7 @@ public class IntakeCoralAndMoveToCruisePositionSequence extends SequentialComman
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new ElevatorAllTheWayDown(),
       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake),
       new PrintCommand("arm at intake position"),
       new IntakeCoralCommand(IntakeConstants.coralIntakePower),

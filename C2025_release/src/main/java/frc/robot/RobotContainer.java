@@ -185,8 +185,8 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      //testMohawk();
-      testAutoChoate();
+      testMohawk();
+      //testAutoChoate();
 
     }
     catch (Exception e) {
@@ -411,20 +411,19 @@ public class RobotContainer {
     //    .onTrue(new AlgaeSpitOut())
     //    .onFalse(new StopArm());
     
-    // new JoystickButton(driveStick1, 9)
-    //    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
+    new JoystickButton(xboxDriveController, 5)
+       .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
 
-    // new JoystickButton(driveStick1, 8)
-    //    .onTrue(new CoralPlaceOnTwo())
-    //    .onFalse(new StopArm());
+    new JoystickButton(driveStick1, 8)
+       .onTrue(new CoralPlaceOnTwo())
+       .onFalse(new StopArm());
 
-    // new JoystickButton(driveStick1, 7)
-    //    .onTrue(new CoralPlaceOnThree())
-    //    .onFalse(new StopArm());
+    new JoystickButton(driveStick1, 7)
+       .onTrue(new CoralPlaceOnThree())
+       .onFalse(new StopArm());
 
-    // new JoystickButton(driveStick1, 6)
-    //    .onTrue(new CoralPlaceOnFour())
-    //    .onFalse(new StopArm());
+    new JoystickButton(driveStick1, 6)
+       .onTrue(new CoralPlaceOnFour());
 
     // new JoystickButton(driveStick1, 5)
     //    .onTrue(new PanToReefTarget(0.1))
@@ -467,11 +466,11 @@ public class RobotContainer {
 
   }
 
-  public void testChoate(){
-    new JoystickButton(driveStick1, 10)
-      .onTrue(new CoralPlaceOnFour())
-      .onFalse(new StopArm());
-  }
+  // public void testChoate(){
+  //   new JoystickButton(driveStick1, 10)
+  //     .onTrue(new CoralPlaceOnFour())
+  //     .onFalse(new StopArm());
+  // }
 
   public void buttonBoxBindings() {
     new JoystickButton(buttonBox, 3)
