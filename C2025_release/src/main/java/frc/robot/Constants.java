@@ -51,7 +51,7 @@ public final class Constants {
 	public static final class EnabledSubsystems {
 		public static final boolean arm = true;
 		public static final boolean climber = false;
-		public static final boolean elevator = false;
+		public static final boolean elevator = true;
 		public static final boolean intake = true;
 		public static final boolean chasis = true;
 		public static final boolean reef = false;
@@ -64,7 +64,7 @@ public final class Constants {
 		public static final boolean imu = true;
 		public static final boolean arm = true;
 		public static final boolean intake = true;
-		public static final boolean elevator = false;
+		public static final boolean elevator = true;
 		public static final boolean climber = false;
 		public static final boolean chasis = true;
 		public static final boolean reef = false;
@@ -598,9 +598,9 @@ public final class Constants {
 				AlgaeReefHigh(24.367),
 				AlgaeIntakeUp(0.0),
 				ReefLevelOne(2.0),
-				ReefLevelTwo(7.036113),
+				ReefLevelTwo(8.3),
 				ReefLevelThree(18.119141),
-				ReefLevelFour(39.871),
+				ReefLevelFour(35.871),
 				Barge(0.0),
 				Processor(0.0),
 				CoralIntake(0.0),
@@ -687,7 +687,7 @@ public final class Constants {
 				ReefLevelOne(-0.3),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
-				ReefLevelFour(8.5),  //TODO: Needs values from robot
+				ReefLevelFour(1.0),  //TODO: Needs values from robot
 				Barge((1-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),
 				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
 				private double armPositionForGamepiecePlacement;
