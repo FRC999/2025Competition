@@ -183,8 +183,8 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      testMohawk();
-
+      //testMohawk();
+      testChoate();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -380,6 +380,13 @@ public class RobotContainer {
     // new JoystickButton(xboxDriveController, 6)
     //   .onTrue(new IntakeAlgaeInCommand())
     //   .onFalse(new IntakeAlgaeOutSequence());
+  }
+
+  public void 
+  testChoate() throws Exception{
+    new JoystickButton(driveStick1, 1)
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef8"))
+      .onFalse(new StopRobot());
   }
 
   public void testMohawk() throws Exception { //also some trajectory testing
