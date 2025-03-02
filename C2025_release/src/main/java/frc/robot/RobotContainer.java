@@ -33,6 +33,7 @@ import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.IntakeCoralOutCommand;
+import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -184,6 +185,7 @@ public class RobotContainer {
       //testAuto();
       //testElevator();
       testMohawk();
+      testChoate();
 
     }
     catch (Exception e) {
@@ -224,7 +226,7 @@ public class RobotContainer {
   }
 
   public void testArm() {
-    // new JoystickButton(xboxDriveController, 1)
+    // new JoystickButton(xboxDriveController, 1) 
     //   .onTrue(new ArmRunWithSpeed(0.2))
     //   .onFalse(new StopArm());
 
@@ -427,8 +429,19 @@ public class RobotContainer {
     //   .onFalse(new StopRobot());
     
     new JoystickButton(driveStick1,12 )
-      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(45)), new Pose2d(1.6, 1.6, Rotation2d.fromDegrees(45))))
+      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2.39, 1, Rotation2d.fromDegrees(0)))
+        .andThen(new CoralPlaceOnFour()))
       .onFalse(new StopRobot());
+
+    new JoystickButton(driveStick1, 3)
+      .onTrue(new StopElevator().alongWith(new StopIntake()));
+
+    new JoystickButton(driveStick1, 4)
+      .onTrue(new IntakeShootCommand());
+
+    // new JoystickButton(driveStick1,12 )
+    //    .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
+    //    .onFalse(new StopRobot());
 
     // new JoystickButton(driveStick1, 11)
     //   .onTrue(new IntakeCoralOutCommand(IntakeConstants.coralShootingPowerL23)); 
@@ -436,6 +449,12 @@ public class RobotContainer {
     // new JoystickButton(driveStick1, 1)
     //   .onTrue(new ClimberStartWithSpeed(ClimberConstants.climbUpPower));
 
+  }
+
+  public void testChoate(){
+    new JoystickButton(driveStick1, 10)
+      .onTrue(new CoralPlaceOnFour())
+      .onFalse(new StopArm());
   }
 
   public void buttonBoxBindings() {
