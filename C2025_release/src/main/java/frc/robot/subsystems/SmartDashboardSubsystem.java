@@ -84,7 +84,9 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       }
 
     }
-    //SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
+    if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+      SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
+    }
 
   }
 
@@ -94,7 +96,8 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updateAllDisplays(){
-    updateAllianceSideTelemetry();
+
+    // updateAllianceSideTelemetry();
 
     if (DebugTelemetrySubsystems.imu) {
       updateIMUTelemetry();

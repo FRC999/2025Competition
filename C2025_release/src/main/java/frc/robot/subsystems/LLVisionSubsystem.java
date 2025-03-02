@@ -107,8 +107,7 @@ public class LLVisionSubsystem extends SubsystemBase {
       }
     }
 
-
-    // Wipe out poses from previouos camera loop
+    // Wipe out poses from previous camera loop
     if(!isAprilTagVisibleBySomeCamera()) {
       posesMap.clear();
     }
