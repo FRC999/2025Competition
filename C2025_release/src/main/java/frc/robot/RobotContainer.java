@@ -19,6 +19,7 @@ import frc.robot.commands.AlgaePickupReadyFromLow;
 import frc.robot.commands.AlgaeSpitOut;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
+import frc.robot.commands.AutoStraightTrajectoryToReef8;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
@@ -181,10 +182,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      //testAuto();
+      testAuto();
       //testElevator();
-      testMohawk();
-
+      //testMohawk();
+      //testAutoChoate();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -206,12 +207,21 @@ public class RobotContainer {
   }
 
   public void testAuto() throws Exception {
-    new JoystickButton(xboxDriveController, 1)
-      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
-      .onFalse(new StopRobot());
-    new JoystickButton(xboxDriveController, 2)
+    // new JoystickButton(xboxDriveController, 1)
+    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
+    //   .onFalse(new StopRobot());
+    new JoystickButton(driveStick1, 11)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
       .onFalse(new StopRobot());
+  }
+
+  public void testAutoChoate() throws Exception {
+
+    System.out.println("Def CH");
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new AutoStraightTrajectoryToReef8())
+      .onFalse(new StopRobot());
+      System.out.println("End Def CH");
   }
 
   public void testReef() throws Exception {
