@@ -19,6 +19,7 @@ import frc.robot.commands.AlgaePickupReadyFromLow;
 import frc.robot.commands.AlgaeSpitOut;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
+import frc.robot.commands.AutoStraightTrajectoryToReef8;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
@@ -33,6 +34,7 @@ import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.IntakeCoralOutCommand;
+import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -181,10 +183,11 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      //testAuto();
+      testAuto();
       //testElevator();
-      //testMohawk();
+      testMohawk();
       testChoate();
+
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -206,12 +209,21 @@ public class RobotContainer {
   }
 
   public void testAuto() throws Exception {
-    new JoystickButton(xboxDriveController, 1)
-      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
-      .onFalse(new StopRobot());
-    new JoystickButton(xboxDriveController, 2)
+    // new JoystickButton(xboxDriveController, 1)
+    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
+    //   .onFalse(new StopRobot());
+    new JoystickButton(driveStick1, 11)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
       .onFalse(new StopRobot());
+  }
+
+  public void testAutoChoate() throws Exception {
+
+    System.out.println("Def CH");
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new AutoStraightTrajectoryToReef8())
+      .onFalse(new StopRobot());
+      System.out.println("End Def CH");
   }
 
   public void testReef() throws Exception {
@@ -224,7 +236,7 @@ public class RobotContainer {
   }
 
   public void testArm() {
-    // new JoystickButton(xboxDriveController, 1)
+    // new JoystickButton(xboxDriveController, 1) 
     //   .onTrue(new ArmRunWithSpeed(0.2))
     //   .onFalse(new StopArm());
 
@@ -382,8 +394,7 @@ public class RobotContainer {
     //   .onFalse(new IntakeAlgaeOutSequence());
   }
 
-  public void 
-  testChoate() throws Exception{
+  public void testChoate() throws Exception{
     new JoystickButton(driveStick1, 1)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef8"))
       .onFalse(new StopRobot());
@@ -434,8 +445,19 @@ public class RobotContainer {
     //   .onFalse(new StopRobot());
     
     new JoystickButton(driveStick1,12 )
-      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(45)), new Pose2d(1.6, 1.6, Rotation2d.fromDegrees(45))))
+      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2.39, 1, Rotation2d.fromDegrees(0)))
+        .andThen(new CoralPlaceOnFour()))
       .onFalse(new StopRobot());
+
+    new JoystickButton(driveStick1, 3)
+      .onTrue(new StopElevator().alongWith(new StopIntake()));
+
+    new JoystickButton(driveStick1, 4)
+      .onTrue(new IntakeShootCommand());
+
+    // new JoystickButton(driveStick1,12 )
+    //    .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
+    //    .onFalse(new StopRobot());
 
     // new JoystickButton(driveStick1, 11)
     //   .onTrue(new IntakeCoralOutCommand(IntakeConstants.coralShootingPowerL23)); 
@@ -443,6 +465,12 @@ public class RobotContainer {
     // new JoystickButton(driveStick1, 1)
     //   .onTrue(new ClimberStartWithSpeed(ClimberConstants.climbUpPower));
 
+  }
+
+  public void testChoate(){
+    new JoystickButton(driveStick1, 10)
+      .onTrue(new CoralPlaceOnFour())
+      .onFalse(new StopArm());
   }
 
   public void buttonBoxBindings() {

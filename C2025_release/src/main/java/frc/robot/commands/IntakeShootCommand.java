@@ -19,7 +19,7 @@ public class IntakeShootCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(() -> RobotContainer.intakeSubsystem.runIntake(0.5),RobotContainer.intakeSubsystem),
-      new WaitCommand(0.5),
+      new WaitCommand(1.5),
       new StopIntake()
     );
   }
