@@ -88,7 +88,14 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
   }
 
+  public void updateAllianceSideTelemetry() {
+    SmartDashboard.putBoolean("IsAllianceRed: ", RobotContainer.isAllianceRed);
+    SmartDashboard.putBoolean("IsRedControlsEnabled: ", RobotContainer.isReversingControllerAndIMUForRed);
+  }
+
   public void updateAllDisplays(){
+    updateAllianceSideTelemetry();
+
     if (DebugTelemetrySubsystems.imu) {
       updateIMUTelemetry();
     }

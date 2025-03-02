@@ -52,7 +52,11 @@ public class DriveManuallyCommand extends Command {
 
     SmartDashboard.putString("Joystick Values: ", "X: " + xInput + " Y: " + yInput + " Z: " + omegaInput);
 
-
+    if(RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed){
+      xInput = -xInput;
+      yInput = -yInput;
+    }
+    
     RobotContainer.driveSubsystem.drive(
       xInput * SwerveChassis.MaxSpeed,
      //0,

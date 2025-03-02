@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
+import frc.robot.commands.StopRobot;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -27,6 +28,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    
+  }
+
+  @Override
+  public void robotInit() {
+    RobotContainer.setIfAllianceRed();
+    RobotContainer.driveSubsystem.zeroYaw(); //Sets Yaw to 180 if on Red Alliance, or 0 on Blue (theoretically)
   }
 
   /**
@@ -63,6 +71,12 @@ public class Robot extends TimedRobot {
     }
   }
 
+  @Override
+  public void autonomousExit() {
+    RobotContainer.driveSubsystem.stopRobot();
+    RobotContainer.setIfAllianceRed();
+  }
+
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
@@ -76,8 +90,10 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.elevatorSubsystem.stopElevator();
+    //RobotContainer.elevatorSubsystem.stopElevator();
     RobotContainer.armSubsystem.setArmPositionWithAngle(ArmPositions.CoralCruise);
+
+    RobotContainer.setIfAllianceRed();
   }
 
   /** This function is called periodically during operator control. */
