@@ -379,8 +379,7 @@ public final class Constants {
 		public static final class OIConstants {
 		public static final int driverControllerPort = 0;
 
-		public static final int bblPort = 4;
-		public static final int bbrPort = 3;
+		public static final int buttonBoxPort = 4;
 
 		public static final int driverInterfaceSwitchButton = 1;
 

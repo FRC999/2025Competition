@@ -8,6 +8,7 @@ import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
+import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
@@ -99,6 +100,7 @@ public class RobotContainer {
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
+  public static Joystick buttonBox;
   public static boolean isAllianceRed = false;
   public static boolean isReversingControllerAndIMUForRed = true;
 
@@ -128,6 +130,8 @@ public class RobotContainer {
     driveStick1 = new Joystick(0); //TODO: ONLY FOR TESTING; MUST BE COMMENTED FOR COMP
     xboxDriveController = new Controller(ControllerDevice.XBOX_CONTROLLER);
     xboxGPMController = new Controller(ControllerDevice.XBOX_CONTROLLER_GPM);
+    buttonBox = new Joystick(OIConstants.buttonBoxPort);
+
   }
 
     // Alliance color determination
@@ -430,6 +434,21 @@ public class RobotContainer {
 
 
 
+  }
+
+  public void buttonBoxBindings() {
+    new JoystickButton(buttonBox, 3)
+      .onTrue(new AlgaeSpitOut())
+      .onFalse(new StopArm());
+
+    new JoystickButton(buttonBox, 4)
+      .onTrue(new TestIntakeCoralPlaceOnFour()); 
+
+    new JoystickButton(buttonBox, 6)
+      .onTrue(new TestIntakeCoralPlaceOnThree());
+
+    new JoystickButton(buttonBox, 8)
+      .onTrue(new TestIntakeCoralPlaceOnTwo());
   }
 
   public void calibrateChassisDeadband() {
