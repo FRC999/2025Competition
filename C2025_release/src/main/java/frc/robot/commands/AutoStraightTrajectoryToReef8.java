@@ -22,8 +22,8 @@ public class AutoStraightTrajectoryToReef8 extends SequentialCommandGroup {
     try {
       addCommands(
         new PrintCommand("Button pressed start"),
-        new AutonomousTrajectory2Poses(new Pose2d(7.200, 1.500, new Rotation2d()), new Pose2d(3.660, 1.500, new Rotation2d())),
-        new AutonomousTrajectory2Poses(new Pose2d(3.660, 1.500, new Rotation2d()), new Pose2d(3.660, 4.160, new Rotation2d())),
+        new AutonomousTrajectory2Poses(new Pose2d(3.66, 1.500, new Rotation2d()), new Pose2d(8.000, 1.500, new Rotation2d())),
+        new AutonomousTrajectory2Poses(new Pose2d(3.660, 4.160, new Rotation2d()), new Pose2d(3.660, 1.500, new Rotation2d())),
         // new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef8-PartOne"),
         // new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef8-PartTwo"),
         new PrintCommand("Button pressed end")

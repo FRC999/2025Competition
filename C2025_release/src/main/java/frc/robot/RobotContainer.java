@@ -183,10 +183,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      testAuto();
+      //testAuto();
       //testElevator();
-      testMohawk();
-      testChoate();
+      //testMohawk();
+      testAutoChoate();
 
     }
     catch (Exception e) {
