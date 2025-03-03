@@ -17,6 +17,8 @@ import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.AlgaePickupReadyFromLow;
 import frc.robot.commands.AlgaeSpitOut;
+import frc.robot.commands.AlgaeToBargeAndShoot;
+import frc.robot.commands.AlgaeToProcessorAndShoot;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoStraightTrajectoryToReef8;
@@ -185,9 +187,9 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      testMohawk();
+      //testMohawk();
       //testAutoChoate();
-
+      competitionButtonBoxBinding();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -201,6 +203,21 @@ public class RobotContainer {
     //calibrateElevator(); 
     
    
+  }
+
+
+  public void competitionButtonBoxBinding() {
+    new JoystickButton(buttonBox, 1)
+      .onTrue(new AlgaeToBargeAndShoot());
+
+    new JoystickButton(buttonBox, 2)
+      .onTrue(new AlgaeToProcessorAndShoot());
+    
+    new JoystickButton(buttonBox, 3)
+      .onTrue(new ArmToPositionAndHold(ArmPositions.AlgaeRelease).andThen(new IntakeAlgaeOutSequence()));
+    
+      new JoystickButton(buttonBox, 3)
+      .onTrue(new IntakeCoralOutCommand(0.2)); //TODO: Needs testing
   }
 
   public void setYaws() {

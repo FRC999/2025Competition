@@ -5,22 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeAlgaeOutSequence extends SequentialCommandGroup {
-  /** Creates a new IntakeAlgaeOutSequence. */
-  public IntakeAlgaeOutSequence() {
+public class AlgaeToBargeAndShoot extends SequentialCommandGroup {
+  /** Creates a new AlgaeToBargeAndShoot. */
+  public AlgaeToBargeAndShoot() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new IntakeAlgaeRollOutCommand(),
-      new WaitCommand(0.2),
-      new StopIntake()
+      new ArmToPositionAndHold(ArmPositions.CoralCruise),
+      new ElevatorToLevelAndHold(ElevatorHeights.Barge),
+      new ArmToPositionAndHold(ArmPositions.Barge),
+      new IntakeAlgaeOutSequence()
     );
   }
 }
