@@ -190,7 +190,7 @@ public class RobotContainer {
       //testElevator();
       //testMohawk();
       //testAutoChoate();
-      competitionButtonBoxBinding();
+      //competitionButtonBoxBinding();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
