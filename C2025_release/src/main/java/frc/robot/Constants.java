@@ -684,6 +684,7 @@ public final class Constants {
 				AlgaeIntake(19.6),  
 				//AlgaeIntake2(19.6),
 				AlgaeRelease(10),  //TODO: Needs values from robot
+				AlgaeCruise(19.6),
 				ReefLevelOne(-0.3),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
