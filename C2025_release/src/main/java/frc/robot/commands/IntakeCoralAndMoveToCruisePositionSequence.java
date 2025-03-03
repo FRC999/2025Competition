@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 
@@ -18,13 +19,18 @@ public class IntakeCoralAndMoveToCruisePositionSequence extends SequentialComman
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new PrintCommand("*** Intake Coral sequence start"),
       new ElevatorAllTheWayDown(),
-      new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake),
-      new PrintCommand("arm at intake position"),
+      new PrintCommand("* elevator down"),
+      new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake)
+        .raceWith(new WaitCommand(1)) // We observed this command not ending on its own sometimes, possibly because of the chain slack
+      ,
+      new PrintCommand("* arm at intake position"),
       new IntakeCoralCommand(IntakeConstants.coralIntakePower),
-      new PrintCommand("arm in intake"),
+      new PrintCommand("* coral in intake"),
       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
-      new PrintCommand("arm at cruise position")
+      new PrintCommand("* arm at cruise position"),
+      new PrintCommand("*** Intake Coral sequence end")
     );
   }
 }
