@@ -14,8 +14,7 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class CoralPlaceOnFour extends SequentialCommandGroup {
   /** Creates a new CoralPlaceOnFour. */
-  public 
-  CoralPlaceOnFour() {
+  public CoralPlaceOnFour() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

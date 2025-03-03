@@ -42,6 +42,7 @@ import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.CoralIntakeReadySequence;
 import frc.robot.commands.CoralPlaceOnFour;
+import frc.robot.commands.CoralPlaceOnOne;
 import frc.robot.commands.CoralPlaceOnThree;
 import frc.robot.commands.CoralPlaceOnTwo;
 import frc.robot.commands.StopArm;
@@ -216,7 +217,19 @@ public class RobotContainer {
     new JoystickButton(buttonBox, 3)
       .onTrue(new ArmToPositionAndHold(ArmPositions.AlgaeRelease).andThen(new IntakeAlgaeOutSequence()));
     
-      new JoystickButton(buttonBox, 3)
+    new JoystickButton(buttonBox, 4)
+      .onTrue(new CoralPlaceOnFour());
+
+    new JoystickButton(buttonBox, 6)
+      .onTrue(new CoralPlaceOnThree());
+
+    new JoystickButton(buttonBox, 8)
+      .onTrue(new CoralPlaceOnTwo());
+
+    new JoystickButton(buttonBox, 10)
+      .onTrue(new CoralPlaceOnOne());
+
+    new JoystickButton(buttonBox, 12)
       .onTrue(new IntakeCoralOutCommand(0.2)); //TODO: Needs testing
   }
 

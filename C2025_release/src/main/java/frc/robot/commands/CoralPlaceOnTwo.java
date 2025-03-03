@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,9 +19,11 @@ public class CoralPlaceOnTwo extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelTwo),
+      new WaitCommand(0.2),
+      new ArmToPositionAndHold(ArmPositions.ReefLevelTwo),
+      new WaitCommand(0.5),
       new IntakeShootCommand(),
-      new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne),
-      new StopElevator()
+      new ArmToPositionAndHold(ArmPositions.CoralCruise)
     );
   }
 }
