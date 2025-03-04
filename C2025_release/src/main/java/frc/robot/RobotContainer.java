@@ -15,8 +15,8 @@ import frc.robot.Constants.GPMConstants.ClimberConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
-import frc.robot.commands.AlgaePickupReadyFromLow;
-import frc.robot.commands.AlgaeSpitOut;
+import frc.robot.commands.TeleopAlgaePickupFromLow;
+import frc.robot.commands.TeleopAlgaeSpitOut;
 import frc.robot.commands.AlgaeToBargeAndShoot;
 import frc.robot.commands.AlgaeToProcessorAndShoot;
 import frc.robot.commands.ArmRunWithSpeed;
@@ -25,22 +25,15 @@ import frc.robot.commands.AutoStraightTrajectoryToReef8;
 import frc.robot.commands.AutonomousTrajectory2Poses;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
-import frc.robot.commands.CalibrateChassisLinearDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
-import frc.robot.commands.ElevatorRunWithSpeed;
-import frc.robot.commands.ElevatorToLevelAndHold;
-import frc.robot.commands.IntakeAlgaeRollerInAndHold;
 import frc.robot.commands.IntakeAlgaeOutSequence;
-import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
-import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
-import frc.robot.commands.CoralIntakeReadySequence;
 import frc.robot.commands.CoralPlaceOnFour;
 import frc.robot.commands.CoralPlaceOnOne;
 import frc.robot.commands.CoralPlaceOnThree;
@@ -51,10 +44,6 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
-import frc.robot.commands.Test2;
-import frc.robot.commands.TestAllCoralLevelsCommand;
-import frc.robot.commands.TestArmToPosition;
-import frc.robot.commands.AlgaePickupReadyFromHigh;
 import frc.robot.commands.TestIntakeCoralPlaceOnFour;
 import frc.robot.commands.TestIntakeCoralPlaceOnThree;
 import frc.robot.commands.TestIntakeCoralPlaceOnTwo;
@@ -68,11 +57,8 @@ import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 
-import java.nio.file.attribute.AclEntryPermission;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.print.attribute.standard.JobHoldUntil;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -81,7 +67,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -504,7 +489,7 @@ public class RobotContainer {
 
   public void buttonBoxBindings() {
     new JoystickButton(buttonBox, 3)
-      .onTrue(new AlgaeSpitOut())
+      .onTrue(new TeleopAlgaeSpitOut())
       .onFalse(new StopArm());
 
     new JoystickButton(buttonBox, 4)

@@ -12,11 +12,11 @@ import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
 public class PanToReefTarget extends Command {
   /** Creates a new PanToReefTarget. */
 
-  double setYVelocity;
+  double panVelocity;
   int counter = 0;
-  public PanToReefTarget(double yVelocity) {
+  public PanToReefTarget(double pVelocity) {
     // Use addRequirements() here to declare subsystem dependencies.
-    setYVelocity = yVelocity;
+    panVelocity = pVelocity;
     addRequirements(RobotContainer.driveSubsystem, RobotContainer.reefFinderSubsystem);
   }
 
@@ -24,7 +24,14 @@ public class PanToReefTarget extends Command {
   @Override
   public void initialize() {
     System.out.println("*** PanToReefTarget command started ");
-    RobotContainer.driveSubsystem.drive(0, setYVelocity, 0);
+
+    // Since our bot is not necessarily straight and we need to pan to the side, we need to get X and Y components of that move
+    double currentYaw = RobotContainer.driveSubsystem.getYaw();
+    // the square sum of the X and Y components should be 1, as they determine the direction 
+    double xComponent = Math.sin(currentYaw);
+    double yComponent = Math.cos(currentYaw);
+
+    RobotContainer.driveSubsystem.drive(panVelocity*xComponent, panVelocity*yComponent, 0);
     counter = 0;
   }
 
@@ -47,7 +54,7 @@ public class PanToReefTarget extends Command {
       (RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.maxDistanceToTarget 
       && RobotContainer.reefFinderSubsystem.getDistanceToTarget()>=ReefFinderConstants.minDistanceToTarget )
       && counter == 0) {
-      RobotContainer.driveSubsystem.drive(0, -setYVelocity, 0);
+      RobotContainer.driveSubsystem.drive(0, -panVelocity, 0);
       counter++;
     }
     if ( counter != 0) {

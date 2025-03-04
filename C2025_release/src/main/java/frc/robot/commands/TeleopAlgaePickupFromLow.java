@@ -12,21 +12,21 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AlgaePickupReadyFromHigh extends SequentialCommandGroup {
-  /** Creates a new TestElevatorAlgaeHighPickupSequence. */
-  public AlgaePickupReadyFromHigh() {
+public class TeleopAlgaePickupFromLow extends SequentialCommandGroup {
+  /** Creates a new TestElevatorAlgaePickupSequence. */
+  public TeleopAlgaePickupFromLow() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new PrintCommand("*** Start of Algae Pickup ready from High"), 
+        new PrintCommand("*** Start of Algae Pickup ready from Low"), 
         new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
         new PrintCommand("Arm At cruise position"),
-        new ElevatorToLevelAndHold(ElevatorHeights.AlgaeReefHigh),
+        new ElevatorToLevelAndHold(ElevatorHeights.AlgaeReefLow),
         new PrintCommand("Elevator at algae reef low"),
         new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeIntake),
         new IntakeAlgaeRollerInAndHold(),
         new PrintCommand("Arm ready, rollers ON"),
-        new PrintCommand("*** End of Algae Pickup Ready from High")
+        new PrintCommand("*** End of Algae Pickup Ready from Low")
     );
   }
 }
