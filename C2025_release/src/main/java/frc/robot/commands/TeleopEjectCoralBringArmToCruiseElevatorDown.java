@@ -11,9 +11,9 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TeleopEjectCoralBringArmToCruise extends SequentialCommandGroup {
+public class TeleopEjectCoralBringArmToCruiseElevatorDown extends SequentialCommandGroup {
   /** Creates a new TeleopEjectCoralBringArmToCruise. */
-  public TeleopEjectCoralBringArmToCruise() {
+  public TeleopEjectCoralBringArmToCruiseElevatorDown() {
     /**
    * Per picture
    * Bottom button
