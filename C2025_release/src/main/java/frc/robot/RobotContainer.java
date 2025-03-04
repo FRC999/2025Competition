@@ -26,8 +26,9 @@ import frc.robot.commands.TeleopMoveToL3RotateArm;
 import frc.robot.commands.TeleopMoveToL4RotateArm;
 import frc.robot.commands.TeleopPanReefLeft;
 import frc.robot.commands.TeleopPanReefRight;
-import frc.robot.commands.AlgaeToBargeAndShoot;
-import frc.robot.commands.AlgaeToProcessorAndShoot;
+import frc.robot.commands.TeleopPigeonIMUReset;
+import frc.robot.commands.AlgaeToBarge;
+import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmRunWithSpeed;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoStraightTrajectoryToReef8;
@@ -205,10 +206,10 @@ public class RobotContainer {
 
   public void competitionButtonBoxBinding() {
     new JoystickButton(buttonBox, 1)
-        .onTrue(new AlgaeToBargeAndShoot());
+        .onTrue(new AlgaeToBarge());
 
     new JoystickButton(buttonBox, 2)
-        .onTrue(new AlgaeToProcessorAndShoot());
+        .onTrue(new AlgaeToProcessor());
 
     new JoystickButton(buttonBox, 3)
         .onTrue(new TeleopAlgaeSpitOut());
@@ -246,12 +247,21 @@ public class RobotContainer {
             .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 12)
-        .onTrue(new IntakeCoralOutCommand(0.2)); // TODO: Needs testing
+        .onTrue(new IntakeCoralOutCommand(0.2)); // TODO: Speed needs to be changed accordingly
+
+    new Trigger(() -> buttonBox.getRawAxis(1) > -1.0) //TODO: Axis value needs to be changed as necessary 
+      .onTrue(new StopRobot()); 
+    
+    new Trigger(() -> buttonBox.getRawAxis(2) > 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
+      .onTrue(new ClimberStartWithSpeed(0.2)); 
   }
 
   public void XBOXControllerCompetitionBinding() {
     new JoystickButton(xboxDriveController, 5)
     .onTrue(new TeleopAlgaePickupFromHighAndHold()); 
+
+    new JoystickButton(xboxDriveController, 6)
+      .onTrue(new IntakeCoralAndMoveToCruisePositionSequence()); 
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence());
@@ -260,12 +270,12 @@ public class RobotContainer {
         .onTrue(new TeleopAlgaePickupFromLow());
 
     new JoystickButton(xboxDriveController, 8)
-        .onTrue(new InstantCommand(() -> driveSubsystem.zeroYaw()));
+        .onTrue(new TeleopPigeonIMUReset());
     
     new Trigger(() -> xboxDriveController.getPOV() == 0)
         .onTrue(new TeleopPanReefLeft());
 
-    new Trigger(() -> xboxDriveController.getPOV() == 0)
+    new Trigger(() -> xboxDriveController.getPOV() == 180)
         .onTrue(new TeleopPanReefRight());
   }
 
