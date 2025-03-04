@@ -187,7 +187,7 @@ public class RobotContainer {
       //testElevator();
       //testMohawk();
       //testAutoChoate();
-      //competitionButtonBoxBinding();
+      
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -199,6 +199,8 @@ public class RobotContainer {
     //testArm(); 
        //testVisionCoordoinates();
     //calibrateElevator(); 
+    competitionButtonBoxBinding();
+    XBOXControllerCompetitionBinding();
     
    
   }
