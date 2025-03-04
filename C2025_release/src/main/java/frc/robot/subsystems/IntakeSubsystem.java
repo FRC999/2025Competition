@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.time.LocalTime;
-
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CANrangeConfiguration;
 import com.ctre.phoenix6.configs.FovParamsConfigs;
