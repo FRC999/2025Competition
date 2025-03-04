@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,6 +13,7 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DebugTelemetrySubsystems;
 import frc.robot.Constants.VisionHelperConstants;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+import frc.robot.lib.VisionHelpers;
 import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -73,7 +75,13 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("LL-Any-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera());
     SmartDashboard.putBoolean("LL4-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4());
     if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
-      SmartDashboard.putString("LL-Any-Pose", RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString());
+      Pose2d atpose = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+      SmartDashboard.putString("LL-Any-Pose", atpose.toString());
+      SmartDashboard.putNumber("LL-ClosestAT-ID",  RobotPoseConstants.reefTagPoses.get(VisionHelpers.getClosestReefTagToRobot(atpose)));
+      SmartDashboard.putString("LL-ClosestAT-Pose",  VisionHelpers.getClosestReefTagToRobot(atpose).toString());
+      SmartDashboard.putString("Tag17 p2d", VisionHelpers.getTagPose(17).toPose2d().toString());
+      SmartDashboard.putString("Tag18 p2d", VisionHelpers.getTagPose(18).toPose2d().toString());
+      SmartDashboard.putString("Tag19 p2d", VisionHelpers.getTagPose(19).toPose2d().toString());
     }
     if (RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4()) {
       SmartDashboard.putString("LL4-Pose", RobotContainer.llVisionSubsystem.getBestPoseLL4s().toString());

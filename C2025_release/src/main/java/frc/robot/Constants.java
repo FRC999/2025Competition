@@ -5,7 +5,9 @@
 package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.ctre.phoenix6.CANBus;
@@ -762,6 +764,7 @@ public final class Constants {
 		public static class RobotPoseConstants {
 			public static Map<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
 			public static Map<Integer, String> tagNumberToKey = new HashMap<Integer, String>();
+			public static Map<Pose2d, Integer> reefTagPoses = new HashMap<Pose2d, Integer>();
 		}
 	}
 

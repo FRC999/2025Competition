@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.LimelightHelpers.PoseEstimate;
+import frc.robot.LimelightHelpers.RawFiducial;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.LLVisionConstants.LLCamera;
@@ -31,6 +32,7 @@ public class LLVisionSubsystem extends SubsystemBase {
   private double bestPoseTimestampLL4;
   private boolean bestVisible;
   private boolean bestVisibleLL4;
+  private double bestCloseTag;
   /** Creates a new LLVisionSubsystem. */
   public LLVisionSubsystem() {
     if(!EnabledSubsystems.ll){
@@ -84,7 +86,29 @@ public class LLVisionSubsystem extends SubsystemBase {
     return LimelightHelpers.getTV(cameraName); 
   }
 
+  public boolean isRedReefTagID(int tag) {
+    return ( tag>=6 && tag <=11);
+  }
+  public boolean isBlueReefTagID(int tag) {
+    return ( tag>=17 && tag <=22);
+  }
+  public boolean isAnyReefTagID(int tag) {
+    return isRedReefTagID(tag) || isBlueReefTagID(tag);
+  }
 
+
+
+  public double getClosestTag(RawFiducial[] rf) { // Closest tag to camera
+    double ldr = Double.MAX_VALUE; //lowest distance to robot;
+    int ldrid = 0; // id of the closest target
+    for (RawFiducial irf : rf) {
+      if(irf.distToRobot<ldr) {
+        ldr = irf.distToRobot;
+        ldrid = irf.id ;
+      }
+    }
+    return ldrid;
+  }
 
   @Override
   public void periodic() {
@@ -111,17 +135,22 @@ public class LLVisionSubsystem extends SubsystemBase {
       if (cn.length() < 14) { // is this LL4?
         ll4 = true;
       }
-      //double yaw = RobotContainer.driveSubsystem.getYaw();
-      //double yawrate = RobotContainer.driveSubsystem.getTurnRate();
+      double yaw = RobotContainer.driveSubsystem.getYaw();
+      double yawrate = RobotContainer.driveSubsystem.getTurnRate();
 
       // Update LLs with current YAW, so they can return correct position for Megatag2
-      //LimelightHelpers.SetRobotOrientation(cn, yaw, yawrate, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation(cn, yaw, yawrate, 0, 0, 0, 0);
 
       // Select the best coordinates
       if (LimelightHelpers.getTV(cn)) {
         tvisible = true;
         PoseEstimate pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
-        
+        if (pe.rawFiducials.length>0) {
+          SmartDashboard.putNumber("LL"+cn,pe.rawFiducials[0].ambiguity);
+        }
+        if (pe.rawFiducials.length>0 && pe.rawFiducials[0].ambiguity>0.7) {
+          pe = LimelightHelpers.getBotPoseEstimate_wpiBlue(cn);
+        }
         if (pe.timestampSeconds > bestPoseTimestamp) {
           bestPoseTimestamp = pe.timestampSeconds;
           bestPose = pe.pose;

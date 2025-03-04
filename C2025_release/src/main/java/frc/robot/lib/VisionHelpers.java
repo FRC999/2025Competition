@@ -1,7 +1,11 @@
 package frc.robot.lib;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -19,7 +23,7 @@ import edu.wpi.first.math.geometry.Pose3d;
 /** Add your docs here. */
 public class VisionHelpers {
 
-
+    public static List<Pose2d> apriltagPoses = new ArrayList<>();
 
     public static double getDistanceBetweenCenterCameraCoral(Double alpha, Double beta, double h, double d) {
         if(!alpha.isNaN() && beta.isNaN()){
@@ -112,7 +116,26 @@ public class VisionHelpers {
         RobotPoseConstants.visionRobotPoses.put("TagBluProcessor",  getTagPose(16).toPose2d());
         RobotPoseConstants.visionRobotPoses.put("TagBluBargeByProcessor",  getTagPose(15).toPose2d());
         RobotPoseConstants.visionRobotPoses.put("TagRedBargeByProcessor",  getTagPose(4).toPose2d());
+    
+        for (int i=6;i<=11;i++){
+            RobotPoseConstants.reefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
+        }
+        for (int i=17;i<=22;i++){
+            RobotPoseConstants.reefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
+        }
+
+        apriltagPoses.addAll(RobotPoseConstants.reefTagPoses.keySet());
+
+        // alex test
+
+        for (int i=0;i<apriltagPoses.size();i++) {
+            System.out.println("I:"+i+" P "+apriltagPoses.get(i));
+        }
     }
+
+    public static Pose2d getClosestReefTagToRobot(Pose2d robotPose) {
+        return robotPose.nearest(VisionHelpers.apriltagPoses);
+      }
 
     public static void mapTagIDToTagKey() {
         RobotPoseConstants.tagNumberToKey.put(1,"TagRedCoralLOW");
@@ -204,5 +227,14 @@ public class VisionHelpers {
      */
     public static boolean isFieldLayoutValid() {
         return LLVisionSubsystem.fieldLayout != null;
+    }
+
+    public static Pose2d getKeyByValue(HashMap<Pose2d, Integer> map, int value) {
+        for (Map.Entry<Pose2d,Integer> entry : map.entrySet()) {
+            if ( entry.getValue() == value) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 }
