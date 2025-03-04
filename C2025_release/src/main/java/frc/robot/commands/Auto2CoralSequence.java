@@ -4,24 +4,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoBlueOneCoral extends SequentialCommandGroup {
-  /** Creates a new AutoBlueOneCoral. */
-  public AutoBlueOneCoral() {
+public class Auto2CoralSequence extends SequentialCommandGroup {
+  /** Creates a new Auto2CoralSequence. */
+  public Auto2CoralSequence() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2.39, 1, Rotation2d.fromDegrees(0))),
-    new CoralPlaceOnFour(),
-    new WaitCommand(0.2),
-    new ElevatorAllTheWayDown()
+      new AutoBlueOneCoral(),
+      new AutoStraightrajectoryToPickupStation()
     );
   }
 }
