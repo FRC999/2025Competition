@@ -17,6 +17,13 @@ import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
+import frc.robot.commands.TeleopEjectCoralBringArmToCruiseElevatorDown;
+import frc.robot.commands.TeleopMoveToL1RotateArm;
+import frc.robot.commands.TeleopMoveToL2RotateArm;
+import frc.robot.commands.TeleopMoveToL3RotateArm;
+import frc.robot.commands.TeleopMoveToL4RotateArm;
+import frc.robot.commands.TeleopPanReefLeft;
+import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.AlgaeToBargeAndShoot;
 import frc.robot.commands.AlgaeToProcessorAndShoot;
 import frc.robot.commands.ArmRunWithSpeed;
@@ -194,28 +201,48 @@ public class RobotContainer {
 
   public void competitionButtonBoxBinding() {
     new JoystickButton(buttonBox, 1)
-      .onTrue(new AlgaeToBargeAndShoot());
+        .onTrue(new AlgaeToBargeAndShoot());
 
     new JoystickButton(buttonBox, 2)
-      .onTrue(new AlgaeToProcessorAndShoot());
-    
+        .onTrue(new AlgaeToProcessorAndShoot());
+
     new JoystickButton(buttonBox, 3)
-      .onTrue(new ArmToPositionAndHold(ArmPositions.AlgaeRelease).andThen(new IntakeAlgaeOutSequence()));
-    
+        .onTrue(new TeleopAlgaeSpitOut());
+
     new JoystickButton(buttonBox, 4)
-      .onTrue(new CoralPlaceOnFour());
+        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL4RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+
+    new JoystickButton(buttonBox, 5)
+        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 6)
-      .onTrue(new CoralPlaceOnThree());
+        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL3RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+
+    new JoystickButton(buttonBox, 7)
+        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 8)
-      .onTrue(new CoralPlaceOnTwo());
+        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL2RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+
+    new JoystickButton(buttonBox, 9)
+        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 10)
-      .onTrue(new CoralPlaceOnOne());
+        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL1RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+
+    new JoystickButton(buttonBox, 11)
+        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 12)
-      .onTrue(new IntakeCoralOutCommand(0.2)); //TODO: Needs testing
+        .onTrue(new IntakeCoralOutCommand(0.2)); // TODO: Needs testing
   }
 
   public void setYaws() {
