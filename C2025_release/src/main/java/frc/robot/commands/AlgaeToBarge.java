@@ -11,16 +11,15 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AlgaeToBargeAndShoot extends SequentialCommandGroup {
+public class AlgaeToBarge extends SequentialCommandGroup {
   /** Creates a new AlgaeToBargeAndShoot. */
-  public AlgaeToBargeAndShoot() {
+  public AlgaeToBarge() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ArmToPositionAndHold(ArmPositions.AlgaeIntake),
       new ElevatorToLevelAndHold(ElevatorHeights.Barge),
-      new ArmToPositionAndHold(ArmPositions.Barge),
-      new IntakeAlgaeOutSequence()
+      new ArmToPositionAndHold(ArmPositions.Barge)
     );
   }
 }
