@@ -770,21 +770,20 @@ public final class Constants {
 
 	public static final class LLVisionConstants {
 		public static enum LLCamera {
-			LLFRONT(
-				"limelight-front"
-			),
-
-			LLBACK(
-				"limelight-back"
-			),
-
 			LLLEFT(
 				"limelight-fl"
 			),
 
 			LLRIGHT(
 				"limelight-fr"
-			);
+			),
+			LLBACK(
+				"limelight-back"
+			),
+			LLFRONT(
+				"limelight-front"
+			)
+			;
 			private String cameraname;
 			LLCamera(String cn) {
 				this.cameraname = cn;

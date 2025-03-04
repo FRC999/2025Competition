@@ -213,6 +213,11 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     return Math.abs(height.getHeight() - getMotorEncoder())<=ElevatorPIDConstants.tolerance;
   }
 
+  // Test if elevator is down
+  public boolean isDown(){
+    return getElevatorHeight() <= ElevatorHeights.ReefLevelOne.getHeight() ;
+  }
+
   public double elevatorHeightChassisSpeedAdjustmentCoefficient() { //TODO: change not to convert into meters 
     double coefficient = 0.0;
 

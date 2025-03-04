@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.LimelightHelpers.RawFiducial;
@@ -144,7 +145,18 @@ public class LLVisionSubsystem extends SubsystemBase {
       // Select the best coordinates
       if (LimelightHelpers.getTV(cn)) {
         tvisible = true;
-        PoseEstimate pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
+        PoseEstimate pe;
+        if (! cn.contentEquals("limelight-front")) {
+          pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
+        } else { // for the front camera - only use MP2 when elevator is down
+          if ( Constants.EnabledSubsystems.elevator && RobotContainer.elevatorSubsystem.isDown() ) {
+            pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
+          } else {
+            pe = LimelightHelpers.getBotPoseEstimate_wpiBlue(cn);
+          }
+
+        }
+
         if (pe.rawFiducials.length>0) {
           SmartDashboard.putNumber("LL"+cn,pe.rawFiducials[0].ambiguity);
         }
