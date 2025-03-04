@@ -70,24 +70,14 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
   public void updateLLTelemetry() {
 
-    for (LLCamera llcamera : LLCamera.values()) {
-      String cn = llcamera.getCameraName();
-      
-      // Visibility
-      SmartDashboard.putBoolean("LLVisible "+cn, RobotContainer.llVisionSubsystem.isAprilTagVisible(cn));
-
-      // Get tag
-      if (RobotContainer.llVisionSubsystem.isAprilTagVisible(cn)) {
-        SmartDashboard.putNumber("LLID "+cn, LimelightHelpers.getFiducialID(cn));
-        SmartDashboard.putString("LLPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
-        SmartDashboard.putString("LLTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef2").toString());
-      }
-
-    }
+    SmartDashboard.putBoolean("LL-Any-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera());
+    SmartDashboard.putBoolean("LL4-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4());
     if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
-      SmartDashboard.putString("LLBestPose: ", RobotContainer.llVisionSubsystem.getBestPose2d().toString());
+      SmartDashboard.putString("LL-Any-Pose", RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString());
     }
-
+    if (RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4()) {
+      SmartDashboard.putString("LL4-Pose", RobotContainer.llVisionSubsystem.getBestPoseLL4s().toString());
+    }
   }
 
   public void updateAllianceSideTelemetry() {

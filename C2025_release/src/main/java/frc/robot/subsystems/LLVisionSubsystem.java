@@ -25,8 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class LLVisionSubsystem extends SubsystemBase {
   public static AprilTagFieldLayout fieldLayout;
 
-  private HashMap<Double,Pose2d> posesMap = new HashMap<>();
-  private double bestPoseKey;
+  private Pose2d bestPose;
+  private Pose2d bestPoseLL4;
+  private double bestPoseTimestamp;
+  private double bestPoseTimestampLL4;
+  private boolean bestVisible;
+  private boolean bestVisibleLL4;
   /** Creates a new LLVisionSubsystem. */
   public LLVisionSubsystem() {
     if(!EnabledSubsystems.ll){
@@ -61,73 +65,87 @@ public class LLVisionSubsystem extends SubsystemBase {
   }
 
   public boolean isAprilTagVisibleBySomeCamera() {
-    boolean result = false; 
-    for (LLCamera llcamera : LLCamera.values()) {
-      result = result || isAprilTagVisible(llcamera.getCameraName());
-      if(result){
-        return result; 
-      }
-    }
-    return result; 
+    return bestVisible; 
+  }
+
+  public boolean isAprilTagVisibleByLL4() {
+    return bestVisibleLL4; 
+  }
+
+  public Pose2d getBestPoseAllCameras() {
+    return bestPose;
+  }
+
+  public Pose2d getBestPoseLL4s() {
+    return bestPoseLL4;
   }
 
   public boolean isAprilTagVisible(String cameraName) {
     return LimelightHelpers.getTV(cameraName); 
   }
 
-  private void addCurrentLLPoseToHashMap(PoseEstimate pestimate) {
-    posesMap.put(pestimate.timestampSeconds,pestimate.pose);
-    if (pestimate.timestampSeconds>bestPoseKey) { // we got new winner - later timestamp
-      if(posesMap.size()>0) {
-        posesMap.remove(bestPoseKey); // so hashmap size will not constantly increase
-      }
-      bestPoseKey=pestimate.timestampSeconds;
-    }
-  }
 
-  public Pose2d getBestPose2d() {
-    if (posesMap.isEmpty()) { return null;}
-    if (!posesMap.containsKey(bestPoseKey)) { return null;}
-    return posesMap.get(bestPoseKey);
-  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
-    if (fieldLayout != null) {
-      // Example: Get the pose of AprilTag with ID 1
-      int tagId = 1;
-      Pose3d tagPose = fieldLayout.getTagPose(tagId).orElse(null);
+    // if (fieldLayout != null) {
+    //   // Example: Get the pose of AprilTag with ID 1
+    //   int tagId = 1;
+    //   Pose3d tagPose = fieldLayout.getTagPose(tagId).orElse(null);
 
-      if (tagPose != null) {
-        System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
-      } else {
-        System.out.println("AprilTag " + tagId + " not found in the field layout.");
-      }
-    }
+    //   if (tagPose != null) {
+    //     System.out.println("AprilTag " + tagId + " Pose: " + tagPose);
+    //   } else {
+    //     System.out.println("AprilTag " + tagId + " not found in the field layout.");
+    //   }
+    // }
 
-    // Wipe out poses from previous camera loop
-    if(!isAprilTagVisibleBySomeCamera()) {
-      posesMap.clear();
-    }
-
-    bestPoseKey= 0;
-
+    boolean tvisible = false; // do we see AT this cycle anywhere?
+    boolean tvisibleLL4 = false; // do we see AT this cycle anywhere?
     for (LLCamera llcamera : LLCamera.values()) {
       String cn = llcamera.getCameraName();
+      boolean ll4 = false;
 
-      double yaw = RobotContainer.driveSubsystem.getYaw();
-      double yawrate = RobotContainer.driveSubsystem.getTurnRate();
+      if (cn.length() < 14) { // is this LL4?
+        ll4 = true;
+      }
+      //double yaw = RobotContainer.driveSubsystem.getYaw();
+      //double yawrate = RobotContainer.driveSubsystem.getTurnRate();
 
       // Update LLs with current YAW, so they can return correct position for Megatag2
-      LimelightHelpers.SetRobotOrientation(cn, yaw, yawrate, 0, 0, 0, 0);
+      //LimelightHelpers.SetRobotOrientation(cn, yaw, yawrate, 0, 0, 0, 0);
 
       // Select the best coordinates
       if (LimelightHelpers.getTV(cn)) {
-        addCurrentLLPoseToHashMap(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn));
+        tvisible = true;
+        PoseEstimate pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
+        
+        if (pe.timestampSeconds > bestPoseTimestamp) {
+          bestPoseTimestamp = pe.timestampSeconds;
+          bestPose = pe.pose;
+          if (ll4) {
+            tvisibleLL4 = true;
+            if (pe.timestampSeconds > bestPoseTimestampLL4) {
+              bestPoseTimestampLL4 = pe.timestampSeconds;
+              bestPoseLL4 = pe.pose;
+            }
+          }
+        }
       }
+    } // end of loop checking whether the AT is visible
 
+    if (tvisible) {
+      bestVisible = true;
+      if (tvisibleLL4) {
+        bestVisibleLL4 = true;
+      } else {
+        bestVisibleLL4 = false;
+      }
+    } else {
+      bestVisible = false;
+      bestVisibleLL4 = false;
     }
 
   }
