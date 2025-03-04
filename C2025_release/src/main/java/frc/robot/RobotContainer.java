@@ -262,10 +262,10 @@ public class RobotContainer {
     new JoystickButton(buttonBox, 12)
         .onTrue(new IntakeCoralOutCommand(0.2)); // TODO: Speed needs to be changed accordingly
 
-    new Trigger(() -> buttonBox.getRawAxis(1) > -1.0) //TODO: Axis value needs to be changed as necessary 
+    new Trigger(() -> buttonBox.getRawAxis(1) <= -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
     
-    new Trigger(() -> buttonBox.getRawAxis(2) > 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
+    new Trigger(() -> buttonBox.getRawAxis(2) <= 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
       .onTrue(new ClimberStartWithSpeed(0.2)); 
   }
 
@@ -274,7 +274,7 @@ public class RobotContainer {
     .onTrue(new TeleopAlgaePickupFromHighAndHold()); 
 
     new JoystickButton(xboxDriveController, 6)
-      .onTrue(new IntakeCoralAndMoveToCruisePositionSequence()); 
+      .onTrue(new TeleopCoralIntakeSequence()); 
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence());
