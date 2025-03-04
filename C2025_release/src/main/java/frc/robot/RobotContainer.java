@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants.ControllerDevice;
+import frc.robot.Constants.SwerveConstants.Intake;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
@@ -17,6 +18,7 @@ import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
+import frc.robot.commands.TeleopCoralIntakeSequence;
 import frc.robot.commands.TeleopEjectCoralBringArmToCruiseElevatorDown;
 import frc.robot.commands.TeleopMoveToL1RotateArm;
 import frc.robot.commands.TeleopMoveToL2RotateArm;
@@ -34,6 +36,7 @@ import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.ElevatorAllTheWayDown;
 import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralOutCommand;
@@ -51,6 +54,7 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.TeleopAlgaePickupFromHighAndHold;
 import frc.robot.commands.TestIntakeCoralPlaceOnFour;
 import frc.robot.commands.TestIntakeCoralPlaceOnThree;
 import frc.robot.commands.TestIntakeCoralPlaceOnTwo;
@@ -189,7 +193,7 @@ public class RobotContainer {
     }
 
     // testTurn();
-    setYaws();
+    //setYaws();
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
@@ -243,6 +247,26 @@ public class RobotContainer {
 
     new JoystickButton(buttonBox, 12)
         .onTrue(new IntakeCoralOutCommand(0.2)); // TODO: Needs testing
+  }
+
+  public void XBOXControllerCompetitionBinding() {
+    new JoystickButton(xboxDriveController, 5)
+    .onTrue(new TeleopAlgaePickupFromHighAndHold()); 
+
+    new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
+      .onTrue(new TeleopCoralIntakeSequence());
+
+    new Trigger(() -> xboxDriveController.getRawAxis(2) > 0.3) // LT
+        .onTrue(new TeleopAlgaePickupFromLow());
+
+    new JoystickButton(xboxDriveController, 8)
+        .onTrue(new InstantCommand(() -> driveSubsystem.zeroYaw()));
+    
+    new Trigger(() -> xboxDriveController.getPOV() == 0)
+        .onTrue(new TeleopPanReefLeft());
+
+    new Trigger(() -> xboxDriveController.getPOV() == 0)
+        .onTrue(new TeleopPanReefRight());
   }
 
   public void setYaws() {
