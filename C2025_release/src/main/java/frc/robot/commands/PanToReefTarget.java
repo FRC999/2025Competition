@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
@@ -26,10 +27,11 @@ public class PanToReefTarget extends Command {
     System.out.println("*** PanToReefTarget command started ");
 
     // Since our bot is not necessarily straight and we need to pan to the side, we need to get X and Y components of that move
-    double currentYaw = RobotContainer.driveSubsystem.getYaw();
+    Rotation2d currentYaw = RobotContainer.driveSubsystem.getYawRotation2d();
+    double panAngle = currentYaw.plus(Rotation2d.kCW_90deg).getDegrees();
     // the square sum of the X and Y components should be 1, as they determine the direction 
-    double xComponent = Math.sin(currentYaw);
-    double yComponent = Math.cos(currentYaw);
+    double xComponent = Math.cos(panAngle);
+    double yComponent = Math.sin(panAngle);
 
     RobotContainer.driveSubsystem.drive(panVelocity*xComponent, panVelocity*yComponent, 0);
     counter = 0;
