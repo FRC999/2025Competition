@@ -198,7 +198,7 @@ public class RobotContainer {
       //testAutoChoate();
       //competitionButtonBoxBinding();
       
-      //tryPPTest();
+      tryPPTest();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -229,31 +229,27 @@ public class RobotContainer {
 
     new JoystickButton(buttonBox, 4)
         .onTrue(new TeleopMoveToL4RotateArm());
-
-    // new JoystickButton(buttonBox, 5)
-    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    
+    new JoystickButton(buttonBox, 5)
+        .onTrue(new TeleopMoveToL4RotateArm());
 
     new JoystickButton(buttonBox, 6)
         .onTrue(new TeleopMoveToL3RotateArm());
 
-    // new JoystickButton(buttonBox, 7)
-    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    new JoystickButton(buttonBox, 7)
+        .onTrue(new TeleopMoveToL3RotateArm());
 
     new JoystickButton(buttonBox, 8)
         .onTrue(new TeleopMoveToL2RotateArm());
 
-    // new JoystickButton(buttonBox, 9)
-    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    new JoystickButton(buttonBox, 9)
+        .onTrue(new TeleopMoveToL2RotateArm());
 
     new JoystickButton(buttonBox, 10)
         .onTrue(new TeleopMoveToL1RotateArm());
 
-    // new JoystickButton(buttonBox, 11)
-    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    new JoystickButton(buttonBox, 11)
+        .onTrue(new TeleopMoveToL1RotateArm());
 
     new JoystickButton(buttonBox, 12)
         .onTrue(new TeleopEjectCoralBringArmToCruiseElevatorDown()); // TODO: Speed needs to be changed accordingly
@@ -265,7 +261,7 @@ public class RobotContainer {
       .onTrue(new ClimberStartWithSpeed(-0.2).raceWith(new WaitCommand(1.0)))
       .onFalse(new StopClimber());
 
-    new Trigger(() -> buttonBox.getRawAxis(0) == 1.0)
+    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8)
       .onTrue(new ClimberStartWithSpeed(-0.2))
       .onFalse(new StopClimber());
   }
@@ -278,7 +274,8 @@ public class RobotContainer {
       .onTrue(new TeleopCoralIntakeSequence()); 
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
-      .onTrue(new TeleopCoralIntakeSequence());
+      .onTrue(new TeleopCoralIntakeSequence())
+      .onFalse(new ArmToPositionAndHold(ArmPositions.CoralCruise));
 
     new Trigger(() -> xboxDriveController.getRawAxis(2) > 0.3) // LT
         .onTrue(new TeleopAlgaePickupFromLow());
@@ -286,11 +283,13 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 8)
         .onTrue(new TeleopPigeonIMUReset());
     
-    new Trigger(() -> xboxDriveController.getPOV() == 0)
-        .onTrue(new TeleopPanReefLeft());
+    new Trigger(() -> xboxDriveController.getPOV() == 90)
+        .onTrue(new TeleopPanReefLeft())
+        .onFalse(new StopRobot());
 
-    new Trigger(() -> xboxDriveController.getPOV() == 180)
-        .onTrue(new TeleopPanReefRight());
+    new Trigger(() -> xboxDriveController.getPOV() == 270)
+        .onTrue(new TeleopPanReefRight())
+        .onFalse(new StopRobot());
   }
 
   public void setYaws() {
@@ -303,7 +302,7 @@ public class RobotContainer {
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeter90"))
     //   .onFalse(new StopRobot());
     new JoystickButton(driveStick1, 11)
-      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
+      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef11"))
       .onFalse(new StopRobot());
   }
 
@@ -501,23 +500,27 @@ public class RobotContainer {
     //    .onTrue(new AlgaeSpitOut())
     //    .onFalse(new StopArm());
     
-    new JoystickButton(xboxDriveController, 5)
-       .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
+    // new JoystickButton(xboxDriveController, 5)
+    //    .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());
 
-    new JoystickButton(driveStick1, 8)
-       .onTrue(new CoralPlaceOnTwo())
-       .onFalse(new StopArm());
+    // new JoystickButton(driveStick1, 8)
+    //    .onTrue(new CoralPlaceOnTwo())
+    //    .onFalse(new StopArm());
 
-    new JoystickButton(driveStick1, 7)
-       .onTrue(new CoralPlaceOnThree())
+    // new JoystickButton(driveStick1, 7)
+    //    .onTrue(new CoralPlaceOnThree())
+    //    .onFalse(new StopArm());
+
+    // new JoystickButton(driveStick1, 6)
+    //    .onTrue(new CoralPlaceOnFour());
+
+    new JoystickButton(driveStick1, 5)
+       .onTrue(new TeleopPanReefLeft())
        .onFalse(new StopArm());
 
     new JoystickButton(driveStick1, 6)
-       .onTrue(new CoralPlaceOnFour());
-
-    // new JoystickButton(driveStick1, 5)
-    //    .onTrue(new PanToReefTarget(0.1))
-    //    .onFalse(new StopArm());
+       .onTrue(new TeleopPanReefRight())
+       .onFalse(new StopArm());
     
     // new JoystickButton(driveStick1, 4)
     //    .onTrue(new StopArm());
@@ -562,20 +565,6 @@ public class RobotContainer {
   //     .onFalse(new StopArm());
   // }
 
-  public void buttonBoxBindings() {
-    new JoystickButton(buttonBox, 3)
-      .onTrue(new TeleopAlgaeSpitOut())
-      .onFalse(new StopArm());
-
-    new JoystickButton(buttonBox, 4)
-      .onTrue(new TestIntakeCoralPlaceOnFour()); 
-
-    new JoystickButton(buttonBox, 6)
-      .onTrue(new TestIntakeCoralPlaceOnThree());
-
-    new JoystickButton(buttonBox, 8)
-      .onTrue(new TestIntakeCoralPlaceOnTwo());
-  }
 
   public void calibrateChassisDeadband() {
     // new JoystickButton(driveStick1, 1)
@@ -609,7 +598,7 @@ public class RobotContainer {
   public Command getPPTestCommand1() {
     try {
       // Load the path you want to follow using its name in the GUI
-      PathPlannerPath path = PathPlannerPath.fromPathFile("OneMeterForward");
+      PathPlannerPath path = PathPlannerPath.fromPathFile("Blu-BargeToReef11");
 
       // Create a path following command using AutoBuilder. This will also trigger
       // event markers.
