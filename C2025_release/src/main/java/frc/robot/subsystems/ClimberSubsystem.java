@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -37,13 +38,14 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMotor.setSafetyEnabled(false);
     var motorconfigs = new MotorOutputConfigs();
     motorconfigs.NeutralMode = NeutralModeValue.Brake; 
+    motorconfigs.Inverted = (ClimberConstants.climberInverted ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
 
     var talonFXConfigurator = climberMotor.getConfigurator();
-    motorconfigs.Inverted = (ClimberConstants.climberInverted ? InvertedValue.CounterClockwise_Positive: InvertedValue.Clockwise_Positive);
+    TalonFXConfiguration pidConfig = new TalonFXConfiguration().withMotorOutput(motorconfigs);
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
-      status = talonFXConfigurator.apply(motorconfigs);
+      status = talonFXConfigurator.apply(pidConfig);
       if (status.isOK())
         break;
     }
@@ -65,11 +67,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void climbToSpeed(double speed) {
-    climberMotor.set(speed);
+    climberMotor.setControl(new DutyCycleOut(speed));
   }
 
   public void stopClimbMotor() {
-    climberMotor.set(0);
+    climberMotor.setControl(new DutyCycleOut(0));
   }
 
   @Override
