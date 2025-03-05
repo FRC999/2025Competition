@@ -205,13 +205,13 @@ public class RobotContainer {
     }
 
     // testTurn();
-    //setYaws();
+    setYaws();
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
     //calibrateElevator(); 
-    competitionButtonBoxBinding();
-    XBOXControllerCompetitionBinding();
+    //competitionButtonBoxBinding();
+    //XBOXControllerCompetitionBinding();
     
    
   }
@@ -228,45 +228,46 @@ public class RobotContainer {
         .onTrue(new TeleopAlgaeSpitOut());
 
     new JoystickButton(buttonBox, 4)
-        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL4RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+        .onTrue(new TeleopMoveToL4RotateArm());
 
-    new JoystickButton(buttonBox, 5)
-        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    // new JoystickButton(buttonBox, 5)
+    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 6)
-        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL3RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+        .onTrue(new TeleopMoveToL3RotateArm());
 
-    new JoystickButton(buttonBox, 7)
-        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    // new JoystickButton(buttonBox, 7)
+    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 8)
-        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL2RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+        .onTrue(new TeleopMoveToL2RotateArm());
 
-    new JoystickButton(buttonBox, 9)
-        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    // new JoystickButton(buttonBox, 9)
+    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 10)
-        .onTrue(new TeleopPanReefLeft().andThen(new TeleopMoveToL1RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+        .onTrue(new TeleopMoveToL1RotateArm());
 
-    new JoystickButton(buttonBox, 11)
-        .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
-            .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
+    // new JoystickButton(buttonBox, 11)
+    //     .onTrue(new TeleopPanReefRight().andThen(new TeleopMoveToL4RotateArm())
+    //         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()));
 
     new JoystickButton(buttonBox, 12)
-        .onTrue(new IntakeCoralOutCommand(0.2)); // TODO: Speed needs to be changed accordingly
+        .onTrue(new TeleopEjectCoralBringArmToCruiseElevatorDown()); // TODO: Speed needs to be changed accordingly
 
-    new Trigger(() -> buttonBox.getRawAxis(1) <= -1.0) //TODO: Axis value needs to be changed as necessary 
+    new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
     
-    new Trigger(() -> buttonBox.getRawAxis(2) <= 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
-      .onTrue(new ClimberStartWithSpeed(0.2)); 
+    new Trigger(() -> buttonBox.getRawAxis(1) == 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
+      .onTrue(new ClimberStartWithSpeed(-0.2).raceWith(new WaitCommand(1.0)))
+      .onFalse(new StopClimber());
+
+    new Trigger(() -> buttonBox.getRawAxis(0) == 1.0)
+      .onTrue(new ClimberStartWithSpeed(-0.2))
+      .onFalse(new StopClimber());
   }
 
   public void XBOXControllerCompetitionBinding() {
