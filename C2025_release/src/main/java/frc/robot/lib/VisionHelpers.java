@@ -237,4 +237,21 @@ public class VisionHelpers {
         }
         return null;
     }
+
+    /**
+     * Check if a robot is on the left or right of the apriltag plane as determined by the apriltag vector (should point from front to back of the tag)
+     * @param tagPose
+     * @param robotPose
+     * @param tolerance
+     * @return
+     */
+    public static int amIOntheLeftOrRightOfThePose(Pose2d tagPose, Pose2d robotPose,double tolerance) {
+        Pose2d rotatedRobotPose = robotPose.rotateAround(tagPose.getTranslation(), tagPose.getRotation().unaryMinus());
+    
+        if ( Math.abs(tagPose.getY()-rotatedRobotPose.getY()) < tolerance ) {
+          return 0; // I am there!
+        } else if (tagPose.getY()-rotatedRobotPose.getY() < 0) {
+          return 1;
+        } else { return -1;}
+      }
 }
