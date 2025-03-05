@@ -548,19 +548,35 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     return this.getState().Speeds.omegaRadiansPerSecond;
   }
 
+  public void testresetPose(Pose2d pose) {
+    System.out.println("*** test reset pose: " + pose.toString());
+  }
+
+  public void testswerveRequest(ChassisSpeeds speeds, DriveFeedforwards feedforwards) {
+    System.out.println("ACS: " + speeds.toString());
+    System.out.println("AFF: " + feedforwards.toString());
+  }
+
+  public boolean testCheckAlliance() {
+    boolean allianceBlue = DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red;
+    System.out.println("AAB:"+allianceBlue);
+    return allianceBlue;
+  }
+
   private void configureAutoBuilder() {
         try {
             var config = RobotConfig.fromGUISettings();
             AutoBuilder.configure(
                 () -> getState().Pose,   // Supplier of current robot pose
-                this::resetPose,         // Consumer for seeding pose against auto
+                this::testresetPose,         // Consumer for seeding pose against auto
                 () -> getState().Speeds, // Supplier of current robot speeds
                 // Consumer of ChassisSpeeds and feedforwards to drive the robot
-                (speeds, feedforwards) -> setControl(
-                    m_pathApplyRobotSpeeds.withSpeeds(speeds)
-                        .withWheelForceFeedforwardsX(feedforwards.robotRelativeForcesXNewtons())
-                        .withWheelForceFeedforwardsY(feedforwards.robotRelativeForcesYNewtons())
-                ),
+                // (speeds, feedforwards) -> setControl(
+                //     m_pathApplyRobotSpeeds.withSpeeds(speeds)
+                //         .withWheelForceFeedforwardsX(feedforwards.robotRelativeForcesXNewtons())
+                //         .withWheelForceFeedforwardsY(feedforwards.robotRelativeForcesYNewtons())
+                // ),
+                (speeds, feedforwards) -> testswerveRequest(speeds, feedforwards),
                 new PPHolonomicDriveController(
                     // PID constants for translation
                     new PIDConstants(10, 0, 0),
@@ -569,7 +585,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
                 ),
                 config,
                 // Assume the path needs to be flipped for Red vs Blue, this is normally the case
-                () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
+                //() -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
+                () -> testCheckAlliance(),
                 this // Subsystem for requirements
             );
         } catch (Exception ex) {
