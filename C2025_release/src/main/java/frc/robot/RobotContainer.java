@@ -194,24 +194,24 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      //testMohawk();
+      testMohawk();
       //testAutoChoate();
       //competitionButtonBoxBinding();
       
-      tryPPTest();
+      //tryPPTest();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
     }
 
     // testTurn();
-    setYaws();
+    //setYaws();
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
     //calibrateElevator(); 
-    //competitionButtonBoxBinding();
-    //XBOXControllerCompetitionBinding();
+    competitionButtonBoxBinding();
+    XBOXControllerCompetitionBinding();
     
    
   }
@@ -262,7 +262,7 @@ public class RobotContainer {
       .onFalse(new StopClimber());
 
     new Trigger(() -> buttonBox.getRawAxis(0) > 0.8)
-      .onTrue(new ClimberStartWithSpeed(-0.2))
+      .onTrue(new ClimberStartWithSpeed(-1.0))
       .onFalse(new StopClimber());
   }
 
@@ -306,14 +306,14 @@ public class RobotContainer {
       .onFalse(new StopRobot());
   }
 
-  public void testAutoChoate() throws Exception {
+  // public void testAutoChoate() throws Exception {
 
-    System.out.println("Def CH");
-    new JoystickButton(driveStick1, 12)
-      .onTrue(new AutoStraightTrajectoryToReef8())
-      .onFalse(new StopRobot());
-      System.out.println("End Def CH");
-  }
+  //   System.out.println("Def CH");
+  //   new JoystickButton(driveStick1, 12)
+  //     .onTrue(new AutoStraightTrajectoryToReef8())
+  //     .onFalse(new StopRobot());
+  //     System.out.println("End Def CH");
+  // }
 
   public void testReef() throws Exception {
     new JoystickButton(xboxDriveController, 1)
@@ -514,13 +514,13 @@ public class RobotContainer {
     // new JoystickButton(driveStick1, 6)
     //    .onTrue(new CoralPlaceOnFour());
 
-    new JoystickButton(driveStick1, 5)
-       .onTrue(new TeleopPanReefLeft())
-       .onFalse(new StopArm());
+    // new JoystickButton(driveStick1, 5)
+    //    .onTrue(new TeleopPanReefLeft())
+    //    .onFalse(new StopArm());
 
-    new JoystickButton(driveStick1, 6)
-       .onTrue(new TeleopPanReefRight())
-       .onFalse(new StopArm());
+    // new JoystickButton(driveStick1, 6)
+    //    .onTrue(new TeleopPanReefRight())
+    //    .onFalse(new StopArm());
     
     // new JoystickButton(driveStick1, 4)
     //    .onTrue(new StopArm());
@@ -536,16 +536,16 @@ public class RobotContainer {
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
     
-    new JoystickButton(driveStick1,12 )
-      .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2.39, 1, Rotation2d.fromDegrees(0)))
-        .andThen(new CoralPlaceOnFour()))
-      .onFalse(new StopRobot());
+    // new JoystickButton(driveStick1,12 )
+    //   .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2.39, 1, Rotation2d.fromDegrees(0)))
+    //     .andThen(new CoralPlaceOnFour()))
+    //   .onFalse(new StopRobot());
 
-    new JoystickButton(driveStick1, 3)
-      .onTrue(new StopElevator().alongWith(new StopIntake()));
+    // new JoystickButton(driveStick1, 3)
+    //   .onTrue(new StopElevator().alongWith(new StopIntake()));
 
-    new JoystickButton(driveStick1, 4)
-      .onTrue(new IntakeShootCommand());
+    // new JoystickButton(driveStick1, 4)
+    //   .onTrue(new IntakeShootCommand());
 
     // new JoystickButton(driveStick1,12 )
     //    .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
@@ -556,6 +556,10 @@ public class RobotContainer {
 
     // new JoystickButton(driveStick1, 1)
     //   .onTrue(new ClimberStartWithSpeed(ClimberConstants.climbUpPower));
+
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new ClimberStartWithSpeed(0.2))
+      .onFalse(new StopClimber());
 
   }
 
