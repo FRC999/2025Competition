@@ -43,6 +43,8 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
   MotionMagicVoltage motMagVoltage = new MotionMagicVoltage(0);
   PositionVoltage positionVoltage = new PositionVoltage(0).withSlot(0);
 
+  private double minHeight = ElevatorHeights.ReefLevelTwo.getHeight();
+
   public ElevatorSubsystem() {
 
     // Check if need to initialize arm
@@ -169,6 +171,15 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   private void setMotionMagicVoltage(double position){
     elevatorMotorLeader.setControl(motMagVoltage.withPosition(position));
+  }
+
+  public double getHeightAdjustmentCoefficient() {
+    double currentHeight = getElevatorHeight();
+    if(currentHeight < minHeight) {
+      return 1;
+    } else {
+      return 0.25;
+    }
   }
   
   public double getMotorEncoder() {

@@ -52,11 +52,11 @@ public final class Constants {
 
 	public static final class EnabledSubsystems {
 		public static final boolean arm = true;
-		public static final boolean climber = false;
+		public static final boolean climber = true;
 		public static final boolean elevator = true;
 		public static final boolean intake = true;
 		public static final boolean chasis = true;
-		public static final boolean reef = false;
+		public static final boolean reef = true;
 		public static final boolean ll = true;
 	}
 
@@ -67,9 +67,9 @@ public final class Constants {
 		public static final boolean arm = true;
 		public static final boolean intake = true;
 		public static final boolean elevator = true;
-		public static final boolean climber = false;
+		public static final boolean climber = true;
 		public static final boolean chasis = true;
-		public static final boolean reef = false;
+		public static final boolean reef = true;
 		public static final boolean ll = true;
 	}
 
@@ -597,14 +597,14 @@ public final class Constants {
 			public static enum ElevatorHeights{ // meters off the ground for the piece placement
 				Down(0.0),
 				AlgaeReefLow(13.971),
-				AlgaeReefHigh(24.367),
+				AlgaeReefHigh(26.367),
 				AlgaeIntakeUp(0.0),
 				ReefLevelOne(2.0),
 				ReefLevelTwo(8.3),
 				ReefLevelThree(18.119141),
 				ReefLevelFour(39.871),
-				Barge(0.0),
-				Processor(0.0),
+				Barge(42.0),
+				Processor(5.0),
 				CoralIntake(0.0),
 				MinimumChassisSpeedReductionHeight(1.0),
 				MaxHeight(0.0);

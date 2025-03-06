@@ -17,7 +17,7 @@ public class AlgaeToBarge extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmToPositionAndHold(ArmPositions.AlgaeIntake),
+      //new ArmToPositionAndHold(ArmPositions.AlgaeIntake),
       new ElevatorToLevelAndHold(ElevatorHeights.Barge),
       new ArmToPositionAndHold(ArmPositions.Barge)
     );

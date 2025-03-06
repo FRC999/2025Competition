@@ -58,9 +58,9 @@ public class DriveManuallyCommand extends Command {
     }
     
     RobotContainer.driveSubsystem.drive(
-      xInput * SwerveChassis.MaxSpeed,
+      xInput * SwerveChassis.MaxSpeed * RobotContainer.elevatorSubsystem.getHeightAdjustmentCoefficient(),
      //0,
-      yInput * SwerveChassis.MaxSpeed,
+      yInput * SwerveChassis.MaxSpeed * RobotContainer.elevatorSubsystem.getHeightAdjustmentCoefficient(),
       //0
       omegaInput * SwerveChassis.MaxAngularRate
     );
