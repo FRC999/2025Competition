@@ -42,7 +42,7 @@ import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.IntakeShootCommand;
-import frc.robot.commands.PanToReefTarget;
+import frc.robot.commands.PanSidewaysToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.CoralPlaceOnFour;
@@ -317,10 +317,10 @@ public class RobotContainer {
 
   public void testReef() throws Exception {
     new JoystickButton(xboxDriveController, 1)
-      .onTrue(new PanToReefTarget(0.05*SwerveChassis.MaxSpeed))
+      .onTrue(new PanSidewaysToReefTarget(0.05*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
     new JoystickButton(xboxDriveController, 2)
-      .onTrue(new PanToReefTarget(-0.05*SwerveChassis.MaxSpeed))
+      .onTrue(new PanSidewaysToReefTarget(-0.05*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
   }
 

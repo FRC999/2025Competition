@@ -7,34 +7,27 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.GPMConstants.IntakeConstants.ReefFinderConstants;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PanToReefTarget extends Command {
-  /** Creates a new PanToReefTarget. */
-
+public class PanForwardOrBackWithLowSpeed extends Command {
   double panVelocity;
-  int counter = 0;
-  public PanToReefTarget(double pVelocity) {
+  /** Creates a new PanForwardWithLowSpeed. */
+  public PanForwardOrBackWithLowSpeed(double pVelocity) {
     // Use addRequirements() here to declare subsystem dependencies.
-    panVelocity = pVelocity;
-    addRequirements(RobotContainer.driveSubsystem, RobotContainer.reefFinderSubsystem);
+        addRequirements(RobotContainer.driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("*** PanToReefTarget command started ");
+    System.out.println("*** PanForwardOrBackWithLowSpeed command started ");
 
     // Since our bot is not necessarily straight and we need to pan to the side, we need to get X and Y components of that move
     Rotation2d currentYaw = RobotContainer.driveSubsystem.getYawRotation2d();
-    double panAngle = currentYaw.plus(Rotation2d.kCW_90deg).getDegrees();
-    // the square sum of the X and Y components should be 1, as they determine the direction 
-    double xComponent = Math.cos(panAngle);
-    double yComponent = Math.sin(panAngle);
+    double xComponent = Math.cos(currentYaw.getRadians());
+    double yComponent = Math.sin(currentYaw.getRadians());
 
     RobotContainer.driveSubsystem.drive(panVelocity*xComponent, panVelocity*yComponent, 0);
-    counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,24 +37,13 @@ public class PanToReefTarget extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.driveSubsystem.stopRobot();
     System.out.println("*** PanToReefTarget command ended " + interrupted);
   }
 
+  // This command should always be interrupted
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //System.out.println("****t: " + RobotContainer.reefFinderSubsystem.isTargetVisible() + " d: "+ RobotContainer.reefFinderSubsystem.getDistanceToTarget() + " c " + counter);
-    if (RobotContainer.reefFinderSubsystem.isTargetVisible() && 
-      (RobotContainer.reefFinderSubsystem.getDistanceToTarget()<=ReefFinderConstants.maxDistanceToTarget 
-      && RobotContainer.reefFinderSubsystem.getDistanceToTarget()>=ReefFinderConstants.minDistanceToTarget )
-      && counter == 0) {
-      RobotContainer.driveSubsystem.drive(0, -panVelocity, 0);
-      counter++;
-    }
-    if ( counter != 0) {
-      counter++;
-    }
-    return counter > 3;
+    return false;
   }
 }

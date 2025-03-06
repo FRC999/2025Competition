@@ -16,7 +16,7 @@ public class TeleopPanReefRight extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PanToReefTarget(-0.05*SwerveChassis.MaxSpeed)
+      new PanSidewaysToReefTarget(-0.05*SwerveChassis.MaxSpeed)
     );
   }
 }
