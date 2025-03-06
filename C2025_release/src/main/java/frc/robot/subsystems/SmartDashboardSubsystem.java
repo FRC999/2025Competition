@@ -64,6 +64,14 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Distance to Reef Target: ", RobotContainer.reefFinderSubsystem.getDistanceToTarget());
   }
 
+  public void updatePeriemeterFinderTelemetry() {
+    SmartDashboard.putBoolean("PeriemeterFront Target Visibility: ", RobotContainer.perimeterFinderSubsystem.isTargetVisibleFront());
+    SmartDashboard.putNumber("PerimeterFront Distance: ", RobotContainer.perimeterFinderSubsystem.getDistanceToTargetFront());
+    SmartDashboard.putBoolean("PeriemeterBack Target Visibility: ", RobotContainer.perimeterFinderSubsystem.isTargetVisibleBack());
+    SmartDashboard.putNumber("PerimeterBack Distance: ", RobotContainer.perimeterFinderSubsystem.getDistanceToTargetBack());
+
+  }
+
   public void updateLLTelemetry() {
 
     SmartDashboard.putBoolean("LL-Any-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera());
@@ -120,6 +128,10 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
     if(DebugTelemetrySubsystems.reef) {
       updateReefFinderTelemetry();
+    }
+
+    if(DebugTelemetrySubsystems.perimeter) {
+      updatePeriemeterFinderTelemetry();
     }
 
     if(DebugTelemetrySubsystems.ll) {

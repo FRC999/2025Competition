@@ -66,6 +66,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LLVisionSubsystem;
+import frc.robot.subsystems.PerimeterFinderSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 
@@ -104,6 +105,7 @@ public class RobotContainer {
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static final ArmSubsystem armSubsystem = new ArmSubsystem();
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
+  public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
   public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
 
   public static Controller xboxDriveController;

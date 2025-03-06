@@ -58,6 +58,7 @@ public final class Constants {
 		public static final boolean chasis = true;
 		public static final boolean reef = true;
 		public static final boolean ll = true;
+		public static final boolean perimeter = false;
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -71,6 +72,7 @@ public final class Constants {
 		public static final boolean chasis = true;
 		public static final boolean reef = true;
 		public static final boolean ll = true;
+		public static final boolean perimeter = false;
 	}
 
 
@@ -578,6 +580,21 @@ public final class Constants {
 				public static final double minDistanceToTarget = 0.2;
 				public static final double reefFOVRangeX = 6.75;
 				public static final double reefFOVRangeY = 6.75;
+			}
+
+			public static final class PerimeterFinderConstants{
+				public static final int frontCANRangeID = 61; 
+				public static final int backCANRangeID = 61; 
+
+				public static final double newProximityThreshold = 10.0;
+				public static final double newUpdateFrequency = 5.0;
+				public static final double maxDistanceToTarget = 0.4;
+				public static final double minDistanceToTarget = 0.2;
+				public static final double perimeterFOVRangeX = 6.75;
+				public static final double perimeterFOVRangeY = 6.75;
+
+				public static final double minDistance = 0.1;
+				public static final double driveVelocity = 0.07;
 			}
 
 			public static final class IntakeCoralCANRangeConstants{
