@@ -11,6 +11,7 @@ import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.LimelightHelpers.RawFiducial;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.EnabledSubsystems;
+import frc.robot.Constants.LLVisionConstants;
 import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
@@ -31,6 +32,9 @@ public class LLVisionSubsystem extends SubsystemBase {
   private boolean bestVisible;
   private boolean bestVisibleLL4;
   private double bestCloseTag;
+
+  private boolean backLLModeAprilTag = true;
+
   /** Creates a new LLVisionSubsystem. */
   public LLVisionSubsystem() {
     if(!EnabledSubsystems.ll){
@@ -106,6 +110,14 @@ public class LLVisionSubsystem extends SubsystemBase {
       }
     }
     return ldrid;
+  }
+
+  public void ToggleBackLLMode() {
+    if (backLLModeAprilTag) { // Switch to driver camera
+      LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),1);
+    } else { // Switch to apriltags
+      LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),0);
+    }
   }
 
   @Override
