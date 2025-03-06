@@ -210,7 +210,7 @@ public class RobotContainer {
     //testArm(); 
        //testVisionCoordoinates();
     //calibrateElevator(); 
-    competitionButtonBoxBinding();
+    //competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     
    
