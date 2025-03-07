@@ -409,23 +409,24 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   public double zeroYaw() {
     double previousYaw = getYaw();
     System.out.println("Old Yaw: " + previousYaw);
-    if (RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed) {
-      System.out.println("Yaw 180 " + RobotContainer.isAllianceRed);
+    // if (RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed) {
+    //   System.out.println("Yaw 180 " + RobotContainer.isAllianceRed);
 
-      StatusCode status = StatusCode.StatusCodeNotInitialized;
-      for (int i = 0; i < 5; ++i) {
-        status = imu.setYaw(180.0);
-        if (status.isOK())
-          break;
-      }
-      if (!status.isOK()) {
-        System.out.println("Could not apply configs, error code: " + status.toString());
-      }
+    //   StatusCode status = StatusCode.StatusCodeNotInitialized;
+    //   for (int i = 0; i < 5; ++i) {
+    //     status = imu.setYaw(180.0);
+    //     if (status.isOK())
+    //       break;
+    //   }
+    //   if (!status.isOK()) {
+    //     System.out.println("Could not apply configs, error code: " + status.toString());
+    //   }
 
-      // Reset IMU pose; may need to remove for the competition
-      setCurrentOdometryPoseToSpecificRotation(180);
+    //   // Reset IMU pose; may need to remove for the competition
+    //   setCurrentOdometryPoseToSpecificRotation(180);
   
-    } else {
+    // } else 
+    {
       System.out.println("Yaw NOT 180 " + RobotContainer.isAllianceRed);
 
       StatusCode status = StatusCode.StatusCodeNotInitialized;
@@ -468,9 +469,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
   /** Zeroes the heading of the robot. */
   public void zeroHeading() {
-    if (RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed) {
-      imu.setYaw(180.0);
-    } else {
+    // if (RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed) {
+    //   imu.setYaw(180.0);
+    // } else 
+    {
       imu.setYaw(0);
     }
     System.out.println("Yaw and Fused Heading set");
@@ -646,15 +648,15 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         /* This allows us to correct the perspective in case the robot code restarts mid-match */
         /* Otherwise, only check and apply the operator perspective if the DS is disabled */
         /* This ensures driving behavior doesn't change until an explicit disable event occurs during testing*/
-        // if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
-        //     DriverStation.getAlliance().ifPresent((allianceColor) -> {
-        //         this.setOperatorPerspectiveForward(
-        //                 allianceColor == Alliance.Red 
-        //                         ? SwerveChassis.redAlliancePerspectiveRotation
-        //                         : SwerveChassis.blueAlliancePerspectiveRotation);
-        //         hasAppliedOperatorPerspective = true;
-        //     });
-        // }
+        if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
+            DriverStation.getAlliance().ifPresent((allianceColor) -> {
+                this.setOperatorPerspectiveForward(
+                        allianceColor == Alliance.Red 
+                                ? SwerveChassis.redAlliancePerspectiveRotation
+                                : SwerveChassis.blueAlliancePerspectiveRotation);
+                hasAppliedOperatorPerspective = true;
+            });
+        }
 
         //System.out.println("CS1: " + getChassisSpeeds());
   }

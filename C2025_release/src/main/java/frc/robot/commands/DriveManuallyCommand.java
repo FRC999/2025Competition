@@ -50,12 +50,12 @@ public class DriveManuallyCommand extends Command {
 		double yInput = mVySupplier.getAsDouble();
 		double omegaInput = mOmegaSupplier.getAsDouble();
 
-    SmartDashboard.putString("Joystick Values: ", "X: " + xInput + " Y: " + yInput + " Z: " + omegaInput);
+    // SmartDashboard.putString("Joystick Values: ", "X: " + xInput + " Y: " + yInput + " Z: " + omegaInput);
 
-    if(RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed){
-      xInput = -xInput;
-      yInput = -yInput;
-    }
+    // if(RobotContainer.isAllianceRed && RobotContainer.isReversingControllerAndIMUForRed){
+    //   xInput = -xInput;
+    //   yInput = -yInput;
+    // }
     
     if(!  RobotContainer.driveSubsystem.getRobotCentric()) {
 
