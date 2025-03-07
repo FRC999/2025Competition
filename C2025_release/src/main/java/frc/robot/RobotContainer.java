@@ -613,9 +613,14 @@ public class RobotContainer {
 
   public void tryPPTest() {
     new JoystickButton(driveStick1, 12)
-       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+       .onTrue(
+       // start with setting odometry to pose 
+       new InstantCommand( ()-> driveSubsystem.setOdometryToIdealPoseFromTrajectory("Blu-BargeToReef11"))
+        // just in case - wait 0.1s for the pose to take place
         .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopMoveToL4RotateArm()) 
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true))
+        .andThen(new WaitCommand(0.1))
+        .andThen(new TeleopMoveToL4RotateArm()) // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
@@ -625,38 +630,9 @@ public class RobotContainer {
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(new WaitCommand(0.1))
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false))
-        .andThen(new TeleopPanReefLeft())
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopMoveToL4RotateArm())
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()))
-       .onFalse(new StopRobot());
-  }
-
-  public void tryPPTest2() {
-    new JoystickButton(driveStick1, 12)
-       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopMoveToL4RotateArm()) 
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
-                                                                    //add the trajectory which will make the bot go backwards 
-                                                                    //before putting the elevator down. 
-        .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopCoralIntakeSequence())
-        .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false))
-        .andThen(new TeleopPanReefLeft())
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopMoveToL4RotateArm())
+        .andThen(new TeleopMoveToL4RotateArm())  // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop", false))
-        .andThen(new TeleopCoralIntakeSequence())
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false))
-        .andThen(new TeleopPanReefRight())
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopMoveToL4RotateArm())
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()))
+       )
        .onFalse(new StopRobot());
   }
 
