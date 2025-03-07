@@ -20,6 +20,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.DriveFeedforwards;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -31,6 +32,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.EnabledSubsystems;
@@ -612,6 +614,22 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
     public void setOdometryPoseToSpecificPose(Pose2d p) {
       this.resetPose(p);
+    }
+
+    /**
+     * Take trajectory, extract starting pose, reset odometry to it
+     * @param tr
+     */
+    public void setOdometryToIdealPoseFromTrajectory(String tr) {
+      try {
+        // Load the path you want to follow using its name in the GUI
+        PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
+
+        Pose2d startPose = path.getStartingHolonomicPose().get();
+        setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
+      } catch (Exception e) {
+        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+      }
     }
 
     public void setCurrentOdometryPoseToSpecificRotation(double degrees) {

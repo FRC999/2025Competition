@@ -106,9 +106,9 @@ public class RobotContainer {
   public RobotContainer() {
 
     // PathPlanner AutoBuilder Test
-    NamedCommands.registerCommand("ppTest1", getPPTestCommand1("Blu-BargeToReef11"));
-    NamedCommands.registerCommand("ppTest2", getPPTestCommand1("Blu-Reef11ToCoralTop"));
-    NamedCommands.registerCommand("ppTest3", getPPTestCommand1("Blu-CoralTopToReef10"));
+    NamedCommands.registerCommand("ppTest1", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11",true));
+    NamedCommands.registerCommand("ppTest2", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false));
+    NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false));
 
     // Configure the trigger bindings
     configureDriverInterface(); 
@@ -597,16 +597,20 @@ public class RobotContainer {
 
   public void tryPPTest() {
     new JoystickButton(driveStick1, 12)
-       .onTrue(getPPTestCommand1("Blu-BargeToReef11")
-       .andThen(getPPTestCommand1("Blu-Reef11ToCoralTop"))
-       .andThen(getPPTestCommand1("Blu-CoralTopToReef10")))
+       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
        .onFalse(new StopRobot());
   }
 
-  public Command getPPTestCommand1(String tr) {
+  public Command runTrajectoryPathPlannerWithForceResetOfStartingPose(String tr,
+      boolean shouldResetOdometryToStartingPose) {
     try {
       // Load the path you want to follow using its name in the GUI
       PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
+
+      Pose2d startPose = path.getStartingHolonomicPose().get();
+      driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
 
       // Create a path following command using AutoBuilder. This will also trigger
       // event markers.
