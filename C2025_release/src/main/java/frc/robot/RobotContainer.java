@@ -602,6 +602,14 @@ public class RobotContainer {
     }
   }
 
+  public void tryPPTestCalibration() {
+    new JoystickButton(driveStick1, 12)
+      .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
+      .onFalse(new StopRobot()); 
+  }
+
   public void tryPPTest() {
     new JoystickButton(driveStick1, 12)
        .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
