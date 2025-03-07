@@ -18,6 +18,8 @@ import frc.robot.commands.TeleopMoveToL1RotateArm;
 import frc.robot.commands.TeleopMoveToL2RotateArm;
 import frc.robot.commands.TeleopMoveToL3RotateArm;
 import frc.robot.commands.TeleopMoveToL4RotateArm;
+import frc.robot.commands.TeleopPanReefLeft;
+import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
@@ -109,6 +111,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("ppTest1", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11",true));
     NamedCommands.registerCommand("ppTest2", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false));
     NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false));
+    NamedCommands.registerCommand("ppTest4", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9",false));
+    NamedCommands.registerCommand("ppTest5", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false));
+
+
 
     // Configure the trigger bindings
     configureDriverInterface(); 
@@ -188,6 +194,7 @@ public class RobotContainer {
       //competitionButtonBoxBinding();
       
       tryPPTest();
+      //tryPPTest2();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
