@@ -598,7 +598,16 @@ public class RobotContainer {
   public void tryPPTest() {
     new JoystickButton(driveStick1, 12)
        .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+        .andThen(new WaitCommand(0.1))
+        .andThen(new TeleopMoveToL4RotateArm()) 
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
+                                                                    //add the trajectory which will make the bot go backwards 
+                                                                    //before putting the elevator down. 
+        .andThen(new WaitCommand(0.1))
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
+        .andThen(new WaitCommand(0.1))
+        .andThen(new TeleopCoralIntakeSequence())
+        .andThen(new WaitCommand(0.1))
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
        .onFalse(new StopRobot());
   }
