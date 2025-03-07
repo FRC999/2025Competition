@@ -57,14 +57,28 @@ public class DriveManuallyCommand extends Command {
       yInput = -yInput;
     }
     
+    if(!  RobotContainer.driveSubsystem.getRobotCentric()) {
+
     RobotContainer.driveSubsystem.drive(
       xInput * SwerveChassis.MaxSpeed * RobotContainer.elevatorSubsystem.getHeightAdjustmentCoefficient(),
      //0,
       yInput * SwerveChassis.MaxSpeed * RobotContainer.elevatorSubsystem.getHeightAdjustmentCoefficient(),
       //0
       omegaInput * SwerveChassis.MaxAngularRate
+
     );
+    } else {
+      RobotContainer.driveSubsystem.driveRobotCentric(
+        xInput * SwerveChassis.MaxSpeed * RobotContainer.elevatorSubsystem.getHeightAdjustmentCoefficient(),
+       //0,
+        yInput * SwerveChassis.MaxSpeed * RobotContainer.elevatorSubsystem.getHeightAdjustmentCoefficient(),
+        //0
+        omegaInput * SwerveChassis.MaxAngularRate
+  
+      );
+    } 
   }
+
 
   // Called once the command ends or is interrupted.
   @Override

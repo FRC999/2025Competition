@@ -58,7 +58,7 @@ public final class Constants {
 		public static final boolean chasis = true;
 		public static final boolean reef = true;
 		public static final boolean ll = true;
-		public static final boolean perimeter = false;
+		public static final boolean perimeter = true;
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -563,7 +563,7 @@ public final class Constants {
 			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
-			public static final double coralIntakePower = 0.2; 
+			public static final double coralIntakePower = 0.3; 
 			public static final double coralShootingPowerL23 = 0.5; 
 			public static final double coralShootingPowerL4 = 0.2; 
 			public static final double algaeIntakePower = -0.7;
@@ -583,8 +583,8 @@ public final class Constants {
 			}
 
 			public static final class PerimeterFinderConstants{
-				public static final int frontCANRangeID = 61; 
-				public static final int backCANRangeID = 61; 
+				public static final int frontCANRangeID = 46; 
+				public static final int backCANRangeID = 47; 
 
 				public static final double newProximityThreshold = 10.0;
 				public static final double newUpdateFrequency = 5.0;

@@ -45,6 +45,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   public static InterpolatingDoubleTreeMap chassisAngularVelocityConversion = new InterpolatingDoubleTreeMap(); 
   /* Keep track if we've ever applied the operator perspective before or not */
   private boolean hasAppliedOperatorPerspective = false; // red/blue side boolean decider
+  private boolean isRobotCentric = false;
 
   /** Swerve request to apply during robot-centric path following */
   private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
@@ -592,6 +593,17 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         }
     }
 
+    public void setRobotCentricTrue() {
+      isRobotCentric = true; 
+    }
+
+    public void setRobotCentricFalse() {
+      isRobotCentric = false; 
+    }
+
+    public boolean getRobotCentric() {
+      return isRobotCentric; 
+    }
   @Override
   public void periodic() {
     /* Periodically try to apply the operator perspective */

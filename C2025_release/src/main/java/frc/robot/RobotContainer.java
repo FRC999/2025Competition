@@ -42,6 +42,7 @@ import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.IntakeShootCommand;
+import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -211,7 +212,7 @@ public class RobotContainer {
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
-    //calibrateElevator(); 
+    calibrateElevator(); 
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     
@@ -286,12 +287,15 @@ public class RobotContainer {
         .onTrue(new TeleopPigeonIMUReset());
     
     new Trigger(() -> xboxDriveController.getPOV() == 90)
-        .onTrue(new TeleopPanReefLeft())
+        .onTrue(new PanLeftRightToReefTargetRobotCentric(-0.25))
         .onFalse(new StopRobot());
 
     new Trigger(() -> xboxDriveController.getPOV() == 270)
-        .onTrue(new TeleopPanReefRight())
+        .onTrue(new PanLeftRightToReefTargetRobotCentric(0.25))
         .onFalse(new StopRobot());
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(new InstantCommand(driveSubsystem::setRobotCentricTrue))
+      .onFalse(new InstantCommand(driveSubsystem::setRobotCentricFalse));
   }
 
   public void setYaws() {
