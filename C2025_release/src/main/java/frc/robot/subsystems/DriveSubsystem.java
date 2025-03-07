@@ -604,6 +604,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     public boolean getRobotCentric() {
       return isRobotCentric; 
     }
+
+    public void seedp(Pose2d p) {
+      this.resetPose(p);
+    }
   @Override
   public void periodic() {
     /* Periodically try to apply the operator perspective */

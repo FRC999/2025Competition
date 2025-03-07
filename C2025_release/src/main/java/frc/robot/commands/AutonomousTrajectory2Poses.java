@@ -32,7 +32,7 @@ public class AutonomousTrajectory2Poses extends SequentialCommandGroup {
   public AutonomousTrajectory2Poses( Pose2d startPose, Pose2d endPose) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    this(startPose, endPose, SwerveChassis.MaxSpeed, SwerveChassis.MaxAngularRate);
+    this(startPose, endPose, 2.0, 2.0);
   }
 
   /**
@@ -59,7 +59,7 @@ public class AutonomousTrajectory2Poses extends SequentialCommandGroup {
       new RunTrajectorySequenceRobotAtStartPoint(
         new PathPlannerPath(
           PathPlannerPath.waypointsFromPoses(startPose, endPose),
-          new PathConstraints(maxVelocity, maxAcceleration, SwerveChassis.MaxAngularRate, SwerveChassis.maxAngularAcceleration),
+          new PathConstraints(maxVelocity, maxAcceleration, 2.0, 2.0),
           new IdealStartingState(0.0, startPose.getRotation()) ,
           new GoalEndState(0.0, endPose.getRotation()),
           false // reversed

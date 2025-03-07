@@ -39,6 +39,8 @@ import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorAllTheWayDown;
 import frc.robot.commands.IntakeAlgaeOutSequence;
+import frc.robot.commands.IntakeAlgaeRollOutBargeCommand;
+import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.IntakeShootCommand;
@@ -122,12 +124,14 @@ public class RobotContainer {
   public RobotContainer() {
 
     // PathPlanner AutoBuilder Test
-    NamedCommands.registerCommand("ppTest1", getPPTestCommand1());
+    NamedCommands.registerCommand("ppTest1", getPPTestCommand1("Blu-BargeToReef11"));
+    NamedCommands.registerCommand("ppTest2", getPPTestCommand1("Blu-Reef11ToCoralTop"));
+    NamedCommands.registerCommand("ppTest3", getPPTestCommand1("Blu-CoralTopToReef10"));
 
     // Configure the trigger bindings
     configureDriverInterface(); 
     configureBindings();
-    //calibrateElevator();
+    calibrateElevator();
     //calibrateArm();
 
     driveSubsystem.setDefaultCommand(
@@ -201,7 +205,7 @@ public class RobotContainer {
       //testAutoChoate();
       //competitionButtonBoxBinding();
       
-      //tryPPTest();
+      tryPPTest();
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
@@ -535,16 +539,26 @@ public class RobotContainer {
     //    .onTrue(new CoralIntakeReadySequence());
 
     // new JoystickButton(driveStick1,11 )
-    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward"))
-    //   .onFalse(new StopRobot());
+    //   .onTrue(new AlgaeToBarge());
 
+    // new JoystickButton(driveStick1, 7)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise)); 
+
+    // new JoystickButton(driveStick1, 10)
+    //   .onTrue(new ArmToPositionAndHold(ArmConstants.ArmPositions.BargeEnd).alongWith(
+    //     new IntakeAlgaeRollOutBargeCommand())
+    //     .andThen(new WaitCommand(0.3))
+    //     .andThen(new StopIntake()));
+
+    new JoystickButton(driveStick1, 8)
+      .onTrue(new InstantCommand(()->driveSubsystem.seedp(
+          new Pose2d(7.200, 6.13, Rotation2d.fromDegrees(180.000)))));
     // new JoystickButton(driveStick1,12 )
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
     
     // new JoystickButton(driveStick1,12 )
-    //   .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 1, Rotation2d.fromDegrees(0)), new Pose2d(2.39, 1, Rotation2d.fromDegrees(0)))
-    //     .andThen(new CoralPlaceOnFour()))
+    //   .onTrue(new AutonomousTrajectory2Poses(new Pose2d(1, 5, Rotation2d.fromDegrees(0)), new Pose2d(2, 5, Rotation2d.fromDegrees(30))))      
     //   .onFalse(new StopRobot());
 
     // new JoystickButton(driveStick1, 3)
@@ -563,9 +577,9 @@ public class RobotContainer {
     // new JoystickButton(driveStick1, 1)
     //   .onTrue(new ClimberStartWithSpeed(ClimberConstants.climbUpPower));
 
-    new JoystickButton(driveStick1, 12)
-      .onTrue(new ClimberStartWithSpeed(0.2))
-      .onFalse(new StopClimber());
+    // new JoystickButton(driveStick1, 12)
+    //   .onTrue(new ClimberStartWithSpeed(0.2))
+    //   .onFalse(new StopClimber());
 
   }
 
@@ -601,14 +615,16 @@ public class RobotContainer {
 
   public void tryPPTest() {
     new JoystickButton(driveStick1, 12)
-       .onTrue(getPPTestCommand1())
+       .onTrue(getPPTestCommand1("Blu-BargeToReef11")
+       .andThen(getPPTestCommand1("Blu-Reef11ToCoralTop"))
+       .andThen(getPPTestCommand1("Blu-CoralTopToReef10")))
        .onFalse(new StopRobot());
   }
 
-  public Command getPPTestCommand1() {
+  public Command getPPTestCommand1(String tr) {
     try {
       // Load the path you want to follow using its name in the GUI
-      PathPlannerPath path = PathPlannerPath.fromPathFile("Blu-BargeToReef11");
+      PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
 
       // Create a path following command using AutoBuilder. This will also trigger
       // event markers.

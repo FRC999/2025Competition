@@ -569,6 +569,7 @@ public final class Constants {
 			public static final double algaeIntakePower = -0.7;
 			public static final double algaeHoldPower = -0.2;
 			public static final double algaeExpelPower = 0.2;
+			public static final double algaeExpelPowerBarge = 0.7;
 			public static final double algaeStallCurrent = 38.0;
 
 
@@ -620,7 +621,7 @@ public final class Constants {
 				ReefLevelTwo(8.3),
 				ReefLevelThree(18.119141),
 				ReefLevelFour(39.871),
-				Barge(42.0),
+				Barge(40.6),
 				Processor(5.0),
 				CoralIntake(0.0),
 				MinimumChassisSpeedReductionHeight(1.0),
@@ -708,7 +709,8 @@ public final class Constants {
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
 				ReefLevelFour(6.5),  //TODO: Needs values from robot
-				Barge((1-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS),
+				Barge(15),
+				BargeEnd(5.0),
 				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
 				private double armPositionForGamepiecePlacement;
 				ArmPositions(double position) {
