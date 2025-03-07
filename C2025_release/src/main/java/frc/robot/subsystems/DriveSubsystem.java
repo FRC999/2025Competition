@@ -419,6 +419,9 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
       if (!status.isOK()) {
         System.out.println("Could not apply configs, error code: " + status.toString());
       }
+
+      // Reset IMU pose; may need to remove for the competition
+      setCurrentOdometryPoseToSpecificRotation(180);
   
     } else {
       System.out.println("Yaw NOT 180 " + RobotContainer.isAllianceRed);
@@ -432,6 +435,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
       if (!status.isOK()) {
         System.out.println("Could not apply configs, error code: " + status.toString());
       }
+
+      setCurrentOdometryPoseToSpecificRotation(0);
     }
     System.out.println("New Yaw: " + imu.getYaw());
     return previousYaw;
@@ -605,9 +610,17 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
       return isRobotCentric; 
     }
 
-    public void seedp(Pose2d p) {
+    public void setOdometryPoseToSpecificPose(Pose2d p) {
       this.resetPose(p);
     }
+
+    public void setCurrentOdometryPoseToSpecificRotation(double degrees) {
+      Pose2d currentPose = this.getPose();
+      Pose2d newPose = new Pose2d(currentPose.getX(), currentPose.getY(), Rotation2d.fromDegrees(degrees));
+      setOdometryPoseToSpecificPose(newPose);
+    }
+
+
   @Override
   public void periodic() {
     /* Periodically try to apply the operator perspective */
