@@ -18,6 +18,8 @@ import frc.robot.commands.TeleopMoveToL1RotateArm;
 import frc.robot.commands.TeleopMoveToL2RotateArm;
 import frc.robot.commands.TeleopMoveToL3RotateArm;
 import frc.robot.commands.TeleopMoveToL4RotateArm;
+import frc.robot.commands.TeleopPanReefLeft;
+import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
@@ -614,6 +616,7 @@ public class RobotContainer {
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(new WaitCommand(0.1))
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false))
+        .andThen(new TeleopPanReefLeft())
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()))
@@ -634,12 +637,14 @@ public class RobotContainer {
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(new WaitCommand(0.1))
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false))
+        .andThen(new TeleopPanReefLeft())
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop", false))
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false))
+        .andThen(new TeleopPanReefRight())
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()))
