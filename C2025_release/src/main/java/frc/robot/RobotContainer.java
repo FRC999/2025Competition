@@ -28,9 +28,9 @@ import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoBlu1CoralL1;
 import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.AutoBlueOneCoral;
-import frc.robot.commands.AutoRed1CoralL1;
+//import frc.robot.commands.AutoRed1CoralL1;
 import frc.robot.commands.AutoRed2Coral;
-import frc.robot.commands.AutoRedFromBlu2Coral;
+//import frc.robot.commands.AutoRedFromBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
@@ -154,7 +154,7 @@ public class RobotContainer {
     autoChooser.addOption("RED TOP 2Coral", new AutoRed2Coral());
     autoChooser.addOption("BLUE One Coral Auto", new AutoBlueOneCoral());
     autoChooser.addOption("BLUE One Coral Auto L1", new AutoBlu1CoralL1());
-    autoChooser.addOption("RED One Coral Auto L1", new AutoRed1CoralL1());
+    //autoChooser.addOption("RED One Coral Auto L1", new AutoRed1CoralL1());
     
     //autoChooser.addOption("RED From  Blu 2 ", new AutoRedFromBlu2Coral());
 
