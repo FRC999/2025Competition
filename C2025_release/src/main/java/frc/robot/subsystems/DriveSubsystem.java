@@ -46,7 +46,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
   public static InterpolatingDoubleTreeMap chassisAngularVelocityConversion = new InterpolatingDoubleTreeMap(); 
   /* Keep track if we've ever applied the operator perspective before or not */
-  private boolean hasAppliedOperatorPerspective = false; // red/blue side boolean decider
+  private boolean hasAppliedOperatorPerspective = true; // red/blue side boolean decider
   private boolean isRobotCentric = false;
 
   /** Swerve request to apply during robot-centric path following */
@@ -650,15 +650,15 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         /* This allows us to correct the perspective in case the robot code restarts mid-match */
         /* Otherwise, only check and apply the operator perspective if the DS is disabled */
         /* This ensures driving behavior doesn't change until an explicit disable event occurs during testing*/
-        if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
-            DriverStation.getAlliance().ifPresent((allianceColor) -> {
-                this.setOperatorPerspectiveForward(
-                        allianceColor == Alliance.Red 
-                                ? SwerveChassis.redAlliancePerspectiveRotation
-                                : SwerveChassis.blueAlliancePerspectiveRotation);
-                hasAppliedOperatorPerspective = true;
-            });
-        }
+        // if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
+        //     DriverStation.getAlliance().ifPresent((allianceColor) -> {
+        //         this.setOperatorPerspectiveForward(
+        //                 allianceColor == Alliance.Red 
+        //                         ? SwerveChassis.redAlliancePerspectiveRotation
+        //                         : SwerveChassis.blueAlliancePerspectiveRotation);
+        //         hasAppliedOperatorPerspective = true;
+        //     });
+        // }
 
         //System.out.println("CS1: " + getChassisSpeeds());
   }
