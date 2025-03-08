@@ -30,7 +30,7 @@ public class AutoRed2Coral extends SequentialCommandGroup {
         //.andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false,false))
         //.andThen(new WaitCommand(0.1))
-        .andThen(new TeleopCoralIntakeSequence())
+        .alongWith(new TeleopCoralIntakeSequence())
         //.andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10", false,false))
         .andThen(new TeleopMoveToL4RotateArm()) //

@@ -22,16 +22,15 @@ public class AutoBlu2Coral extends SequentialCommandGroup {
         // just in case - wait 0.1s for the pose to take place
         .andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true,false))
-        .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL2RotateArm()) // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
-        .andThen(new WaitCommand(0.1))
+        //.andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false))
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopCoralIntakeSequence())
-        .andThen(new WaitCommand(0.1))
+        //.andThen(new WaitCommand(0.1))
+        .alongWith(new TeleopCoralIntakeSequence())
+        //.andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false))
         .andThen(new TeleopMoveToL4RotateArm())  // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
