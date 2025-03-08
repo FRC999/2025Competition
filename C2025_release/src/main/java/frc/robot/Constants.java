@@ -58,7 +58,7 @@ public final class Constants {
 		public static final boolean chasis = true;
 		public static final boolean reef = true;
 		public static final boolean ll = true;
-		public static final boolean perimeter = true;
+		public static final boolean perimeter = false;
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -72,7 +72,7 @@ public final class Constants {
 		public static final boolean chasis = true;
 		public static final boolean reef = true;
 		public static final boolean ll = true;
-		public static final boolean perimeter = true;
+		public static final boolean perimeter = false;
 	}
 
 
@@ -624,7 +624,7 @@ public final class Constants {
 				Barge(40.6),
 				Processor(5.0),
 				CoralIntake(0.0),
-				CoralAltIntake(11.2),
+				CoralAltIntake(13.2),
 				MinimumChassisSpeedReductionHeight(1.0),
 				MaxHeight(0.0);
 				private double elevatorHeightForGamepiecePlacement;
