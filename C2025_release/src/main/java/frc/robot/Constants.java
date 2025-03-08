@@ -624,6 +624,7 @@ public final class Constants {
 				Barge(40.6),
 				Processor(5.0),
 				CoralIntake(0.0),
+				CoralAltIntake(11.2),
 				MinimumChassisSpeedReductionHeight(1.0),
 				MaxHeight(0.0);
 				private double elevatorHeightForGamepiecePlacement;
@@ -700,6 +701,7 @@ public final class Constants {
 			 */
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup
 				CoralIntake(-2.05),
+				CoralAltIntake(14.72),
 				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake(19.6),  
 				//AlgaeIntake2(19.6),

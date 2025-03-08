@@ -14,6 +14,7 @@ import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
 import frc.robot.commands.TeleopCoralIntakeSequence;
 import frc.robot.commands.TeleopEjectCoralBringArmToCruiseElevatorDown;
+import frc.robot.commands.TeleopIntakeCoralAlternateSequence;
 import frc.robot.commands.TeleopMoveToL1RotateArm;
 import frc.robot.commands.TeleopMoveToL2RotateArm;
 import frc.robot.commands.TeleopMoveToL3RotateArm;
@@ -283,14 +284,21 @@ public class RobotContainer {
     new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
       .onTrue(new ClimberStartWithSpeed(-1.0))
       .onFalse(new StopClimber());
-  }
+
+    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
+      .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode))
+      ;
+
+
+    }
 
   public void XBOXControllerCompetitionBinding() {
     new JoystickButton(xboxDriveController, 5)
     .onTrue(new TeleopAlgaePickupFromHighAndHold()); 
 
     new JoystickButton(xboxDriveController, 6)
-      .onTrue(new TeleopCoralIntakeSequence()); 
+      .onTrue(new TeleopIntakeCoralAlternateSequence())
+      .onFalse(new ArmToPositionAndHold(ArmPositions.CoralCruise));
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence())
