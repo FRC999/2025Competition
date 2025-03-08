@@ -24,6 +24,7 @@ import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmToPositionAndHold;
+import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
@@ -68,6 +69,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -101,6 +103,8 @@ public class RobotContainer {
   public static boolean isAllianceRed = false;
   public static boolean isReversingControllerAndIMUForRed = true;
 
+  public static SendableChooser<Command> autoChooser = new SendableChooser<>();
+
   public static Joystick driveStick1;
   
 
@@ -131,6 +135,13 @@ public class RobotContainer {
     if (EnabledSubsystems.arm) {
       armSubsystem.calibrateZeroArmPosition();
     }
+  }
+
+  private void AutonomousConfigure () {
+      //port autonomous routines as commands
+    //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
+    autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
+
   }
 
   private void configureDriverInterface(){
@@ -189,11 +200,11 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      testMohawk();
+      //testMohawk();
       //testAutoChoate();
       //competitionButtonBoxBinding();
       
-      tryPPTest();
+      //tryPPTest();
       //tryPPTestCalibration();
       //tryPPTest2();
     }
@@ -663,7 +674,7 @@ public class RobotContainer {
   }
 
 
-  public Command runTrajectoryPathPlannerWithForceResetOfStartingPose(String tr,
+  public static Command runTrajectoryPathPlannerWithForceResetOfStartingPose(String tr,
       boolean shouldResetOdometryToStartingPose) {
     try {
       // Load the path you want to follow using its name in the GUI
