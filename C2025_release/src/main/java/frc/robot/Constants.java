@@ -72,7 +72,7 @@ public final class Constants {
 		public static final boolean chasis = true;
 		public static final boolean reef = true;
 		public static final boolean ll = true;
-		public static final boolean perimeter = false;
+		public static final boolean perimeter = true;
 	}
 
 

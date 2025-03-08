@@ -65,11 +65,18 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updatePeriemeterFinderTelemetry() {
-    SmartDashboard.putBoolean("PeriemeterFront Target Visibility: ", RobotContainer.perimeterFinderSubsystem.isTargetVisibleFront());
-    SmartDashboard.putNumber("PerimeterFront Distance: ", RobotContainer.perimeterFinderSubsystem.getDistanceToTargetFront());
-    SmartDashboard.putBoolean("PeriemeterBack Target Visibility: ", RobotContainer.perimeterFinderSubsystem.isTargetVisibleBack());
-    SmartDashboard.putNumber("PerimeterBack Distance: ", RobotContainer.perimeterFinderSubsystem.getDistanceToTargetBack());
-
+    try {
+      SmartDashboard.putBoolean("PeriemeterFront Target Visibility: ", RobotContainer.perimeterFinderSubsystem.isTargetVisibleFront());
+      if ( RobotContainer.perimeterFinderSubsystem.isTargetVisibleFront() ) {
+        SmartDashboard.putNumber("PerimeterFront Distance: ", RobotContainer.perimeterFinderSubsystem.getDistanceToTargetFront());
+      }
+      SmartDashboard.putBoolean("PeriemeterBack Target Visibility: ", RobotContainer.perimeterFinderSubsystem.isTargetVisibleBack());
+      if ( RobotContainer.perimeterFinderSubsystem.isTargetVisibleBack() ) {
+        SmartDashboard.putNumber("PerimeterBack Distance: ", RobotContainer.perimeterFinderSubsystem.getDistanceToTargetBack());
+      }
+  } catch (Exception e) {
+    // TODO: handle exception
+  }
   }
 
   public void updateLLTelemetry() {

@@ -128,9 +128,9 @@ public class VisionHelpers {
 
         // alex test
 
-        for (int i=0;i<apriltagPoses.size();i++) {
-            System.out.println("I:"+i+" P "+apriltagPoses.get(i));
-        }
+        // for (int i=0;i<apriltagPoses.size();i++) {
+        //     System.out.println("I:"+i+" P "+apriltagPoses.get(i));
+        // }
     }
 
     public static Pose2d getClosestReefTagToRobot(Pose2d robotPose) {
