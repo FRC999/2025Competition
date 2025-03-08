@@ -273,11 +273,12 @@ public class RobotContainer {
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
     
-    new Trigger(() -> buttonBox.getRawAxis(1) == 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
-      .onTrue(new ClimberStartWithSpeed(-0.2).raceWith(new WaitCommand(1.0)))
-      .onFalse(new StopClimber());
+    // new Trigger(() -> buttonBox.getRawAxis(1) == 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
+    //   .onTrue(new ClimberStartWithSpeed(-0.2).raceWith(new WaitCommand(1.0)))
+    //   .onFalse(new StopClimber());
 
-    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8)
+    // Axis 1 - second toggle switch
+    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
       .onTrue(new ClimberStartWithSpeed(-1.0))
       .onFalse(new StopClimber());
   }
