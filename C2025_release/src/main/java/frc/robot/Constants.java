@@ -564,6 +564,7 @@ public final class Constants {
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
 			public static final double coralIntakePower = 0.3; 
+			public static final double CoralAltIntakePower = 0.7;
 			public static final double coralShootingPowerL23 = 0.5; 
 			public static final double coralShootingPowerL4 = 0.2; 
 			public static final double algaeIntakePower = -0.7;
@@ -624,7 +625,7 @@ public final class Constants {
 				Barge(40.6),
 				Processor(5.0),
 				CoralIntake(0.0),
-				CoralAltIntake(13.2),
+				CoralAltIntake(18.2),
 				MinimumChassisSpeedReductionHeight(1.0),
 				MaxHeight(0.0);
 				private double elevatorHeightForGamepiecePlacement;

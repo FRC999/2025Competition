@@ -27,9 +27,9 @@ public class IntakeCoralAndMoveToCruisePoisitionAltSequence extends SequentialCo
         .raceWith(new WaitCommand(1)) // We observed this command not ending on its own sometimes, possibly because of the chain slack
       ,
       new PrintCommand("* arm at intake position"),
-      new IntakeCoralCommand(IntakeConstants.coralIntakePower),
+      new IntakeCoralCommand(IntakeConstants.CoralAltIntakePower),
       new PrintCommand("* coral in intake"),
-      new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
+      //new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
       new PrintCommand("* arm at cruise position"),
       new PrintCommand("*** Intake Coral sequence end")
     );
