@@ -613,9 +613,9 @@ public class RobotContainer {
     for (String k : RobotPoseConstants.visionRobotPoses.keySet()) {
       keys.add(k);
     }
-    for (String key : keys) {
-      System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
-    }
+    // for (String key : keys) {
+    //   System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
+    // }
   }
 
   public void tryPPTestCalibration() {
@@ -701,7 +701,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  
+
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
