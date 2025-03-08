@@ -71,6 +71,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    RobotContainer.armSubsystem.setArmPositionWithAngle(ArmPositions.CoralCruise);
+    RobotContainer.setIfAllianceRed();
   }
 
   @Override
