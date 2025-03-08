@@ -117,7 +117,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false));
     NamedCommands.registerCommand("ppTest4", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9",false));
     NamedCommands.registerCommand("ppTest5", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false));
-
+    NamedCommands.registerCommand("ppTest6", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11",true));
+    NamedCommands.registerCommand("ppTest7", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false));
+    NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false));
 
 
     // Configure the trigger bindings
