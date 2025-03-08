@@ -113,14 +113,14 @@ public class RobotContainer {
   public RobotContainer() {
 
     // PathPlanner AutoBuilder Test
-    NamedCommands.registerCommand("ppTest1", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11",true));
-    NamedCommands.registerCommand("ppTest2", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false));
-    NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false));
-    NamedCommands.registerCommand("ppTest4", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9",false));
-    NamedCommands.registerCommand("ppTest5", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false));
-    NamedCommands.registerCommand("ppTest6", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11",true));
-    NamedCommands.registerCommand("ppTest7", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false));
-    NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false));
+    NamedCommands.registerCommand("ppTest1", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11",true, false));
+    NamedCommands.registerCommand("ppTest2", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false));
+    NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false,false));
+    NamedCommands.registerCommand("ppTest4", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9",false,false));
+    NamedCommands.registerCommand("ppTest5", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false));
+    NamedCommands.registerCommand("ppTest6", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11",true,false));
+    NamedCommands.registerCommand("ppTest7", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false,false));
+    NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false,false));
 
 
     // Configure the trigger bindings
@@ -627,7 +627,7 @@ public class RobotContainer {
 
   public void tryPPTestCalibration() {
     new JoystickButton(driveStick1, 12)
-      .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11", true))
+      .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11", true,false))
     //     .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
     //     .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
       .onFalse(new StopRobot()); 
@@ -640,18 +640,18 @@ public class RobotContainer {
        new InstantCommand( ()-> driveSubsystem.setOdometryToIdealPoseFromTrajectory("Blu-BargeToReef11"))
         // just in case - wait 0.1s for the pose to take place
         .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true,false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm()) // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
         .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false,false))
         .andThen(new TeleopMoveToL4RotateArm())  // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
        )
@@ -660,24 +660,24 @@ public class RobotContainer {
 
   public void tryPPTest2() {
     new JoystickButton(driveStick1, 12)
-       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true, false)
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to
                                                                     //add the trajectory which will make the bot go backwards
                                                                     //before putting the elevator down.
         .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false, false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(new WaitCommand(0.1))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop", false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop", false, false))
         .andThen(new TeleopCoralIntakeSequence())
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false))
+        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()))
@@ -686,10 +686,14 @@ public class RobotContainer {
 
 
   public static Command runTrajectoryPathPlannerWithForceResetOfStartingPose(String tr,
-      boolean shouldResetOdometryToStartingPose) {
+      boolean shouldResetOdometryToStartingPose, boolean flipTrajectory) {
     try {
       // Load the path you want to follow using its name in the GUI
       PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
+
+      if (flipTrajectory) {
+        path = path.flipPath();
+      }
 
       Pose2d startPose = path.getStartingHolonomicPose().get();
       driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
