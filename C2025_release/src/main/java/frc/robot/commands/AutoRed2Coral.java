@@ -22,18 +22,18 @@ public class AutoRed2Coral extends SequentialCommandGroup {
         // just in case - wait 0.1s for the pose to take place
         .andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11", true,false))
-        .andThen(new WaitCommand(0.1))
-        .andThen(new TeleopMoveToL1RotateArm()) // try placing Coral on L4
+        //.andThen(new WaitCommand(0.1))
+        .andThen(new TeleopMoveToL2RotateArm()) // try placing Coral on L4
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
-        .andThen(new WaitCommand(0.1))
+        //.andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false,false))
-        .andThen(new WaitCommand(0.1))
+        //.andThen(new WaitCommand(0.1))
         .andThen(new TeleopCoralIntakeSequence())
-        .andThen(new WaitCommand(0.1))
+        //.andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10", false,false))
-        .andThen(new TeleopMoveToL1RotateArm())  // try placing Coral on L4
+        .andThen(new TeleopMoveToL4RotateArm()) //
         .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
     );
   }
