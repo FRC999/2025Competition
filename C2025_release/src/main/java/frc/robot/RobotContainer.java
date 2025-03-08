@@ -277,6 +277,8 @@ public class RobotContainer {
     //   .onTrue(new ClimberStartWithSpeed(-0.2).raceWith(new WaitCommand(1.0)))
     //   .onFalse(new StopClimber());
 
+    //TODO: CHECK IN THE MORNING - VERY IMPORTANT!!!!!
+
     // Axis 1 - second toggle switch
     new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
       .onTrue(new ClimberStartWithSpeed(-1.0))
