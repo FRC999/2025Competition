@@ -135,12 +135,16 @@ public class RobotContainer {
     if (EnabledSubsystems.arm) {
       armSubsystem.calibrateZeroArmPosition();
     }
+
+    AutonomousConfigure();
   }
 
   private void AutonomousConfigure () {
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
+
+    SmartDashboard.putData(autoChooser);
 
   }
 
@@ -417,15 +421,15 @@ public class RobotContainer {
     //   .onFalse(new StopElevator());
 
 
-    new JoystickButton(driveStick1, 7)
-      .onTrue(
-        new ArmToPositionAndHold(ArmPositions.CoralCruise)
-        .andThen(new WaitCommand(1))
-        .andThen(new ArmToPositionAndHold(ArmPositions.ReefLevelFour))
-        .andThen(new WaitCommand(1))
-        .andThen(new ArmToPositionAndHold(ArmPositions.CoralCruise)) 
-      )
-      .onFalse(new StopArm());
+    // new JoystickButton(driveStick1, 7)
+    //   .onTrue(
+    //     new ArmToPositionAndHold(ArmPositions.CoralCruise)
+    //     .andThen(new WaitCommand(1))
+    //     .andThen(new ArmToPositionAndHold(ArmPositions.ReefLevelFour))
+    //     .andThen(new WaitCommand(1))
+    //     .andThen(new ArmToPositionAndHold(ArmPositions.CoralCruise)) 
+    //   )
+    //   .onFalse(new StopArm());
 
   }
 
@@ -437,12 +441,12 @@ public class RobotContainer {
 
 
   public void calibrateElevator() {
-    new JoystickButton(driveStick1, 1)
-    .onTrue(new CalibrateElevatorDeterminekG())
-    .onFalse(new StopElevatorAndHold());
+    // new JoystickButton(driveStick1, 1)
+    // .onTrue(new CalibrateElevatorDeterminekG())
+    // .onFalse(new StopElevatorAndHold());
 
-    new JoystickButton(driveStick1, 2)
-    .onTrue(new StopElevator());
+    // new JoystickButton(driveStick1, 2)
+    // .onTrue(new StopElevator());
   }
 
   public void calibrateArm() {
@@ -495,9 +499,9 @@ public class RobotContainer {
   }
 
   public void testChoate() throws Exception{
-    new JoystickButton(driveStick1, 1)
-      .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef8"))
-      .onFalse(new StopRobot());
+    // new JoystickButton(driveStick1, 1)
+    //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef8"))
+    //   .onFalse(new StopRobot());
   }
 
   public void testMohawk() throws Exception { //also some trajectory testing
@@ -551,9 +555,9 @@ public class RobotContainer {
     //     .andThen(new WaitCommand(0.3))
     //     .andThen(new StopIntake()));
 
-    new JoystickButton(driveStick1, 8)
-      .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
-          new Pose2d(7.200, 6.13, Rotation2d.fromDegrees(180.000)))));
+    // new JoystickButton(driveStick1, 8)
+    //   .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
+    //       new Pose2d(7.200, 6.13, Rotation2d.fromDegrees(180.000)))));
     // new JoystickButton(driveStick1,12 )
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
@@ -595,9 +599,9 @@ public class RobotContainer {
     // new JoystickButton(driveStick1, 1)
     //   .onTrue(new CalibrateChassisLinearDeadband())
     //   .onFalse(new StopRobot());
-    new JoystickButton(driveStick1, 1)
-       .onTrue(new CalibrateChassisAngularDeadband())
-       .onFalse(new StopRobot());
+    // new JoystickButton(driveStick1, 1)
+    //    .onTrue(new CalibrateChassisAngularDeadband())
+    //    .onFalse(new StopRobot());
   }
 
   public void testVisionCoordoinates() {
@@ -615,11 +619,11 @@ public class RobotContainer {
   }
 
   public void tryPPTestCalibration() {
-    new JoystickButton(driveStick1, 12)
-      .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
-        .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
-      .onFalse(new StopRobot()); 
+    // new JoystickButton(driveStick1, 12)
+    //   .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+    //     .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
+    //     .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
+    //   .onFalse(new StopRobot()); 
   }
 
   public void tryPPTest() {
@@ -698,6 +702,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autoChooser.getSelected();
   }
 }
