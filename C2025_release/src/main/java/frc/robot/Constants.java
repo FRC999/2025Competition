@@ -703,7 +703,8 @@ public final class Constants {
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup
 				CoralIntake(-2.05),
 				CoralAltIntake(14.72),
-				CoralCruise(1.0), // after coral intake - position, so the elevator can be safely raised
+				CoralCruise(1.0),
+				ClimbCruise(7.5), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake(19.6),  
 				//AlgaeIntake2(19.6),
 				AlgaeRelease(10),  //TODO: Needs values from robot
