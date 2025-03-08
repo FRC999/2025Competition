@@ -555,9 +555,9 @@ public class RobotContainer {
     //     .andThen(new WaitCommand(0.3))
     //     .andThen(new StopIntake()));
 
-    // new JoystickButton(driveStick1, 8)
-    //   .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
-    //       new Pose2d(7.200, 6.13, Rotation2d.fromDegrees(180.000)))));
+    new JoystickButton(driveStick1, 8)
+      .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
+          new Pose2d(10.654, 1.910, Rotation2d.fromDegrees(0)))));
     // new JoystickButton(driveStick1,12 )
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
@@ -619,11 +619,11 @@ public class RobotContainer {
   }
 
   public void tryPPTestCalibration() {
-    // new JoystickButton(driveStick1, 12)
-    //   .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true)
+    new JoystickButton(driveStick1, 12)
+      .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11", true))
     //     .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false))
     //     .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false)))
-    //   .onFalse(new StopRobot()); 
+      .onFalse(new StopRobot()); 
   }
 
   public void tryPPTest() {
