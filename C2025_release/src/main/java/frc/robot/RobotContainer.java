@@ -34,6 +34,7 @@ import frc.robot.commands.AutoRedFromBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
+import frc.robot.commands.ClimberStartSequence;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorAllTheWayDown;
 import frc.robot.commands.IntakeAlgaeOutSequence;
@@ -160,7 +161,7 @@ public class RobotContainer {
 
     SmartDashboard.putData(autoChooser);
 
-  }
+  } 
 
   private void configureDriverInterface(){
     driveStick1 = new Joystick(0); //TODO: ONLY FOR TESTING; MUST BE COMMENTED FOR COMP
@@ -291,7 +292,7 @@ public class RobotContainer {
 
     // Axis 1 - second toggle switch
     new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new ClimberStartWithSpeed(-1.0))
+      .onTrue(new ClimberStartSequence())
       .onFalse(new StopClimber());
 
     new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )

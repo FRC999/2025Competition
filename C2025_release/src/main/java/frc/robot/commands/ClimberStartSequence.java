@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,8 +18,7 @@ public class ClimberStartSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmToPositionAndHold(ArmPositions.ReefLevelFour),
-      new ClimberStartWithSpeed(1.0)
+      new ArmToPositionAndHold(ArmPositions.ReefLevelFour).alongWith(new ClimberStartWithSpeed(-1.0))
     );
   }
 }
