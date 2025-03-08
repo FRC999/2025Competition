@@ -18,7 +18,8 @@ public class ClimberStartSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmToPositionAndHold(ArmPositions.ClimbCruise).alongWith(new ClimberStartWithSpeed(-1.0))
+      new ElevatorAllTheWayDown().
+      alongWith(new ClimberStartWithSpeed(-1.0))
     );
   }
 }
