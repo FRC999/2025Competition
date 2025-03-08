@@ -295,6 +295,9 @@ public class RobotContainer {
       .onTrue(new ClimberStartSequence())
       .onFalse(new StopClimber());
 
+    new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
+      .onTrue(new ElevatorAllTheWayDown());
+
     new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
       .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode))
       ;
