@@ -700,7 +700,11 @@ public class RobotContainer {
 
       // Create a path following command using AutoBuilder. This will also trigger
       // event markers.
-      return AutoBuilder.followPath(path);
+      if (! shouldResetOdometryToStartingPose) {
+        return AutoBuilder.followPath(path);
+      } else { // reset odometry the right way
+        return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
+      }
     } catch (Exception e) {
       DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
       return Commands.none();
