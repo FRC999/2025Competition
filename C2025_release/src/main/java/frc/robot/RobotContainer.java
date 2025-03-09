@@ -762,6 +762,7 @@ public class RobotContainer {
       if (!shouldResetOdometryToStartingPose) {
         return AutoBuilder.followPath(path);
       } else { // reset odometry the right way
+        System.out.println("== Driving from "+startPose+" to "+endPose);
         return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
       }
     } catch (Exception e) {
