@@ -805,6 +805,12 @@ public class RobotContainer {
     }
   }
 
+  public void testVisionDriving() {
+    new JoystickButton(xboxDriveController, 2)
+      .onTrue(runTrajCurLocToKnownLoc(new Pose2d(0,0,Rotation2d.k180deg), false))
+      .onFalse(new StopRobot()); 
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
