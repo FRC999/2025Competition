@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OIConstants.ControllerDevice;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
@@ -72,7 +73,10 @@ import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.IdealStartingState;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.Waypoint;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -83,6 +87,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -732,6 +737,70 @@ public class RobotContainer {
     } catch (Exception e) {
       DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
       return Commands.none();
+    }
+  }
+
+  /**
+   * Run trajectory between 2 poses in native PathPlanner way
+   * @param startPose
+   * @param endPose
+   * @param shouldResetOdometryToStartingPose
+   * @return
+   */
+  public static Command runTrajectory2Poses(Pose2d startPose, Pose2d endPose,
+      boolean shouldResetOdometryToStartingPose) {
+    try {
+      List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(startPose, endPose);
+
+      PathPlannerPath path = new PathPlannerPath(
+          waypoints,
+          AutoConstants.pathCconstraints,
+          new IdealStartingState(0, startPose.getRotation()),
+          new GoalEndState(0, endPose.getRotation()));
+      path.preventFlipping = true;
+      driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
+      if (!shouldResetOdometryToStartingPose) {
+        return AutoBuilder.followPath(path);
+      } else { // reset odometry the right way
+        return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
+      }
+    } catch (Exception e) {
+      DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+
+/**
+ * Run trajectory from current location as determined by cameras to known location, such as known AT placement
+ * @param knownLocation
+ * @param assumeLocation - if the pose cannot be determined by cameras, assume that current odometry location is correct
+ * @return
+ */
+  public static Command runTrajCurLocToKnownLoc(Pose2d knownLocation, boolean assumeLocation) {
+    try {
+      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+        return (
+          runTrajectory2Poses(
+            RobotContainer.llVisionSubsystem.getBestPoseAllCameras(),
+            knownLocation,
+            true // reset odometry, since the pose determination is dynamic
+          )
+        );
+      } else {
+        if (assumeLocation) {
+          return 
+            runTrajectory2Poses(
+              driveSubsystem.getPose(),
+              knownLocation,
+              true // reset odometry, since the pose determination is dynamic
+            );
+        } else {
+          return new PrintCommand("Current position cannot be determined by cameras");
+        }
+      }
+    } catch (Exception e) {
+        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+        return Commands.none();
     }
   }
 

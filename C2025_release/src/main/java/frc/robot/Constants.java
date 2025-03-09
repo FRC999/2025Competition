@@ -31,9 +31,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.SwerveConstants.SwerveChassis;
 
 import com.ctre.phoenix6.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
@@ -819,6 +821,14 @@ public final class Constants {
 	}
 
 	public static final class AutoConstants {
+		public static PathConstraints pathCconstraints = new PathConstraints(
+			SwerveChassis.MaxSpeed,
+			SwerveChassis.maxAcceleration,
+			SwerveChassis.MaxAngularRate,
+			SwerveChassis.maxAngularAcceleration,
+			12, // Volts - nomonal battery
+			false // constraints shold not be unlimited
+			);
 		public static enum autoPoses {
 
 			//
