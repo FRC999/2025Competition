@@ -28,6 +28,7 @@ import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoBlu1CoralL1;
 import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.AutoBlueOneCoral;
+import frc.robot.commands.AutoRed1Coral;
 import frc.robot.commands.AutoRed1CoralL1;
 //import frc.robot.commands.AutoRed1CoralL1;
 import frc.robot.commands.AutoRed2Coral;
@@ -155,10 +156,12 @@ public class RobotContainer {
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
     autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
-    autoChooser.addOption("BLUE One Coral Auto", new AutoBlueOneCoral());
+    autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
+    autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
     autoChooser.addOption("BLUE One Coral Auto L1", new AutoBlu1CoralL1());
     autoChooser.addOption("RED One Coral Auto L1", new AutoRed1CoralL1());
     autoChooser.addOption("RED Top 2Coral", new AutoRedReverse2Coral());
+    
     
     //autoChooser.addOption("RED From  Blu 2 ", new AutoRedFromBlu2Coral());
 
