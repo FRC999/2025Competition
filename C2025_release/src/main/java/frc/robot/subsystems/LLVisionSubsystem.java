@@ -186,18 +186,8 @@ public class LLVisionSubsystem extends SubsystemBase {
       }
     } // end of loop checking whether the AT is visible
 
-    if (tvisible) {
-      bestVisible = true;
-      if (tvisibleLL4) {
-        bestVisibleLL4 = true;
-      } else {
-        bestVisibleLL4 = false;
-      }
-    } else {
-      bestVisible = false;
-      bestVisibleLL4 = false;
-    }
-
+    bestVisible = tvisible;
+    bestVisibleLL4 = tvisibleLL4; 
   }
 }
 
