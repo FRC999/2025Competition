@@ -762,6 +762,7 @@ public class RobotContainer {
       if (!shouldResetOdometryToStartingPose) {
         return AutoBuilder.followPath(path);
       } else { // reset odometry the right way
+        System.out.println("== Driving from "+startPose+" to "+endPose);
         return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
       }
     } catch (Exception e) {
@@ -802,6 +803,12 @@ public class RobotContainer {
         DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
         return Commands.none();
     }
+  }
+
+  public void testVisionDriving() {
+    new JoystickButton(xboxDriveController, 2)
+      .onTrue(runTrajCurLocToKnownLoc(new Pose2d(0,0,Rotation2d.k180deg), false))
+      .onFalse(new StopRobot()); 
   }
 
   /**
