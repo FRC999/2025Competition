@@ -253,5 +253,16 @@ public class VisionHelpers {
         } else if (tagPose.getY()-rotatedRobotPose.getY() < 0) {
           return 1;
         } else { return -1;}
-      }
+    }
+
+    public static double distanceFromPoseLineY(Pose2d tagPose, Pose2d robotPose) {
+        Pose2d rotatedRobotPose = robotPose.rotateAround(tagPose.getTranslation(), tagPose.getRotation().unaryMinus());
+        return tagPose.getY()-rotatedRobotPose.getY();
+    }
+    public static double distanceFromPoseLineX(Pose2d tagPose, Pose2d robotPose) {
+        Pose2d rotatedRobotPose = robotPose.rotateAround(tagPose.getTranslation(), tagPose.getRotation().unaryMinus());
+        return tagPose.getX()-rotatedRobotPose.getX();
+    }
+
+
 }

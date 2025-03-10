@@ -834,5 +834,6 @@ public final class Constants {
 			//
 
 		}
+		public static final double panReefTolerance = 0.02; // tolerance in meters for reef panning
 	}
 }
