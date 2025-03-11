@@ -640,7 +640,7 @@ public class RobotContainer {
     //    .onFalse(new StopRobot());
   }
 
-  public void testVisionCoordoinates() {
+  public void testVisionCoordinates() {
     System.out.println("****Poses:  ");
     // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
     // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Right"));
