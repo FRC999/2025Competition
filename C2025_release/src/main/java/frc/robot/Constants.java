@@ -790,6 +790,8 @@ public final class Constants {
 			public static Map<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
 			public static Map<Integer, String> tagNumberToKey = new HashMap<Integer, String>();
 			public static Map<Pose2d, Integer> reefTagPoses = new HashMap<Pose2d, Integer>();
+			public static Map<Pose2d, Integer> redReefTagPoses = new HashMap<Pose2d, Integer>();
+			public static Map<Pose2d, Integer> blueReefTagPoses = new HashMap<Pose2d, Integer>();
 		}
 	}
 

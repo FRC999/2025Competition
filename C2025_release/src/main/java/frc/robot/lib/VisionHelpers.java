@@ -117,11 +117,14 @@ public class VisionHelpers {
         RobotPoseConstants.visionRobotPoses.put("TagBluBargeByProcessor",  getTagPose(15).toPose2d());
         RobotPoseConstants.visionRobotPoses.put("TagRedBargeByProcessor",  getTagPose(4).toPose2d());
     
+        // These poses are already transformed with 180 rotation to robot orientation
         for (int i=6;i<=11;i++){
             RobotPoseConstants.reefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
+            RobotPoseConstants.redReefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
         }
         for (int i=17;i<=22;i++){
             RobotPoseConstants.reefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
+            RobotPoseConstants.blueReefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
         }
 
         apriltagPoses.addAll(RobotPoseConstants.reefTagPoses.keySet());
