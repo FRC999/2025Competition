@@ -10,6 +10,7 @@ import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
 import frc.robot.commands.TeleopCoralIntakeSequence;
@@ -30,6 +31,8 @@ import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorAllTheWayDown;
+import frc.robot.commands.ElevatorToLevelAndHold;
+import frc.robot.commands.ElevatorToLevelForCoralPlacement;
 import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeAlgaeRollOutBargeCommand;
 import frc.robot.commands.IntakeAlgaeRollOutCommand;
@@ -38,6 +41,7 @@ import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
+import frc.robot.commands.PlaceCoralGentlyInL1;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.StopArm;
@@ -200,7 +204,7 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      //testMohawk();
+      testMohawk();
       //testAutoChoate();
       //competitionButtonBoxBinding();
       
@@ -551,9 +555,10 @@ public class RobotContainer {
     //     .andThen(new WaitCommand(0.3))
     //     .andThen(new StopIntake()));
 
-    new JoystickButton(driveStick1, 8)
-      .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
-          new Pose2d(7.200, 6.13, Rotation2d.fromDegrees(180.000)))));
+    //new JoystickButton(driveStick1, 8)
+    //  .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
+    //      new Pose2d(7.200, 6.13, Rotation2d.fromDegrees(180.000)))));
+
     // new JoystickButton(driveStick1,12 )
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
@@ -582,6 +587,13 @@ public class RobotContainer {
     //   .onTrue(new ClimberStartWithSpeed(0.2))
     //   .onFalse(new StopClimber());
 
+    new JoystickButton(driveStick1, 10)
+      .onTrue(new PlaceCoralGentlyInL1())
+      .onFalse(new StopRobot());
+
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne))
+      .onFalse(new StopRobot());
   }
 
   // public void testChoate(){

@@ -617,10 +617,10 @@ public final class Constants {
 				AlgaeReefLow(13.971),
 				AlgaeReefHigh(26.367),
 				AlgaeIntakeUp(0.0),
-				ReefLevelOne(2.0),
-				ReefLevelTwo(8.3),
-				ReefLevelThree(18.119141),
-				ReefLevelFour(39.871),
+				ReefLevelOne(1.5),
+				ReefLevelTwo(7.8),
+				ReefLevelThree(17.6),
+				ReefLevelFour(39.371),
 				Barge(40.6),
 				Processor(5.0),
 				CoralIntake(0.0),
@@ -705,7 +705,7 @@ public final class Constants {
 				//AlgaeIntake2(19.6),
 				AlgaeRelease(10),  //TODO: Needs values from robot
 				AlgaeCruise(19.6),
-				ReefLevelOne(-0.3),   //TODO: Needs values from robot
+				ReefLevelOne(-1.85),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
 				ReefLevelFour(6.5),  //TODO: Needs values from robot
