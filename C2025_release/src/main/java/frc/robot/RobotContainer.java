@@ -858,6 +858,22 @@ public class RobotContainer {
               )
             )
           .onFalse(new StopRobot());  
+
+      // From current vision position to RobotBluReef3 (tag 20), left
+      new JoystickButton(driveStick1, 8)
+          .onTrue(
+              // Need to check my current vision pose only when ready to start the run
+              new DeferredCommand(
+                  () -> new PrintCommand("---K To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left").toString()
+                      )
+                      .andThen(
+                        runTrajCurLocToKnownLoc (
+                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left"),
+                              true)),
+                  Set.of()
+              )
+            )
+          .onFalse(new StopRobot()); 
   }
 
   /**
