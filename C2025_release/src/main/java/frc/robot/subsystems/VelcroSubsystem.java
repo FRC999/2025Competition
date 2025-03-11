@@ -31,6 +31,17 @@ public class VelcroSubsystem extends SubsystemBase {
     }
 
     velcroMotor = new SparkMax(VelcroConstants.VELCRO_MOTOR_CAN_ID, MotorType.kBrushless);
+    
+  }
+
+  private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p) {
+
+    SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
+
+    sparkMaxConfig.inverted(VelcroConstants.VELCRO_MOTOR_INVERTED); //sets motor inverted if getArmMotorInverted() returns true
+
+    sparkMaxConfig.idleMode(IdleMode.kBrake);
+
   }
 
   public void runVelcroMotor(double speed) {
