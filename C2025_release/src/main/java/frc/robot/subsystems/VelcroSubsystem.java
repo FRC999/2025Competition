@@ -30,38 +30,7 @@ public class VelcroSubsystem extends SubsystemBase {
       return;
     }
 
-    velcroMotor = new SparkMax(IntakeConstants.INTAKE_ROLLERMOTOR_CAN_ID, MotorType.kBrushless);
-  }
-
-  private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p) {
-
-    SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-
-    //motor.restoreFactoryDefaults(); //restores the state of the motor to factory defaults
-    motor.clearFaults();  //clears a fault that has occurred since the last time the faults were reset
-    sparkMaxConfig.inverted(VelcroConstants.VELCRO_MOTOR_INVERTED); //sets motor inverted if getArmMotorInverted() returns true
-
-    sparkMaxConfig.idleMode(IdleMode.kBrake); //sets motor into brake mode
-    //motor.setIdleMode(IdleMode.kCoast); 
-
-    EncoderConfig encoderConfig = new EncoderConfig();
-    encoderConfig.positionConversionFactor(VelcroConstants.POSITION_CONVERSION_FACTOR);  //sets conversion between NEO units to necessary unit for positon
-    sparkMaxConfig.apply(encoderConfig);
-
-    motor.setCANTimeout(0); //sets up timeout
-
-    sparkMaxConfig.voltageCompensation(VelcroConstants.nominalVoltage);  //enables voltage compensation for set voltage [12v]
-   
-    sparkMaxConfig.openLoopRampRate(VelcroConstants.rampRate);  // sets the rate to go from 0 to full throttle on open loop
-    sparkMaxConfig.closedLoopRampRate(VelcroConstants.rampRate);  // sets the rate to go from 0 to full throttle on open loop
-
-
-    SignalsConfig signalsConfig = new SignalsConfig();
-
-    // apply signals
-    sparkMaxConfig.apply(signalsConfig);
-
-    motor.configure(sparkMaxConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    velcroMotor = new SparkMax(VelcroConstants.VELCRO_MOTOR_CAN_ID, MotorType.kBrushless);
   }
 
   public void runVelcroMotor(double speed) {
