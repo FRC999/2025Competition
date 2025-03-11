@@ -70,6 +70,7 @@ import frc.robot.subsystems.SmartDashboardSubsystem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -86,6 +87,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -806,9 +808,56 @@ public class RobotContainer {
   }
 
   public void testVisionDriving() {
-    new JoystickButton(xboxDriveController, 2)
-      .onTrue(runTrajCurLocToKnownLoc(new Pose2d(0,0,Rotation2d.k180deg), false))
+
+    // Straight forward 1m
+    // Try from both blue and red
+    new JoystickButton(driveStick1, 12)
+      .onTrue(
+        runTrajectory2Poses(new Pose2d(1,1, Rotation2d.kZero), new Pose2d(2,1, Rotation2d.kZero) , true)
+      )
       .onFalse(new StopRobot()); 
+  
+      // Straight forward 1m, 90 CCW
+      // Try from both blue and red
+      new JoystickButton(driveStick1, 11)
+      .onTrue(
+        runTrajectory2Poses(new Pose2d(1,1, Rotation2d.kZero), new Pose2d(2,1, Rotation2d.kCCW_90deg) , true)
+      )
+      .onFalse(new StopRobot()); 
+
+      // From current vision position to ReefBlue1 (tag 18), left
+      new JoystickButton(driveStick1, 10)
+          .onTrue(
+              // Need to check my current vision pose only when ready to start the run
+              new DeferredCommand(
+                  () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left").toString())
+                      .andThen(
+                          runTrajectory2Poses(
+                              llVisionSubsystem.getBestPoseAllCameras(),
+                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
+                              true)),
+                  Set.of()
+              )
+            )
+          .onFalse(new StopRobot());
+
+      // From current vision position to RobotBluReef3 (tag 20), left
+      new JoystickButton(driveStick1, 9)
+          .onTrue(
+              // Need to check my current vision pose only when ready to start the run
+              new DeferredCommand(
+                  () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left").toString())
+                      .andThen(
+                          runTrajectory2Poses(
+                              llVisionSubsystem.getBestPoseAllCameras(),
+                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left"),
+                              true)),
+                  Set.of()
+              )
+            )
+          .onFalse(new StopRobot());  
   }
 
   /**

@@ -176,6 +176,9 @@ public class VisionHelpers {
         return pose.transformBy(new Transform2d(x,y,Rotation2d.kZero));
     }
 
+    // Create positions for robot placement near reef pipes
+    // posenames similar to "RobotBluReef1Left"
+    // adds to RobotPoseConstants.visionRobotPoses
     public static void addRobotPosesForCoralPlacement() {
 
 
