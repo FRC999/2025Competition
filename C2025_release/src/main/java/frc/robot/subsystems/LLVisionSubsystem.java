@@ -16,6 +16,9 @@ import frc.robot.Constants.LLVisionConstants.LLCamera;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -35,8 +38,13 @@ public class LLVisionSubsystem extends SubsystemBase {
 
   private boolean backLLModeAprilTag = true;
 
+  Map<Pose2d, Integer> allianceTagPoses;
+
   /** Creates a new LLVisionSubsystem. */
   public LLVisionSubsystem() {
+
+    
+
     if(!EnabledSubsystems.ll){
       return;
     }
@@ -52,6 +60,13 @@ public class LLVisionSubsystem extends SubsystemBase {
     VisionHelpers.createHashMapOfTags(); // load Pose2d of all apriltags
     VisionHelpers.addRobotPosesForCoralPlacement(); // load Pose2d of robot to place/pickup elements
     VisionHelpers.mapTagIDToTagKey(); // create a map of Tag ID to the Tag name/alias
+
+    // Set alliance-only tag poses lists
+    if ( RobotContainer.isAllianceRed) {
+      allianceTagPoses = RobotPoseConstants.redReefTagPoses;
+    } else {
+      allianceTagPoses = RobotPoseConstants.blueReefTagPoses;
+    }
 
   }
 
@@ -118,6 +133,24 @@ public class LLVisionSubsystem extends SubsystemBase {
     } else { // Switch to apriltags
       LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),0);
     }
+  }
+
+  /**
+   * Return pose of the alliance apriltag with the IMU closest to the current robot IMU.
+   * So, if the bot is oriented generally in the same direction as the tag, that will be the tag returned
+   * @return
+   */
+  public Pose2d getTagPerAllianceAndIMU() {
+    Pose2d nearest = new Pose2d();
+    double rotationdiff = 180;
+    for (Pose2d tagPose : allianceTagPoses.keySet()) {
+      double d = Math.abs( RobotContainer.driveSubsystem.getYaw() - tagPose.getRotation().getDegrees() );
+      if( d < rotationdiff ) {
+        rotationdiff = d;
+        nearest = tagPose;
+      }
+    }
+    return nearest;
   }
 
   @Override

@@ -138,7 +138,7 @@ public class VisionHelpers {
 
     public static Pose2d getClosestReefTagToRobot(Pose2d robotPose) {
         return robotPose.nearest(VisionHelpers.apriltagPoses);
-      }
+    }
 
     public static void mapTagIDToTagKey() {
         RobotPoseConstants.tagNumberToKey.put(1,"TagRedCoralLOW");
