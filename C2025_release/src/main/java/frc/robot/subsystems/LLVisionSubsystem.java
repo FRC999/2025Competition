@@ -173,11 +173,9 @@ public class LLVisionSubsystem extends SubsystemBase {
     boolean tvisibleLL4 = false; // do we see AT this cycle anywhere?
     for (LLCamera llcamera : LLCamera.values()) {
       String cn = llcamera.getCameraName();
-      boolean ll4 = false;
+      
+      boolean ll4 = (cn.length() < 14); // check is this LL4?
 
-      if (cn.length() < 14) { // is this LL4?
-        ll4 = true;
-      }
       double yaw = RobotContainer.driveSubsystem.getYaw();
       double yawrate = RobotContainer.driveSubsystem.getTurnRate();
 
@@ -186,35 +184,40 @@ public class LLVisionSubsystem extends SubsystemBase {
 
       // Select the best coordinates
       if (LimelightHelpers.getTV(cn)) {
-        tvisible = true;
+        
+
         PoseEstimate pe;
-        if (! cn.contentEquals("limelight-front")) {
+        if (! cn.contentEquals("limelight-front")) { // For all cameras except front that is UP use MT2
           pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
-        } else { // for the front camera - only use MP2 when elevator is down
+        } else { // for the front camera - only use MP2 when elevator is down, otherwise MT1
           if ( Constants.EnabledSubsystems.elevator && RobotContainer.elevatorSubsystem.isDown() ) {
             pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
           } else {
             pe = LimelightHelpers.getBotPoseEstimate_wpiBlue(cn);
           }
-
         }
 
+        // Skip unreliable measuremements
         if (pe.rawFiducials.length>0) {
           SmartDashboard.putNumber("LL"+cn,pe.rawFiducials[0].ambiguity);
         }
-        if (pe.rawFiducials.length>0 && pe.rawFiducials[0].ambiguity>0.7) {
-          pe = LimelightHelpers.getBotPoseEstimate_wpiBlue(cn);
+        if (! (pe.rawFiducials.length>0 && pe.rawFiducials[0].ambiguity>0.7)) {
+          continue;
         }
-        if (pe.timestampSeconds > bestPoseTimestamp) {
+
+        // Now that we know the measurement is reliable, remember that we're actually seeing AT
+        tvisible = true;
+        if (ll4) { tvisibleLL4 = true; }
+
+
+        if (pe.timestampSeconds > bestPoseTimestamp) { // update timestamps and poses for all-camera if needed
           bestPoseTimestamp = pe.timestampSeconds;
           bestPose = pe.pose;
-          if (ll4) {
-            tvisibleLL4 = true;
-            if (pe.timestampSeconds > bestPoseTimestampLL4) {
+        }
+
+        if (ll4 && (pe.timestampSeconds > bestPoseTimestampLL4)) { // update timestamps and poses for LL4 if needed
               bestPoseTimestampLL4 = pe.timestampSeconds;
               bestPoseLL4 = pe.pose;
-            }
-          }
         }
       }
     } // end of loop checking whether the AT is visible
