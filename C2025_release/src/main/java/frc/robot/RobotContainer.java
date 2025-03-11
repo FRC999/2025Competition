@@ -56,6 +56,7 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.StopVelcroMotor;
 import frc.robot.commands.TeleopAlgaePickupFromHighAndHold;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.subsystems.ArmSubsystem;
@@ -67,6 +68,7 @@ import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.PerimeterFinderSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
+import frc.robot.subsystems.VelcroSubsystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +108,7 @@ public class RobotContainer {
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
   public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
   public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
+  public static final VelcroSubsystem velcroSubsystem = new VelcroSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
@@ -305,8 +308,11 @@ public class RobotContainer {
     //   .onTrue(new ElevatorAllTheWayDown());
 
     new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
-      .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode))
-      ;
+      .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode));
+
+    new Trigger(() -> buttonBox.getRawAxis(2) < 0.8 ) //TODO: Needs to be changed 
+      .onTrue(new InstantCommand(()->velcroSubsystem.runVelcroMotor(0.5)))
+      .onFalse(new StopVelcroMotor());
 
 
     }

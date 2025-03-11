@@ -59,6 +59,7 @@ public final class Constants {
 		public static final boolean reef = true;
 		public static final boolean ll = true;
 		public static final boolean perimeter = false;
+		public static final boolean velcro = false; 
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -528,6 +529,37 @@ public final class Constants {
 			public static double climbUpPower = 0.1; //TODO: Change the value accordingly 
 			public static final double climbDownPower = 0.3; 
 			public static final boolean climberInverted = true;
+		}
+
+		public static final class VelcroConstants{
+			public static final int VELCRO_MOTOR_CAN_ID = 40;
+			public static final boolean VELCRO_MOTOR_INVERTED = true; 
+
+			public static final double rampRate = 0.25;
+			// TODO: Check conversion factors; find the ones that work best with PID
+			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
+			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
+			public static final double nominalVoltage = 12.0;
+
+			public static final class VelcroPIDConstants {
+
+				public static final double kP = 0.02;
+				public static final double kI = 0.000;
+				public static final double kD = 2.0;
+				public static final double kF = 0;
+				public static final double kMaxOutput = 0.6;
+				public static final double Acceleration = 6750; // raw sensor units per 100 ms per second
+				public static final double CruiseVelocity = 6750; // raw sensor units per 100 ms
+				public static final int Smoothing = 3; // CurveStrength. 0 to use Trapezoidal Motion Profile. [1,8] for
+														// S-Curve (greater value yields greater smoothing).
+				public static final double DefaultAcceptableError = 5; // Sensor units
+				public static final double Izone = 500;
+				public static final double PeakOutput = 0.5; // Closed Loop peak output
+				public static final double NeutralDeadband = 0.001;
+				public static final int periodMs = 10; // status frame period
+				public static final int timeoutMs = 30; // status frame timeout
+				public static final int closedLoopPeriod = 1; // 1ms for TalonSRX and locally connected encoder
+			}
 		}
 
 		public static final class IntakeConstants {
