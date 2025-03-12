@@ -61,6 +61,7 @@ public final class Constants {
 		public static final boolean reef = true;
 		public static final boolean ll = true;
 		public static final boolean perimeter = false;
+		public static final boolean velcro = true; 
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -532,6 +533,11 @@ public final class Constants {
 			public static final boolean climberInverted = true;
 		}
 
+		public static final class VelcroConstants{
+			public static final int VELCRO_MOTOR_CAN_ID = 21;
+			public static final boolean VELCRO_MOTOR_INVERTED = true; 
+		}
+
 		public static final class IntakeConstants {
 
 			public static final int INTAKE_ROLLERMOTOR_CAN_ID = 59;
@@ -566,7 +572,7 @@ public final class Constants {
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
 			public static final double coralIntakePower = 0.3; 
-			public static final double CoralAltIntakePower = 0.7;
+			public static final double CoralAltIntakePower = 0.3;
 			public static final double coralShootingPowerL23 = 0.5; 
 			public static final double coralShootingPowerL4 = 0.2; 
 			public static final double algaeIntakePower = -0.7;

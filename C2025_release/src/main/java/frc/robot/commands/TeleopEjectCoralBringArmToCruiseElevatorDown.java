@@ -4,9 +4,15 @@
 
 package frc.robot.commands;
 
+import java.util.Set;
+
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
+import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -19,9 +25,22 @@ public class TeleopEjectCoralBringArmToCruiseElevatorDown extends SequentialComm
    * Bottom button
    */
     addCommands(
-      new IntakeShootCommand(),
+      // If shooting coral when elevator is down, gently place it on L1
+      new DeferredCommand(
+          () -> new ConditionalCommand(
+            new PlaceCoralGentlyInL1(),
+            new IntakeShootCommand(), // if elevator is NOT down
+            RobotContainer.elevatorSubsystem::isDown
+          )
+        , Set.of()),
       new ArmToPositionAndHold(ArmPositions.CoralCruise),
-      new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne),
+      new DeferredCommand(
+          () -> new ConditionalCommand(
+            new PrintCommand("* Elevator already down"),
+            new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne), // if elevator is NOT down
+            RobotContainer.elevatorSubsystem::isDown
+          )
+        , Set.of()),
       new StopElevator()
     );
   }

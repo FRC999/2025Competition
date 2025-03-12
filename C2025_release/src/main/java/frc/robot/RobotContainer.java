@@ -11,6 +11,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
 import frc.robot.commands.TeleopCoralIntakeSequence;
@@ -29,6 +30,7 @@ import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoBlu1CoralL1;
 import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.AutoBlueOneCoral;
+import frc.robot.commands.AutoRed1Coral;
 import frc.robot.commands.AutoRed1CoralL1;
 //import frc.robot.commands.AutoRed1CoralL1;
 import frc.robot.commands.AutoRed2Coral;
@@ -40,6 +42,7 @@ import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.ClimberStartSequence;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ElevatorAllTheWayDown;
+import frc.robot.commands.ElevatorToLevelAndHold;
 import frc.robot.commands.IntakeAlgaeOutSequence;
 import frc.robot.commands.IntakeAlgaeRollOutBargeCommand;
 import frc.robot.commands.IntakeAlgaeRollOutCommand;
@@ -48,6 +51,7 @@ import frc.robot.commands.IntakeCoralOutCommand;
 import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
+import frc.robot.commands.PlaceCoralGentlyInL1;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.StopArm;
@@ -56,6 +60,7 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.StopVelcroMotor;
 import frc.robot.commands.TeleopAlgaePickupFromHighAndHold;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.subsystems.ArmSubsystem;
@@ -67,6 +72,7 @@ import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.PerimeterFinderSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
+import frc.robot.subsystems.VelcroSubsystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +118,7 @@ public class RobotContainer {
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
   public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
   public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
+  public static final VelcroSubsystem velcroSubsystem = new VelcroSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
@@ -141,7 +148,6 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureDriverInterface(); 
     configureBindings();
-    calibrateElevator();
     //calibrateArm();
 
     driveSubsystem.setDefaultCommand(
@@ -162,10 +168,12 @@ public class RobotContainer {
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
     autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
-    autoChooser.addOption("BLUE One Coral Auto", new AutoBlueOneCoral());
+    autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
+    autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
     autoChooser.addOption("BLUE One Coral Auto L1", new AutoBlu1CoralL1());
     autoChooser.addOption("RED One Coral Auto L1", new AutoRed1CoralL1());
     autoChooser.addOption("RED Top 2Coral", new AutoRedReverse2Coral());
+    
     
     //autoChooser.addOption("RED From  Blu 2 ", new AutoRedFromBlu2Coral());
 
@@ -229,7 +237,7 @@ public class RobotContainer {
     try {
       //testAuto();
       //testElevator();
-      //testMohawk();
+      testMohawk();
       //testAutoChoate();
       //competitionButtonBoxBinding();
       
@@ -307,12 +315,15 @@ public class RobotContainer {
       .onTrue(new ClimberStartSequence())
       .onFalse(new StopClimber());
 
-    new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new ElevatorAllTheWayDown());
+    // new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
+    //   .onTrue(new ElevatorAllTheWayDown());
 
-    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
-      .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode))
-      ;
+    // new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
+    //   .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode));
+
+    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 ) //TODO: Needs to be changed 
+      .onTrue(new InstantCommand(()->velcroSubsystem.runVelcroMotor(0.3)))
+      .onFalse(new StopVelcroMotor());
 
 
     }
@@ -481,12 +492,12 @@ public class RobotContainer {
 
 
   public void calibrateElevator() {
-    // new JoystickButton(driveStick1, 1)
-    // .onTrue(new CalibrateElevatorDeterminekG())
-    // .onFalse(new StopElevatorAndHold());
+    new JoystickButton(driveStick1, 1)
+    .onTrue(new CalibrateElevatorDeterminekG())
+    .onFalse(new StopElevatorAndHold());
 
-    // new JoystickButton(driveStick1, 2)
-    // .onTrue(new StopElevator());
+    new JoystickButton(driveStick1, 2)
+    .onTrue(new StopElevator());
   }
 
   public void calibrateArm() {
@@ -595,9 +606,9 @@ public class RobotContainer {
     //     .andThen(new WaitCommand(0.3))
     //     .andThen(new StopIntake()));
 
-    new JoystickButton(driveStick1, 8)
-      .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
-          new Pose2d(10.654, 1.910, Rotation2d.fromDegrees(0)))));
+    // new JoystickButton(driveStick1, 8)
+    //   .onTrue(new InstantCommand(()->driveSubsystem.setOdometryPoseToSpecificPose(
+    //       new Pose2d(10.654, 1.910, Rotation2d.fromDegrees(0)))));
     // new JoystickButton(driveStick1,12 )
     //   .onTrue(new RunTrajectorySequenceRobotAtStartPoint("OneMeterForward-90Turn"))
     //   .onFalse(new StopRobot());
@@ -625,6 +636,15 @@ public class RobotContainer {
     // new JoystickButton(driveStick1, 12)
     //   .onTrue(new ClimberStartWithSpeed(0.2))
     //   .onFalse(new StopClimber());
+
+     new JoystickButton(driveStick1, 10)
+      .onTrue(new PlaceCoralGentlyInL1())
+      .onFalse(new StopRobot());
+
+
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne))
+      .onFalse(new StopRobot());
 
   }
 

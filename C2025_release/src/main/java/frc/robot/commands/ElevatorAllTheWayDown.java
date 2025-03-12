@@ -4,9 +4,14 @@
 
 package frc.robot.commands;
 
+import java.util.Set;
+
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
@@ -22,7 +27,13 @@ public class ElevatorAllTheWayDown extends SequentialCommandGroup {
       new PrintCommand("*** Elevator down"),
       new ArmToPositionAndHold(ArmPositions.CoralCruise)
         .raceWith(new WaitCommand(1.0)),
-      new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne),
+      new DeferredCommand(
+          () -> new ConditionalCommand(
+            new PrintCommand("* Elevator already down"),
+            new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne), // if elevator is NOT down
+            RobotContainer.elevatorSubsystem::isDown
+          )
+        , Set.of()),
       new StopElevator(),
       new PrintCommand("*** Elevator down - end")
     );
