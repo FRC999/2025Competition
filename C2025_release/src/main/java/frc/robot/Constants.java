@@ -848,4 +848,22 @@ public final class Constants {
 		}
 		public static final double panReefTolerance = 0.02; // tolerance in meters for reef panning
 	}
+	// Constants for manual final-leg manual PID trajectory driving
+	public static final class ManualPIDConstants {
+
+		public static double PIDUpdateFrequency = 0.02; // 20ms
+
+		public static double closeVelocityBoost = 0.5;
+
+		// Linear PID
+		public static double linearKp = 1;
+		public static double linearKi = 0;
+		public static double linearKd = 0;
+
+		// angular PID
+		public static double angularKp = 1;
+		public static double angularKi = 0;
+		public static double angularKd = 0;
+
+	}
 }
