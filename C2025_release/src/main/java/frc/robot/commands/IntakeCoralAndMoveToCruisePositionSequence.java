@@ -4,11 +4,17 @@
 
 package frc.robot.commands;
 
+import java.util.Set;
+
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.GPMConstants.ArmConstants;
+import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
+import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,7 +26,14 @@ public class IntakeCoralAndMoveToCruisePositionSequence extends SequentialComman
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PrintCommand("*** Intake Coral sequence start"),
-      new ElevatorAllTheWayDown(),
+      // Reason - if we're already all the way down, I do not need to rotate the arm to CoralCruise first
+      new DeferredCommand(
+        () -> new ConditionalCommand(
+          new PrintCommand("* Elevator already down"),
+          new ElevatorAllTheWayDown(), // if elevator is NOT down
+          RobotContainer.elevatorSubsystem::isDown
+        )
+        , Set.of()),
       new PrintCommand("* elevator down"),
       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralIntake)
         .raceWith(new WaitCommand(1)) // We observed this command not ending on its own sometimes, possibly because of the chain slack
