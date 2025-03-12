@@ -127,13 +127,13 @@ public class LLVisionSubsystem extends SubsystemBase {
     return ldrid;
   }
 
-  public void ToggleBackLLMode() {
-    if (backLLModeAprilTag) { // Switch to driver camera
-      LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),1);
-    } else { // Switch to apriltags
-      LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),0);
-    }
-  }
+  // public void ToggleBackLLMode() {
+  //   if (backLLModeAprilTag) { // Switch to driver camera
+  //     LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),1);
+  //   } else { // Switch to apriltags
+  //     LimelightHelpers.setPipelineIndex(LLVisionConstants.LLCamera.LLBACK.getCameraName(),0);
+  //   }
+  // }
 
   /**
    * Return pose of the alliance apriltag with the IMU closest to the current robot IMU.
