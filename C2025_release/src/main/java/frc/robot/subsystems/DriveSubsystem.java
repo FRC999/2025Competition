@@ -67,7 +67,9 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
 
   private double previousOmegaRotationCommand;
 
-  
+  // For the manual PID driving
+  private boolean gotToTarget;
+  private  double distanceToTarget;
 
   private final SysIdRoutine mSysIdRoutine = 
     new SysIdRoutine(
@@ -648,6 +650,24 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     } else {
       return getPose();
     }
+  }
+
+  // Used as a consumer in manual PID driving
+  public void setDistanceToTarget(Double distance) {
+    distanceToTarget = distance;
+  }
+
+  public double getDistanceToTarget() {
+    return distanceToTarget;
+  }
+
+  // Used as a consumer in manual PID driving
+  public void setGotToTarget(Boolean atTarget) {
+    gotToTarget = atTarget;
+  }
+
+  public boolean getGotToTarget() {
+    return gotToTarget;
   }
 
   @Override

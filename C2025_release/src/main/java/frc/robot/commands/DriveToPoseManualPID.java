@@ -44,13 +44,13 @@ public class DriveToPoseManualPID extends Command {
    * used for the last-leg drive navigation
    */
   public DriveToPoseManualPID(
-      Supplier<Pose2d> targetPoseSupplier,
-      Supplier<Pose2d> robotPoseSupplier,
-      Consumer<Boolean> onTargetConsumer,
-      Consumer<Double> distanceFromReef,
+      Supplier<Pose2d> targetPoseSupplier,  // where we're going
+      Supplier<Pose2d> robotPoseSupplier,   // Pose supplier - can be vision-aided
+      Consumer<Boolean> onTargetConsumer,   // boolean that can be set at the end - did we actually arrive?
+      Consumer<Double> distanceFromReef,    // just tracking how far I am from target plane
       double linearTolerance,
       double angleTolerance,
-      double timeout
+      double timeout                        // how much maximum time in seconds do I have to get to the target
       ) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.targetPoseSupplier = targetPoseSupplier;
