@@ -48,6 +48,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   /* Keep track if we've ever applied the operator perspective before or not */
   private boolean hasAppliedOperatorPerspective = true; // red/blue side boolean decider
   private boolean isRobotCentric = false;
+  private boolean odometrySetWithVision = false;
 
   /** Swerve request to apply during robot-centric path following */
   private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
@@ -669,6 +670,15 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   public boolean getGotToTarget() {
     return gotToTarget;
   }
+
+  public boolean getOdometrySetWithVision() {
+    return odometrySetWithVision;
+  }
+
+  public void setOdometrySetWithVision(boolean s) {
+    odometrySetWithVision = s;
+  }
+
 
   @Override
   public void periodic() {

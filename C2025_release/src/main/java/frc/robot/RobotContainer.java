@@ -54,6 +54,7 @@ import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.PlaceCoralGentlyInL1;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
+import frc.robot.commands.SetOdometryToVisionPose;
 import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimber;
@@ -965,6 +966,8 @@ public class RobotContainer {
             ) 
           .onFalse(new StopRobot()); 
 
+        new JoystickButton(driveStick1, 6)
+          .onTrue( new SetOdometryToVisionPose() );
 
   }
 
