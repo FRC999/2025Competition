@@ -24,7 +24,7 @@ public class PlaceCoralGentlyInL1 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ArmToPositionAndHold(ArmPositions.CoralIntake),
-      new WaitCommand(0.5),
+      //new WaitCommand(0.5),
       new InstantCommand(() -> RobotContainer.intakeSubsystem.runIntake(0.25),RobotContainer.intakeSubsystem),
       new WaitCommand(1.5),
       new StopIntake(),

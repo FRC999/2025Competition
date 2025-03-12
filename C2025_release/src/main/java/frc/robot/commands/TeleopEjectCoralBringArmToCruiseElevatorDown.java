@@ -25,7 +25,14 @@ public class TeleopEjectCoralBringArmToCruiseElevatorDown extends SequentialComm
    * Bottom button
    */
     addCommands(
-      new IntakeShootCommand(),
+      // If shooting coral when elevator is down, gently place it on L1
+      new DeferredCommand(
+          () -> new ConditionalCommand(
+            new PlaceCoralGentlyInL1(),
+            new IntakeShootCommand(), // if elevator is NOT down
+            RobotContainer.elevatorSubsystem::isDown
+          )
+        , Set.of()),
       new ArmToPositionAndHold(ArmPositions.CoralCruise),
       new DeferredCommand(
           () -> new ConditionalCommand(
