@@ -955,10 +955,13 @@ public class RobotContainer {
                       , getDriverXAxis()
                       , 5)
                   )
+                  .andThen(
+                    new PrintCommand("--> Got there: "+driveSubsystem.getGotToTarget()+" Distance: "+driveSubsystem.getDistanceToTarget())
+                    )
 
                 ,Set.of()
               )
-              .andThen(new StopRobot()) // since we're driving with drive, we need to make sure we stop
+              .andThen(new StopRobot()) // since we're driving with drive, we need to make sure we stop             
             ) 
           .onFalse(new StopRobot()); 
 
