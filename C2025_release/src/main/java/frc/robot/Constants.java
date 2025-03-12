@@ -862,13 +862,17 @@ public final class Constants {
 
 		public static double closeVelocityBoost = 0.5;
 
+		public static double maxManualLinearVelocity = 1.5; // m/s
+		public static double minManualLinearVelocity = 
+			SwerveChassis.MaxSpeed*SwerveChassis.chassisLinearMoveDeadband; // m/s - otherwise robot will not move
+
 		// Linear PID
-		public static double linearKp = 1;
+		public static double linearKp = 8;
 		public static double linearKi = 0;
 		public static double linearKd = 0;
 
 		// angular PID
-		public static double angularKp = 1;
+		public static double angularKp = 7.5;
 		public static double angularKi = 0;
 		public static double angularKd = 0;
 

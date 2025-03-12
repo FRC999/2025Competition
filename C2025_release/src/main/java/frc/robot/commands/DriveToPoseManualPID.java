@@ -15,6 +15,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ManualPIDConstants;
@@ -110,6 +111,15 @@ public class DriveToPoseManualPID extends Command {
     var fieldRelativeVelocities = reefRelativeVelocities.rotateBy(targetPose.getRotation());
     int allianceMultiplier = RobotContainer.isAllianceRed ? -1 : 1;
 
+    double maxSpeedLimiter = fieldRelativeVelocities.getNorm()/ ManualPIDConstants.maxManualLinearVelocity;
+    if (maxSpeedLimiter>1) {
+      fieldRelativeVelocities=fieldRelativeVelocities.div(maxSpeedLimiter);
+    }
+
+    // telemetry
+    SmartDashboard.putNumber("MVX:", allianceMultiplier * fieldRelativeVelocities.getX());
+    SmartDashboard.putNumber("MVY:", allianceMultiplier * fieldRelativeVelocities.getY());
+    
     // Test this first !!!!
     RobotContainer.driveSubsystem.drive(
         allianceMultiplier * fieldRelativeVelocities.getX(),

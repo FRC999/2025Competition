@@ -41,6 +41,7 @@ import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
 import frc.robot.commands.ClimberStartSequence;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.DriveToPoseManualPID;
 import frc.robot.commands.ElevatorAllTheWayDown;
 import frc.robot.commands.ElevatorToLevelAndHold;
 import frc.robot.commands.IntakeAlgaeOutSequence;
@@ -937,6 +938,31 @@ public class RobotContainer {
               )
             )
           .onFalse(new StopRobot()); 
+
+      new JoystickButton(driveStick1, 7)
+        .onTrue(
+              // Need to check my current vision pose only when ready to start the run
+              new DeferredCommand(
+                () -> new PrintCommand("---M To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString()
+                    )
+                  .andThen(
+                    new DriveToPoseManualPID(
+                      () -> RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left")
+                      , driveSubsystem::getVisionAidedOdometryPose
+                      , driveSubsystem::setGotToTarget
+                      , driveSubsystem::setDistanceToTarget
+                      , getDriverYAxis()
+                      , getDriverXAxis()
+                      , 5)
+                  )
+
+                ,Set.of()
+              )
+              .andThen(new StopRobot()) // since we're driving with drive, we need to make sure we stop
+            ) 
+          .onFalse(new StopRobot()); 
+
+
   }
 
   /**
