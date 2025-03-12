@@ -197,11 +197,17 @@ public class LLVisionSubsystem extends SubsystemBase {
           }
         }
 
+        SmartDashboard.putNumber("LL-FIDN-"+cn,pe.rawFiducials.length);
         // Skip unreliable measuremements
         if (pe.rawFiducials.length>0) {
-          SmartDashboard.putNumber("LL"+cn,pe.rawFiducials[0].ambiguity);
+          SmartDashboard.putNumber("LL-ambig-"+cn,pe.rawFiducials[0].ambiguity);
         }
-        if (! (pe.rawFiducials.length>0 && pe.rawFiducials[0].ambiguity>0.7)) {
+        
+        
+        if (! (pe.rawFiducials.length>0
+        // && pe.rawFiducials[0].ambiguity>0.7
+           )
+         ) {
           continue;
         }
 
@@ -223,7 +229,11 @@ public class LLVisionSubsystem extends SubsystemBase {
     } // end of loop checking whether the AT is visible
 
     bestVisible = tvisible;
-    bestVisibleLL4 = tvisibleLL4; 
+    bestVisibleLL4 = tvisibleLL4;
+    
+    if(bestVisibleLL4) {
+      RobotContainer.driveSubsystem.addVisionMeasurement(bestPoseLL4, bestPoseTimestampLL4);
+    }
   }
 }
 

@@ -236,19 +236,21 @@ public class RobotContainer {
       //tryPPTest();
       //tryPPTestCalibration();
       //tryPPTest2();
+      testVisionDriving();
+
     }
     catch (Exception e) {
        System.out.println("test auto error: " + e);
     }
 
     // testTurn();
-    //setYaws();
+    setYaws();
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
     //calibrateElevator(); 
     competitionButtonBoxBinding();
-    XBOXControllerCompetitionBinding();
+    //XBOXControllerCompetitionBinding();
     
    
   }
@@ -773,6 +775,30 @@ public class RobotContainer {
     }
   }
 
+  public static Command runTrajectory2PosesSlow(Pose2d startPose, Pose2d endPose,
+      boolean shouldResetOdometryToStartingPose) {
+    try {
+      List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(startPose, endPose);
+
+      PathPlannerPath path = new PathPlannerPath(
+          waypoints,
+          AutoConstants.testPathCconstraints,
+          new IdealStartingState(0, startPose.getRotation()),
+          new GoalEndState(0, endPose.getRotation()));
+      path.preventFlipping = true;
+      driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
+      if (!shouldResetOdometryToStartingPose) {
+        return AutoBuilder.followPath(path);
+      } else { // reset odometry the right way
+        System.out.println("== Driving from "+startPose+" to "+endPose);
+        return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
+      }
+    } catch (Exception e) {
+      DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+
 /**
  * Run trajectory from current location as determined by cameras to known location, such as known AT placement
  * @param knownLocation
@@ -831,14 +857,27 @@ public class RobotContainer {
               // Need to check my current vision pose only when ready to start the run
               new DeferredCommand(
                   () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left").toString())
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString())
                       .andThen(
                           runTrajectory2Poses(
                               llVisionSubsystem.getBestPoseAllCameras(),
                               RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
                               true)),
+                            
                   Set.of()
               )
+              //.andThen(new WaitCommand(0.2))
+              .andThen(new DeferredCommand(
+                () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+                    " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString())
+                    .andThen(
+                        runTrajectory2PosesSlow(
+                            llVisionSubsystem.getBestPoseAllCameras(),
+                            RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
+                            true)),
+                          
+                Set.of()
+            ))
             )
           .onFalse(new StopRobot());
 
@@ -848,12 +887,16 @@ public class RobotContainer {
               // Need to check my current vision pose only when ready to start the run
               new DeferredCommand(
                   () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left").toString())
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right").toString())
                       .andThen(
-                          runTrajectory2Poses(
+                          runTrajectory2PosesSlow(
                               llVisionSubsystem.getBestPoseAllCameras(),
-                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left"),
-                              true)),
+                              //RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Left"),
+                              //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+                              new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+                              
+                              true))
+                              ,
                   Set.of()
               )
             )

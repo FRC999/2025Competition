@@ -65,14 +65,14 @@ public final class Constants {
 
 	public static final class DebugTelemetrySubsystems {
 		
-		public static final boolean odometry = true;
+		public static final boolean odometry = false;
 		public static final boolean imu = true;
-		public static final boolean arm = true;
-		public static final boolean intake = true;
-		public static final boolean elevator = true;
-		public static final boolean climber = true;
+		public static final boolean arm = false;
+		public static final boolean intake = false;
+		public static final boolean elevator = false;
+		public static final boolean climber = false;
 		public static final boolean chasis = true;
-		public static final boolean reef = true;
+		public static final boolean reef = false;
 		public static final boolean ll = true;
 		public static final boolean perimeter = false;
 	}
@@ -831,6 +831,16 @@ public final class Constants {
 			12, // Volts - nomonal battery
 			false // constraints shold not be unlimited
 			);
+
+		public static PathConstraints testPathCconstraints = new PathConstraints(
+				2.5,
+				2.0,
+				SwerveChassis.MaxAngularRate,
+				SwerveChassis.maxAngularAcceleration,
+				12, // Volts - nomonal battery
+				false // constraints shold not be unlimited
+				);
+
 		public static enum autoPoses {
 
 			//

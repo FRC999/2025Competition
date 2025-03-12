@@ -80,10 +80,16 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updateLLTelemetry() {
-
+    //System.out.println("LL-0");
     try {
+
+      //System.out.println("LL-1");
+
       SmartDashboard.putBoolean("LL-Any-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera());
       SmartDashboard.putBoolean("LL4-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4());
+
+      //System.out.println("LL-2");
+
       if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
         Pose2d atpose = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
         SmartDashboard.putString("LL-Any-Pose", atpose.toString());
@@ -103,6 +109,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       }
     } catch (Exception e) {
       // TODO: handle exception; not sure if needed in telemetry
+      //System.out.println("*** Bad things \n" + e);
     }
   }
 
