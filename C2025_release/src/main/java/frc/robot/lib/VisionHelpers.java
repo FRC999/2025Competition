@@ -126,7 +126,7 @@ public class VisionHelpers {
             RobotPoseConstants.reefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
             RobotPoseConstants.blueReefTagPoses.put(getTagPose(i).toPose2d().plus(new Transform2d(0, 0, Rotation2d.k180deg)),i);
         }
-
+    
         apriltagPoses.addAll(RobotPoseConstants.reefTagPoses.keySet());
 
         // alex test
@@ -241,7 +241,12 @@ public class VisionHelpers {
             }
 
         }
-        System.out.println(RobotPoseConstants.visionRobotPoses);
+        
+        // Special poses we determined manually
+        RobotPoseConstants.visionRobotPoses.put("RobotBlueStationUp", new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)));
+
+
+        //System.out.println(RobotPoseConstants.visionRobotPoses);
     }
 
     /**
