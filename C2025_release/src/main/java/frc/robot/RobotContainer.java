@@ -319,6 +319,10 @@ public class RobotContainer {
       .onTrue(new ClimberStartSequence())
       .onFalse(new StopClimber());
 
+      new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
+      .onTrue(new ArmToPositionAndHold(ArmPositions.ClimbCruise));
+
+
     // new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
     //   .onTrue(new ElevatorAllTheWayDown());
 
@@ -1050,6 +1054,48 @@ public class RobotContainer {
             )
           .onFalse(new StopRobot()); 
 
+
+          new JoystickButton(driveStick1, 8)
+          .onTrue(
+              // Need to check my current vision pose only when ready to start the run
+              new DeferredCommand(
+                  () -> 
+                    new SetOdometryToVisionPose()
+                    .andThen(new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right").toString())
+                      )
+                      .andThen(
+                          runTrajectory2PosesSlow(
+                              llVisionSubsystem.getBestPoseAllCameras(),
+                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right"),
+                              //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+                              //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+                              
+                              true))
+                      .andThen(
+                                new CoralPlaceOnFour())
+                      .andThen(
+                                  new ElevatorAllTheWayDown()
+                      .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false)))
+                      .andThen(new TeleopCoralIntakeSequence())
+                      .andThen(
+                        runTrajectory2PosesSlow(
+                        new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
+                        RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Right"),
+                        //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+                        //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+                        
+                        false))
+                        .andThen(
+                                new CoralPlaceOnFour())
+                        .andThen(
+                                new ElevatorAllTheWayDown()),
+                  Set.of()
+              )
+            )
+          .onFalse(new StopRobot()); 
+
+
       // From current vision position to RobotBluReef3 (tag 20), left
       // new JoystickButton(driveStick1, 8)
       //     .onTrue(
@@ -1095,6 +1141,9 @@ public class RobotContainer {
 
         new JoystickButton(driveStick1, 6)
           .onTrue( new SetOdometryToVisionPose() );
+
+
+    
 
   }
 

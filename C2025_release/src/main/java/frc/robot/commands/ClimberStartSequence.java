@@ -20,7 +20,7 @@ public class ClimberStartSequence extends SequentialCommandGroup {
     addCommands(
 
       new ClimberStartWithSpeed(-1.9)
-      // new ArmToPositionAndHold(ArmPositions.ClimbCruise).
+      //new ArmToPositionAndHold(ArmPositions.ClimbCruise)
       //   alongWith(new ClimberStartWithSpeed(-1.0))
     );
   }
