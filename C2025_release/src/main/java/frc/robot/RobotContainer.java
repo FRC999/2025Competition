@@ -184,9 +184,9 @@ public class RobotContainer {
     autoChooser.addOption("BLU Bottom 2Coral", new AutoBlu2CoralVision());
     autoChooser.addOption("BLU Bottom 2CoralR", new AutoBluReverse3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
-    autoChooser.addOption("RED Bottom 2Coral", new AutoRed3CoralVision());
+    autoChooser.addOption("RED Bottom 3Coral", new AutoRed3CoralVision());
     autoChooser.addOption("RED Bottom 2Coral", new AutoRed2CoralVision());
-    autoChooser.addOption("RED Bottom 2CoralR", new AutoRedReverse3CoralVision());
+    autoChooser.addOption("RED Bottom 3CoralR", new AutoRedReverse3CoralVision());
     //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     
     autoChooser.addOption("RED One Coral L4", new AutoRedOneCoralVision());
