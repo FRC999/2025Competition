@@ -464,6 +464,16 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     return previousYaw;
   }
 
+  public void initialSetYawAndOdometryYaw(double degrees) {
+    StatusCode status = StatusCode.StatusCodeNotInitialized;
+      for (int i = 0; i < 5; ++i) {
+        status = imu.setYaw(degrees);
+        if (status.isOK())
+          break;
+      }
+      setCurrentOdometryPoseToSpecificRotation(degrees);
+  }
+
   public Rotation2d getRotation2d() {
     return imu.getRotation2d();
   }
