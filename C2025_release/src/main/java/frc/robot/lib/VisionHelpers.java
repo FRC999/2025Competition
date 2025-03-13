@@ -194,7 +194,9 @@ public class VisionHelpers {
                     movePoseXY( //e.g. RobotRedReef1Left
                         RobotPoseConstants.visionRobotPoses.get(key)
                             .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
-                        , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
+                        //, -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)
+                        , (-0.42
+                        ) // Coordinates of the center of the bot, so need to move them back half-length of the bot
                         , VisionHelperConstants.distanceBetweenReefPoles / 2.0 // Move bot to the left
                     )
                 );
@@ -204,7 +206,9 @@ public class VisionHelpers {
                     movePoseXY( //e.g. RobotRedReef1Left
                         RobotPoseConstants.visionRobotPoses.get(key)
                             .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
-                        , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
+                        //, -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)
+                        , (-0.42
+                        ) // Coordinates of the center of the bot, so need to move them back half-length of the bot
                         , -VisionHelperConstants.distanceBetweenReefPoles / 2.0 // Move bot to the left
                     )
                 );
@@ -216,7 +220,9 @@ public class VisionHelpers {
                     movePoseXY( //e.g. RobotRedReef1Left
                         RobotPoseConstants.visionRobotPoses.get(key)
                             .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
-                        , -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)) // Coordinates of the center of the bot, so need to move them back half-length of the bot
+                        //, -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)
+                        ,-(0.47
+                        ) // Coordinates of the center of the bot, so need to move them back half-length of the bot
                         , 0
                     )
                 );

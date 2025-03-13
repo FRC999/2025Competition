@@ -19,6 +19,8 @@ import frc.robot.lib.VisionHelpers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ctre.phoenix6.Utils;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -232,7 +234,9 @@ public class LLVisionSubsystem extends SubsystemBase {
     bestVisibleLL4 = tvisibleLL4;
     
     if(bestVisibleLL4) {
-      RobotContainer.driveSubsystem.addVisionMeasurement(bestPoseLL4, bestPoseTimestampLL4);
+      RobotContainer.driveSubsystem.addVisionMeasurement(bestPoseLL4, 
+      Utils.fpgaToCurrentTime(bestPoseTimestampLL4)
+      );
     }
   }
 }

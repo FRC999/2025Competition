@@ -92,21 +92,23 @@ public class DriveToPoseManualPID extends Command {
         new Translation2d(xVelocity, yVelocity).rotateBy(targetPose.getRotation().unaryMinus());
     // add 0.25 to the reef relative x velocity to make sure we run into it
     reefRelativeVelocities =
-        new Translation2d(reefRelativeVelocities.getX() + 0.25, reefRelativeVelocities.getY());
+        //new Translation2d(reefRelativeVelocities.getX() + 0.25, reefRelativeVelocities.getY());
+        new Translation2d(reefRelativeVelocities.getX() , reefRelativeVelocities.getY());
 
-    if (Math.abs(reefRelativeDifference.getX()) < 0.0762) {
-      if (reefRelativeDifference.getY() > 0) {
-        reefRelativeVelocities =
-            new Translation2d(
-                reefRelativeVelocities.getX(),
-                reefRelativeVelocities.getY() - ManualPIDConstants.closeVelocityBoost);
-      } else if (reefRelativeDifference.getY() < 0) {
-        reefRelativeVelocities =
-            new Translation2d(
-                reefRelativeVelocities.getX(),
-                reefRelativeVelocities.getY() + ManualPIDConstants.closeVelocityBoost);
-      }
-    }
+
+    // if (Math.abs(reefRelativeDifference.getX()) < 0.0762) {
+    //   if (reefRelativeDifference.getY() > 0) {
+    //     reefRelativeVelocities =
+    //         new Translation2d(
+    //             reefRelativeVelocities.getX(),
+    //             reefRelativeVelocities.getY() - ManualPIDConstants.closeVelocityBoost);
+    //   } else if (reefRelativeDifference.getY() < 0) {
+    //     reefRelativeVelocities =
+    //         new Translation2d(
+    //             reefRelativeVelocities.getX(),
+    //             reefRelativeVelocities.getY() + ManualPIDConstants.closeVelocityBoost);
+    //   }
+    // }
 
     var fieldRelativeVelocities = reefRelativeVelocities.rotateBy(targetPose.getRotation());
     int allianceMultiplier = RobotContainer.isAllianceRed ? -1 : 1;

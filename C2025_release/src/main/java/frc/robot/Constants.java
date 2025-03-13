@@ -790,7 +790,7 @@ public final class Constants {
 	}
 
 	public static final class VisionHelperConstants {
-		public static final double distanceBetweenReefPoles = Units.inchesToMeters(12.94); // page 162 https://firstfrc.blob.core.windows.net/frc2025/FieldAssets/2025FieldDrawings.pdf
+		public static final double distanceBetweenReefPoles = Units.inchesToMeters(12.5); // page 162 https://firstfrc.blob.core.windows.net/frc2025/FieldAssets/2025FieldDrawings.pdf
 		public static final double bumperWidth = Units.inchesToMeters(2.5);
 		public static class RobotPoseConstants {
 			public static Map<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
@@ -840,7 +840,7 @@ public final class Constants {
 			);
 
 		public static PathConstraints testPathCconstraints = new PathConstraints(
-				2.5,
+				3.5,
 				2.0,
 				SwerveChassis.MaxAngularRate,
 				SwerveChassis.maxAngularAcceleration,
@@ -867,7 +867,7 @@ public final class Constants {
 			SwerveChassis.MaxSpeed*SwerveChassis.chassisLinearMoveDeadband; // m/s - otherwise robot will not move
 
 		// Linear PID
-		public static double linearKp = 8;
+		public static double linearKp = 1.7;
 		public static double linearKi = 0;
 		public static double linearKd = 0;
 
