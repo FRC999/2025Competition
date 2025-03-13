@@ -244,7 +244,9 @@ public class VisionHelpers {
         
         // Special poses we determined manually
         RobotPoseConstants.visionRobotPoses.put("RobotBlueStationUp", new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)));
-
+        RobotPoseConstants.visionRobotPoses.put("RobotBlueStationDown", new Pose2d(0.638, 0.630, Rotation2d.fromDegrees(-55.0)));
+        RobotPoseConstants.visionRobotPoses.put("RobotRedStationDown", new Pose2d(16.690, 0.630, Rotation2d.fromDegrees(126.0))); //TODO: needs to be changed
+        RobotPoseConstants.visionRobotPoses.put("RobotRedStationUp", new Pose2d(16.742, 7.307, Rotation2d.fromDegrees(126.0))); //TODO: needs to be changed
 
         //System.out.println(RobotPoseConstants.visionRobotPoses);
     }

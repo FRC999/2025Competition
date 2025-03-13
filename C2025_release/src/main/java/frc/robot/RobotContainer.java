@@ -29,11 +29,15 @@ import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoBlu1CoralL1;
 import frc.robot.commands.AutoBlu2Coral;
+import frc.robot.commands.AutoBlu2CoralVision;
+import frc.robot.commands.AutoBlu3CoralVision;
 import frc.robot.commands.AutoBlueOneCoral;
 import frc.robot.commands.AutoRed1Coral;
 import frc.robot.commands.AutoRed1CoralL1;
 //import frc.robot.commands.AutoRed1CoralL1;
 import frc.robot.commands.AutoRed2Coral;
+import frc.robot.commands.AutoRed2CoralVision;
+import frc.robot.commands.AutoRed3CoralVision;
 import frc.robot.commands.AutoRedReverse2Coral;
 //import frc.robot.commands.AutoRedFromBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
@@ -170,8 +174,10 @@ public class RobotContainer {
   private void AutonomousConfigure () {
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
-    autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
-    autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
+    //autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
+    autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu3CoralVision());
+    // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
+    autoChooser.addOption("RED Bottom 2Coral", new AutoRed3CoralVision());
     autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
     autoChooser.addOption("BLUE One Coral Auto L1", new AutoBlu1CoralL1());
@@ -974,7 +980,7 @@ public class RobotContainer {
                       .andThen(
                           runTrajectory2PosesSlow(
                               llVisionSubsystem.getBestPoseAllCameras(),
-                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right"),
+                              RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right"),
                               //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
                               //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                               
@@ -988,7 +994,7 @@ public class RobotContainer {
                       .andThen(
                         runTrajectory2PosesSlow(
                         new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
-                        RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Right"),
+                        RobotPoseConstants.visionRobotPoses.get("RobotRedReef2Right"),
                         //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
                         //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                         
