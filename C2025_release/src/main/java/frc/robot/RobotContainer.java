@@ -1023,8 +1023,8 @@ public class RobotContainer {
                       .andThen(
                                 new CoralPlaceOnFour())
                       .andThen(
-                                  new ElevatorAllTheWayDown())
-                      .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false))
+                                  new ElevatorAllTheWayDown()
+                      .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false)))
                       .andThen(new TeleopCoralIntakeSequence())
                       .andThen(
                         runTrajectory2PosesSlow(
@@ -1037,8 +1037,8 @@ public class RobotContainer {
                         .andThen(
                                 new CoralPlaceOnFour())
                         .andThen(
-                                new ElevatorAllTheWayDown())
-                        .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false))
+                                new ElevatorAllTheWayDown()
+                        .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false)))
                         .andThen(new TeleopCoralIntakeSequence())
                         .andThen(
                         runTrajectory2PosesSlow(
