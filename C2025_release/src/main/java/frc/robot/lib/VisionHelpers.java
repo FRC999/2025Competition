@@ -165,6 +165,18 @@ public class VisionHelpers {
         RobotPoseConstants.tagNumberToKey.put(4, "TagRedBargeByProcessor");
     }
 
+    public static String getLeftReefName(int id) {
+        String tagName = "Robot" + RobotPoseConstants.tagNumberToKey.get(id).substring(3) + "Left";
+        return tagName;
+    }
+
+    public static String getRightReefName(int id) {
+        String tagName = "Robot" + RobotPoseConstants.tagNumberToKey.get(id).substring(3) + "Right";
+        return tagName;
+    }
+
+
+
     /**
      * Move the pose in a pose-centric (relative) way by X and Y without changing rotation
      * (e.g. if pose points LEFT (Rotation 90 degrees), the move of 0,1 moves the Y of the pose by +1)
