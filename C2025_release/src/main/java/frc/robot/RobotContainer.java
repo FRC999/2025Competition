@@ -66,6 +66,7 @@ import frc.robot.commands.StopRobot;
 import frc.robot.commands.StopVelcroMotor;
 import frc.robot.commands.TeleopAlgaePickupFromHighAndHold;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
+import frc.robot.lib.VisionHelpers;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -349,13 +350,45 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 8)
         .onTrue(new TeleopPigeonIMUReset());
     
-    new Trigger(() -> xboxDriveController.getPOV() == 90)
-        .onTrue(new PanLeftRightToReefTargetRobotCentric(-0.25))
-        .onFalse(new StopRobot());
+    //new Trigger(() -> xboxDriveController.getPOV() == 270)
+    new JoystickButton(xboxDriveController, 9)
+        .onTrue(
+          new DeferredCommand(
+          () -> 
+           new PrintCommand("Left")
+           .andThen(
+          runTrajectory2PosesSlow(
+            llVisionSubsystem.getBestPoseAllCameras(),
+            RobotPoseConstants.visionRobotPoses.get(
+              VisionHelpers.getLeftReefName(
+                RobotPoseConstants.reefTagPoses.get(
+                  VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                  ))),
+          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+          
+          true))
+          , Set.of()));
 
-    new Trigger(() -> xboxDriveController.getPOV() == 270)
-        .onTrue(new PanLeftRightToReefTargetRobotCentric(0.25))
-        .onFalse(new StopRobot());
+          new JoystickButton(xboxDriveController, 10)
+    .onTrue(
+          new DeferredCommand(
+          () -> 
+           new PrintCommand("Right")
+           .andThen(
+          runTrajectory2PosesSlow(
+            llVisionSubsystem.getBestPoseAllCameras(),
+            RobotPoseConstants.visionRobotPoses.get(
+              VisionHelpers.getRightReefName(
+                RobotPoseConstants.reefTagPoses.get(
+                  VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                  ))),
+          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+          
+          true)
+          )
+          , Set.of()));
     new JoystickButton(xboxDriveController, 1)
       .onTrue(new InstantCommand(driveSubsystem::setRobotCentricTrue))
       .onFalse(new InstantCommand(driveSubsystem::setRobotCentricFalse));
