@@ -655,11 +655,28 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     setOdometryPoseToSpecificPose(newPose);
   }
 
+  /**
+   * If LL pose is obtainable now, get it; otherwise get odometry pose
+   * @return
+   */
   public Pose2d getVisionAidedOdometryPose() {
     if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
       return RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
     } else {
       return getPose();
+    }
+  }
+
+  /**
+   * For trajectories - if vision pose is available, return it; otherwise return the pose passed to the method
+   * @param initialPose
+   * @return
+   */
+  public Pose2d getInitialVisionAidedOdometryPose(Pose2d initialPose) {
+    if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+      return RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+    } else {
+      return initialPose;
     }
   }
 
