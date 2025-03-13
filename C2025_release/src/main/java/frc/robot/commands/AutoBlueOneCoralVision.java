@@ -35,7 +35,7 @@ public class AutoBlueOneCoralVision extends SequentialCommandGroup {
             Set.of()),
         new DeferredCommand(
             () -> RobotContainer.runTrajectory2PosesSlow(
-                RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.219, 6.130, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
+                RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.24, 4.10, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
                 RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right"),
                 true),
             Set.of()),
