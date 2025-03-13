@@ -19,9 +19,9 @@ public class CoralPlaceOnFour extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour),
-      // new WaitCommand(0.2),
+      //  new WaitCommand(0.1),
       new ArmToPositionAndHold(ArmConstants.ArmPositions.ReefLevelFour),
-      // new WaitCommand(0.5),
+      new WaitCommand(0.1),
       new IntakeShootCommand(),
       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise)
     );

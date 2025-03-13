@@ -840,7 +840,7 @@ public final class Constants {
 			);
 
 		public static PathConstraints testPathCconstraints = new PathConstraints(
-				3.5,
+				2.5,
 				2.0,
 				SwerveChassis.MaxAngularRate,
 				SwerveChassis.maxAngularAcceleration,

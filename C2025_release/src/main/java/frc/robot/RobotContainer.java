@@ -991,7 +991,7 @@ public class RobotContainer {
                       .andThen(new TeleopCoralIntakeSequence())
                       .andThen(
                         runTrajectory2PosesSlow(
-                        new Pose2d(1.375, 7.348, Rotation2d.fromDegrees(-55.0)),
+                          new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
                         RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Right"),
                         //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
                         //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
@@ -1005,7 +1005,7 @@ public class RobotContainer {
                         .andThen(new TeleopCoralIntakeSequence())
                         .andThen(
                         runTrajectory2PosesSlow(
-                        new Pose2d(1.375, 7.348, Rotation2d.fromDegrees(-55.0)),
+                          new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
                         RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Left"),
                         false))
                         .andThen(
