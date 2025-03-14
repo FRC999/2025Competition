@@ -30,7 +30,7 @@ public class AutoBlueOneCoralVision extends SequentialCommandGroup {
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()
                 .andThen(new PrintCommand(
-                    "---A From: " + RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString() +
+                    "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.24, 4.10, Rotation2d.k180deg)) +
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right").toString())),
             Set.of()),
         new DeferredCommand(
