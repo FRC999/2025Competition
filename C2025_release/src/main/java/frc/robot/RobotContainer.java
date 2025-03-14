@@ -180,11 +180,11 @@ public class RobotContainer {
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     //autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
-    autoChooser.addOption("BLU Cage 3C", new AutoBlu3CoralVision());
-    autoChooser.addOption("BLU Center", new AutoBlueOneCoralVision());
-    autoChooser.addOption("BLU Cage 2C", new AutoBlu2CoralVision());
-    autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
+    autoChooser.addOption("BLU Center 1C", new AutoBlueOneCoralVision());
     autoChooser.addOption("BLU Processor 2C", new AutoBluReverse2CoralVision());
+    autoChooser.addOption("BLU Cage 2C", new AutoBlu2CoralVision());
+    autoChooser.addOption("BLU Cage 3C", new AutoBlu3CoralVision());
+    autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     // autoChooser.addOption("RED Bottom 3Coral", new AutoRed3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2CoralVision());
