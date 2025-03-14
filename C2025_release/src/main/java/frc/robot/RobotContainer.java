@@ -180,18 +180,19 @@ public class RobotContainer {
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     //autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
-    autoChooser.addOption("BLU TOP 2Coral", new AutoBlu3CoralVision());
-    autoChooser.addOption("BLU One Coral L4", new AutoBlueOneCoralVision());
-    autoChooser.addOption("BLU Bottom 2Coral", new AutoBlu2CoralVision());
+    // autoChooser.addOption("BLU TOP 2Coral", new AutoBlu3CoralVision());
+    // autoChooser.addOption("BLU One Coral L4", new AutoBlueOneCoralVision());
+    // autoChooser.addOption("BLU Bottom 2Coral", new AutoBlu2CoralVision());
     //autoChooser.addOption("BLU Bottom 2CoralR", new AutoBluReverse3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
-    autoChooser.addOption("RED Bottom 3Coral", new AutoRed3CoralVision());
-    autoChooser.addOption("RED Bottom 2Coral", new AutoRed2CoralVision());
-    autoChooser.addOption("RED Bottom 3CoralR", new AutoRedReverse3CoralVision());
-    autoChooser.addOption("RED Top 2CoralR", new AutoRedReverse2CoralVision());
-    //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     
-    autoChooser.addOption("RED One Coral L4", new AutoRedOneCoralVision());
+    autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
+    autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
+    autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
+    autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
+    autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
+    
+    //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
     //autoChooser.addOption("BLUE One Coral Auto L1", new AutoBlu1CoralL1());
     //autoChooser.addOption("RED One Coral Auto L1", new AutoRed1CoralL1());
