@@ -32,7 +32,7 @@ public class AutoRed3CoralVision extends SequentialCommandGroup {
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()
                 .andThen(new PrintCommand(
-                    "---A From: " + RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString() +
+                    "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose(new Pose2d(10.331, 1.920, Rotation2d.kZero)) +
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right").toString())),
             Set.of()),
         new DeferredCommand(
