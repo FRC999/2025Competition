@@ -404,6 +404,46 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     return Rotation2d.fromDegrees(getYaw());
   }
 
+  public double zeroYawInitial() {
+    double previousYaw = getYaw();
+    System.out.println("Old Yaw: " + previousYaw);
+    if (!RobotContainer.isAllianceRed 
+        
+      ) {
+      System.out.println("Yaw 180 " + RobotContainer.isAllianceRed);
+
+      StatusCode status = StatusCode.StatusCodeNotInitialized;
+      for (int i = 0; i < 5; ++i) {
+        status = imu.setYaw(180.0);
+        if (status.isOK())
+          break;
+      }
+      if (!status.isOK()) {
+        System.out.println("Could not apply configs, error code: " + status.toString());
+      }
+
+      // Reset IMU pose; may need to remove for the competition
+      setCurrentOdometryPoseToSpecificRotation(180);
+  
+    } else 
+    {
+      System.out.println("Yaw NOT 180 " + RobotContainer.isAllianceRed);
+
+      StatusCode status = StatusCode.StatusCodeNotInitialized;
+      for (int i = 0; i < 5; ++i) {
+        status = imu.setYaw(0);
+        if (status.isOK())
+          break;
+      }
+      if (!status.isOK()) {
+        System.out.println("Could not apply configs, error code: " + status.toString());
+      }
+
+      setCurrentOdometryPoseToSpecificRotation(0);
+    }
+    System.out.println("New Yaw: " + imu.getYaw());
+    return previousYaw;
+  }
   /**
    * Zeroes the yaw of the robot
    * 
