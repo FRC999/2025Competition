@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
     RobotContainer.setIfAllianceRed();
 
     // The YAW should be set by autos and not really here
-    RobotContainer.driveSubsystem.zeroYaw(); //Sets Yaw to 180 if on Red Alliance, or 0 on Blue (theoretically)
+    RobotContainer.driveSubsystem.zeroYawInitial(); //Sets Yaw to 180 if on Red Alliance, or 0 on Blue (theoretically)
   }
 
   /**
