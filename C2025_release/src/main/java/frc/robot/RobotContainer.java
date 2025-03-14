@@ -42,6 +42,7 @@ import frc.robot.commands.AutoRed2CoralVision;
 import frc.robot.commands.AutoRed3CoralVision;
 import frc.robot.commands.AutoRedOneCoralVision;
 import frc.robot.commands.AutoRedReverse2Coral;
+import frc.robot.commands.AutoRedReverse2CoralVision;
 import frc.robot.commands.AutoRedReverse3CoralVision;
 //import frc.robot.commands.AutoRedFromBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
@@ -182,11 +183,12 @@ public class RobotContainer {
     autoChooser.addOption("BLU TOP 2Coral", new AutoBlu3CoralVision());
     autoChooser.addOption("BLU One Coral L4", new AutoBlueOneCoralVision());
     autoChooser.addOption("BLU Bottom 2Coral", new AutoBlu2CoralVision());
-    autoChooser.addOption("BLU Bottom 2CoralR", new AutoBluReverse3CoralVision());
+    //autoChooser.addOption("BLU Bottom 2CoralR", new AutoBluReverse3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     autoChooser.addOption("RED Bottom 3Coral", new AutoRed3CoralVision());
     autoChooser.addOption("RED Bottom 2Coral", new AutoRed2CoralVision());
     autoChooser.addOption("RED Bottom 3CoralR", new AutoRedReverse3CoralVision());
+    autoChooser.addOption("RED Top 2CoralR", new AutoRedReverse2CoralVision());
     //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     
     autoChooser.addOption("RED One Coral L4", new AutoRedOneCoralVision());
@@ -388,10 +390,10 @@ public class RobotContainer {
           //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
           //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
           
-          true))
+          false))
           , Set.of()));
 
-          new JoystickButton(xboxDriveController, 10)
+    new JoystickButton(xboxDriveController, 10)
     .onTrue(
           new DeferredCommand(
           () -> 
@@ -407,12 +409,31 @@ public class RobotContainer {
           //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
           //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
           
-          true)
+          false)
           )
           , Set.of()));
     new JoystickButton(xboxDriveController, 1)
       .onTrue(new InstantCommand(driveSubsystem::setRobotCentricTrue))
       .onFalse(new InstantCommand(driveSubsystem::setRobotCentricFalse));
+
+    new JoystickButton(xboxDriveController, 9)
+        .onTrue(
+          new DeferredCommand(
+          () -> 
+           new PrintCommand("Left")
+           .andThen(
+          runTrajectory2PosesSlow(
+            llVisionSubsystem.getBestPoseAllCameras(),
+            RobotPoseConstants.visionRobotPoses.get(
+              VisionHelpers.getLeftReefName(
+                RobotPoseConstants.reefTagPoses.get(
+                  VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                  ))),
+          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+          
+          false))
+          , Set.of()));
   }
 
   public void setYaws() {
@@ -912,164 +933,232 @@ public class RobotContainer {
 
   public void testVisionDriving() {
 
+
+    System.out.println("Enable test vision buttons");
+
+    new JoystickButton(driveStick1, 12)
+        .onTrue(
+          new DeferredCommand(
+           ()->new PrintCommand(" ==== > Left")
+           .andThen(
+              new PrintCommand("***From: " + llVisionSubsystem.getBestPoseAllCameras().toString()
+               + " To: " +  RobotPoseConstants.visionRobotPoses.get(
+                    VisionHelpers.getLeftReefName(
+                      RobotPoseConstants.reefTagPoses.get(
+                        VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                        ))
+                        )
+              )
+           )
+           
+          //  .andThen(
+          // runTrajectory2PosesSlow(
+          //   llVisionSubsystem.getBestPoseAllCameras(),
+          //   RobotPoseConstants.visionRobotPoses.get(
+          //     VisionHelpers.getLeftReefName(
+          //       RobotPoseConstants.reefTagPoses.get(
+          //         VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+          //         ))),
+          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+          
+          // true))
+          
+          , Set.of()
+          )
+        );
+
+        new JoystickButton(driveStick1, 11)
+        .onTrue(
+          new DeferredCommand(
+           ()->new PrintCommand(" ==== > Left")
+           .andThen(
+              RobotContainer.runTrajectory2PosesSlow(
+                llVisionSubsystem.getBestPoseAllCameras(), // if vision is not available at the start, use that pose
+                RobotPoseConstants.visionRobotPoses.get(
+                    VisionHelpers.getLeftReefName(
+                      RobotPoseConstants.reefTagPoses.get(
+                        VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                        ))
+                        ),
+                false)
+           )
+           
+          //  .andThen(
+          // runTrajectory2PosesSlow(
+          //   llVisionSubsystem.getBestPoseAllCameras(),
+          //   RobotPoseConstants.visionRobotPoses.get(
+          //     VisionHelpers.getLeftReefName(
+          //       RobotPoseConstants.reefTagPoses.get(
+          //         VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+          //         ))),
+          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+          
+          // true))
+          
+          , Set.of()
+          )
+        );
+
     // Straight forward 1m
     // Try from both blue and red
-    new JoystickButton(driveStick1, 12)
-      .onTrue(
-        runTrajectory2Poses(new Pose2d(1,1, Rotation2d.kZero), new Pose2d(2,1, Rotation2d.kZero) , true)
-      )
-      .onFalse(new StopRobot()); 
+    // new JoystickButton(driveStick1, 12)
+    //   .onTrue(
+    //     runTrajectory2Poses(new Pose2d(1,1, Rotation2d.kZero), new Pose2d(2,1, Rotation2d.kZero) , true)
+    //   )
+    //   .onFalse(new StopRobot()); 
   
-      // Straight forward 1m, 90 CCW
-      // Try from both blue and red
-      new JoystickButton(driveStick1, 11)
-      .onTrue(
-        runTrajectory2Poses(new Pose2d(1,1, Rotation2d.kZero), new Pose2d(2,1, Rotation2d.kCCW_90deg) , true)
-      )
-      .onFalse(new StopRobot()); 
+    //   // Straight forward 1m, 90 CCW
+    //   // Try from both blue and red
+    //   new JoystickButton(driveStick1, 11)
+    //   .onTrue(
+    //     runTrajectory2Poses(new Pose2d(1,1, Rotation2d.kZero), new Pose2d(2,1, Rotation2d.kCCW_90deg) , true)
+    //   )
+    //   .onFalse(new StopRobot()); 
 
-      // From current vision position to ReefBlue1 (tag 18), left
-      new JoystickButton(driveStick1, 10)
-          .onTrue(
-              // Need to check my current vision pose only when ready to start the run
-              new DeferredCommand(
-                  () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString())
-                      .andThen(
-                          runTrajectory2Poses(
-                              llVisionSubsystem.getBestPoseAllCameras(),
-                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
-                              true)),
+    //   // From current vision position to ReefBlue1 (tag 18), left
+    //   new JoystickButton(driveStick1, 10)
+    //       .onTrue(
+    //           // Need to check my current vision pose only when ready to start the run
+    //           new DeferredCommand(
+    //               () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+    //                   " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString())
+    //                   .andThen(
+    //                       runTrajectory2Poses(
+    //                           llVisionSubsystem.getBestPoseAllCameras(),
+    //                           RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
+    //                           true)),
                             
-                  Set.of()
-              )
-              //.andThen(new WaitCommand(0.2))
-              .andThen(new DeferredCommand(
-                () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                    " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString())
-                    .andThen(
-                        runTrajectory2PosesSlow(
-                            llVisionSubsystem.getBestPoseAllCameras(),
-                            RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
-                            true)),
+    //               Set.of()
+    //           )
+    //           //.andThen(new WaitCommand(0.2))
+    //           .andThen(new DeferredCommand(
+    //             () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+    //                 " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString())
+    //                 .andThen(
+    //                     runTrajectory2PosesSlow(
+    //                         llVisionSubsystem.getBestPoseAllCameras(),
+    //                         RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left"),
+    //                         true)),
                           
-                Set.of()
-            ))
-            )
-          .onFalse(new StopRobot());
+    //             Set.of()
+    //         ))
+    //         )
+    //       .onFalse(new StopRobot());
 
-      // From current vision position to RobotBluReef3 (tag 20), left
-      new JoystickButton(driveStick1, 9)
-          .onTrue(
-              // Need to check my current vision pose only when ready to start the run
-              new DeferredCommand(
-                  () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef6Right").toString())
-                      .andThen(
-                          runTrajectory2PosesSlow(
-                              llVisionSubsystem.getBestPoseAllCameras(),
-                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef6Right"),
-                              //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-                              //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    //   // From current vision position to RobotBluReef3 (tag 20), left
+    //   new JoystickButton(driveStick1, 9)
+    //       .onTrue(
+    //           // Need to check my current vision pose only when ready to start the run
+    //           new DeferredCommand(
+    //               () -> new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+    //                   " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef6Right").toString())
+    //                   .andThen(
+    //                       runTrajectory2PosesSlow(
+    //                           llVisionSubsystem.getBestPoseAllCameras(),
+    //                           RobotPoseConstants.visionRobotPoses.get("RobotBluReef6Right"),
+    //                           //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //                           //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                               
-                              true))
-                              ,
-                  Set.of()
-              )
-            )
-          .onFalse(new StopRobot());  
+    //                           true))
+    //                           ,
+    //               Set.of()
+    //           )
+    //         )
+    //       .onFalse(new StopRobot());  
 
-          new JoystickButton(driveStick1, 8)
-          .onTrue(
-              // Need to check my current vision pose only when ready to start the run
-              new DeferredCommand(
-                  () -> 
-                    new SetOdometryToVisionPose()
-                    .andThen(new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right").toString())
-                      )
-                      .andThen(
-                          runTrajectory2PosesSlow(
-                              llVisionSubsystem.getBestPoseAllCameras(),
-                              RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right"),
-                              //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-                              //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    //       new JoystickButton(driveStick1, 8)
+    //       .onTrue(
+    //           // Need to check my current vision pose only when ready to start the run
+    //           new DeferredCommand(
+    //               () -> 
+    //                 new SetOdometryToVisionPose()
+    //                 .andThen(new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+    //                   " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right").toString())
+    //                   )
+    //                   .andThen(
+    //                       runTrajectory2PosesSlow(
+    //                           llVisionSubsystem.getBestPoseAllCameras(),
+    //                           RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right"),
+    //                           //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //                           //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                               
-                              true))
-                      .andThen(
-                                new CoralPlaceOnFour())
-                      .andThen(
-                                  new ElevatorAllTheWayDown()
-                      .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false)))
-                      .andThen(new TeleopCoralIntakeSequence())
-                      .andThen(
-                        runTrajectory2PosesSlow(
-                        new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
-                        RobotPoseConstants.visionRobotPoses.get("RobotRedReef2Right"),
-                        //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-                        //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    //                           true))
+    //                   .andThen(
+    //                             new CoralPlaceOnFour())
+    //                   .andThen(
+    //                               new ElevatorAllTheWayDown()
+    //                   .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false)))
+    //                   .andThen(new TeleopCoralIntakeSequence())
+    //                   .andThen(
+    //                     runTrajectory2PosesSlow(
+    //                     new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
+    //                     RobotPoseConstants.visionRobotPoses.get("RobotRedReef2Right"),
+    //                     //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //                     //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                         
-                        false))
-                        .andThen(
-                                new CoralPlaceOnFour())
-                        .andThen(
-                                new ElevatorAllTheWayDown()),
-                  Set.of()
-              )
-            )
-          .onFalse(new StopRobot()); 
+    //                     false))
+    //                     .andThen(
+    //                             new CoralPlaceOnFour())
+    //                     .andThen(
+    //                             new ElevatorAllTheWayDown()),
+    //               Set.of()
+    //           )
+    //         )
+    //       .onFalse(new StopRobot()); 
 
 
-          new JoystickButton(driveStick1, 5)
-          .onTrue(
-              // Need to check my current vision pose only when ready to start the run
-              new DeferredCommand(
-                  () -> 
-                    new SetOdometryToVisionPose()
-                    .andThen(new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right").toString())
-                      )
-                      .andThen(
-                          runTrajectory2PosesSlow(
-                              llVisionSubsystem.getBestPoseAllCameras(),
-                              RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right"),
-                              //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-                              //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    //       new JoystickButton(driveStick1, 5)
+    //       .onTrue(
+    //           // Need to check my current vision pose only when ready to start the run
+    //           new DeferredCommand(
+    //               () -> 
+    //                 new SetOdometryToVisionPose()
+    //                 .andThen(new PrintCommand("---A From: " + llVisionSubsystem.getBestPoseAllCameras().toString() +
+    //                   " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right").toString())
+    //                   )
+    //                   .andThen(
+    //                       runTrajectory2PosesSlow(
+    //                           llVisionSubsystem.getBestPoseAllCameras(),
+    //                           RobotPoseConstants.visionRobotPoses.get("RobotBluReef3Right"),
+    //                           //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //                           //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                               
-                              true))
-                      .andThen(
-                                new CoralPlaceOnFour())
-                      .andThen(
-                                  new ElevatorAllTheWayDown()
-                      .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false)))
-                      .andThen(new TeleopCoralIntakeSequence())
-                      .andThen(
-                        runTrajectory2PosesSlow(
-                          new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
-                        RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Right"),
-                        //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-                        //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    //                           true))
+    //                   .andThen(
+    //                             new CoralPlaceOnFour())
+    //                   .andThen(
+    //                               new ElevatorAllTheWayDown()
+    //                   .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false)))
+    //                   .andThen(new TeleopCoralIntakeSequence())
+    //                   .andThen(
+    //                     runTrajectory2PosesSlow(
+    //                       new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
+    //                     RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Right"),
+    //                     //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //                     //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
                         
-                        false))
-                        .andThen(
-                                new CoralPlaceOnFour())
-                        .andThen(
-                                new ElevatorAllTheWayDown()
-                        .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false)))
-                        .andThen(new TeleopCoralIntakeSequence())
-                        .andThen(
-                        runTrajectory2PosesSlow(
-                          new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
-                        RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Left"),
-                        false))
-                        .andThen(
-                          new CoralPlaceOnFour())
-                        .andThen(
-                            new ElevatorAllTheWayDown()),
-                  Set.of()
-              )
-            )
-          .onFalse(new StopRobot()); 
+    //                     false))
+    //                     .andThen(
+    //                             new CoralPlaceOnFour())
+    //                     .andThen(
+    //                             new ElevatorAllTheWayDown()
+    //                     .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false)))
+    //                     .andThen(new TeleopCoralIntakeSequence())
+    //                     .andThen(
+    //                     runTrajectory2PosesSlow(
+    //                       new Pose2d(1.458, 7.255, Rotation2d.fromDegrees(-55.0)),
+    //                     RobotPoseConstants.visionRobotPoses.get("RobotBluReef2Left"),
+    //                     false))
+    //                     .andThen(
+    //                       new CoralPlaceOnFour())
+    //                     .andThen(
+    //                         new ElevatorAllTheWayDown()),
+    //               Set.of()
+    //           )
+    //         )
+    //       .onFalse(new StopRobot()); 
 
 
           
@@ -1090,32 +1179,32 @@ public class RobotContainer {
       //       )
       //     .onFalse(new StopRobot()); 
 
-      new JoystickButton(driveStick1, 7)
-        .onTrue(
-              // Need to check my current vision pose only when ready to start the run
-              new DeferredCommand(
-                () -> new PrintCommand("---M To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString()
-                    )
-                  .andThen(
-                    new DriveToPoseManualPID(
-                      () -> RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left")
-                      , driveSubsystem::getVisionAidedOdometryPose
-                      , driveSubsystem::setGotToTarget
-                      , driveSubsystem::setDistanceToTarget
-                      , 0.1
+      // new JoystickButton(driveStick1, 7)
+      //   .onTrue(
+      //         // Need to check my current vision pose only when ready to start the run
+      //         new DeferredCommand(
+      //           () -> new PrintCommand("---M To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left").toString()
+      //               )
+      //             .andThen(
+      //               new DriveToPoseManualPID(
+      //                 () -> RobotPoseConstants.visionRobotPoses.get("RobotBluReef1Left")
+      //                 , driveSubsystem::getVisionAidedOdometryPose
+      //                 , driveSubsystem::setGotToTarget
+      //                 , driveSubsystem::setDistanceToTarget
+      //                 , 0.1
 
-                      , 0.1
-                      , 5)
-                  )
-                  .andThen(
-                    new PrintCommand("--> Got there: "+driveSubsystem.getGotToTarget()+" Distance: "+driveSubsystem.getDistanceToTarget())
-                    )
+      //                 , 0.1
+      //                 , 5)
+      //             )
+      //             .andThen(
+      //               new PrintCommand("--> Got there: "+driveSubsystem.getGotToTarget()+" Distance: "+driveSubsystem.getDistanceToTarget())
+      //               )
 
-                ,Set.of()
-              )
-              .andThen(new StopRobot()) // since we're driving with drive, we need to make sure we stop             
-            ) 
-          .onFalse(new StopRobot()); 
+      //           ,Set.of()
+      //         )
+      //         .andThen(new StopRobot()) // since we're driving with drive, we need to make sure we stop             
+      //       ) 
+      //     .onFalse(new StopRobot()); 
 
         new JoystickButton(driveStick1, 6)
           .onTrue( new SetOdometryToVisionPose() );

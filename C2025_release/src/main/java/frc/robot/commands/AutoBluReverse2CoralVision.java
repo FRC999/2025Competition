@@ -23,7 +23,7 @@ public class AutoBluReverse2CoralVision extends SequentialCommandGroup {
   public AutoBluReverse2CoralVision() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands( new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(180)),
+    addCommands( new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
 
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()
@@ -31,12 +31,8 @@ public class AutoBluReverse2CoralVision extends SequentialCommandGroup {
                     "---A From: " + RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString() +
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef5Right").toString())),
             Set.of()),
-        new DeferredCommand(
-            () -> RobotContainer.runTrajectory2PosesSlow(
-                RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.219, 6.130, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
-                RobotPoseConstants.visionRobotPoses.get("RobotBluReef5Right"),
-                true),
-            Set.of()),
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+                "Blu-BargeToReef2", true, false),
         new CoralPlaceOnFour(),
         new ElevatorAllTheWayDown()
             .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
@@ -44,7 +40,7 @@ public class AutoBluReverse2CoralVision extends SequentialCommandGroup {
         new TeleopCoralIntakeSequence(),
         RobotContainer.runTrajectory2PosesSlow(
             RobotPoseConstants.visionRobotPoses.get("RobotBluStationUp"),
-            RobotPoseConstants.visionRobotPoses.get("RobotBlueReef4Right"),
+            RobotPoseConstants.visionRobotPoses.get("RobotBlueReef6Right"),
             false),
         new CoralPlaceOnFour(),
         new ElevatorAllTheWayDown());

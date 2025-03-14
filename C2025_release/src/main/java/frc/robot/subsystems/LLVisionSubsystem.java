@@ -190,13 +190,19 @@ public class LLVisionSubsystem extends SubsystemBase {
 
         PoseEstimate pe;
         if (! cn.contentEquals("limelight-front")) { // For all cameras except front that is UP use MT2
+          if (RobotContainer.isAllianceRed) {
+            pe = LimelightHelpers.getBotPoseEstimate_wpiBlue(cn);
+          }else {
           pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
-        } else { // for the front camera - only use MP2 when elevator is down, otherwise MT1
+          }
+        } 
+        else { // for the front camera - only use MP2 when elevator is down, otherwise MT1
           if ( Constants.EnabledSubsystems.elevator && RobotContainer.elevatorSubsystem.isDown() ) {
             pe = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
           } else {
             pe = LimelightHelpers.getBotPoseEstimate_wpiBlue(cn);
           }
+          
         }
 
         SmartDashboard.putNumber("LL-FIDN-"+cn,pe.rawFiducials.length);

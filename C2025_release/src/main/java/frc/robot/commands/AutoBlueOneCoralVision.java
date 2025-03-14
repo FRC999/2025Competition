@@ -25,7 +25,7 @@ public class AutoBlueOneCoralVision extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
        // Set initial IMU to 180; robot facing the team
-        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(180)),
+        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
 
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()
@@ -33,12 +33,8 @@ public class AutoBlueOneCoralVision extends SequentialCommandGroup {
                     "---A From: " + RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString() +
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right").toString())),
             Set.of()),
-        new DeferredCommand(
-            () -> RobotContainer.runTrajectory2PosesSlow(
-                RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.24, 4.10, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
-                RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right"),
-                false),
-            Set.of()),
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+            "Blu-BargeToCenterReef", false, false),
         new CoralPlaceOnFour(),
         new ElevatorAllTheWayDown()
     );
