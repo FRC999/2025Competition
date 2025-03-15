@@ -24,7 +24,7 @@ public class AutoRedFromBlu2Coral extends SequentialCommandGroup {
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true,true))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm()) // try placing Coral on L4
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
         .andThen(new WaitCommand(0.1))
@@ -34,7 +34,7 @@ public class AutoRedFromBlu2Coral extends SequentialCommandGroup {
         .andThen(new WaitCommand(0.1))
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, true))
         .andThen(new TeleopMoveToL4RotateArm())  // try placing Coral on L4
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())
     );
   }
 }

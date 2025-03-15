@@ -15,7 +15,8 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
 import frc.robot.commands.TeleopCoralIntakeSequence;
-import frc.robot.commands.TeleopEjectCoralBringArmToCruiseElevatorDown;
+import frc.robot.commands.TeleopEjectCoralBringArmToCruise;
+import frc.robot.commands.TeleopEjectCoralBringArmToCruiseElevatorDownAuto;
 import frc.robot.commands.TeleopIntakeCoralAlternateSequence;
 import frc.robot.commands.TeleopMoveToL1RotateArm;
 import frc.robot.commands.TeleopMoveToL2RotateArm;
@@ -323,7 +324,7 @@ public class RobotContainer {
         .onTrue(new TeleopMoveToL1RotateArm());
 
     new JoystickButton(buttonBox, 12)
-        .onTrue(new TeleopEjectCoralBringArmToCruiseElevatorDown()); // TODO: Speed needs to be changed accordingly
+        .onTrue(new TeleopEjectCoralBringArmToCruise()); // TODO: Speed needs to be changed accordingly
 
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
@@ -775,7 +776,7 @@ public class RobotContainer {
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true,false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm()) // try placing Coral on L4
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to 
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
         .andThen(new WaitCommand(0.1))
@@ -785,7 +786,7 @@ public class RobotContainer {
         .andThen(new WaitCommand(0.1))
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false,false))
         .andThen(new TeleopMoveToL4RotateArm())  // try placing Coral on L4
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())
        )
        .onFalse(new StopRobot());
   }
@@ -795,7 +796,7 @@ public class RobotContainer {
        .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true, false)
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())//TODO: needs to be looked over, especially if we have to
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())//TODO: needs to be looked over, especially if we have to
                                                                     //add the trajectory which will make the bot go backwards
                                                                     //before putting the elevator down.
         .andThen(new WaitCommand(0.1))
@@ -806,13 +807,13 @@ public class RobotContainer {
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop", false, false))
         .andThen(new TeleopCoralIntakeSequence())
         .andThen(runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm())
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown()))
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto()))
        .onFalse(new StopRobot());
   }
 

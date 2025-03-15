@@ -24,7 +24,7 @@ public class AutoRed1Coral extends SequentialCommandGroup {
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargeToReef1", true,false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL4RotateArm()) 
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDown())
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())
     );
   }
 }
