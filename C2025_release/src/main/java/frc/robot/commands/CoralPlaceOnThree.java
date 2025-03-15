@@ -22,7 +22,7 @@ public class CoralPlaceOnThree extends SequentialCommandGroup {
       new WaitCommand(0.2),
       new ArmToPositionAndHold(ArmPositions.ReefLevelOne),
       new WaitCommand(0.5),
-      new IntakeShootCommand(),
+      new IntakeReleaseCommand(),
       new ArmToPositionAndHold(ArmPositions.CoralCruise)
     );
   }

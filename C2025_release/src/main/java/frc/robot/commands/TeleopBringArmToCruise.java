@@ -17,22 +17,15 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TeleopEjectCoralBringArmToCruiseElevatorDownAuto extends SequentialCommandGroup {
+public class TeleopBringArmToCruise extends SequentialCommandGroup {
   /** Creates a new TeleopEjectCoralBringArmToCruise. */
-  public TeleopEjectCoralBringArmToCruiseElevatorDownAuto() {
+  public TeleopBringArmToCruise() {
     /**
    * Per picture
    * Bottom button
    */
     addCommands(
       // If shooting coral when elevator is down, gently place it on L1
-      new DeferredCommand(
-          () -> new ConditionalCommand(
-            new PlaceCoralGentlyInL1(),
-            new IntakeReleaseCommand(), // if elevator is NOT down
-            RobotContainer.elevatorSubsystem::isDown
-          )
-        , Set.of()),
       new ArmToPositionAndHold(ArmPositions.CoralCruise),
       new DeferredCommand(
           () -> new ConditionalCommand(
@@ -40,8 +33,8 @@ public class TeleopEjectCoralBringArmToCruiseElevatorDownAuto extends Sequential
             new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne), // if elevator is NOT down
             RobotContainer.elevatorSubsystem::isDown
           )
-        , Set.of()),
-      new StopElevator()
+        , Set.of())
+      //new StopElevator()
     );
   }
 }

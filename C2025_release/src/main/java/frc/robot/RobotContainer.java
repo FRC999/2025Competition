@@ -14,6 +14,7 @@ import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
+import frc.robot.commands.TeleopBringArmToCruise;
 import frc.robot.commands.TeleopCoralIntakeSequence;
 import frc.robot.commands.TeleopEjectCoralBringArmToCruise;
 import frc.robot.commands.TeleopEjectCoralBringArmToCruiseElevatorDownAuto;
@@ -59,7 +60,6 @@ import frc.robot.commands.IntakeAlgaeRollOutBargeCommand;
 import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralOutCommand;
-import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.PlaceCoralGentlyInL1;
@@ -324,7 +324,8 @@ public class RobotContainer {
         .onTrue(new TeleopMoveToL1RotateArm());
 
     new JoystickButton(buttonBox, 12)
-        .onTrue(new TeleopEjectCoralBringArmToCruise()); // TODO: Speed needs to be changed accordingly
+        .onTrue(new TeleopEjectCoralBringArmToCruise()) // TODO: Speed needs to be changed accordingly
+        .onFalse(new TeleopBringArmToCruise());
 
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 

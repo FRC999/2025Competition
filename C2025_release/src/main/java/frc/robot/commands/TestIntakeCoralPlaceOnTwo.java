@@ -18,7 +18,7 @@ public class TestIntakeCoralPlaceOnTwo extends SequentialCommandGroup {
     addCommands(
       new IntakeCoralAndMoveToCruisePositionSequence(),
       new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelTwo),
-      new IntakeShootCommand(),
+      new IntakeReleaseCommand(),
       new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne),
       new StopElevator()
     );
