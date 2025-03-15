@@ -29,7 +29,7 @@ public class TeleopEjectCoralBringArmToCruiseElevatorDownAuto extends Sequential
       new DeferredCommand(
           () -> new ConditionalCommand(
             new PlaceCoralGentlyInL1(),
-            new IntakeReleaseCommand(), // if elevator is NOT down
+            new IntakeShootCommand(), // if elevator is NOT down
             RobotContainer.elevatorSubsystem::isDown
           )
         , Set.of()),
