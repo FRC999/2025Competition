@@ -720,7 +720,7 @@ public final class Constants {
 				ReefLevelOne(-0.3),   //TODO: Needs values from robot
 				ReefLevelTwo(0.0),   //TODO: Needs values from robot
 				ReefLevelThree(0.0), //TODO: Needs values from robot
-				ReefLevelFour(6.5),  //TODO: Needs values from robot
+				ReefLevelFour(6.7),  //TODO: Needs values from robot
 				Barge(15),
 				BargeEnd(5.0),
 				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
