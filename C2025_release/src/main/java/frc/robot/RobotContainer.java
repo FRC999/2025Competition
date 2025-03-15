@@ -824,9 +824,9 @@ public class RobotContainer {
       // Load the path you want to follow using its name in the GUI
       PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
 
-      // if (flipTrajectory) {
-      //   path = path.flipPath();
-      // }
+      if (flipTrajectory) {
+        path = path.flipPath();
+      }
 
       Pose2d startPose = path.getStartingHolonomicPose().get();
       driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
