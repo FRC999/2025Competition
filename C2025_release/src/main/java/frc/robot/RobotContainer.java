@@ -824,9 +824,9 @@ public class RobotContainer {
       // Load the path you want to follow using its name in the GUI
       PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
 
-      if (flipTrajectory) {
-        path = path.flipPath();
-      }
+      // if (flipTrajectory) {
+      //   path = path.flipPath();
+      // }
 
       Pose2d startPose = path.getStartingHolonomicPose().get();
       driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
@@ -834,8 +834,10 @@ public class RobotContainer {
       // Create a path following command using AutoBuilder. This will also trigger
       // event markers.
       if (! shouldResetOdometryToStartingPose) {
+        System.out.println("NO RST O");
         return AutoBuilder.followPath(path);
       } else { // reset odometry the right way
+        System.out.println("RST O");
         return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
       }
     } catch (Exception e) {
