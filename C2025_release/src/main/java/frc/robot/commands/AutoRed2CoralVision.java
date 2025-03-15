@@ -36,7 +36,7 @@ public class AutoRed2CoralVision extends SequentialCommandGroup {
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right").toString())),
             Set.of()),
             RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-                "Red-BargetoReef11", true, false),
+                "Red-BargetoReef11", false, false),
         // new DeferredCommand(
         //     () -> RobotContainer.runTrajectory2PosesSlow(
         //         RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.331, 1.920, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
