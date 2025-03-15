@@ -24,7 +24,7 @@ public class AutoBlu1CoralL1 extends SequentialCommandGroup {
         .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToCenterReef", true,false))
         .andThen(new WaitCommand(0.1))
         .andThen(new TeleopMoveToL1RotateArm()) 
-        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())
+        .andThen(new AutoEjectCoralBringArmToCruiseElevatorDown())
     );
   }
 }

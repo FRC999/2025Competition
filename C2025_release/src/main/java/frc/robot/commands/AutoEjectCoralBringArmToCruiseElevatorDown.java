@@ -17,9 +17,9 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TeleopEjectCoralBringArmToCruiseElevatorDownAuto extends SequentialCommandGroup {
+public class AutoEjectCoralBringArmToCruiseElevatorDown extends SequentialCommandGroup {
   /** Creates a new TeleopEjectCoralBringArmToCruise. */
-  public TeleopEjectCoralBringArmToCruiseElevatorDownAuto() {
+  public AutoEjectCoralBringArmToCruiseElevatorDown() {
     /**
    * Per picture
    * Bottom button
