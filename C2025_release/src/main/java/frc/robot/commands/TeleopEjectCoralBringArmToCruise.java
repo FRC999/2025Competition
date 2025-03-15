@@ -40,8 +40,8 @@ public class TeleopEjectCoralBringArmToCruise extends SequentialCommandGroup {
             new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelOne), // if elevator is NOT down
             RobotContainer.elevatorSubsystem::isDown
           )
-        , Set.of())
-      //new StopElevator()
+        , Set.of()),
+      new StopElevator()
     );
   }
 }
