@@ -43,7 +43,7 @@ public class AutoBluReverse2CoralVision extends SequentialCommandGroup {
                 "Blu-Reef4ToCoralBottom", false, false)),
         new TeleopCoralIntakeSequence(),
         RobotContainer.runTrajectory2PosesSlow(
-            RobotPoseConstants.visionRobotPoses.get("RobotBluStationDown"),
+            RobotPoseConstants.visionRobotPoses.get("RobotBlueStationDown"),
             RobotPoseConstants.visionRobotPoses.get("RobotBlueReef4Right"),
             false),
         new CoralPlaceOnFour(),
