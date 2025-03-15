@@ -28,7 +28,7 @@ public class AutoBluReverse2CoralVision extends SequentialCommandGroup {
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()
                 .andThen(new PrintCommand(
-                    "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.219, 6.130, Rotation2d.k180deg)) +
+                    "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.219, 1.64, Rotation2d.k180deg)) +
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef5Right").toString())),
             Set.of()),
         new DeferredCommand(
