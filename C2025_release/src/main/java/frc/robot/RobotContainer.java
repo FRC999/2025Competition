@@ -63,6 +63,7 @@ import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.PlaceCoralGentlyInL1;
+import frc.robot.commands.RedRishikaTest;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.SetOdometryToVisionPose;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -192,6 +193,7 @@ public class RobotContainer {
     autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
     autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
     autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
+    autoChooser.addOption("RED Rishika test", new RedRishikaTest());
     
     //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
@@ -516,6 +518,12 @@ public class RobotContainer {
       
     // new JoystickButton(driveStick1, 5)
     // .onTrue(new IntakeCoralAndMoveToCruisePositionSequence());   
+  }
+
+  public void testWNE() {
+    new JoystickButton(xboxDriveController, 4)
+      .onTrue(new RedRishikaTest())
+      .onFalse(new StopRobot());
   }
 
   public void testElevator() throws Exception {
