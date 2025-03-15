@@ -29,15 +29,28 @@ public class Rishika3 extends SequentialCommandGroup {
       new DeferredCommand(
           () -> new SetOdometryToVisionPose()
               .andThen(new PrintCommand(
-                  "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.86, Rotation2d.kZero)) +
+                  "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.8, Rotation2d.kZero)) +
                       " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef4Right").toString())),
           Set.of()),
       new DeferredCommand(
           () -> RobotContainer.runTrajectory2PosesSlow(
-              RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.86, Rotation2d.kZero)), // if vision is not available at the start, use that pose
+              RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.8, Rotation2d.kZero)), // if vision is not available at the start, use that pose
               RobotPoseConstants.visionRobotPoses.get("RobotRedReef4Right"),
               false),
-          Set.of())
+          Set.of()),
+          RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+              "Red-Reef11toCoralBottom", false, true)
+      //new CoralPlaceOnFour()
+      // new ElevatorAllTheWayDown()
+      //     .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+      //         "Red-Reef11toCoralBottom", false, true))
+      //new TeleopCoralIntakeSequence()
+      //RobotContainer.runTrajectory2PosesSlow(
+          //RobotPoseConstants.visionRobotPoses.get("RobotRedStationDown"),
+          //RobotPoseConstants.visionRobotPoses.get("RobotRedReef6Right"),
+          //false)
+      // new CoralPlaceOnFour(),
+      // new ElevatorAllTheWayDown()
     );
   }
 }
