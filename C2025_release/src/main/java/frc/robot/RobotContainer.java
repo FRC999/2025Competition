@@ -40,10 +40,12 @@ import frc.robot.commands.AutoRed1CoralL1;
 //import frc.robot.commands.AutoRed1CoralL1;
 import frc.robot.commands.AutoRed2Coral;
 import frc.robot.commands.AutoRed2CoralVision;
+import frc.robot.commands.AutoRed2CoralVisionRishika;
 import frc.robot.commands.AutoRed3CoralVision;
 import frc.robot.commands.AutoRedOneCoralVision;
 import frc.robot.commands.AutoRedReverse2Coral;
 import frc.robot.commands.AutoRedReverse2CoralVision;
+import frc.robot.commands.AutoRedReverse2CoralVisionRishika;
 import frc.robot.commands.AutoRedReverse3CoralVision;
 //import frc.robot.commands.AutoRedFromBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
@@ -194,6 +196,8 @@ public class RobotContainer {
     autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
     autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
     autoChooser.addOption("RED Rishika test", new RedRishikaTest());
+    autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
+    autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());
     
     //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
