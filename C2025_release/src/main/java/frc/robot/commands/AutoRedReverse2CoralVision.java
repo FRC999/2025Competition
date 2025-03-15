@@ -35,7 +35,7 @@ public class AutoRedReverse2CoralVision extends SequentialCommandGroup {
                         ,
             Set.of()),
             RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-                "Red-BargeToReef3", false, true),
+                "Red-BargeToReef3", false, false),
         // new DeferredCommand(
         //     () -> RobotContainer.runTrajectory2PosesSlow(
         //         RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.219, 6.130, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
@@ -45,10 +45,10 @@ public class AutoRedReverse2CoralVision extends SequentialCommandGroup {
         new CoralPlaceOnFour(),
         new ElevatorAllTheWayDown()
             .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-                "Red-Reef3ToCoralTop", false, true)),
+                "Red-Reef3ToCoralTop", false, false)),
         new TeleopCoralIntakeSequence(),
         RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-                "Red-CoralTopToReef2", false, true),
+                "Red-CoralTopToReef2", false, false),
         // RobotContainer.runTrajectory2PosesSlow(
         //     RobotPoseConstants.visionRobotPoses.get("RobotRedStationDown"),
         //     RobotPoseConstants.visionRobotPoses.get("RobotRedReef4Right"),
