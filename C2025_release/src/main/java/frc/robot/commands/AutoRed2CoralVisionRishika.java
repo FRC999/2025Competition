@@ -24,7 +24,7 @@ public class AutoRed2CoralVisionRishika extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // Set initial IMU to 180; robot facing the team
-      new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(180)),
+      new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
 
       new DeferredCommand(
           () -> new SetOdometryToVisionPose()
@@ -34,7 +34,7 @@ public class AutoRed2CoralVisionRishika extends SequentialCommandGroup {
           Set.of()),
       new DeferredCommand(
           () -> RobotContainer.runTrajectory2PosesSlow(
-              RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 1.29, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
+              RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 1.29, Rotation2d.kZero)), // if vision is not available at the start, use that pose
               RobotPoseConstants.visionRobotPoses.get("RobotRedReef5Right"),
               false),
           Set.of()),
