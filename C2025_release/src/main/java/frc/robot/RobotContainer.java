@@ -42,6 +42,7 @@ import frc.robot.commands.AutoRed2Coral;
 import frc.robot.commands.AutoRed2CoralVision;
 import frc.robot.commands.AutoRed2CoralVisionRishika;
 import frc.robot.commands.AutoRed3CoralVision;
+import frc.robot.commands.AutoRedRishikaCenter1C;
 import frc.robot.commands.AutoRedOneCoralVision;
 import frc.robot.commands.AutoRedOneCoralVisionRishika;
 import frc.robot.commands.AutoRedReverse2Coral;
@@ -193,17 +194,17 @@ public class RobotContainer {
     //autoChooser.addOption("BLU Bottom 2CoralR", new AutoBluReverse3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     
-    autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
-    autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
-    autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
-    autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
-    autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
-    autoChooser.addOption("RED Rishika test", new RedRishikaTest());
-    autoChooser.addOption("RED Rishika 3 test Cage", new Rishika3());
-    autoChooser.addOption("RED Rishita TTest processor", new Rishita());
-    autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
-    autoChooser.addOption("RED Rishika test one", new AutoRedOneCoralVisionRishika());
-    autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());
+    autoChooser.addOption("RED Center 1C", new AutoRedRishikaCenter1C());
+    // autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
+    // autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
+    // autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
+    // autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
+    // autoChooser.addOption("RED Rishika test", new RedRishikaTest());
+    autoChooser.addOption("RED Cage 2C", new Rishika3());
+    autoChooser.addOption("RED processor 2C", new Rishita());
+    // autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
+    // autoChooser.addOption("RED Rishika test one", new AutoRedOneCoralVisionRishika());
+    // autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());
     
     //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
