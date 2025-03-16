@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.RobotContainer;
 
@@ -30,16 +31,21 @@ public class AutoBlu1CoralVisionSuchitaCenterTest extends SequentialCommandGroup
           () -> new SetOdometryToVisionPose()
               .andThen(new PrintCommand(
                   "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.2, 3.86, Rotation2d.k180deg)) +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right").toString())),
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right").toString())),
           Set.of()),
       new DeferredCommand(
           () -> RobotContainer.runTrajectory2PosesSlow(
               RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(7.2, 3.86, Rotation2d.k180deg)), // if vision is not available at the start, use that pose
-              RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right"),
+              RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right"),
               true),
           Set.of()),
       new CoralPlaceOnFour(),
-      new ElevatorAllTheWayDown()
+      new ElevatorAllTheWayDown(),
+      new WaitCommand(10),
+      RobotContainer.runTrajectory2PosesSlow(
+          RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right"),
+          RobotPoseConstants.visionRobotPoses.get("RobotBluReef4Right"),
+          false)
     );
   }
 }
