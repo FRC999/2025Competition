@@ -68,7 +68,7 @@ import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.PlaceCoralGentlyInL1;
 import frc.robot.commands.RedRishikaTest;
 import frc.robot.commands.Rishika3;
-import frc.robot.commands.Rishika4;
+import frc.robot.commands.Rishita;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.SetOdometryToVisionPose;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -200,7 +200,7 @@ public class RobotContainer {
     autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
     autoChooser.addOption("RED Rishika test", new RedRishikaTest());
     autoChooser.addOption("RED Rishika 3 test Center", new Rishika3());
-    autoChooser.addOption("Blu Rishika 4 test Center", new Rishika4());
+    autoChooser.addOption("Blu Rishika 4 test Center", new Rishita());
     autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
     autoChooser.addOption("RED Rishika test one", new AutoRedOneCoralVisionRishika());
     autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());

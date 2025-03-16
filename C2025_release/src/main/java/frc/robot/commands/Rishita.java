@@ -18,41 +18,38 @@ import java.util.Set;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Rishika4 extends SequentialCommandGroup {
+public class Rishita extends SequentialCommandGroup {
   /** Creates a new AutoRed2CoralVisionRishika. */
-  public Rishika4() {
+  public Rishita() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // Set initial IMU to 180; robot facing the team
-      new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(60)),
+      new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
 
       new DeferredCommand(
           () -> new SetOdometryToVisionPose()
               .andThen(new PrintCommand(
-                  "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(2.0, 3.8, Rotation2d.fromDegrees(60.0))) +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotBluReef6Left").toString())),
+                  "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.8, Rotation2d.kZero)) +
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right").toString())),
           Set.of()),
       new DeferredCommand(
           () -> RobotContainer.runTrajectory2PosesSlow(
-              RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(2.0, 3.8, Rotation2d.fromDegrees(60.0))), // if vision is not available at the start, use that pose
-              RobotPoseConstants.visionRobotPoses.get("RobotBluReef6Left"),
+              RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.8, Rotation2d.kZero)), // if vision is not available at the start, use that pose
+              RobotPoseConstants.visionRobotPoses.get("RobotRedReef3Right"),
               true),
           Set.of()),
-          new WaitCommand(3),
-          RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-              "Blu-Reef4ToCoralBottom", true, false)
-      //new CoralPlaceOnFour()
-      // new ElevatorAllTheWayDown()
-      //     .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-      //         "Red-Reef11toCoralBottom", false, true))
-      //new TeleopCoralIntakeSequence()
-      //RobotContainer.runTrajectory2PosesSlow(
-          //RobotPoseConstants.visionRobotPoses.get("RobotRedStationDown"),
-          //RobotPoseConstants.visionRobotPoses.get("RobotRedReef6Right"),
-          //false)
-      // new CoralPlaceOnFour(),
-      // new ElevatorAllTheWayDown()
+      new CoralPlaceOnFour(),
+      new ElevatorAllTheWayDown()
+          .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+              "Red-Reef2ToCoralTop", false, true)),
+      new TeleopCoralIntakeSequence(),
+      RobotContainer.runTrajectory2PosesSlow(
+          RobotPoseConstants.visionRobotPoses.get("RobotRedStationDown"),
+          RobotPoseConstants.visionRobotPoses.get("RobotRedReef2Right"),
+          false),
+      new CoralPlaceOnFour(),
+      new ElevatorAllTheWayDown()
     );
   }
 }

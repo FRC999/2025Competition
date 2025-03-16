@@ -31,28 +31,25 @@ public class Rishika3 extends SequentialCommandGroup {
           () -> new SetOdometryToVisionPose()
               .andThen(new PrintCommand(
                   "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.8, Rotation2d.kZero)) +
-                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef4Left").toString())),
+                      " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef5Right").toString())),
           Set.of()),
       new DeferredCommand(
           () -> RobotContainer.runTrajectory2PosesSlow(
               RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose( new Pose2d(10.33, 3.8, Rotation2d.kZero)), // if vision is not available at the start, use that pose
-              RobotPoseConstants.visionRobotPoses.get("RobotRedReef4Left"),
+              RobotPoseConstants.visionRobotPoses.get("RobotRedReef5Right"),
               true),
           Set.of()),
-          new WaitCommand(3),
-          RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-              "Red-Reef11toCoralBottom", true, false)
-      //new CoralPlaceOnFour()
-      // new ElevatorAllTheWayDown()
-      //     .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-      //         "Red-Reef11toCoralBottom", false, true))
-      //new TeleopCoralIntakeSequence()
-      //RobotContainer.runTrajectory2PosesSlow(
-          //RobotPoseConstants.visionRobotPoses.get("RobotRedStationDown"),
-          //RobotPoseConstants.visionRobotPoses.get("RobotRedReef6Right"),
-          //false)
-      // new CoralPlaceOnFour(),
-      // new ElevatorAllTheWayDown()
+      new CoralPlaceOnFour(),
+      new ElevatorAllTheWayDown()
+          .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+              "Red-Reef4ToCoralTop", false, false)),
+      new TeleopCoralIntakeSequence(),
+      RobotContainer.runTrajectory2PosesSlow(
+          RobotPoseConstants.visionRobotPoses.get("RobotRedStationUp"),
+          RobotPoseConstants.visionRobotPoses.get("RobotRedReef2Right"),
+          false),
+      new CoralPlaceOnFour(),
+      new ElevatorAllTheWayDown()
     );
   }
 }
