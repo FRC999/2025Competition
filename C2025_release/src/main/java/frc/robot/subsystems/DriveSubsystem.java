@@ -407,9 +407,7 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
   public double zeroYawInitial() {
     double previousYaw = getYaw();
     System.out.println("Old Yaw: " + previousYaw);
-    if (!RobotContainer.isAllianceRed 
-        
-      ) {
+    if (!RobotContainer.isAllianceRed) {
       System.out.println("Yaw 180 " + RobotContainer.isAllianceRed);
 
       StatusCode status = StatusCode.StatusCodeNotInitialized;
@@ -648,8 +646,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
           config,
           // Assume the path needs to be flipped for Red vs Blue, this is normally the
           // case
-          () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
-          //() -> false,
+          //() -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
+          () -> false,
           this // Subsystem for requirements
       );
     } catch (Exception ex) {
