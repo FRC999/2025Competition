@@ -199,8 +199,8 @@ public class RobotContainer {
     autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
     autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
     autoChooser.addOption("RED Rishika test", new RedRishikaTest());
-    autoChooser.addOption("RED Rishika 3 test Center", new Rishika3());
-    autoChooser.addOption("Blu Rishika 4 test Center", new Rishita());
+    autoChooser.addOption("RED Rishika 3 test Cage", new Rishika3());
+    autoChooser.addOption("RED Rishita TTest processor", new Rishita());
     autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
     autoChooser.addOption("RED Rishika test one", new AutoRedOneCoralVisionRishika());
     autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());

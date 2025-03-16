@@ -42,10 +42,10 @@ public class Rishita extends SequentialCommandGroup {
       new CoralPlaceOnFour(),
       new ElevatorAllTheWayDown()
           .alongWith(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
-              "Red-Reef2ToCoralTop", false, true)),
+              "Red-Reef4ToCoralTop", false, false)),
       new TeleopCoralIntakeSequence(),
       RobotContainer.runTrajectory2PosesSlow(
-          RobotPoseConstants.visionRobotPoses.get("RobotRedStationDown"),
+          RobotPoseConstants.visionRobotPoses.get("RobotRedStationUp"),
           RobotPoseConstants.visionRobotPoses.get("RobotRedReef2Right"),
           false),
       new CoralPlaceOnFour(),
