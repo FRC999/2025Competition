@@ -34,6 +34,8 @@ import frc.robot.commands.AutoBlu2CoralVision;
 import frc.robot.commands.AutoBlu3CoralVision;
 import frc.robot.commands.AutoBluReverse3CoralVision;
 import frc.robot.commands.AutoBluRishikaProcessor;
+import frc.robot.commands.AutoBlu1CoralVisionSuchitaCenterTest;
+import frc.robot.commands.AutoBlu2CoralVisionSuchitaCageTest;
 import frc.robot.commands.AutoBlueOneCoral;
 import frc.robot.commands.AutoBlueOneCoralVision;
 import frc.robot.commands.AutoRed1Coral;
@@ -187,6 +189,8 @@ public class RobotContainer {
   private void AutonomousConfigure () {
 
     autoChooser.addOption("Blu Processor 2C", new AutoBluRishikaProcessor());
+    autoChooser.addOption("Blu Cage 2C", new AutoBlu2CoralVisionSuchitaCageTest());
+    autoChooser.addOption("Blu Center 1C", new AutoBlu1CoralVisionSuchitaCenterTest());
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     //autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
@@ -366,7 +370,7 @@ public class RobotContainer {
     // new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
     //   .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode));
 
-    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 ) //TODO: Needs to be changed 
+    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 && buttonBox.getRawAxis(1) > 0.8) //TODO: Needs to be changed 
       .onTrue(new InstantCommand(()->velcroSubsystem.runVelcroMotor(0.3)))
       .onFalse(new StopVelcroMotor());
 
