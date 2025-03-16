@@ -363,7 +363,7 @@ public class RobotContainer {
     // new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
     //   .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode));
 
-    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 ) //TODO: Needs to be changed 
+    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 && buttonBox.getRawAxis(1) > 0.8 ) //TODO: Needs to be changed 
       .onTrue(new InstantCommand(()->velcroSubsystem.runVelcroMotor(0.3)))
       .onFalse(new StopVelcroMotor());
 
