@@ -33,6 +33,7 @@ import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.AutoBlu2CoralVision;
 import frc.robot.commands.AutoBlu3CoralVision;
 import frc.robot.commands.AutoBluReverse3CoralVision;
+import frc.robot.commands.AutoBluRishikaProcessor;
 import frc.robot.commands.AutoBlueOneCoral;
 import frc.robot.commands.AutoBlueOneCoralVision;
 import frc.robot.commands.AutoRed1Coral;
@@ -184,6 +185,8 @@ public class RobotContainer {
   }
 
   private void AutonomousConfigure () {
+
+    autoChooser.addOption("Blu Processor 2C", new AutoBluRishikaProcessor());
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
     //autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
@@ -193,17 +196,18 @@ public class RobotContainer {
     //autoChooser.addOption("BLU Bottom 2CoralR", new AutoBluReverse3CoralVision());
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     
-    autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
-    autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
-    autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
-    autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
-    autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
-    autoChooser.addOption("RED Rishika test", new RedRishikaTest());
-    autoChooser.addOption("RED Rishika 3 test Cage", new Rishika3());
-    autoChooser.addOption("RED Rishita TTest processor", new Rishita());
-    autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
-    autoChooser.addOption("RED Rishika test one", new AutoRedOneCoralVisionRishika());
-    autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());
+    // autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
+    // autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
+    // autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
+    // autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
+    // autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
+    // autoChooser.addOption("RED Rishika test", new RedRishikaTest());
+    // autoChooser.addOption("RED Rishika 3 test Cage", new Rishika3());
+    // autoChooser.addOption("RED Rishita TTest processor", new Rishita());
+
+    // autoChooser.addOption("RED Rishika test Cage", new AutoRed2CoralVisionRishika());
+    // autoChooser.addOption("RED Rishika test one", new AutoRedOneCoralVisionRishika());
+    // autoChooser.addOption("RED Rishika test Processor", new AutoRedReverse2CoralVisionRishika());
     
     //autoChooser.addOption("BLUE One Coral L4", new AutoBlueOneCoral());
     //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
