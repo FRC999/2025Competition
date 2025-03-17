@@ -27,7 +27,7 @@ public class AutoBlu3CoralVision extends SequentialCommandGroup {
     addCommands(
 
         // Set initial IMU to 180; robot facing the team
-        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(180)),
+        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
 
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()

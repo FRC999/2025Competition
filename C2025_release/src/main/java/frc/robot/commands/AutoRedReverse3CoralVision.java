@@ -25,12 +25,12 @@ public class AutoRedReverse3CoralVision extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands( //TODO: Values in this command need to be changed as needed 
         // Set initial IMU to 180; robot facing the team
-        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
+        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(180)),
 
         new DeferredCommand(
             () -> new SetOdometryToVisionPose()
                 .andThen(new PrintCommand(
-                    "---A From: " + RobotContainer.llVisionSubsystem.getBestPoseAllCameras().toString() +
+                    "---A From: " + RobotContainer.driveSubsystem.getInitialVisionAidedOdometryPose(new Pose2d(10.331, 6.130, Rotation2d.kZero)) +
                         " To: " + RobotPoseConstants.visionRobotPoses.get("RobotRedReef5Right").toString())),
             Set.of()),
         new DeferredCommand(

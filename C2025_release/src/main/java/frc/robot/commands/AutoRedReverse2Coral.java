@@ -21,19 +21,19 @@ public class AutoRedReverse2Coral extends SequentialCommandGroup {
       new InstantCommand( ()-> RobotContainer.driveSubsystem.setOdometryToIdealPoseFromTrajectory("Red-BargeToReef4"))
         // just in case - wait 0.1s for the pose to take place
         .andThen(new WaitCommand(0.1))
-        .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargeToReef4", true,false))
+        .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargeToReef4", false,true))
         .andThen(new TeleopMoveToL2RotateArm()) // try placing Coral on L4
-        .andThen(new TeleopEjectCoralBringArmToCruise())//TODO: needs to be looked over, especially if we have to 
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())//TODO: needs to be looked over, especially if we have to 
                                                                     //add the trajectory which will make the bot go backwards 
                                                                     //before putting the elevator down. 
         //.andThen(new WaitCommand(0.1))
-        .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef4ToCoralTop",false,false))
+        .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef4ToCoralTop",false,true))
         //.andThen(new WaitCommand(0.1))
         .andThen(new TeleopCoralIntakeSequence())
         //.andThen(new WaitCommand(0.1))
-        .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralTopToReef5", false, false))
+        .andThen(RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralTopToReef5", false, true))
         .andThen(new TeleopMoveToL4RotateArm())  // try placing Coral on L4
-        .andThen(new TeleopEjectCoralBringArmToCruise())
+        .andThen(new TeleopEjectCoralBringArmToCruiseElevatorDownAuto())
     );
   }
 }
