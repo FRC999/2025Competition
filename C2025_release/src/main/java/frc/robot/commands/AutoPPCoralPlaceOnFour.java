@@ -20,8 +20,7 @@ public class AutoPPCoralPlaceOnFour extends SequentialCommandGroup {
     addCommands(
       new PrintCommand("Coral place on four")
       // new WaitCommand(0.1),
-      // new IntakeShootCommand(),
-      // new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise)
+      // new IntakeShootCommand()
     );
   }
 }

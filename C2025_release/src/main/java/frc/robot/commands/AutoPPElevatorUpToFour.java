@@ -11,13 +11,13 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoPPElevatorUp extends SequentialCommandGroup {
+public class AutoPPElevatorUpToFour extends SequentialCommandGroup {
   /** Creates a new AutoPPElevatorUp. */
-  public AutoPPElevatorUp() {
+  public AutoPPElevatorUpToFour() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PrintCommand("Elevator Up")
+      new PrintCommand("Elevator Up To Level Four")
       //new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
     );
   }
