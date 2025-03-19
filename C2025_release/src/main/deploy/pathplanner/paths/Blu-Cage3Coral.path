@@ -180,7 +180,7 @@
       "waypointRelativePos": 0.96,
       "endWaypointRelativePos": 1.26,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
@@ -202,7 +202,7 @@
       "waypointRelativePos": 2.52,
       "endWaypointRelativePos": 3.03,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
@@ -224,7 +224,7 @@
       "waypointRelativePos": 3.03,
       "endWaypointRelativePos": 3.52,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
