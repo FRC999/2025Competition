@@ -130,9 +130,9 @@
     {
       "name": "AutoPPElevatorUpToFour",
       "waypointRelativePos": 0.45777426992896764,
-      "endWaypointRelativePos": 0.96,
+      "endWaypointRelativePos": null,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
@@ -152,9 +152,9 @@
     {
       "name": "AutoPPElevatorAllTheWayDown",
       "waypointRelativePos": 0.96,
-      "endWaypointRelativePos": 1.2628255722178372,
+      "endWaypointRelativePos": null,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
@@ -174,9 +174,9 @@
     {
       "name": "AutoPPElevatorUpToFour",
       "waypointRelativePos": 2.517758484609324,
-      "endWaypointRelativePos": 3.0307813733228217,
+      "endWaypointRelativePos": null,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
@@ -196,9 +196,9 @@
     {
       "name": "AutoPPElevatorAllTheWayDown",
       "waypointRelativePos": 3.03,
-      "endWaypointRelativePos": 3.520126282557211,
+      "endWaypointRelativePos": null,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
@@ -218,9 +218,9 @@
     {
       "name": "AutoPPElevatorUpToFour",
       "waypointRelativePos": 4.514601420678786,
-      "endWaypointRelativePos": 5,
+      "endWaypointRelativePos": null,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
