@@ -112,7 +112,7 @@
   ],
   "constraintZones": [
     {
-      "name": "Constraints Zone",
+      "name": "ElevatorUpLeg1",
       "minWaypointRelativePos": 0.5090909090909083,
       "maxWaypointRelativePos": 0.96,
       "constraints": {
@@ -125,7 +125,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "ElevatorDownLeg2",
       "minWaypointRelativePos": 0.96,
       "maxWaypointRelativePos": 1.2154696132596685,
       "constraints": {
@@ -138,7 +138,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "ElevatorUpLeg3",
       "minWaypointRelativePos": 2.52,
       "maxWaypointRelativePos": 3.03,
       "constraints": {
@@ -151,7 +151,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "ElevatorDownLeg4",
       "minWaypointRelativePos": 3.03,
       "maxWaypointRelativePos": 3.488555643251786,
       "constraints": {
@@ -164,7 +164,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "ElevatorUpLeg5",
       "minWaypointRelativePos": 4.51,
       "maxWaypointRelativePos": 5.0,
       "constraints": {
