@@ -116,7 +116,7 @@
   ],
   "constraintZones": [
     {
-      "name": "Constraints Zone",
+      "name": "FirstCoralPlacement",
       "minWaypointRelativePos": 0.5020080321285133,
       "maxWaypointRelativePos": 1.2751004016064218,
       "constraints": {
@@ -129,7 +129,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "FirstIntakeStation",
       "minWaypointRelativePos": 1.6967871485943833,
       "maxWaypointRelativePos": 2.399598393574301,
       "constraints": {
@@ -142,7 +142,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "SecondCoralPlacement",
       "minWaypointRelativePos": 2.6104417670682727,
       "maxWaypointRelativePos": 3.2530120481927733,
       "constraints": {
@@ -155,7 +155,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "SecondIntakeStation",
       "minWaypointRelativePos": 3.5542168674698877,
       "maxWaypointRelativePos": 4.267068273092368,
       "constraints": {
@@ -168,7 +168,7 @@
       }
     },
     {
-      "name": "Constraints Zone",
+      "name": "ThirdCoralPlacement",
       "minWaypointRelativePos": 4.588353413654621,
       "maxWaypointRelativePos": 5.0,
       "constraints": {
