@@ -112,11 +112,11 @@
   ],
   "constraintZones": [
     {
-      "name": "ElevatorUpLeg1",
+      "name": "SlowDownLeg1",
       "minWaypointRelativePos": 0.5090909090909083,
-      "maxWaypointRelativePos": 0.96,
+      "maxWaypointRelativePos": 1.1760063141278623,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -125,11 +125,11 @@
       }
     },
     {
-      "name": "ElevatorDownLeg2",
-      "minWaypointRelativePos": 0.96,
-      "maxWaypointRelativePos": 1.2154696132596685,
+      "name": "SlowDownLeg2",
+      "minWaypointRelativePos": 1.5232833464877666,
+      "maxWaypointRelativePos": 1.95,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -138,11 +138,11 @@
       }
     },
     {
-      "name": "ElevatorUpLeg3",
+      "name": "SlowDownLeg3",
       "minWaypointRelativePos": 2.52,
-      "maxWaypointRelativePos": 3.03,
+      "maxWaypointRelativePos": 3.49,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -151,11 +151,11 @@
       }
     },
     {
-      "name": "ElevatorDownLeg4",
-      "minWaypointRelativePos": 3.03,
-      "maxWaypointRelativePos": 3.488555643251786,
+      "name": "SlowDownLeg4",
+      "minWaypointRelativePos": 3.599052880820837,
+      "maxWaypointRelativePos": 4.127861089187049,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -164,11 +164,11 @@
       }
     },
     {
-      "name": "ElevatorUpLeg5",
-      "minWaypointRelativePos": 4.51,
+      "name": "SlowDownLeg5",
+      "minWaypointRelativePos": 4.5,
       "maxWaypointRelativePos": 5.0,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -300,7 +300,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 62.806225938205564
+    "rotation": 126.0
   },
   "reversed": false,
   "folder": null,
