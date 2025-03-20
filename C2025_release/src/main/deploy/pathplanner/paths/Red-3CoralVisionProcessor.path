@@ -68,23 +68,23 @@
         "y": 7.091
       },
       "prevControl": {
-        "x": 16.84725829804971,
-        "y": 7.022694100381842
+        "x": 16.84984950895025,
+        "y": 7.035482554888191
       },
       "nextControl": {
-        "x": 16.253792985466912,
-        "y": 7.155926890836472
+        "x": 16.296994040281238,
+        "y": 7.135509187622909
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.945576923076924,
+        "x": 13.842371794871795,
         "y": 5.02
       },
       "prevControl": {
-        "x": 13.6135211964048,
+        "x": 13.510316068199671,
         "y": 4.700040172819188
       },
       "nextControl": null,
@@ -118,7 +118,7 @@
     {
       "name": "FirstCoralPlacement",
       "minWaypointRelativePos": 0.5020080321285133,
-      "maxWaypointRelativePos": 1.2751004016064218,
+      "maxWaypointRelativePos": 0.8734939759036211,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -131,7 +131,7 @@
     {
       "name": "FirstIntakeStation",
       "minWaypointRelativePos": 1.6967871485943833,
-      "maxWaypointRelativePos": 2.399598393574301,
+      "maxWaypointRelativePos": 2.118473895582333,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -144,7 +144,7 @@
     {
       "name": "SecondCoralPlacement",
       "minWaypointRelativePos": 2.6104417670682727,
-      "maxWaypointRelativePos": 3.2530120481927733,
+      "maxWaypointRelativePos": 2.9919678714859415,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -157,7 +157,7 @@
     {
       "name": "SecondIntakeStation",
       "minWaypointRelativePos": 3.5542168674698877,
-      "maxWaypointRelativePos": 4.267068273092368,
+      "maxWaypointRelativePos": 4.066265060240962,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -304,7 +304,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -136.3692831874817
+    "rotation": -122.0
   },
   "reversed": false,
   "folder": null,
