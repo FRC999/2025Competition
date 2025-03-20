@@ -856,6 +856,33 @@ public class RobotContainer {
       return Commands.none();
     }
   }
+  public static Command runTrajectoryPathPlannerWithForceResetOfStartingPoseWithVision(String tr,
+      boolean shouldResetOdometryToStartingPose, boolean flipTrajectory) {
+    try {
+      // Load the path you want to follow using its name in the GUI
+      PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
+
+      if (flipTrajectory) {
+        path = path.flipPath();
+      }
+      Pose2d startPose = path.getStartingHolonomicPose().get();
+      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+            startPose = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+      }
+      driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
+
+      // Create a path following command using AutoBuilder. This will also trigger
+      // event markers.
+      if (! shouldResetOdometryToStartingPose) {
+        return AutoBuilder.followPath(path);
+      } else { // reset odometry the right way
+        return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
+      }
+    } catch (Exception e) {
+      DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
 
   /**
    * Run trajectory between 2 poses in native PathPlanner way
