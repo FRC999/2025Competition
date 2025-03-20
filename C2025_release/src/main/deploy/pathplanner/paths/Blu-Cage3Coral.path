@@ -113,8 +113,8 @@
   "constraintZones": [
     {
       "name": "ElevatorHeightChange1",
-      "minWaypointRelativePos": 0.4898648648648568,
-      "maxWaypointRelativePos": 1.3569819819819564,
+      "minWaypointRelativePos": 0.5531914893616972,
+      "maxWaypointRelativePos": 1.282674772036475,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -126,8 +126,8 @@
     },
     {
       "name": "ElevatorHeightChange2",
-      "minWaypointRelativePos": 2.49,
-      "maxWaypointRelativePos": 3.552927927927938,
+      "minWaypointRelativePos": 2.626139817629176,
+      "maxWaypointRelativePos": 3.4224924012158193,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -139,8 +139,21 @@
     },
     {
       "name": "ElevatorHeightChange3",
-      "minWaypointRelativePos": 4.577702702702698,
+      "minWaypointRelativePos": 4.705167173252304,
       "maxWaypointRelativePos": 5.0,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "SpeedChange1",
+      "minWaypointRelativePos": 3.653495440729493,
+      "maxWaypointRelativePos": 4.425531914893636,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
