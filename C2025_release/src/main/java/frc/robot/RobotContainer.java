@@ -25,6 +25,8 @@ import frc.robot.commands.TeleopMoveToL4RotateArm;
 import frc.robot.commands.TeleopPanReefLeft;
 import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
+import frc.robot.commands.TestElevatorAllTheWayDown;
+import frc.robot.commands.TestElevatorToL4AndHold;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmToPositionAndHold;
@@ -286,6 +288,7 @@ public class RobotContainer {
     //calibrateElevator(); 
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
+    testElevatorSpeed();
     
    
   }
@@ -760,6 +763,14 @@ public class RobotContainer {
     // }
   }
 
+  public void testElevatorSpeed() {
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new TestElevatorToL4AndHold());
+
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new TestElevatorAllTheWayDown());
+  }
+ 
   public void tryPPTestCalibration() {
     new JoystickButton(driveStick1, 12)
       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11", true,false))
