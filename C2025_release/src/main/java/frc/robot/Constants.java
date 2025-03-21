@@ -671,9 +671,12 @@ public final class Constants {
 					public static final double elevator_kP = 0.64;
 					public static final double elevator_kI = 0.0;
 					public static final double elevator_kD = 0.0;
-					public static final double MotionMagicCruiseVelocity = 75.0;
-					public static final double motionMagicAcceleration = 150.0;
-					public static final double motionMagicJerk = 1500.0;
+					//public static final double MotionMagicCruiseVelocity = 75.0;
+					public static final double MotionMagicCruiseVelocity = 105.0;
+					// public static final double motionMagicAcceleration = 150.0;
+					public static final double motionMagicAcceleration = 210.0;
+					// public static final double motionMagicJerk = 1500.0;
+					public static final double motionMagicJerk = 2100.0;
 				}
 
 				public static class MotionMagicVoltageConstants {
@@ -767,9 +770,12 @@ public final class Constants {
 					public static final double arm_kP = 0.64; //0.64
 					public static final double arm_kI = 0.0;
 					public static final double arm_kD = 0.0;
-					public static final double MotionMagicCruiseVelocity = 50.0; //75.0
-					public static final double motionMagicAcceleration = 100.0; //150.0
-					public static final double motionMagicJerk = 1000.0; //1500.0
+					// public static final double MotionMagicCruiseVelocity = 50.0; //75.0
+					// public static final double motionMagicAcceleration = 100.0; //150.0
+					// public static final double motionMagicJerk = 1000.0; //1500.0
+					public static final double MotionMagicCruiseVelocity = 75.0; //75.0
+					public static final double motionMagicAcceleration = 150.0; //150.0
+					public static final double motionMagicJerk = 1500.0; //1500.0
 				}
 
 				public static class MotionMagicVoltageConstants {

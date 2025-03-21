@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 11.71,
-        "y": 3.81
+        "x": 11.81,
+        "y": 3.86
       },
       "prevControl": {
-        "x": 11.46,
-        "y": 3.81
+        "x": 11.56,
+        "y": 3.86
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,9 +29,46 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "ElevatorHeightChange",
+      "minWaypointRelativePos": 0.5271317829457374,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AutoPPElevatorUpToFour",
+      "waypointRelativePos": 0.5359911406423029,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "AutoPPCoralPlaceOnFour",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,

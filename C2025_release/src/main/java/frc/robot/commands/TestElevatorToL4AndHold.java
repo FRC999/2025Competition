@@ -4,25 +4,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import java.util.Set;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeShootCommand extends SequentialCommandGroup {
-  /** Creates a new IntakeShootCommand. */
-  public IntakeShootCommand() {
+public class TestElevatorToL4AndHold extends SequentialCommandGroup {
+  /** Creates a new TestElevatorToL4AndHold. */
+  public TestElevatorToL4AndHold() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PrintCommand("*** Start Intake Shoot"),
-      new InstantCommand(() -> RobotContainer.intakeSubsystem.runIntake(0.5),RobotContainer.intakeSubsystem),
-      new WaitCommand(0.5),
-      new StopIntake()
+       new DeferredCommand(
+        () -> new PrintCommand("****SU"+System.currentTimeMillis())
+        , Set.of()),
+      new TeleopMoveToL4RotateArm(),
+      new DeferredCommand(
+        () -> new PrintCommand("****EU"+System.currentTimeMillis())
+        , Set.of())
     );
   }
 }

@@ -25,6 +25,8 @@ import frc.robot.commands.TeleopMoveToL4RotateArm;
 import frc.robot.commands.TeleopPanReefLeft;
 import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
+import frc.robot.commands.TestElevatorAllTheWayDown;
+import frc.robot.commands.TestElevatorToL4AndHold;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmToPositionAndHold;
@@ -286,6 +288,7 @@ public class RobotContainer {
     //calibrateElevator(); 
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
+    testElevatorSpeed();
     
    
   }
@@ -760,6 +763,14 @@ public class RobotContainer {
     // }
   }
 
+  public void testElevatorSpeed() {
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new TestElevatorToL4AndHold());
+
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new TestElevatorAllTheWayDown());
+  }
+ 
   public void tryPPTestCalibration() {
     new JoystickButton(driveStick1, 12)
       .onTrue(runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11", true,false))
@@ -831,6 +842,33 @@ public class RobotContainer {
       }
 
       Pose2d startPose = path.getStartingHolonomicPose().get();
+      driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
+
+      // Create a path following command using AutoBuilder. This will also trigger
+      // event markers.
+      if (! shouldResetOdometryToStartingPose) {
+        return AutoBuilder.followPath(path);
+      } else { // reset odometry the right way
+        return Commands.sequence(AutoBuilder.resetOdom(startPose), AutoBuilder.followPath(path));
+      }
+    } catch (Exception e) {
+      DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+  public static Command runTrajectoryPathPlannerWithForceResetOfStartingPoseWithVision(String tr,
+      boolean shouldResetOdometryToStartingPose, boolean flipTrajectory) {
+    try {
+      // Load the path you want to follow using its name in the GUI
+      PathPlannerPath path = PathPlannerPath.fromPathFile(tr);
+
+      if (flipTrajectory) {
+        path = path.flipPath();
+      }
+      Pose2d startPose = path.getStartingHolonomicPose().get();
+      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+            startPose = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+      }
       driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
 
       // Create a path following command using AutoBuilder. This will also trigger
