@@ -34,7 +34,7 @@ public class AutoDriveWithPP extends SequentialCommandGroup {
             Set.of()
         ),
 
-        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose(
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPoseWithVision(
               traj, true, false)
     );
   }
