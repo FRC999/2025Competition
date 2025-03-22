@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.74,
-        "y": 4.18
+        "x": 6.827140892658702,
+        "y": 4.228684823939672
       },
       "isLocked": false,
       "linkedName": "BlueReef6"
@@ -20,8 +20,8 @@
         "y": 4.18
       },
       "prevControl": {
-        "x": 5.7,
-        "y": 4.18
+        "x": 5.58968711602245,
+        "y": 4.1937258613701065
       },
       "nextControl": null,
       "isLocked": false,
