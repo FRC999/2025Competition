@@ -25,6 +25,8 @@ import frc.robot.commands.TeleopMoveToL3RotateArm;
 import frc.robot.commands.TeleopMoveToL4RotateArm;
 import frc.robot.commands.TeleopPanReefLeft;
 import frc.robot.commands.TeleopPanReefRight;
+import frc.robot.commands.TeleopPanRobotToLeft;
+import frc.robot.commands.TeleopPanRobotToRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.TestElevatorAllTheWayDown;
 import frc.robot.commands.TestElevatorToL4AndHold;
@@ -323,28 +325,38 @@ public class RobotContainer {
         .onTrue(new TeleopAlgaeSpitOut());
 
     new JoystickButton(buttonBox, 4)
-        .onTrue(new TeleopMoveToL4RotateArm());
+      .onTrue(new TeleopPanRobotToLeft()
+      .andThen(new TeleopMoveToL4RotateArm()));
+        // .onTrue(new TeleopMoveToL4RotateArm());
     
     new JoystickButton(buttonBox, 5)
-        .onTrue(new TeleopMoveToL4RotateArm());
+      .onTrue(new TeleopPanRobotToRight()
+      .andThen(new TeleopMoveToL4RotateArm()));
+        // .onTrue(new TeleopMoveToL4RotateArm());
 
     new JoystickButton(buttonBox, 6)
-        .onTrue(new TeleopMoveToL3RotateArm());
+        .onTrue(new TeleopPanRobotToLeft()
+        .andThen(new TeleopMoveToL3RotateArm()));
 
     new JoystickButton(buttonBox, 7)
-        .onTrue(new TeleopMoveToL3RotateArm());
+        .onTrue(new TeleopPanRobotToRight()
+        .andThen(new TeleopMoveToL3RotateArm()));
 
     new JoystickButton(buttonBox, 8)
-        .onTrue(new TeleopMoveToL2RotateArm());
+        .onTrue(new TeleopPanRobotToLeft()
+        .andThen(new TeleopMoveToL2RotateArm()));
 
     new JoystickButton(buttonBox, 9)
-        .onTrue(new TeleopMoveToL2RotateArm());
+        .onTrue(new TeleopPanRobotToRight()
+        .andThen(new TeleopMoveToL2RotateArm()));
 
     new JoystickButton(buttonBox, 10)
-        .onTrue(new TeleopMoveToL1RotateArm());
+        .onTrue(new TeleopPanRobotToLeft()
+        .andThen(new TeleopMoveToL1RotateArm()));
 
     new JoystickButton(buttonBox, 11)
-        .onTrue(new TeleopMoveToL1RotateArm());
+        .onTrue(new TeleopPanRobotToRight()
+        .andThen(new TeleopMoveToL1RotateArm()));
 
     new JoystickButton(buttonBox, 12)
         .onTrue(new TeleopEjectCoralBringArmToCruise()); // TODO: Speed needs to be changed accordingly
@@ -399,44 +411,44 @@ public class RobotContainer {
         .onTrue(new TeleopPigeonIMUReset());
     
     //new Trigger(() -> xboxDriveController.getPOV() == 270)
-    new JoystickButton(xboxDriveController, 9)
-        .onTrue(
-          new DeferredCommand(
-          () -> 
-           new PrintCommand("Left")
-           .andThen(
-          runTrajectory2PosesSlow(
-            llVisionSubsystem.getBestPoseAllCameras(),
-            RobotPoseConstants.visionRobotPoses.get(
-              VisionHelpers.getLeftReefName(
-                RobotPoseConstants.reefTagPoses.get(
-                  VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
-                  ))),
-          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    // new JoystickButton(xboxDriveController, 9)
+    //     .onTrue(
+    //       new DeferredCommand(
+    //       () -> 
+    //        new PrintCommand("Left")
+    //        .andThen(
+    //       runTrajectory2PosesSlow(
+    //         llVisionSubsystem.getBestPoseAllCameras(),
+    //         RobotPoseConstants.visionRobotPoses.get(
+    //           VisionHelpers.getLeftReefName(
+    //             RobotPoseConstants.reefTagPoses.get(
+    //               VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+    //               ))),
+    //       //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //       //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
           
-          false))
-          , Set.of()));
+    //       false))
+    //       , Set.of()));
 
-    new JoystickButton(xboxDriveController, 10)
-    .onTrue(
-          new DeferredCommand(
-          () -> 
-           new PrintCommand("Right")
-           .andThen(
-          runTrajectory2PosesSlow(
-            llVisionSubsystem.getBestPoseAllCameras(),
-            RobotPoseConstants.visionRobotPoses.get(
-              VisionHelpers.getRightReefName(
-                RobotPoseConstants.reefTagPoses.get(
-                  VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
-                  ))),
-          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
+    // new JoystickButton(xboxDriveController, 10)
+    // .onTrue(
+    //       new DeferredCommand(
+    //       () -> 
+    //        new PrintCommand("Right")
+    //        .andThen(
+    //       runTrajectory2PosesSlow(
+    //         llVisionSubsystem.getBestPoseAllCameras(),
+    //         RobotPoseConstants.visionRobotPoses.get(
+    //           VisionHelpers.getRightReefName(
+    //             RobotPoseConstants.reefTagPoses.get(
+    //               VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+    //               ))),
+    //       //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
+    //       //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
           
-          false)
-          )
-          , Set.of()));
+    //       false)
+    //       )
+    //       , Set.of()));
     new JoystickButton(xboxDriveController, 1)
       .onTrue(new InstantCommand(driveSubsystem::setRobotCentricTrue))
       .onFalse(new InstantCommand(driveSubsystem::setRobotCentricFalse));
