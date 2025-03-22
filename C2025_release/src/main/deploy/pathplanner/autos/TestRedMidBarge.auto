@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red-BargeToReef1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoPPCoralPlaceOnFour"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red-Reef1ToAlgaeReady"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TeleopAlgaePickupFromHighAndHold"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red-AlgaeReadyToReef1Algae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red-Reef1AlgaeToRedBarge"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

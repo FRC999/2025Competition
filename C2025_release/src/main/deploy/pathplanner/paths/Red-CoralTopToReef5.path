@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.03,
-        "y": 3.71
+        "x": 16.543,
+        "y": 7.091
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.287203258882954,
-        "y": 3.71
+        "x": 16.36037913889264,
+        "y": 6.920267398870612
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RedCoralTop"
     },
     {
       "anchor": {
-        "x": 11.81,
-        "y": 3.86
+        "x": 13.55,
+        "y": 5.18
       },
       "prevControl": {
-        "x": 11.56,
-        "y": 3.86
+        "x": 13.755124543320436,
+        "y": 5.322912286832108
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedReef1"
+      "linkedName": "RedReef5"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
-      "name": "ElevatorHeightChange",
-      "minWaypointRelativePos": 0.5271317829457374,
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6555924695459575,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.5,
@@ -48,14 +48,9 @@
   "eventMarkers": [
     {
       "name": "AutoPPElevatorUpToFour",
-      "waypointRelativePos": 0.5359911406423029,
+      "waypointRelativePos": 0.4717607973421926,
       "endWaypointRelativePos": null,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": []
-        }
-      }
+      "command": null
     }
   ],
   "globalConstraints": {
@@ -68,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -126.0
   },
   "useDefaultConstraints": true
 }

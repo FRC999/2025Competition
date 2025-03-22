@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red-BargeToReef3"
+            "pathName": "Red-BargeToReef4"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red-Reef3ToCoralTop"
+            "pathName": "Red-Reef4ToCoralTop"
           }
         },
         {
@@ -31,7 +31,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red-CoralTopToReef2"
+            "pathName": "Red-CoralTopToReef5"
           }
         },
         {
@@ -43,7 +43,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red-Reef2ToTop"
+            "pathName": "Red-Reef5ToTop"
           }
         },
         {
@@ -55,7 +55,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red-TopToReef1"
+            "pathName": "Red-TopToReef6"
           }
         },
         {
