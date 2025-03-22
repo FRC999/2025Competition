@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.80083863195386,
-        "y": 7.194025309984524
+        "x": 1.7972889373917162,
+        "y": 7.1900692817897465
       },
       "isLocked": false,
       "linkedName": "CoralTop"
@@ -32,11 +32,11 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.6924969249692472,
+      "minWaypointRelativePos": 0.5822072072072008,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 5.4,
-        "maxAcceleration": 3.0,
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -48,7 +48,7 @@
   "eventMarkers": [
     {
       "name": "AutoPPElevatorUpToFour",
-      "waypointRelativePos": 0.6949569495694917,
+      "waypointRelativePos": 0.3749999999999982,
       "endWaypointRelativePos": null,
       "command": null
     }

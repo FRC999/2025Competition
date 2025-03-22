@@ -105,6 +105,7 @@ import java.util.Set;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.events.EventTrigger;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.IdealStartingState;
@@ -196,6 +197,8 @@ public class RobotContainer {
     }
 
     AutonomousConfigure();
+
+    
   }
 
   private void AutonomousConfigure () {
@@ -208,6 +211,7 @@ public class RobotContainer {
     //autoChooser.addOption("BLU Cage 3C", new AutoBlu3CoralVision());
     //autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
     autoChooser.addOption("BLU Cage 2C", new AutoDriveWithPP("Blu-Cage3Coral"));
+    autoChooser.addOption("BLU Cage 2C Test", new AutoDriveWithPP("TestAuto"));
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     
     // autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
@@ -1315,11 +1319,18 @@ public class RobotContainer {
         );
 
       new JoystickButton(driveStick1, 7)
-        .onTrue(new AutoDriveWithPP("Blu-Cage3Coral"))
+        .onTrue(getAutonomousCommand("TestAuto"))
         .onFalse(new StopRobot());
   
     
 
+  }
+
+  public Command getAutonomousCommand(String traj) {
+    // This method loads the auto when it is called, however, it is recommended
+    // to first load your paths/autos when code starts, then return the
+    // pre-loaded auto/path
+    return new PathPlannerAuto(traj);
   }
 
   /**
