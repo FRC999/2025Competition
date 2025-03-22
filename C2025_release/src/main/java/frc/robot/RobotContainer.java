@@ -174,6 +174,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoPPElevatorAllTheWayDown", new AutoPPElevatorAllTheWayDown());
     NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoPPIntakeCoral());
     NamedCommands.registerCommand("AutoPPCoralPlaceOnFour", new AutoPPCoralPlaceOnFour());
+    NamedCommands.registerCommand("AlgaeToBarge", new AlgaeToBarge());
+    NamedCommands.registerCommand("TeleopAlgaePickupFromHighAndHold", new TeleopAlgaePickupFromHighAndHold());
     NamedCommands.registerCommand("AlexTest", new PrintCommand("****Test 0"));
     
     new EventTrigger("AutoPPElevatorUpToFour").onTrue(new AutoPPElevatorUpToFour());

@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu-BargeToCenterReef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoPPCoralPlaceOnFour"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu-MidGoBack"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TeleopAlgaePickupFromHighAndHold"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu-MidToAlgae"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
