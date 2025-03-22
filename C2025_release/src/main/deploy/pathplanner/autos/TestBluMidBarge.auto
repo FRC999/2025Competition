@@ -33,6 +33,12 @@
           "data": {
             "pathName": "Blu-MidToAlgae"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AlgaeToBarge"
+          }
         }
       ]
     }

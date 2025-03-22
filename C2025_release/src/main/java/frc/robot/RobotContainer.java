@@ -1321,7 +1321,7 @@ public class RobotContainer {
         );
 
       new JoystickButton(driveStick1, 7)
-        .onTrue(getAutonomousCommand("TestRedBarge"))
+        .onTrue(getAutonomousCommand("TestBluMidBarge"))
         .onFalse(new StopRobot());
   
     
