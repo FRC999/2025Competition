@@ -12,20 +12,20 @@
         "y": 5.342871518064099
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueReef10"
     },
     {
       "anchor": {
-        "x": 1.375,
-        "y": 7.348
+        "x": 1.613,
+        "y": 7.359
       },
       "prevControl": {
-        "x": 1.552115756191329,
-        "y": 7.171563017173911
+        "x": 1.7901157561913292,
+        "y": 7.182563017173911
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CoralTop"
     }
   ],
   "rotationTargets": [],

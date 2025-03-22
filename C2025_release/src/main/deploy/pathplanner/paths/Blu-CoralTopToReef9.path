@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.03,
-        "y": 7.18
+        "x": 1.613,
+        "y": 7.359
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8136866059817933,
-        "y": 6.553055916775032
+        "x": 2.3966866059817935,
+        "y": 6.732055916775033
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CoralTop"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueReef9"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": -55.271
   },
   "useDefaultConstraints": true
 }
