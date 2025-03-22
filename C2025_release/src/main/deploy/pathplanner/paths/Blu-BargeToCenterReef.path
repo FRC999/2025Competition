@@ -48,7 +48,7 @@
   "eventMarkers": [
     {
       "name": "AutoPPElevatorUpToFour",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.3410852713178201,
       "endWaypointRelativePos": null,
       "command": null
     }

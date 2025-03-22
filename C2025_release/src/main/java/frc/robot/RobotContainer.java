@@ -175,13 +175,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoPPIntakeCoral());
     NamedCommands.registerCommand("AutoPPCoralPlaceOnFour", new AutoPPCoralPlaceOnFour());
     NamedCommands.registerCommand("AlgaeToBarge", new AlgaeToBarge());
-    NamedCommands.registerCommand("TeleopAlgaePickupFromHighAndHold", new TeleopAlgaePickupFromHighAndHold());
-    NamedCommands.registerCommand("AlexTest", new PrintCommand("****Test 0"));
+    NamedCommands.registerCommand("AutoPPAlgaeTake", new TeleopAlgaePickupFromHighAndHold());
+    //NamedCommands.registerCommand("AlexTest", new PrintCommand("****Test 0"));
     
     new EventTrigger("AutoPPElevatorUpToFour").onTrue(new AutoPPElevatorUpToFour());
     new EventTrigger("AutoPPElevatorAllTheWayDown").onTrue(new AutoPPElevatorAllTheWayDown());
     new EventTrigger("AutoPPIntakeCoral").onTrue(new AutoPPIntakeCoral());
     new EventTrigger("AutoPPCoralPlaceOnFour").onTrue(new AutoPPCoralPlaceOnFour());
+    new EventTrigger("AlgaeToBarge").onTrue(new AlgaeToBarge());
+    new EventTrigger("AutoPPAlgaeTake").onTrue(new TeleopAlgaePickupFromHighAndHold());
 
     // Configure the trigger bindings
     configureDriverInterface(); 
@@ -1321,7 +1323,7 @@ public class RobotContainer {
         );
 
       new JoystickButton(driveStick1, 7)
-        .onTrue(getAutonomousCommand("TestRedBarge"))
+        .onTrue(getAutonomousCommand("TestBluMidBarge"))
         .onFalse(new StopRobot());
   
     

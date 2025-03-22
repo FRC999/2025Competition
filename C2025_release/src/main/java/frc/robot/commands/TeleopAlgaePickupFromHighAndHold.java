@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
@@ -19,7 +20,7 @@ public class TeleopAlgaePickupFromHighAndHold extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new PrintCommand("*** Start of Algae Pickup ready from High"), 
-        new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
+        new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise).raceWith(new WaitCommand(1)),
         new PrintCommand("Arm At cruise position"),
         new ElevatorToLevelAndHold(ElevatorHeights.AlgaeReefHigh),
         new PrintCommand("Elevator at algae reef low"),

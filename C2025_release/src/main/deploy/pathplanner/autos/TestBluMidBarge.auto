@@ -25,13 +25,19 @@
         {
           "type": "named",
           "data": {
-            "name": "TeleopAlgaePickupFromHighAndHold"
+            "name": "AutoPPElevatorAllTheWayDown"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Blu-MidToAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoPPElevatorAllTheWayDown"
           }
         }
       ]
