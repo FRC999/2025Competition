@@ -47,6 +47,12 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "AlexTest",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
       "name": "AutoPPElevatorUpToFour",
       "waypointRelativePos": 0.5847176079734109,
       "endWaypointRelativePos": null,

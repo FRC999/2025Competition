@@ -39,6 +39,11 @@ import frc.robot.commands.AutoBluReverse2CoralVision;
 import frc.robot.commands.AutoBluReverse3CoralVision;
 import frc.robot.commands.AutoBlueOneCoral;
 import frc.robot.commands.AutoBlueOneCoralVision;
+import frc.robot.commands.AutoDriveWithPP;
+import frc.robot.commands.AutoPPCoralPlaceOnFour;
+import frc.robot.commands.AutoPPElevatorAllTheWayDown;
+import frc.robot.commands.AutoPPElevatorUpToFour;
+import frc.robot.commands.AutoPPIntakeCoral;
 import frc.robot.commands.AutoRed1Coral;
 import frc.robot.commands.AutoRed1CoralL1;
 //import frc.robot.commands.AutoRed1CoralL1;
@@ -98,6 +103,7 @@ import java.util.Set;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.IdealStartingState;
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -153,15 +159,24 @@ public class RobotContainer {
   public RobotContainer() {
 
     // PathPlanner AutoBuilder Test
-    NamedCommands.registerCommand("ppTest1", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11",true, false));
-    NamedCommands.registerCommand("ppTest2", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false));
-    NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false,false));
-    NamedCommands.registerCommand("ppTest4", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9",false,false));
-    NamedCommands.registerCommand("ppTest5", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false));
-    NamedCommands.registerCommand("ppTest6", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11",true,false));
-    NamedCommands.registerCommand("ppTest7", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false,false));
-    NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false,false));
-
+    // NamedCommands.registerCommand("ppTest1", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11",true, false));
+    // NamedCommands.registerCommand("ppTest2", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop",false,false));
+    // NamedCommands.registerCommand("ppTest3", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10",false,false));
+    // NamedCommands.registerCommand("ppTest4", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9",false,false));
+    // NamedCommands.registerCommand("ppTest5", runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef10ToCoralTop",false,false));
+    // NamedCommands.registerCommand("ppTest6", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargetoReef11",true,false));
+    // NamedCommands.registerCommand("ppTest7", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef11toCoralBottom",false,false));
+    // NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false,false));
+    NamedCommands.registerCommand("AutoPPElevatorUpToFour", new AutoPPElevatorUpToFour());
+    NamedCommands.registerCommand("AutoPPElevatorAllTheWayDown", new AutoPPElevatorAllTheWayDown());
+    NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoPPIntakeCoral());
+    NamedCommands.registerCommand("AutoPPCoralPlaceOnFour", new AutoPPCoralPlaceOnFour());
+    NamedCommands.registerCommand("AlexTest", new PrintCommand("****Test 0"));
+    
+    new EventTrigger("AutoPPElevatorUpToFour").onTrue(new AutoPPElevatorUpToFour());
+    new EventTrigger("AutoPPElevatorAllTheWayDown").onTrue(new AutoPPElevatorAllTheWayDown());
+    new EventTrigger("AutoPPIntakeCoral").onTrue(new AutoPPIntakeCoral());
+    new EventTrigger("AutoPPCoralPlaceOnFour").onTrue(new AutoPPCoralPlaceOnFour());
 
     // Configure the trigger bindings
     configureDriverInterface(); 
@@ -189,14 +204,15 @@ public class RobotContainer {
     // autoChooser.addOption("BLU Processor 2C", new AutoBluReverse2CoralVision());
     // autoChooser.addOption("BLU Cage 2C", new AutoBlu2CoralVision());
     //autoChooser.addOption("BLU Cage 3C", new AutoBlu3CoralVision());
-    autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
+    //autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
+    autoChooser.addOption("BLU Cage 2C", new AutoDriveWithPP("Blu-Cage3Coral"));
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     
     // autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
     // autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
     // autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
     // autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
-    autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
+    //autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
     
     // autoChooser.addOption("RED One Coral L4", new AutoRedOneCoralVision());
     //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
@@ -290,7 +306,7 @@ public class RobotContainer {
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
-    //testBargeFlick();
+    testBargeFlick();
     
    
   }
@@ -1285,6 +1301,11 @@ public class RobotContainer {
             
           )
         );
+
+      new JoystickButton(driveStick1, 7)
+        .onTrue(new AutoDriveWithPP("Blu-Cage3Coral"))
+        .onFalse(new StopRobot());
+  
     
 
   }

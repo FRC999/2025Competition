@@ -18,9 +18,9 @@ public class AutoPPCoralPlaceOnFour extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PrintCommand("Coral place on four")
-      // new WaitCommand(0.1),
-      // new IntakeShootCommand()
+      new PrintCommand("Coral place on four"),
+      new WaitCommand(0.1),
+      new TeleopEjectCoralBringArmToCruise()
     );
   }
 }

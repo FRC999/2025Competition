@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,8 +18,8 @@ public class AutoPPElevatorUpToFour extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PrintCommand("Elevator Up To Level Four")
-      //new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
+      new PrintCommand("********Elevator Up To Level Four"),
+      new ElevatorToLevelForCoralPlacement(ElevatorHeights.ReefLevelFour, ArmPositions.ReefLevelFour)
     );
   }
 }

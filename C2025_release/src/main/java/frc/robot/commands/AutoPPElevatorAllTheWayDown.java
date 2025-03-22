@@ -16,8 +16,8 @@ public class AutoPPElevatorAllTheWayDown extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PrintCommand("Elevator Down")
-      //new ElevatorAllTheWayDown()
+      new PrintCommand("-----Elevator Down")
+      ,new ElevatorAllTheWayDown()
     );
   }
 }

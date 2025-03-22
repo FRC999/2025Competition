@@ -20,8 +20,8 @@
         "y": 5.18
       },
       "prevControl": {
-        "x": 4.879192252188003,
-        "y": 4.951225442889584
+        "x": 4.879192252187998,
+        "y": 4.951225442889573
       },
       "nextControl": {
         "x": 5.235064102564102,
@@ -190,7 +190,7 @@
     },
     {
       "name": "AutoPPElevatorAllTheWayDown",
-      "waypointRelativePos": 0.96,
+      "waypointRelativePos": 0.97,
       "endWaypointRelativePos": null,
       "command": {
         "type": "parallel",
