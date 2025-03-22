@@ -63,7 +63,23 @@
       "name": "AutoPPElevatorAllTheWayDown",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "AutoIntakeSequenceCoral",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
     }
   ],
   "globalConstraints": {

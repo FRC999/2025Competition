@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.03,
-        "y": 7.18
+        "x": 1.613,
+        "y": 7.359
       },
       "prevControl": {
-        "x": 1.4458806818181815,
-        "y": 6.851946022727272
+        "x": 2.0288806818181815,
+        "y": 7.030946022727273
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CoralTop"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 128.08676673815938
+    "rotation": -55.271
   },
   "reversed": false,
   "folder": null,

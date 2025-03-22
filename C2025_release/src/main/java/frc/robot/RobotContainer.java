@@ -28,6 +28,7 @@ import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPanRobotToLeft;
 import frc.robot.commands.TeleopPanRobotToRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
+import frc.robot.commands.TestBluCage;
 import frc.robot.commands.TestElevatorAllTheWayDown;
 import frc.robot.commands.TestElevatorToL4AndHold;
 import frc.robot.commands.AlgaeToBarge;
@@ -43,7 +44,9 @@ import frc.robot.commands.AutoBluReverse2CoralVision;
 import frc.robot.commands.AutoBluReverse3CoralVision;
 import frc.robot.commands.AutoBlueOneCoral;
 import frc.robot.commands.AutoBlueOneCoralVision;
+import frc.robot.commands.AutoCoralIntakeSequence;
 import frc.robot.commands.AutoDriveWithPP;
+import frc.robot.commands.AutoIntakeSequenceCoral;
 import frc.robot.commands.AutoPPCoralPlaceOnFour;
 import frc.robot.commands.AutoPPElevatorAllTheWayDown;
 import frc.robot.commands.AutoPPElevatorUpToFour;
@@ -174,7 +177,8 @@ public class RobotContainer {
     // NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false,false));
     NamedCommands.registerCommand("AutoPPElevatorUpToFour", new AutoPPElevatorUpToFour());
     NamedCommands.registerCommand("AutoPPElevatorAllTheWayDown", new AutoPPElevatorAllTheWayDown());
-    NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoPPIntakeCoral());
+    NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoCoralIntakeSequence());
+    NamedCommands.registerCommand(" AutoIntakeSequenceCoral", new AutoIntakeSequenceCoral());
     NamedCommands.registerCommand("AutoPPCoralPlaceOnFour", new AutoPPCoralPlaceOnFour());
     NamedCommands.registerCommand("AlgaeToBarge", new AlgaeToBarge());
     NamedCommands.registerCommand("TeleopAlgaePickupFromHighAndHold", new TeleopAlgaePickupFromHighAndHold());
@@ -184,7 +188,8 @@ public class RobotContainer {
     
     new EventTrigger("AutoPPElevatorUpToFour").onTrue(new AutoPPElevatorUpToFour());
     new EventTrigger("AutoPPElevatorAllTheWayDown").onTrue(new AutoPPElevatorAllTheWayDown());
-    new EventTrigger("AutoPPIntakeCoral").onTrue(new AutoPPIntakeCoral());
+    new EventTrigger("AutoPPIntakeCoral").onTrue(new AutoCoralIntakeSequence());
+    new EventTrigger("AutoIntakeSequenceCoral").onTrue(new AutoIntakeSequenceCoral());
     new EventTrigger("AutoPPCoralPlaceOnFour").onTrue(new AutoPPCoralPlaceOnFour());
     new EventTrigger("AlgaeToBarge").onTrue(new AlgaeToBarge());
     new EventTrigger("TeleopAlgaePickupFromHighAndHold").onTrue(new TeleopAlgaePickupFromHighAndHold());
@@ -220,8 +225,10 @@ public class RobotContainer {
     // autoChooser.addOption("BLU Cage 2C", new AutoBlu2CoralVision());
     //autoChooser.addOption("BLU Cage 3C", new AutoBlu3CoralVision());
     //autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
-    autoChooser.addOption("BLU Cage 2C", new AutoDriveWithPP("Blu-Cage3Coral"));
-    autoChooser.addOption("BLU Cage 2C Test", new AutoDriveWithPP("TestAuto"));
+    //autoChooser.addOption("BLU Cage 2C", new AutoDriveWithPP("Blu-Cage3Coral"));
+    //autoChooser.addOption("BLU Cage 2C Test", new AutoDriveWithPP("TestAuto"));
+    autoChooser.addOption("BLU Barge 1C", getAutonomousCommand("TestBluMid"));
+    autoChooser.addOption("BLU Cage 3C", getAutonomousCommand("TestBluCage"));
     // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
     
     // autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
@@ -1336,12 +1343,12 @@ public class RobotContainer {
         .onTrue(getAutonomousCommand("TestBluMidBarge"))
         .onFalse(new StopRobot());
 
-      new JoystickButton(driveStick1, 9)
-        .onTrue(getAutonomousCommand("TestBluCage"))
-        .onFalse(new StopRobot());
+      // new JoystickButton(driveStick1, 9)
+      //   .onTrue(getAutonomousCommand("TestBluCage"))
+      //   .onFalse(new StopRobot());
     
       new JoystickButton(driveStick1, 10)
-        .onTrue(getAutonomousCommand("TestBluCage"))
+        .onTrue(new TestBluCage())
         .onFalse(new StopRobot());
 
       new JoystickButton(driveStick1, 11)

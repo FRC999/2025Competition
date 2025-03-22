@@ -23,12 +23,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AutoPPIntakeCoral"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Blu-CoralTopToReef10"
@@ -49,7 +43,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoPPIntakeCoral"
+            "name": "AutoIntakeSequenceCoral"
           }
         },
         {
