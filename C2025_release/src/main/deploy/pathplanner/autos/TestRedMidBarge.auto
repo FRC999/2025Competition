@@ -13,6 +13,12 @@
         {
           "type": "named",
           "data": {
+            "name": "AutoPPElevatorUpToFour"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AutoPPCoralPlaceOnFour"
           }
         },
@@ -20,12 +26,6 @@
           "type": "path",
           "data": {
             "pathName": "Red-Reef1ToAlgaeReady"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TeleopAlgaePickupFromHighAndHold"
           }
         },
         {
