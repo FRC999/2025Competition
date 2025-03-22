@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.008681255615428,
-        "y": 5.994848138153791
+        "x": 6.68489596518937,
+        "y": 6.208397607805446
       },
       "isLocked": false,
       "linkedName": null
@@ -20,18 +20,44 @@
         "y": 5.18
       },
       "prevControl": {
-        "x": 5.1142181651926775,
-        "y": 5.39091582238493
+        "x": 5.313498659255217,
+        "y": 5.246323917956391
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueReef11"
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2858744394618828,
+      "rotationDegrees": -138.0321088220664
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.5682656826568248,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AutoPPElevatorUpToFour",
+      "waypointRelativePos": 0.5928659286592854,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,
