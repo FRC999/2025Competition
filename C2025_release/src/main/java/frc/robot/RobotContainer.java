@@ -12,6 +12,7 @@ import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
+import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.commands.TeleopAlgaePickupFromLow;
 import frc.robot.commands.TeleopAlgaeSpitOut;
 import frc.robot.commands.TeleopCoralIntakeSequence;
@@ -127,15 +128,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
   public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  public static final ArmSubsystem armSubsystem = new ArmSubsystem();
   public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  public static final ArmSubsystem armSubsystem = new ArmSubsystem();
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
   public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
   public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
   public static final VelcroSubsystem velcroSubsystem = new VelcroSubsystem();
+  public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   public static Controller xboxDriveController;
   public static Controller xboxGPMController;
@@ -288,7 +289,8 @@ public class RobotContainer {
     //calibrateElevator(); 
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
-    testElevatorSpeed();
+    //testElevatorSpeed();
+    //testBargeFlick();
     
    
   }
@@ -372,7 +374,7 @@ public class RobotContainer {
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence())
-      .onFalse(new ArmToPositionAndHold(ArmPositions.CoralCruise));
+      .onFalse(new ElevatorAllTheWayDown());
 
     new Trigger(() -> xboxDriveController.getRawAxis(2) > 0.3) // LT
         .onTrue(new TeleopAlgaePickupFromLow());
@@ -1252,6 +1254,37 @@ public class RobotContainer {
           .onTrue( new SetOdometryToVisionPose() );
 
 
+    
+
+  }
+
+  public void testBargeFlick() {
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new TeleopAlgaePickupFromLow());
+
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.TestBarge));
+
+    new JoystickButton(driveStick1, 10)
+      .onTrue(new TeleopAlgaeSpitOut());
+
+    new JoystickButton(driveStick1, 9)
+      .onTrue(new ElevatorAllTheWayDown().alongWith(new StopIntake()));
+
+    new JoystickButton(driveStick1, 8)
+      .onTrue(
+        new ArmToPositionAndHold(ArmPositions.CoralCruise)
+          .alongWith(
+            new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
+            .alongWith(
+              new WaitCommand(0.075)
+              .andThen(new InstantCommand(()-> intakeSubsystem.runIntake(0.5)))
+              .andThen(new WaitCommand(0.1))
+              .andThen(new StopIntake())
+            )
+            
+          )
+        );
     
 
   }

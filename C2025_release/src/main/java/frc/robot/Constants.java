@@ -626,11 +626,12 @@ public final class Constants {
 				AlgaeReefLow(13.971),
 				AlgaeReefHigh(26.367),
 				AlgaeIntakeUp(0.0),
+				ElevatorGoingDown(1.5),
 				ReefLevelOne(2.0),
 				ReefLevelTwo(8.3),
 				ReefLevelThree(18.119141),
 				ReefLevelFour(39.871),
-				Barge(40.6),
+				TestBarge(30.0),
 				Processor(5.0),
 				CoralIntake(0.0),
 				CoralAltIntake(18.2),
@@ -725,6 +726,7 @@ public final class Constants {
 				ReefLevelThree(0.0), //TODO: Needs values from robot
 				ReefLevelFour(8.0),  //TODO: Needs values from robot
 				Barge(15),
+				BargeTest(5),
 				BargeEnd(5.0),
 				Processor((1.201-0.703)*MOTOR_ROTATIONS_PER_THROUGHBORE_ROTATIONS);
 				private double armPositionForGamepiecePlacement;
@@ -776,6 +778,17 @@ public final class Constants {
 					public static final double MotionMagicCruiseVelocity = 75.0; //75.0
 					public static final double motionMagicAcceleration = 150.0; //150.0
 					public static final double motionMagicJerk = 1500.0; //1500.0
+
+					public static final int slotBarge = 1;
+					public static final double arm_kP_Barge = 0.64; //0.64
+					public static final double arm_kI_Barge = 0.0;
+					public static final double arm_kD_Barge = 0.0;
+					// public static final double MotionMagicCruiseVelocity = 50.0; //75.0
+					// public static final double motionMagicAcceleration = 100.0; //150.0
+					// public static final double motionMagicJerk = 1000.0; //1500.0
+					// public static final double MotionMagicCruiseVelocity_Barge = 75.0; //75.0
+					// public static final double motionMagicAcceleration_Barge = 150.0; //150.0
+					// public static final double motionMagicJerk_Barge = 1500.0; //1500.0
 				}
 
 				public static class MotionMagicVoltageConstants {

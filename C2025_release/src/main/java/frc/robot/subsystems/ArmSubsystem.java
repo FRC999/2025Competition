@@ -189,8 +189,8 @@ public class ArmSubsystem extends SubsystemBase {
     config.MotionMagic.MotionMagicJerk = MotionMagicDutyCycleConstants.motionMagicJerk;
 
     motMagDutyCycle.Slot = MotionMagicDutyCycleConstants.slot;
-  }
 
+  }
   public void setMotionMagicDutyCycle(double position){
     armMotorKraken.setControl(motMagDutyCycle.withPosition(position));
     System.out.println("***Pos: " + position);

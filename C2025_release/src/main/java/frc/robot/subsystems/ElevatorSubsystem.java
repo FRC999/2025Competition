@@ -226,7 +226,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   // Test if elevator is down
   public boolean isDown(){
-    return getElevatorHeight() <= ElevatorHeights.ReefLevelOne.getHeight() ;
+    return getElevatorHeight() <= ElevatorHeights.ElevatorGoingDown.getHeight() ;
   }
 
   public double elevatorHeightChassisSpeedAdjustmentCoefficient() { //TODO: change not to convert into meters 

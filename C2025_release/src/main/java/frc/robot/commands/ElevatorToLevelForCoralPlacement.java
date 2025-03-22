@@ -4,7 +4,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.GPMConstants.ArmConstants;
 import frc.robot.Constants.GPMConstants.ElevatorConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
@@ -19,7 +21,7 @@ public class ElevatorToLevelForCoralPlacement extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new StopIntake(),
-      new ArmToPositionAndHold(ArmPositions.CoralCruise),
+      new ArmToPositionAndHold(ArmPositions.CoralCruise).raceWith(new WaitCommand(0.3)),
       new ElevatorToLevelAndHold(elevatorHeight),
       new ArmToPositionAndHold(armPosition)
     );

@@ -4,7 +4,11 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
+import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
 import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 
@@ -18,8 +22,16 @@ public class AlgaeToBarge extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       //new ArmToPositionAndHold(ArmPositions.AlgaeIntake),
-      new ElevatorToLevelAndHold(ElevatorHeights.Barge),
-      new ArmToPositionAndHold(ArmPositions.Barge)
+      new ElevatorToLevelAndHold(ElevatorHeights.TestBarge),
+      new WaitCommand(0.1),
+      new ArmToPositionAndHold(ArmPositions.CoralCruise)
+          .alongWith(
+            new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
+            .alongWith(
+              new WaitCommand(0.075)
+              .andThen(new InstantCommand(()-> RobotContainer.intakeSubsystem.runIntake(IntakeConstants.algaeExpelPowerBarge)))
+              .andThen(new WaitCommand(0.1))
+              .andThen(new StopIntake())))
     );
   }
 }
