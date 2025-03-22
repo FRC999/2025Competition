@@ -29,21 +29,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Blu-MidToAlgae"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blu-Reef6ToBargeNet"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "AlgaeToBarge"
+            "name": "TeleopAlgaePickupFromHighAndHold"
           }
         }
       ]

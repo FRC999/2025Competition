@@ -33,6 +33,8 @@ import frc.robot.commands.TestElevatorToL4AndHold;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmToPositionAndHold;
+import frc.robot.commands.AutoAlgaeIntakeArmPosition;
+import frc.robot.commands.AutoAlgaeIntakePower;
 import frc.robot.commands.AutoBlu1CoralL1;
 import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.AutoBlu2CoralVision;
@@ -175,7 +177,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoPPIntakeCoral());
     NamedCommands.registerCommand("AutoPPCoralPlaceOnFour", new AutoPPCoralPlaceOnFour());
     NamedCommands.registerCommand("AlgaeToBarge", new AlgaeToBarge());
-    NamedCommands.registerCommand("AutoPPAlgaeTake", new TeleopAlgaePickupFromHighAndHold());
+    NamedCommands.registerCommand("TeleopAlgaePickupFromHighAndHold", new TeleopAlgaePickupFromHighAndHold());
+    NamedCommands.registerCommand("AutoAlgaeIntakeArmPosition", new AutoAlgaeIntakeArmPosition());
+    NamedCommands.registerCommand("AutoAlgaeIntakePower", new AutoAlgaeIntakePower());
     //NamedCommands.registerCommand("AlexTest", new PrintCommand("****Test 0"));
     
     new EventTrigger("AutoPPElevatorUpToFour").onTrue(new AutoPPElevatorUpToFour());
@@ -183,7 +187,9 @@ public class RobotContainer {
     new EventTrigger("AutoPPIntakeCoral").onTrue(new AutoPPIntakeCoral());
     new EventTrigger("AutoPPCoralPlaceOnFour").onTrue(new AutoPPCoralPlaceOnFour());
     new EventTrigger("AlgaeToBarge").onTrue(new AlgaeToBarge());
-    new EventTrigger("AutoPPAlgaeTake").onTrue(new TeleopAlgaePickupFromHighAndHold());
+    new EventTrigger("TeleopAlgaePickupFromHighAndHold").onTrue(new TeleopAlgaePickupFromHighAndHold());
+    new EventTrigger("AutoAlgaeIntakeArmPosition").onTrue(new AutoAlgaeIntakeArmPosition());
+    new EventTrigger("AutoAlgaeIntakePower").onTrue(new AutoAlgaeIntakePower());
 
     // Configure the trigger bindings
     configureDriverInterface(); 
@@ -1295,38 +1301,53 @@ public class RobotContainer {
   }
 
   public void testBargeFlick() {
-    new JoystickButton(driveStick1, 12)
-      .onTrue(new TeleopAlgaePickupFromLow());
+    // new JoystickButton(driveStick1, 12)
+    //   .onTrue(new TeleopAlgaePickupFromLow());
 
-    new JoystickButton(driveStick1, 11)
-      .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.TestBarge));
+    // new JoystickButton(driveStick1, 11)
+    //   .onTrue(new ElevatorToLevelAndHold(ElevatorHeights.TestBarge));
 
-    new JoystickButton(driveStick1, 10)
-      .onTrue(new TeleopAlgaeSpitOut());
+    // new JoystickButton(driveStick1, 10)
+    //   .onTrue(new TeleopAlgaeSpitOut());
 
-    new JoystickButton(driveStick1, 9)
-      .onTrue(new ElevatorAllTheWayDown().alongWith(new StopIntake()));
+    // new JoystickButton(driveStick1, 9)
+    //   .onTrue(new ElevatorAllTheWayDown().alongWith(new StopIntake()));
 
-    new JoystickButton(driveStick1, 8)
-      .onTrue(
-        new ArmToPositionAndHold(ArmPositions.CoralCruise)
-          .alongWith(
-            new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
-            .alongWith(
-              new WaitCommand(0.075)
-              .andThen(new InstantCommand(()-> intakeSubsystem.runIntake(0.5)))
-              .andThen(new WaitCommand(0.1))
-              .andThen(new StopIntake())
-            )
+    // new JoystickButton(driveStick1, 8)
+    //   .onTrue(
+    //     new ArmToPositionAndHold(ArmPositions.CoralCruise)
+    //       .alongWith(
+    //         new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
+    //         .alongWith(
+    //           new WaitCommand(0.075)
+    //           .andThen(new InstantCommand(()-> intakeSubsystem.runIntake(0.5)))
+    //           .andThen(new WaitCommand(0.1))
+    //           .andThen(new StopIntake())
+    //         )
             
-          )
-        );
+    //       )
+    //     );
 
       new JoystickButton(driveStick1, 7)
-        .onTrue(getAutonomousCommand("TestBluMidBarge"))
+        .onTrue(getAutonomousCommand("TestRedMidBarge"))
         .onFalse(new StopRobot());
   
+      new JoystickButton(driveStick1, 8)
+        .onTrue(getAutonomousCommand("TestBluMidBarge"))
+        .onFalse(new StopRobot());
+
+      new JoystickButton(driveStick1, 9)
+        .onTrue(getAutonomousCommand("TestBluCage"))
+        .onFalse(new StopRobot());
     
+      new JoystickButton(driveStick1, 10)
+        .onTrue(getAutonomousCommand("TestBluCage"))
+        .onFalse(new StopRobot());
+
+      new JoystickButton(driveStick1, 11)
+        .onTrue(getAutonomousCommand("Test2"))
+        .onFalse(new StopRobot());
+
 
   }
 
