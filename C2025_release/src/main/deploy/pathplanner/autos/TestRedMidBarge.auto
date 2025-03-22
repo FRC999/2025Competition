@@ -39,6 +39,12 @@
           "data": {
             "pathName": "Red-Reef1AlgaeToRedBarge"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AlgaeToBarge"
+          }
         }
       ]
     }
