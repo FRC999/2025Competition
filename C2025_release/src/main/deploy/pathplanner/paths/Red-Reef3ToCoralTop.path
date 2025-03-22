@@ -3,35 +3,69 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.3,
-        "y": 5.02
+        "x": 12.57,
+        "y": 5.18
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.544261363636362,
-        "y": 7.001519886363636
+        "x": 12.273653846153845,
+        "y": 6.4090384615384615
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RedReef3"
     },
     {
       "anchor": {
         "x": 16.543,
-        "y": 7.091264204545454
+        "y": 7.091
       },
       "prevControl": {
-        "x": 16.305829246101798,
-        "y": 7.012207051198277
+        "x": 16.290144220154986,
+        "y": 6.947736767804074
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RedCoralTop"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.15503875968992262,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6998892580287918,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AutoPPElevatorAllTheWayDown",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,

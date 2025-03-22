@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.0,
+        "x": 13.55,
         "y": 5.18
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7794471476461444,
-        "y": 5.375526868981023
+        "x": 13.97977032213555,
+        "y": 5.3326338345482185
       },
       "isLocked": false,
-      "linkedName": "BlueReef10"
+      "linkedName": "RedReef2"
     },
     {
       "anchor": {
-        "x": 1.613,
-        "y": 7.359
+        "x": 16.543,
+        "y": 7.091
       },
       "prevControl": {
-        "x": 1.7928179737320589,
-        "y": 7.181311706185577
+        "x": 16.3199995187911,
+        "y": 6.977992100361971
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CoralTop"
+      "linkedName": "RedCoralTop"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0.37725225225225395,
+      "maxWaypointRelativePos": 0.29014396456256913,
       "constraints": {
         "maxVelocity": 2.5,
         "maxAcceleration": 2.0,
@@ -44,8 +44,8 @@
       }
     },
     {
-      "name": "Constraints Zone1",
-      "minWaypointRelativePos": 0.615990990990987,
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.7751937984496123,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.5,
@@ -61,7 +61,7 @@
   "eventMarkers": [
     {
       "name": "AutoPPElevatorAllTheWayDown",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -76,13 +76,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.271
+    "rotation": -126.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": -119.99999999999999
   },
   "useDefaultConstraints": true
 }
