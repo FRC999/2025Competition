@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.135369318181818,
-        "y": 1.7764062499999989
+        "x": 4.3578205128205125,
+        "y": 1.8989743589743588
       },
       "isLocked": false,
       "linkedName": "BlueReef2"
@@ -20,8 +20,8 @@
         "y": 0.913
       },
       "prevControl": {
-        "x": 2.6524431818181817,
-        "y": 1.1880823863636363
+        "x": 1.5153542920833942,
+        "y": 0.9702598334313864
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,8 +31,21 @@
   "rotationTargets": [],
   "constraintZones": [
     {
+      "name": "Constraints Zone1",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.24598393574297361,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8166479190101419,
+      "minWaypointRelativePos": 0.6395582329317282,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.5,
