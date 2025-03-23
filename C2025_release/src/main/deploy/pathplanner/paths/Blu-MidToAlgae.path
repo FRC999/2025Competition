@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.45,
-        "y": 4.18
+        "x": 6.469225017611499,
+        "y": 4.083859958895438
       },
       "isLocked": false,
       "linkedName": "BlueMidGoBack"
     },
     {
       "anchor": {
-        "x": 5.74,
-        "y": 4.18
+        "x": 5.7336647727272725,
+        "y": 4.029985795454545
       },
       "prevControl": {
-        "x": 5.99,
-        "y": 4.18
+        "x": 5.9836647727272725,
+        "y": 4.029985795454545
       },
       "nextControl": null,
       "isLocked": false,
@@ -35,7 +35,7 @@
       "minWaypointRelativePos": 0.0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 2.5,
+        "maxVelocity": 2.0,
         "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -45,14 +45,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "AutoAlgaeIntakeArmPosition",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,

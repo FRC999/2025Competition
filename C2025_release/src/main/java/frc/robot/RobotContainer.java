@@ -28,9 +28,12 @@ import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPanRobotToLeft;
 import frc.robot.commands.TeleopPanRobotToRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
+import frc.robot.commands.TestBluBarge;
 import frc.robot.commands.TestBluCage;
 import frc.robot.commands.TestElevatorAllTheWayDown;
 import frc.robot.commands.TestElevatorToL4AndHold;
+import frc.robot.commands.TestRedBarge;
+import frc.robot.commands.TestRedProcessor;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.ArmToPositionAndHold;
@@ -1348,7 +1351,7 @@ public class RobotContainer {
       //   .onFalse(new StopRobot());
     
       new JoystickButton(driveStick1, 10)
-        .onTrue(new TestBluCage())
+        .onTrue(new TestRedProcessor())
         .onFalse(new StopRobot());
 
       new JoystickButton(driveStick1, 11)

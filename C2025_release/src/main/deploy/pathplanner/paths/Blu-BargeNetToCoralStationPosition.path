@@ -3,47 +3,33 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.7336647727272725,
-        "y": 4.029985795454545
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 7.043579545454546,
-        "y": 3.670568181818181
-      },
-      "isLocked": false,
-      "linkedName": "BlueReef6"
-    },
-    {
-      "anchor": {
         "x": 7.7479261363636365,
         "y": 4.568451704545454
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.566155249106279,
+        "y": 4.740088951510304
+      },
+      "isLocked": false,
+      "linkedName": "BlueBargeNet"
+    },
+    {
+      "anchor": {
+        "x": 4.527102272727273,
+        "y": 7.300667613636364
+      },
       "prevControl": {
-        "x": 7.6638420371140965,
-        "y": 4.333016226646745
+        "x": 4.645890295362264,
+        "y": 7.073178525988667
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BlueBargeNet"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 2.5,
-        "maxAcceleration": 2.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -56,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.6510603802294163
   },
   "reversed": false,
   "folder": null,
