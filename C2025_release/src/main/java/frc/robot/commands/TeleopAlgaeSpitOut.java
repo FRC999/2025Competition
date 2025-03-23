@@ -21,7 +21,7 @@ public class TeleopAlgaeSpitOut extends SequentialCommandGroup {
        new PrintCommand("*** Start of Algae Spit out"),
        new IntakeAlgaeRollOutCommand(),
        new WaitCommand(0.5),
-       new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
+       //new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
        new PrintCommand("*** End of Algae Spit out")
     );
   }
