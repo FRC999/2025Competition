@@ -34,7 +34,7 @@ public class ElevatorAllTheWayDown extends SequentialCommandGroup {
             RobotContainer.elevatorSubsystem::isDown
           )
         , Set.of()),
-      new StopElevator(),
+      new StopElevator()
       //new PrintCommand("*** Elevator down - end")
     );
   }
