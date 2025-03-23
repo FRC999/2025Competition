@@ -35,7 +35,7 @@ public class ElevatorAllTheWayDown extends SequentialCommandGroup {
           )
         , Set.of()),
       new StopElevator(),
-      new PrintCommand("*** Elevator down - end")
+      //new PrintCommand("*** Elevator down - end")
     );
   }
 }
