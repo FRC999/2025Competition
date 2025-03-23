@@ -28,19 +28,14 @@
       "linkedName": "BlueReef11"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.2858744394618828,
-      "rotationDegrees": -138.0321088220664
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.5682656826568248,
+      "minWaypointRelativePos": 0.5461928934010188,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 2.5,
+        "maxVelocity": 3.5,
         "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,

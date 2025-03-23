@@ -26,7 +26,7 @@ public class TestBluCage extends SequentialCommandGroup {
       new TeleopEjectCoralBringArmToCruise(),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop", false, false)
         .alongWith(
-          new ElevatorAllTheWayDown().andThen(new TeleopCoralIntakeSequence())
+          new ElevatorAllTheWayDown().andThen(new AutoIntakeSequenceCoral())
         ),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, false)
         .alongWith(
@@ -37,7 +37,7 @@ public class TestBluCage extends SequentialCommandGroup {
       new TeleopEjectCoralBringArmToCruise(),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef9toCoralTop", false, false)
         .alongWith(
-          new ElevatorAllTheWayDown().andThen(  new TeleopCoralIntakeSequence())
+          new ElevatorAllTheWayDown().andThen(  new AutoIntakeSequenceCoral())
         ),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false)
         .alongWith(
