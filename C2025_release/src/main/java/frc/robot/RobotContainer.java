@@ -1351,7 +1351,7 @@ public class RobotContainer {
       //   .onFalse(new StopRobot());
     
       new JoystickButton(driveStick1, 10)
-        .onTrue(new TestRedProcessor())
+        .onTrue(new TestBluCage())
         .onFalse(new StopRobot());
 
       new JoystickButton(driveStick1, 11)
