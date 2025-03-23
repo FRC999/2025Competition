@@ -17,25 +17,25 @@ public class TestBluProcessor extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", false, false)
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-ProcessortoReef4", false, false)
             .alongWith(
                 new WaitCommand(0.5).andThen(
                     new TeleopMoveToL4RotateArm())),
         new TeleopEjectCoralBringArmToCruise(),
-        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop", false, false)
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef4toCoralBottom", false, false)
             .alongWith(
                 new ElevatorAllTheWayDown()),
         new TeleopCoralIntakeSequence(),
-        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, false)
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralBottomToReef6Left", false, false)
             .alongWith(
                 new WaitCommand(0.5).andThen(
                     new TeleopMoveToL4RotateArm())),
         new TeleopEjectCoralBringArmToCruise(),
-        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef9toCoralTop", false, false)
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef6LeftToCoralBottom", false, false)
             .alongWith(
                 new ElevatorAllTheWayDown()),
         new TeleopCoralIntakeSequence(),
-        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false)
+        RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralBottomToReef6Right", false, false)
             .alongWith(
                 new WaitCommand(0.5).andThen(
                     new TeleopMoveToL4RotateArm())),

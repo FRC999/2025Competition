@@ -19,10 +19,10 @@ public class AutoAlgaeIntakeArmPosition extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PrintCommand("*** Start of Algae Pickup ready from High"), 
+      new PrintCommand("*** Start of Algae Pickup ready from low"), 
         new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise).raceWith(new WaitCommand(1)),
         new PrintCommand("Arm At cruise position"),
-        new ElevatorToLevelAndHold(ElevatorHeights.AlgaeReefHigh),
+        new ElevatorToLevelAndHold(ElevatorHeights.AlgaeReefLow),
         new PrintCommand("Elevator at algae reef low"),
         new ArmToPositionAndHold(ArmConstants.ArmPositions.AlgaeIntake)
     );
