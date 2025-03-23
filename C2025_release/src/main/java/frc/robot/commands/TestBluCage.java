@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -16,20 +17,36 @@ public class TestBluCage extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoDriveWithPP("Blu-BargeToReef11"),
-      new TeleopMoveToL4RotateArm(),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", false, false)
+        .alongWith(
+          new WaitCommand(0.5).andThen(
+            new TeleopMoveToL4RotateArm()
+          )
+        ),
       new TeleopEjectCoralBringArmToCruise(),
-      new ElevatorAllTheWayDown(),
-      new AutoDriveWithPP("Blu-Reef11ToCoralTop"),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop", false, false)
+        .alongWith(
+          new ElevatorAllTheWayDown()
+        ),
       new TeleopCoralIntakeSequence(),
-      new AutoDriveWithPP("Blu-CoralTopToReef9"),
-      //new TeleopMoveToL4RotateArm(),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, false)
+        .alongWith(
+          new WaitCommand(0.5).andThen(
+            new TeleopMoveToL4RotateArm()
+          )
+        ),
       new TeleopEjectCoralBringArmToCruise(),
-      new ElevatorAllTheWayDown(),
-      new AutoDriveWithPP("Blu-Reef9toCoralTop"),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef9toCoralTop", false, false)
+        .alongWith(
+          new ElevatorAllTheWayDown()
+        ),
       new TeleopCoralIntakeSequence(),
-      new AutoDriveWithPP("Blu-CoralTopToReef10"),
-      //new TeleopMoveToL4RotateArm(),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false)
+        .alongWith(
+            new WaitCommand(0.5).andThen(
+              new TeleopMoveToL4RotateArm()
+            )
+        ),
       new TeleopEjectCoralBringArmToCruise()
     );
   }
