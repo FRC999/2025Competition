@@ -42,13 +42,10 @@ import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.AutoArmToL4AndHold;
 import frc.robot.commands.AutoAlgaeIntakeArmPosition;
 import frc.robot.commands.AutoAlgaeIntakePower;
-import frc.robot.commands.AutoBlu1CoralL1;
-import frc.robot.commands.AutoBlu2Coral;
 import frc.robot.commands.AutoBlu2CoralVision;
 import frc.robot.commands.AutoBlu3CoralVision;
 import frc.robot.commands.AutoBluReverse2CoralVision;
 import frc.robot.commands.AutoBluReverse3CoralVision;
-import frc.robot.commands.AutoBlueOneCoral;
 import frc.robot.commands.AutoBlueOneCoralVision;
 import frc.robot.commands.AutoCoralIntakeSequence;
 import frc.robot.commands.AutoDriveWithPP;
@@ -57,9 +54,6 @@ import frc.robot.commands.AutoPPCoralPlaceOnFour;
 import frc.robot.commands.AutoPPElevatorAllTheWayDown;
 import frc.robot.commands.AutoPPElevatorUpToFour;
 import frc.robot.commands.AutoPPIntakeCoral;
-import frc.robot.commands.AutoRed1Coral;
-import frc.robot.commands.AutoRed1CoralL1;
-//import frc.robot.commands.AutoRed1CoralL1;
 import frc.robot.commands.AutoRed2Coral;
 import frc.robot.commands.AutoRed2CoralVision;
 import frc.robot.commands.AutoRed3CoralVision;
@@ -315,7 +309,7 @@ public class RobotContainer {
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
-    testBargeFlick();
+    //testBargeFlick();
     
    
   }
@@ -371,11 +365,6 @@ public class RobotContainer {
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
     
-    // new Trigger(() -> buttonBox.getRawAxis(1) == 1.0) //TODO: Axis value needs to be changed as necessary and the speed needs to set after testing
-    //   .onTrue(new ClimberStartWithSpeed(-0.2).raceWith(new WaitCommand(1.0)))
-    //   .onFalse(new StopClimber());
-
-    //TODO: CHECK IN THE MORNING - VERY IMPORTANT!!!!!
 
     // Axis 1 - second toggle switch
     new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
@@ -385,14 +374,7 @@ public class RobotContainer {
       new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
       .onTrue(new AutoArmToL4AndHold(ArmPositions.ClimbCruise));
 
-
-    // new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
-    //   .onTrue(new ElevatorAllTheWayDown());
-
-    // new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 )
-    //   .onTrue(new InstantCommand(llVisionSubsystem::ToggleBackLLMode));
-
-    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 ) //TODO: Needs to be changed 
+    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 ) 
       .onTrue(new InstantCommand(()->velcroSubsystem.runVelcroMotor(0.3)))
       .onFalse(new StopVelcroMotor());
 
@@ -493,15 +475,6 @@ public class RobotContainer {
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef11"))
       .onFalse(new StopRobot());
   }
-
-  // public void testAutoChoate() throws Exception {
-
-  //   System.out.println("Def CH");
-  //   new JoystickButton(driveStick1, 12)
-  //     .onTrue(new AutoStraightTrajectoryToReef8())
-  //     .onFalse(new StopRobot());
-  //     System.out.println("End Def CH");
-  // }
 
   public void testReef() throws Exception {
     new JoystickButton(xboxDriveController, 1)
@@ -776,12 +749,6 @@ public class RobotContainer {
 
   }
 
-  // public void testChoate(){
-  //   new JoystickButton(driveStick1, 10)
-  //     .onTrue(new CoralPlaceOnFour())
-  //     .onFalse(new StopArm());
-  // }
-
 
   public void calibrateChassisDeadband() {
     // new JoystickButton(driveStick1, 1)
@@ -1034,21 +1001,7 @@ public class RobotContainer {
                         ))
                         )
               )
-           )
-           
-          //  .andThen(
-          // runTrajectory2PosesSlow(
-          //   llVisionSubsystem.getBestPoseAllCameras(),
-          //   RobotPoseConstants.visionRobotPoses.get(
-          //     VisionHelpers.getLeftReefName(
-          //       RobotPoseConstants.reefTagPoses.get(
-          //         VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
-          //         ))),
-          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
-          
-          // true))
-          
+           )        
           , Set.of()
           )
         );
