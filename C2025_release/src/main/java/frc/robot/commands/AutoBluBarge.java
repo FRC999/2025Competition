@@ -12,26 +12,26 @@ import frc.robot.Constants.GPMConstants.ElevatorConstants.ElevatorHeights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TestRedBarge extends SequentialCommandGroup {
+public class AutoBluBarge extends SequentialCommandGroup {
   /** Creates a new TestBluBarge. */
-  public TestRedBarge() {
+  public AutoBluBarge() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToCenterReef", false, true),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToCenterReef", false, false),
       new TeleopMoveToL4RotateArm(),
       new TeleopEjectCoralBringArmToCruise(),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-MidGoBack", false, true),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-MidGoBack", false, false),
       new AutoAlgaeIntakeArmPosition(),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-MidToAlgae", false, true)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-MidToAlgae", false, false)
         .alongWith(
             new IntakeAlgaeRollerInAndHold()
           ),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef6ToBargeNet", false, true),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef6ToBargeNet", false, false),
       new WaitCommand(0.1),
       new AlgaeToBarge(),
-      new ElevatorAllTheWayDown()
-      //RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeNetToCoralStationPosition", false, true)
+      new ElevatorAllTheWayDown(),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeNetToCoralStationPosition", false, false)
     );
   }
 }

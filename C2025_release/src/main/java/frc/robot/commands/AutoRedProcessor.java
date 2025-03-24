@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
@@ -11,35 +12,37 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TestBluCage extends SequentialCommandGroup {
-  /** Creates a new TestBluCage. */
-  public TestBluCage() {
+public class AutoRedProcessor extends SequentialCommandGroup {
+  /** Creates a new TestRedCage. */
+  public AutoRedProcessor() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", false, false)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-ProcessortoReef4", false, true)
         .alongWith(
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
         ),
       new TeleopEjectCoralBringArmToCruise(),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop", false, false)
+      new PrintCommand("====intake started"),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef4toCoralBottom", false, true)
         .alongWith(
           new ElevatorAllTheWayDown().andThen(new AutoIntakeSequenceCoral())
         ),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, false)
+        new PrintCommand("=====Intake Stopped"),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralBottomToReef6Left", false, true)
         .alongWith(
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
         ),
       new TeleopEjectCoralBringArmToCruise(),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef9toCoralTop", false, false)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef6LeftToCoralBottom", false, true)
         .alongWith(
           new ElevatorAllTheWayDown().andThen(  new AutoIntakeSequenceCoral())
         ),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, false)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralBottomToReef6Right", false, true)
         .alongWith(
             new WaitCommand(0.5).andThen(
               new TeleopMoveToL4RotateArm()

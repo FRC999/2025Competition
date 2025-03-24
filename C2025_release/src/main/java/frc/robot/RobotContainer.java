@@ -28,13 +28,15 @@ import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPanRobotToLeft;
 import frc.robot.commands.TeleopPanRobotToRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
-import frc.robot.commands.TestBluBarge;
-import frc.robot.commands.TestBluCage;
+import frc.robot.commands.AutoBluBarge;
+import frc.robot.commands.AutoBluCage;
+import frc.robot.commands.AutoBluProcessor;
 import frc.robot.commands.TestBluCageFast;
 import frc.robot.commands.TestElevatorAllTheWayDown;
 import frc.robot.commands.TestElevatorToL4AndHold;
-import frc.robot.commands.TestRedBarge;
-import frc.robot.commands.TestRedProcessor;
+import frc.robot.commands.AutoRedBarge;
+import frc.robot.commands.AutoRedCage;
+import frc.robot.commands.AutoRedProcessor;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
 import frc.robot.commands.AutoArmToL4AndHold;
@@ -223,33 +225,13 @@ public class RobotContainer {
   private void AutonomousConfigure () {
       //port autonomous routines as commands
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
-    //autoChooser.addOption("BLUE TOP 2Coral", new AutoBlu2Coral());
-    // autoChooser.addOption("BLU Center 1C", new AutoBlueOneCoralVision());
-    // autoChooser.addOption("BLU Processor 2C", new AutoBluReverse2CoralVision());
-    // autoChooser.addOption("BLU Cage 2C", new AutoBlu2CoralVision());
-    //autoChooser.addOption("BLU Cage 3C", new AutoBlu3CoralVision());
-    //autoChooser.addOption("BLU Processor 3C", new AutoBluReverse3CoralVision());
-    //autoChooser.addOption("BLU Cage 2C", new AutoDriveWithPP("Blu-Cage3Coral"));
-    //autoChooser.addOption("BLU Cage 2C Test", new AutoDriveWithPP("TestAuto"));
-    autoChooser.addOption("BLU Barge 1C", getAutonomousCommand("TestBluMid"));
-    autoChooser.addOption("BLU Cage 3C", getAutonomousCommand("TestBluCage"));
-    // autoChooser.addOption("RED Bottom 2Coral", new AutoRed2Coral());
-    
-    // autoChooser.addOption("RED Center 1C", new AutoRedOneCoralVision());
-    // autoChooser.addOption("RED Cage 2C", new AutoRed2CoralVision());
-    // autoChooser.addOption("RED Processor 2C", new AutoRedReverse2CoralVision());
-    // autoChooser.addOption("RED Cage 3C", new AutoRed3CoralVision());
-    //autoChooser.addOption("RED Processor 3C", new AutoRedReverse3CoralVision());
-    
-    // autoChooser.addOption("RED One Coral L4", new AutoRedOneCoralVision());
-    //autoChooser.addOption("RED One Coral L4", new AutoRed1Coral());
-    //autoChooser.addOption("BLUE One Coral Auto L1", new AutoBlu1CoralL1());
-    //autoChooser.addOption("RED One Coral Auto L1", new AutoRed1CoralL1());
-    //autoChooser.addOption("RED Top 2Coral", new AutoRedReverse2Coral());
-    
-    
-    //autoChooser.addOption("RED From  Blu 2 ", new AutoRedFromBlu2Coral());
-
+  
+    autoChooser.addOption("Blue Cage 3C", new AutoBluCage());
+    autoChooser.addOption("Blue Processor 3C", new AutoBluProcessor());
+    autoChooser.addOption("Blue Barge", new AutoBluBarge());
+    autoChooser.addOption("Red Cage 3C", new AutoRedCage());
+    autoChooser.addOption("Red Processor 3C", new AutoRedProcessor());
+    autoChooser.addOption("Red Barge", new AutoRedBarge());
     SmartDashboard.putData(autoChooser);
 
   } 
