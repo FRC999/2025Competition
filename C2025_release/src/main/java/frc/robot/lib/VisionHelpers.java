@@ -248,7 +248,18 @@ public class VisionHelpers {
         RobotPoseConstants.visionRobotPoses.put("RobotRedStationDown", new Pose2d(16.690, 0.630, Rotation2d.fromDegrees(126.0))); //TODO: needs to be changed
         RobotPoseConstants.visionRobotPoses.put("RobotRedStationUp", new Pose2d(16.742, 7.307, Rotation2d.fromDegrees(126.0))); //TODO: needs to be changed
 
-        //System.out.println(RobotPoseConstants.visionRobotPoses);
+        // alex test
+        // List<String> keys2 = new ArrayList<>();
+        // for (String k : RobotPoseConstants.visionRobotPoses.keySet()) {
+        //   keys2.add(k);
+        // }
+        // System.out.println("===---");
+        //  for (String key : keys2) {
+        //    System.out.println(key + " : " + RobotPoseConstants.visionRobotPoses.get(key)
+        //    );
+        //  }
+        
+         //System.out.println(RobotPoseConstants.visionRobotPoses);
     }
 
     /**

@@ -631,6 +631,7 @@ public final class Constants {
 				ReefLevelTwo(8.3),
 				ReefLevelThree(18.119141),
 				ReefLevelFour(39.871),
+				ArmTurnSafe(19),
 				TestBarge(30.0),
 				Processor(5.0),
 				CoralIntake(0.0),

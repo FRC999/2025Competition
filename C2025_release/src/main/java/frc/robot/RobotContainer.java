@@ -30,13 +30,14 @@ import frc.robot.commands.TeleopPanRobotToRight;
 import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.TestBluBarge;
 import frc.robot.commands.TestBluCage;
+import frc.robot.commands.TestBluCageFast;
 import frc.robot.commands.TestElevatorAllTheWayDown;
 import frc.robot.commands.TestElevatorToL4AndHold;
 import frc.robot.commands.TestRedBarge;
 import frc.robot.commands.TestRedProcessor;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
-import frc.robot.commands.ArmToPositionAndHold;
+import frc.robot.commands.AutoArmToL4AndHold;
 import frc.robot.commands.AutoAlgaeIntakeArmPosition;
 import frc.robot.commands.AutoAlgaeIntakePower;
 import frc.robot.commands.AutoBlu1CoralL1;
@@ -400,7 +401,7 @@ public class RobotContainer {
       .onFalse(new StopClimber());
 
       new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new ArmToPositionAndHold(ArmPositions.ClimbCruise));
+      .onTrue(new AutoArmToL4AndHold(ArmPositions.ClimbCruise));
 
 
     // new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
@@ -422,7 +423,7 @@ public class RobotContainer {
 
     new JoystickButton(xboxDriveController, 6)
       .onTrue(new TeleopIntakeCoralAlternateSequence())
-      .onFalse(new ArmToPositionAndHold(ArmPositions.CoralCruise));
+      .onFalse(new AutoArmToL4AndHold(ArmPositions.CoralCruise));
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence())
@@ -637,6 +638,12 @@ public class RobotContainer {
 
     new JoystickButton(driveStick1, 2)
     .onTrue(new StopElevator());
+
+    new JoystickButton(driveStick1, 12)
+      .onTrue(
+        new ElevatorToLevelAndHold(ElevatorHeights.ReefLevelFour)
+        .alongWith(new AutoArmToL4AndHold(ArmPositions.ReefLevelFour))
+      );
   }
 
   public void calibrateArm() {
@@ -1351,7 +1358,7 @@ public class RobotContainer {
       //   .onFalse(new StopRobot());
     
       new JoystickButton(driveStick1, 10)
-        .onTrue(new TestBluCage())
+        .onTrue(new TestBluCageFast())
         .onFalse(new StopRobot());
 
       new JoystickButton(driveStick1, 11)

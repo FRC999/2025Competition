@@ -46,8 +46,14 @@ public class DriveManuallyCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xInput = mVxSupplier.getAsDouble();
-		double yInput = mVySupplier.getAsDouble();
+    double xInput = mVxSupplier.getAsDouble()
+    //alexand
+    *0.8
+    ;
+		double yInput = mVySupplier.getAsDouble()
+    //alexand
+    *0.8
+    ;
 		double omegaInput = mOmegaSupplier.getAsDouble();
 
     // SmartDashboard.putString("Joystick Values: ", "X: " + xInput + " Y: " + yInput + " Z: " + omegaInput);

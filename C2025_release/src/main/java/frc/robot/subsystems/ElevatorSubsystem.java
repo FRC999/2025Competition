@@ -178,7 +178,7 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     if(currentHeight < minHeight) {
       return 1;
     } else {
-      return 0.25;
+      return 0.35;
     }
   }
   
