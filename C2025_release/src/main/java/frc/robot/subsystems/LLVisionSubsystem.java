@@ -61,6 +61,7 @@ public class LLVisionSubsystem extends SubsystemBase {
 
     VisionHelpers.createHashMapOfTags(); // load Pose2d of all apriltags
     VisionHelpers.addRobotPosesForCoralPlacement(); // load Pose2d of robot to place/pickup elements
+    VisionHelpers.addRobotPosesForAlgaePlacement();
     VisionHelpers.mapTagIDToTagKey(); // create a map of Tag ID to the Tag name/alias
 
     // Set alliance-only tag poses lists

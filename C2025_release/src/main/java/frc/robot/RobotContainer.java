@@ -27,6 +27,7 @@ import frc.robot.commands.TeleopPanReefLeft;
 import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPanRobotToLeft;
 import frc.robot.commands.TeleopPanRobotToRight;
+import frc.robot.commands.TeleopPanToAlgaeAndIntake;
 import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.AutoBluBarge;
 import frc.robot.commands.AutoBluCage;
@@ -391,7 +392,7 @@ public class RobotContainer {
       .onFalse(new ElevatorAllTheWayDown());
 
     new Trigger(() -> xboxDriveController.getRawAxis(2) > 0.3) // LT
-        .onTrue(new TeleopAlgaePickupFromLow());
+        .onTrue(new TeleopPanToAlgaeAndIntake());
 
     new JoystickButton(xboxDriveController, 8)
         .onTrue(new TeleopPigeonIMUReset());
@@ -439,24 +440,7 @@ public class RobotContainer {
       .onTrue(new InstantCommand(driveSubsystem::setRobotCentricTrue))
       .onFalse(new InstantCommand(driveSubsystem::setRobotCentricFalse));
 
-    new JoystickButton(xboxDriveController, 9)
-        .onTrue(
-          new DeferredCommand(
-          () -> 
-           new PrintCommand("Left")
-           .andThen(
-          runTrajectory2PosesSlow(
-            llVisionSubsystem.getBestPoseAllCameras(),
-            RobotPoseConstants.visionRobotPoses.get(
-              VisionHelpers.getLeftReefName(
-                RobotPoseConstants.reefTagPoses.get(
-                  VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
-                  ))),
-          //new Pose2d(3.98, 4.86, Rotation2d.fromDegrees(-60.0)),
-          //new Pose2d(5.0, 5.0, Rotation2d.fromDegrees(-120.0)),
-          
-          false))
-          , Set.of()));
+      
   }
 
   public void setYaws() {
