@@ -47,7 +47,6 @@ import frc.robot.commands.AutoBlu3CoralVision;
 import frc.robot.commands.AutoBluReverse2CoralVision;
 import frc.robot.commands.AutoBluReverse3CoralVision;
 import frc.robot.commands.AutoBlueOneCoralVision;
-import frc.robot.commands.AutoCoralIntakeSequence;
 import frc.robot.commands.AutoDriveWithPP;
 import frc.robot.commands.AutoIntakeSequenceCoral;
 import frc.robot.commands.AutoPPCoralPlaceOnFour;
@@ -177,7 +176,6 @@ public class RobotContainer {
     // NamedCommands.registerCommand("ppTest8", runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-CoralBottomtoReef10",false,false));
     NamedCommands.registerCommand("AutoPPElevatorUpToFour", new AutoPPElevatorUpToFour());
     NamedCommands.registerCommand("AutoPPElevatorAllTheWayDown", new AutoPPElevatorAllTheWayDown());
-    NamedCommands.registerCommand("AutoPPIntakeCoral", new AutoCoralIntakeSequence());
     NamedCommands.registerCommand(" AutoIntakeSequenceCoral", new AutoIntakeSequenceCoral());
     NamedCommands.registerCommand("AutoPPCoralPlaceOnFour", new AutoPPCoralPlaceOnFour());
     NamedCommands.registerCommand("AlgaeToBarge", new AlgaeToBarge());
@@ -188,7 +186,6 @@ public class RobotContainer {
     
     new EventTrigger("AutoPPElevatorUpToFour").onTrue(new AutoPPElevatorUpToFour());
     new EventTrigger("AutoPPElevatorAllTheWayDown").onTrue(new AutoPPElevatorAllTheWayDown());
-    new EventTrigger("AutoPPIntakeCoral").onTrue(new AutoCoralIntakeSequence());
     new EventTrigger("AutoIntakeSequenceCoral").onTrue(new AutoIntakeSequenceCoral());
     new EventTrigger("AutoPPCoralPlaceOnFour").onTrue(new AutoPPCoralPlaceOnFour());
     new EventTrigger("AlgaeToBarge").onTrue(new AlgaeToBarge());
