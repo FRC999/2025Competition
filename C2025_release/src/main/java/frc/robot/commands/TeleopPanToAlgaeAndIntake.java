@@ -15,8 +15,8 @@ public class TeleopPanToAlgaeAndIntake extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new TeleopPanRobotToAlgae(),
-      new TeleopAlgaePickupFromLow()
+      new TeleopPanRobotToAlgae()
+      .alongWith(new TeleopAlgaePickupFromLow())
     );
   }
 }

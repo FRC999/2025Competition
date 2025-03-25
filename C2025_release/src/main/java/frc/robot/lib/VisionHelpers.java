@@ -274,16 +274,16 @@ public class VisionHelpers {
         }
         for (String key : keys) {
         if (key.contains("Reef") && key.contains("Tag")) {
-            RobotPoseConstants.visionRobotPoses.put( // e.g. RobotBluReef1Left
+            RobotPoseConstants.visionRobotPoses.put( // e.g. RobotBluReef1Algae
                 "Robot" + key.substring(3,6) + "Reef" + 
                     key.substring(10,11) + "Algae", // Reef Side //RedReef1Algae",
                 movePoseXY( //e.g. RobotRedReef1Left
                     RobotPoseConstants.visionRobotPoses.get(key)
                         .plus(new Transform2d(0, 0, Rotation2d.k180deg)) // Tag poses look TOWARDS the bot, so need to reverse them 180 degrees for the bot direction placement
                     //, -(VisionHelperConstants.bumperWidth + (SwerveChassis.WHEEL_BASE / 2.0)
-                    , (0
+                    , (-0.42
                     ) // Coordinates of the center of the bot, so need to move them back half-length of the bot
-                    , VisionHelperConstants.distanceBetweenReefPoles / 2.0 // Move bot to the left
+                    , 0 // Move bot to the left
                 )
             );
 
