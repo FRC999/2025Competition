@@ -61,7 +61,6 @@ import frc.robot.commands.AutoRedOneCoralVision;
 import frc.robot.commands.AutoRedReverse2Coral;
 import frc.robot.commands.AutoRedReverse2CoralVision;
 import frc.robot.commands.AutoRedReverse3CoralVision;
-//import frc.robot.commands.AutoRedFromBlu2Coral;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
