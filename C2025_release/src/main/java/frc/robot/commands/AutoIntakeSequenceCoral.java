@@ -33,9 +33,6 @@ public class AutoIntakeSequenceCoral extends SequentialCommandGroup {
       new PrintCommand("* arm at intake position"),
       new IntakeCoralCommand(IntakeConstants.coralIntakePower),
       new PrintCommand("* coral in intake")
-      // new ArmToPositionAndHold(ArmConstants.ArmPositions.CoralCruise),
-      // new PrintCommand("* arm at cruise position"),
-      // new PrintCommand("*** Intake Coral sequence end")
     );
   }
 }
