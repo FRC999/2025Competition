@@ -43,7 +43,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private RelativeEncoder intakePIDEncoder;
 
   public static DigitalInput GPMsensors;
-  private DigitalInput intakeDownLimitSwitch;
 
   private CANrange intakeSensor;
   StatusSignal<Distance> distanceToTarget;

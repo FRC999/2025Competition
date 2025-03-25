@@ -35,7 +35,6 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   private TalonFX elevatorMotorLeader;
   private TalonFX elevatorMotorFollower;
-  private DigitalInput limitSwitch;
   private double zeroPosition; //Relative Encoder Setting for zero position of elevator
 
   
@@ -94,15 +93,6 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
     }
     if (!status.isOK()) {
       System.out.println("Could not apply configs, error code: " + status.toString());
-    }
-
-    if (ElevatorConstants.IS_LIMIT_SWITCH_PRESENT) {
-      try {
-        limitSwitch = new DigitalInput(ElevatorConstants.ELEVATOR_DOWN_LIMIT_SWITCH_DIO_PORT_NUMBER);
-        System.out.println("*** Elvator Down Limit Switch initialized");
-      } catch (Exception e) {
-        System.out.println("Unable to get elevator down limit switch value");
-      }
     }
 
     elevatorMotorFollower.setControl(new Follower(ElevatorConstants.ELEVATOR_LEADERMOTOR_CAN_ID, false));
@@ -188,11 +178,6 @@ public class ElevatorSubsystem extends SubsystemBase { //TODO: Need to updated
 
   public double getElevatorHeight() {
     return elevatorMotorLeader.getRotorPosition().getValueAsDouble();
-  }
-
-
-  public boolean isLimitSwitchPressed() {
-    return (limitSwitch.get());
   }
 
   private void setZeroPosition() {

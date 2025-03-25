@@ -46,7 +46,6 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
   public void updateElevatorTelemetry() {
     SmartDashboard.putNumber("Elevator Motor Encoder Value", RobotContainer.elevatorSubsystem.getMotorEncoder());
-    SmartDashboard.putBoolean("Elevator Limit Switch : ", RobotContainer.elevatorSubsystem.isLimitSwitchPressed());
   }
 
   public void updateClimberTelemetry() {
