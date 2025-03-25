@@ -19,6 +19,7 @@ public class AutoRedCage extends SequentialCommandGroup {
     addCommands(
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", false, true)
         .alongWith(
+          new AutoArmToCoralCruisePosition(),
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
@@ -30,6 +31,7 @@ public class AutoRedCage extends SequentialCommandGroup {
         ),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", false, true)
         .alongWith(
+          new AutoArmToCoralCruisePosition(),
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
@@ -41,8 +43,9 @@ public class AutoRedCage extends SequentialCommandGroup {
         ),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef10", false, true)
         .alongWith(
-            new WaitCommand(0.5).andThen(
-              new TeleopMoveToL4RotateArm()
+          new AutoArmToCoralCruisePosition(),
+          new WaitCommand(0.5).andThen(
+            new TeleopMoveToL4RotateArm()
             )
         ),
       new TeleopEjectCoralBringArmToCruise()
