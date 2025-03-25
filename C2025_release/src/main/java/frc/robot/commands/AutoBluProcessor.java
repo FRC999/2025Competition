@@ -19,7 +19,6 @@ public class AutoBluProcessor extends SequentialCommandGroup {
     addCommands(
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-ProcessortoReef4", false, false)
         .alongWith(
-          new AutoArmToCoralCruisePosition(),
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
@@ -31,7 +30,6 @@ public class AutoBluProcessor extends SequentialCommandGroup {
         ),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralBottomToReef6Left", false, false)
         .alongWith(
-          new AutoArmToCoralCruisePosition(),
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
@@ -43,7 +41,6 @@ public class AutoBluProcessor extends SequentialCommandGroup {
         ),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralBottomToReef6Right", false, false)
         .alongWith(
-          new AutoArmToCoralCruisePosition(),
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
             )
