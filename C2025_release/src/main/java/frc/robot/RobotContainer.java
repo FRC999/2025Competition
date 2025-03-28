@@ -64,6 +64,7 @@ import frc.robot.commands.AutoRedReverse3CoralVision;
 import frc.robot.commands.CalibrateArmMoveManually;
 import frc.robot.commands.CalibrateChassisAngularDeadband;
 import frc.robot.commands.CalibrateElevatorDeterminekG;
+import frc.robot.commands.ClimberRunBackwards;
 import frc.robot.commands.ClimberStartSequence;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.DriveToPoseManualPID;
@@ -371,11 +372,9 @@ public class RobotContainer {
       new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
       .onTrue(new AutoArmToL4AndHold(ArmPositions.ClimbCruise));
 
-    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 ) 
-      .onTrue(new InstantCommand(()->velcroSubsystem.runVelcroMotor(0.3)))
-      .onFalse(new StopVelcroMotor());
-
-
+    new Trigger(() -> buttonBox.getRawAxis(0) > -0.8 && buttonBox.getRawAxis(1) > 0.8) 
+      .onTrue(new ClimberRunBackwards())
+      .onFalse(new StopClimber());
     }
 
   public void XBOXControllerCompetitionBinding() {
