@@ -365,14 +365,14 @@ public class RobotContainer {
     
 
     // Axis 1 - second toggle switch
-    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new ClimberStartSequence())
-      .onFalse(new StopClimber());
+    // new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
+    //   .onTrue(new ClimberStartSequence())
+    //   .onFalse(new StopClimber());
 
       new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
       .onTrue(new AutoArmToL4AndHold(ArmPositions.ClimbCruise));
 
-    new Trigger(() -> buttonBox.getRawAxis(0) > -0.8 && buttonBox.getRawAxis(1) > 0.8) 
+    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8) 
       .onTrue(new ClimberRunBackwards())
       .onFalse(new StopClimber());
     }
