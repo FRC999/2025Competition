@@ -103,7 +103,7 @@ public class PanSubsystem extends SubsystemBase {
     return panMotor.getOutputCurrent();
   }
 
-  public boolean isAlgaeHeld() {
+  public boolean isPanHeld() {
     return getOutputCurrent() >= PanConstants.panStallCurrent;
   }
   @Override
