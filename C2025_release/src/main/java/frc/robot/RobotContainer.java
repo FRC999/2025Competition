@@ -79,6 +79,7 @@ import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
 import frc.robot.commands.PlaceCoralGentlyInL1;
+import frc.robot.commands.RunPanMotorWithSpeed;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.SetOdometryToVisionPose;
 import frc.robot.commands.ClimberStartWithSpeed;
@@ -89,7 +90,7 @@ import frc.robot.commands.StopElevator;
 import frc.robot.commands.StopElevatorAndHold;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopRobot;
-import frc.robot.commands.StopVelcroMotor;
+import frc.robot.commands.StopPanMotor;
 import frc.robot.commands.TeleopAlgaePickupFromHighAndHold;
 import frc.robot.commands.TurnToRelativeAngleTrapezoidProfile;
 import frc.robot.lib.VisionHelpers;
@@ -102,7 +103,7 @@ import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.PerimeterFinderSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
-import frc.robot.subsystems.VelcroSubsystem;
+import frc.robot.subsystems.PanSubsystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,7 @@ public class RobotContainer {
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
   public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
   public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
-  public static final VelcroSubsystem velcroSubsystem = new VelcroSubsystem();
+  public static final PanSubsystem panSubsystem = new PanSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   public static Controller xboxDriveController;
@@ -462,6 +463,17 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 2)
       .onTrue(new PanToReefTarget(-0.05*SwerveChassis.MaxSpeed))
       .onFalse(new StopRobot());
+  }
+
+  public void testIntakePan() {
+    new JoystickButton(driveStick1, 11)
+      .onTrue(new RunPanMotorWithSpeed(0.2))
+      .onFalse(new StopPanMotor());
+    
+    new JoystickButton(driveStick1, 12)
+      .onTrue(new RunPanMotorWithSpeed(-0.2))
+      .onFalse(new StopPanMotor());
+
   }
 
   public void testArm() {

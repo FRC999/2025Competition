@@ -10,15 +10,15 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class StopVelcroMotor extends InstantCommand {
-  public StopVelcroMotor() {
-    addRequirements(RobotContainer.velcroSubsystem);
+public class StopPanMotor extends InstantCommand {
+  public StopPanMotor() {
+    addRequirements(RobotContainer.panSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.velcroSubsystem.stopVelcroMotor();
+    RobotContainer.panSubsystem.stopPanMotor();
   }
 }
