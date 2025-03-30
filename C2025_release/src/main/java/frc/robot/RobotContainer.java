@@ -309,6 +309,7 @@ public class RobotContainer {
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
     //testBargeFlick();
+    testIntakePan();
     
    
   }
