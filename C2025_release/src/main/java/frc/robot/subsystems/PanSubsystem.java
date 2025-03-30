@@ -20,25 +20,25 @@ import frc.robot.Constants.CurrentLimiter;
 import frc.robot.Constants.EnableCurrentLimiter;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
-import frc.robot.Constants.GPMConstants.VelcroConstants;
+import frc.robot.Constants.GPMConstants.PanConstants;
 
-public class VelcroSubsystem extends SubsystemBase {
-   private SparkMax velcroMotor;
-   private SparkClosedLoopController intakePIDController;
-   private RelativeEncoder intakePIDEncoder;
+public class PanSubsystem extends SubsystemBase {
+   private SparkMax panMotor;
+   private SparkClosedLoopController panPIDController;
+   private RelativeEncoder panPIDEncoder;
   /** Creates a new VelcroSubsystem. */
-  public VelcroSubsystem() {
-    if (!EnabledSubsystems.velcro) {
+  public PanSubsystem() {
+    if (!EnabledSubsystems.pan) {
       return;
     }
 
-    velcroMotor = new SparkMax(VelcroConstants.VELCRO_MOTOR_CAN_ID, MotorType.kBrushless);
-    intakePIDController = velcroMotor.getClosedLoopController();
+    panMotor = new SparkMax(PanConstants.PAN_MOTOR_CAN_ID, MotorType.kBrushless);
+    panPIDController = panMotor.getClosedLoopController();
 
     // Set Arm encoders
-    intakePIDEncoder = velcroMotor.getEncoder();
+    panPIDEncoder = panMotor.getEncoder();
 
-    configureIntakeMotor(velcroMotor, intakePIDEncoder, intakePIDController);
+    configureIntakeMotor(panMotor, panPIDEncoder, panPIDController);
   }
 
   private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p) {
@@ -47,9 +47,9 @@ public class VelcroSubsystem extends SubsystemBase {
 
     //motor.restoreFactoryDefaults(); //restores the state of the motor to factory defaults
     motor.clearFaults();  //clears a fault that has occurred since the last time the faults were reset
-    sparkMaxConfig.inverted(VelcroConstants.VELCRO_MOTOR_INVERTED); //sets motor inverted if getArmMotorInverted() returns true
+    sparkMaxConfig.inverted(PanConstants.VELCRO_MOTOR_INVERTED); //sets motor inverted if getArmMotorInverted() returns true
 
-    sparkMaxConfig.idleMode(IdleMode.kCoast); //sets motor into brake mode
+    sparkMaxConfig.idleMode(IdleMode.kBrake); //sets motor into brake mode
     //motor.setIdleMode(IdleMode.kCoast); 
 
     EncoderConfig encoderConfig = new EncoderConfig();
@@ -60,12 +60,12 @@ public class VelcroSubsystem extends SubsystemBase {
 
     sparkMaxConfig.voltageCompensation(IntakeConstants.nominalVoltage);  //enables voltage compensation for set voltage [12v]
    
-    if (EnableCurrentLimiter.intake) {
-      sparkMaxConfig.smartCurrentLimit(CurrentLimiter.arm); // sets current limit to 40 amps
+    if (EnableCurrentLimiter.pan) {
+      sparkMaxConfig.smartCurrentLimit(CurrentLimiter.pan); // sets current limit to 40 amps
     }
     
-    sparkMaxConfig.openLoopRampRate(IntakeConstants.rampRate);  // sets the rate to go from 0 to full throttle on open loop
-    sparkMaxConfig.closedLoopRampRate(IntakeConstants.rampRate);  // sets the rate to go from 0 to full throttle on open loop
+    sparkMaxConfig.openLoopRampRate(PanConstants.rampRate);  // sets the rate to go from 0 to full throttle on open loop
+    sparkMaxConfig.closedLoopRampRate(PanConstants.rampRate);  // sets the rate to go from 0 to full throttle on open loop
 
 
     SignalsConfig signalsConfig = new SignalsConfig();
@@ -89,17 +89,23 @@ public class VelcroSubsystem extends SubsystemBase {
     // // Apply closed loop configuration
     // sparkMaxConfig.apply(closedLoopConfig);
 
-    velcroMotor.configure(sparkMaxConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    panMotor.configure(sparkMaxConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
-  public void runVelcroMotor(double speed) {
-    System.out.println("*****Motor actually pulling the velcro");
-    velcroMotor.set(speed);
-  }
-
-  public void stopVelcroMotor() {
-    velcroMotor.set(0);
+  public void runPanMotor(double speed) {
+    panMotor.set(speed);
   }
 
+  public void stopPanMotor() {
+    panMotor.set(0);
+  }
+
+  public double getOutputCurrent() {
+    return panMotor.getOutputCurrent();
+  }
+
+  public boolean isAlgaeHeld() {
+    return getOutputCurrent() >= PanConstants.panStallCurrent;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

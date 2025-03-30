@@ -58,6 +58,10 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Intake Output Current: ", RobotContainer.intakeSubsystem.getOutputCurrent());
   }
 
+  public void updatePanTelemetry() {
+    SmartDashboard.putNumber("Intake Output Current: ", RobotContainer.panSubsystem.getOutputCurrent());
+  }
+
   public void updateReefFinderTelemetry() {
     SmartDashboard.putBoolean("Reef Target Visibility: ", RobotContainer.reefFinderSubsystem.isTargetVisible());
     SmartDashboard.putNumber("Distance to Reef Target: ", RobotContainer.reefFinderSubsystem.getDistanceToTarget());
