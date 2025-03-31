@@ -67,6 +67,7 @@ public final class Constants {
 	public static final class DebugTelemetrySubsystems {
 		
 		public static final boolean odometry = false;
+		public static final boolean pan = true; 
 		public static final boolean imu = true;
 		public static final boolean arm = true;
 		public static final boolean intake = true;
@@ -720,7 +721,8 @@ public final class Constants {
 			public static enum ArmPositions{ // position of the arm for the piece placement/pickup
 				CoralIntake(-2.05),
 				CoralAltIntake(14.72),
-				CoralCruise(1.0),
+				// CoralCruise(1.0),
+				CoralCruise(0.6477),
 				ClimbCruise(7.5), // after coral intake - position, so the elevator can be safely raised
 				AlgaeIntake(19.6),  
 				//AlgaeIntake2(19.6),

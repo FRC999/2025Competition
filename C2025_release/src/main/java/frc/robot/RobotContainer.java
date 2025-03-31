@@ -340,12 +340,18 @@ public class RobotContainer {
         .andThen(new TeleopMoveToL3RotateArm()));
 
     new JoystickButton(buttonBox, 7)
-        .onTrue(new TeleopPanRobotToRight()
-        .andThen(new TeleopMoveToL3RotateArm()));
+        .onTrue(new TeleopPanRobotToRight().alongWith(new DriveManuallyCommand(
+          () -> getDriverXAxis(),
+          () -> getDriverYAxis(),
+          () -> getDriverOmegaAxis()))
+            .andThen(new TeleopMoveToL3RotateArm()));
 
     new JoystickButton(buttonBox, 8)
-        .onTrue(new TeleopPanRobotToLeft()
-        .andThen(new TeleopMoveToL2RotateArm()));
+        .onTrue(new TeleopPanRobotToLeft().alongWith(new DriveManuallyCommand(
+          () -> getDriverXAxis(),
+          () -> getDriverYAxis(),
+          () -> getDriverOmegaAxis()))
+            .andThen(new TeleopMoveToL2RotateArm()));
 
     new JoystickButton(buttonBox, 9)
         .onTrue(new TeleopPanRobotToRight()
