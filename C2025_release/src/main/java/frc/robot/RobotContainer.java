@@ -29,6 +29,7 @@ import frc.robot.commands.TeleopPanRobotToLeft;
 import frc.robot.commands.TeleopPanRobotToRight;
 import frc.robot.commands.TeleopPanToAlgaeAndIntake;
 import frc.robot.commands.TeleopPigeonIMUReset;
+import frc.robot.commands.TeleopRunPanMotor;
 import frc.robot.commands.AutoBluBarge;
 import frc.robot.commands.AutoBluCage;
 import frc.robot.commands.AutoBluProcessor;
@@ -379,7 +380,7 @@ public class RobotContainer {
       .onFalse(new StopClimber());
 
     new Trigger(()->buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new TeleopRunPanMotorWithSpeed())
+      .onTrue(new TeleopRunPanMotor())
       .onFalse(new StopPanMotor());
     }
 
