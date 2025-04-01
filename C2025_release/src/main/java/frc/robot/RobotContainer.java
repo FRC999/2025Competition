@@ -379,7 +379,7 @@ public class RobotContainer {
       .onFalse(new StopClimber());
 
     new Trigger(()->buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new RunPanMotorWithSpeed(-1.5))
+      .onTrue(new TeleopRunPanMotorWithSpeed())
       .onFalse(new StopPanMotor());
     }
 
