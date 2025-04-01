@@ -377,6 +377,10 @@ public class RobotContainer {
     new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8) 
       .onTrue(new ClimberRunBackwards())
       .onFalse(new StopClimber());
+
+    new Trigger(()->buttonBox.getRawAxis(1) > 0.8)
+      .onTrue(new RunPanMotorWithSpeed(-1.5))
+      .onFalse(new StopPanMotor());
     }
 
   public void XBOXControllerCompetitionBinding() {
