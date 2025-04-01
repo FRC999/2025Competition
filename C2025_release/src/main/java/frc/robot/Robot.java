@@ -28,6 +28,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    RobotContainer.setIfAllianceRed();
+
+    // The YAW should be set by autos and not really here
+    //RobotContainer.driveSubsystem.zeroYaw(); //Sets Yaw to 180 if on Red Alliance, or 0 on Blue (theoretically)
+    RobotContainer.driveSubsystem.zeroYawInitial();
     
   }
 

@@ -306,11 +306,11 @@ public class RobotContainer {
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
-    calibrateElevator(); 
+    //calibrateElevator(); 
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
-    testBargeFlick();
+    //testBargeFlick();
     //testIntakePan();
     
    
