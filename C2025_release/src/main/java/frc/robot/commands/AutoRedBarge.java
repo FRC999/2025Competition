@@ -18,7 +18,7 @@ public class AutoRedBarge extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToCenterReef", false, true),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToCenterReef", true, true),
       new TeleopMoveToL4RotateArm(),
       new TeleopEjectCoralBringArmToCruise(),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-MidGoBack", false, true),

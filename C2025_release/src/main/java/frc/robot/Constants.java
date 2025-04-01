@@ -538,7 +538,7 @@ public final class Constants {
 		public static final class PanConstants{
 			public static final int PAN_MOTOR_CAN_ID = 21;
 			public static final boolean VELCRO_MOTOR_INVERTED = true; 
-			public static final double panSpeed = -0.15;
+			public static final double panSpeed = -0.1;
 			public static final double rampRate = 0.25;
 			public static final double panStallCurrent = 36.0;
 		}

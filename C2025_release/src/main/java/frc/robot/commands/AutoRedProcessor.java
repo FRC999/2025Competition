@@ -18,7 +18,7 @@ public class AutoRedProcessor extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-ProcessortoReef4", false, true)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-ProcessortoReef4", true, true)
         .alongWith(
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()

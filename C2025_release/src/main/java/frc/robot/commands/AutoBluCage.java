@@ -17,7 +17,7 @@ public class AutoBluCage extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", false, false)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true, false)
         .alongWith(
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()

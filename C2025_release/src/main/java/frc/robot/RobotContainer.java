@@ -41,6 +41,7 @@ import frc.robot.commands.AutoRedCage;
 import frc.robot.commands.AutoRedProcessor;
 import frc.robot.commands.AlgaeToBarge;
 import frc.robot.commands.AlgaeToProcessor;
+import frc.robot.commands.ArmToPositionAndHold;
 import frc.robot.commands.AutoArmToL4AndHold;
 import frc.robot.commands.AutoAlgaeIntakeArmPosition;
 import frc.robot.commands.AutoAlgaeIntakePower;
@@ -305,12 +306,12 @@ public class RobotContainer {
     //testIntake();
     //testArm(); 
        //testVisionCoordoinates();
-    //calibrateElevator(); 
+    calibrateElevator(); 
     competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
-    //testBargeFlick();
-    testIntakePan();
+    testBargeFlick();
+    //testIntakePan();
     
    
   }
@@ -368,20 +369,21 @@ public class RobotContainer {
     
 
     // Axis 1 - second toggle switch
-    // new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
-    //   .onTrue(new ClimberStartSequence())
-    //   .onFalse(new StopClimber());
+    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8)
+      .onTrue(new ClimberStartSequence())
+      .onFalse(new StopClimber());
 
-      new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new AutoArmToL4AndHold(ArmPositions.ClimbCruise));
+    new Trigger(() -> buttonBox.getRawAxis(1) > 0.8)
+      .onTrue(new ArmToPositionAndHold(ArmPositions.ClimbCruise).alongWith(new TeleopRunPanMotor()))
+      .onFalse(new InstantCommand(()-> panSubsystem.runPanMotor(0.1)).alongWith(new ArmToPositionAndHold(ArmPositions.CoralCruise)));
 
-    new Trigger(() -> buttonBox.getRawAxis(0) > 0.8 && buttonBox.getRawAxis(1) > 0.8) 
+    new Trigger(() -> buttonBox.getRawAxis(0) < -0.8 && buttonBox.getRawAxis(1) > 0.8) 
       .onTrue(new ClimberRunBackwards())
       .onFalse(new StopClimber());
 
-    new Trigger(()->buttonBox.getRawAxis(1) > 0.8)
-      .onTrue(new TeleopRunPanMotor())
-      .onFalse(new StopPanMotor());
+    // new Trigger(()->buttonBox.getRawAxis(1) > 0.8)
+    //   .onTrue(new TeleopRunPanMotor())
+    //   .onFalse(new StopPanMotor());
     }
 
   public void XBOXControllerCompetitionBinding() {
@@ -390,7 +392,7 @@ public class RobotContainer {
 
     new JoystickButton(xboxDriveController, 6)
       .onTrue(new TeleopIntakeCoralAlternateSequence())
-      .onFalse(new AutoArmToL4AndHold(ArmPositions.CoralCruise));
+      .onFalse(new ArmToPositionAndHold(ArmPositions.CoralCruise));
 
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence())

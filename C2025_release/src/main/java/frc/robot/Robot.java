@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.armSubsystem.setArmPositionWithAngle(ArmPositions.CoralCruise);
     RobotContainer.setIfAllianceRed();
+    RobotContainer.panSubsystem.runPanMotor(0.05);
   }
 
   @Override
@@ -99,6 +100,7 @@ public class Robot extends TimedRobot {
     RobotContainer.armSubsystem.setArmPositionWithAngle(ArmPositions.CoralCruise);
 
     RobotContainer.setIfAllianceRed();
+    RobotContainer.panSubsystem.runPanMotor(0.05);
   }
 
   /** This function is called periodically during operator control. */
