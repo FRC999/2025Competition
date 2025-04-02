@@ -23,6 +23,7 @@ public class AlgaeToBarge extends SequentialCommandGroup {
     addCommands(
       //new ArmToPositionAndHold(ArmPositions.AlgaeIntake),
       new ElevatorToLevelAndHold(ElevatorHeights.TestBarge),
+      new ArmToPositionAndHold(ArmPositions.AlgaeIntake).raceWith(new WaitCommand(0.5)),
       new WaitCommand(0.1),
       new ArmToPositionAndHold(ArmPositions.CoralCruise)
           .alongWith(

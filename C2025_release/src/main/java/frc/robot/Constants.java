@@ -633,7 +633,7 @@ public final class Constants {
 				AlgaeIntakeUp(0.0),
 				ElevatorGoingDown(1.5),
 				ReefLevelOne(2.0),
-				ReefLevelTwo(8.3),
+				ReefLevelTwo(6.7),
 				ReefLevelThree(18.119141),
 				ReefLevelFour(39.871),
 				ArmTurnSafe(19),

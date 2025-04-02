@@ -399,7 +399,7 @@ public class RobotContainer {
       .onFalse(new ElevatorAllTheWayDown());
 
     new Trigger(() -> xboxDriveController.getRawAxis(2) > 0.3) // LT
-        .onTrue(new TeleopPanToAlgaeAndIntake());
+        .onTrue(new TeleopAlgaePickupFromLow());
 
     new JoystickButton(xboxDriveController, 8)
         .onTrue(new TeleopPigeonIMUReset());
