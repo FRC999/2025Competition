@@ -80,6 +80,8 @@ public class Robot extends TimedRobot {
     RobotContainer.armSubsystem.setArmPositionWithAngle(ArmPositions.CoralCruise);
     RobotContainer.setIfAllianceRed();
     RobotContainer.panSubsystem.runPanMotor(0.05);
+    RobotContainer.intakeSubsystem.stopIntake();
+    RobotContainer.climberSubsystem.stopClimbMotor();
   }
 
   @Override
