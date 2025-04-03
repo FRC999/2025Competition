@@ -106,6 +106,8 @@ public class Robot extends TimedRobot {
 
     RobotContainer.setIfAllianceRed();
     RobotContainer.panSubsystem.runPanMotor(0.05);
+    RobotContainer.intakeSubsystem.stopIntake();
+    RobotContainer.climberSubsystem.stopClimbMotor();
   }
 
   /** This function is called periodically during operator control. */
