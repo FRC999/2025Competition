@@ -1,0 +1,57 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
+
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class TestAutoRedProcessor extends SequentialCommandGroup {
+  /** Creates a new TestAutoRedProcessor. */
+  public TestAutoRedProcessor() {
+    // Add your commands in the addCommands() call, e.g.
+    //Red-Reef5ToTop
+    // addCommands(new FooCommand(), new BarCommand());
+    addCommands(
+        new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(0)),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-BargeToReef4", true, false)
+        .alongWith(
+          new WaitCommand(0.5).andThen(
+            new TeleopMoveToL4RotateArm()
+          )
+        ),
+      new TeleopEjectCoralBringArmToCruise(),
+      new PrintCommand("====intake started"),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef4ToCoralTop", false, true)
+        .alongWith(
+          new ElevatorAllTheWayDown().andThen(new AutoIntakeSequenceCoral())
+        ),
+        new PrintCommand("=====Intake Stopped"),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef5ToTop", false, true)
+        .alongWith(
+          new WaitCommand(0.5).andThen(
+            new TeleopMoveToL4RotateArm()
+          )
+        ),
+      new TeleopEjectCoralBringArmToCruise(),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-Reef5ToTop", false, true)
+        .alongWith(
+          new ElevatorAllTheWayDown().andThen(  new AutoIntakeSequenceCoral())
+        ),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Red-TopToReef6", false, true)
+        .alongWith(
+          new WaitCommand(0.5).andThen(
+            new TeleopMoveToL4RotateArm()
+            )
+        ),
+      new TeleopEjectCoralBringArmToCruise()
+    );
+  }
+}

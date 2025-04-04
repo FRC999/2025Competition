@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 16.36037913889264,
-        "y": 6.920267398870612
+        "x": 16.33247290720022,
+        "y": 6.956172913710661
       },
       "isLocked": false,
       "linkedName": "RedCoralTop"
@@ -20,8 +20,8 @@
         "y": 5.18
       },
       "prevControl": {
-        "x": 13.755124543320436,
-        "y": 5.322912286832108
+        "x": 13.767868906409237,
+        "y": 5.328257943434831
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.6555924695459575,
+      "minWaypointRelativePos": 0.0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.5,
@@ -45,14 +45,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "AutoPPElevatorUpToFour",
-      "waypointRelativePos": 0.4717607973421926,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,
