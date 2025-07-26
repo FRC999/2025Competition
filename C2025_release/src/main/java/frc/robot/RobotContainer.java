@@ -394,6 +394,7 @@ public class RobotContainer {
       .onTrue(new TeleopIntakeCoralAlternateSequence())
       .onFalse(new ArmToPositionAndHold(ArmPositions.CoralCruise));
 
+    // Coral Intake
     new Trigger(() -> xboxDriveController.getRawAxis(3) > 0.3) //RT
       .onTrue(new TeleopCoralIntakeSequence())
       .onFalse(new ElevatorAllTheWayDown());

@@ -46,6 +46,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANrange intakeSensor;
   private CANrange postIntakeSensor;
   StatusSignal<Distance> distanceToTarget;
+  StatusSignal<Distance> postDistanceToTarget;
   StatusSignal<Boolean> targetVisible;
 
   public IntakeSubsystem() {
@@ -76,6 +77,7 @@ public class IntakeSubsystem extends SubsystemBase {
     configureCANRange();
     postConfigureCANRange();
     distanceToTarget = intakeSensor.getDistance();
+    postDistanceToTarget = postIntakeSensor.getDistance();
     System.out.println("*** Intake initialized");
   }
 
@@ -93,16 +95,19 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   private void postConfigureCANRange() {
-    CANrangeConfiguration config = new CANrangeConfiguration();
-    config.withProximityParams(new ProximityParamsConfigs()
-        .withProximityThreshold(PostIntakeCoralCANRangeConstants.postNewProximityThreshold));
-    config.withToFParams(new ToFParamsConfigs()
+    CANrangeConfiguration postConfig = new CANrangeConfiguration();
+    postConfig.withProximityParams(new ProximityParamsConfigs()
+        .withProximityThreshold(PostIntakeCoralCANRangeConstants.postNewProximityThreshold)
+        .withMinSignalStrengthForValidMeasurement(PostIntakeCoralCANRangeConstants.MinSignalStrengthForValidMeasurement)
+        );
+    postConfig.withToFParams(new ToFParamsConfigs()
         .withUpdateMode(UpdateModeValue.LongRangeUserFreq)
         .withUpdateFrequency(PostIntakeCoralCANRangeConstants.postNewUpdateFrequency));
-    config.withFovParams(new FovParamsConfigs()
-        .withFOVRangeX(IntakeCoralCANRangeConstants.intakeFOVRangeX)
-        .withFOVRangeY(IntakeCoralCANRangeConstants.intakeFOVRangeY));
-    postIntakeSensor.getConfigurator().apply(config);
+    postConfig.withFovParams(new FovParamsConfigs()
+        .withFOVRangeX(PostIntakeCoralCANRangeConstants.postIntakeFOVRangeX)
+        .withFOVRangeY(PostIntakeCoralCANRangeConstants.postIntakeFOVRangeY));
+    postConfig.ToFParams.UpdateMode = UpdateModeValue.LongRangeUserFreq;
+    postIntakeSensor.getConfigurator().apply(postConfig);
   }
 
   public double getRange() {

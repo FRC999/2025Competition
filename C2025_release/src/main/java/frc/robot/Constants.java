@@ -576,7 +576,8 @@ public final class Constants {
 			public static final double POSITION_CONVERSION_FACTOR = 2 * Math.PI;
 			public static final double VELOCITY_CONVERSION_FACTOR = 2 * Math.PI / 60;
 			public static final double nominalVoltage = 12.0;
-			public static final double coralIntakePower = 0.3; 
+			public static final double coralIntakePower = 0.3;
+			public static final double coralReversePower = -0.07; 
 			public static final double CoralAltIntakePower = 0.3;
 			public static final double coralShootingPowerL23 = 0.5; 
 			public static final double coralShootingPowerL4 = 0.2; 
@@ -623,13 +624,14 @@ public final class Constants {
 			}
 
 			public static final class PostIntakeCoralCANRangeConstants{
-				public static final int postIntakeCANRangeID = 61; 
-				public static final double postNewProximityThreshold = 4.0;
+				public static final int postIntakeCANRangeID = 59; 
+				public static final double postNewProximityThreshold = 1.0;
 				public static final double postNewUpdateFrequency = 5.0;
-				public static final double postMaxDistanceToTarget = 0.015;
+				public static final double postMaxDistanceToTarget = 0.1;
 				public static final double postMinDistanceToTarget = 0.005;
 				public static final double postIntakeFOVRangeX = 12;
 				public static final double postIntakeFOVRangeY = 12;
+				public static final double MinSignalStrengthForValidMeasurement = 2000.0 ; // signal strength 
 			}
 			
 		}
