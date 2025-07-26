@@ -56,6 +56,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("IntakeCANrange Distance: ", RobotContainer.intakeSubsystem.getRange());
     SmartDashboard.putBoolean("IntakeCANRangeTargetVisible: ", RobotContainer.intakeSubsystem.isTargetVisible());
     SmartDashboard.putNumber("Intake Output Current: ", RobotContainer.intakeSubsystem.getOutputCurrent());
+    SmartDashboard.putBoolean("Post Intake Visible: ", RobotContainer.intakeSubsystem.isPostIntakeTargetVisible());
   }
 
   public void updatePanTelemetry() {

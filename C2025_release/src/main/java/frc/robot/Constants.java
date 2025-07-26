@@ -621,6 +621,16 @@ public final class Constants {
 				public static final double intakeFOVRangeX = 10;
 				public static final double intakeFOVRangeY = 10;
 			}
+
+			public static final class PostIntakeCoralCANRangeConstants{
+				public static final int postIntakeCANRangeID = 61; 
+				public static final double postNewProximityThreshold = 4.0;
+				public static final double postNewUpdateFrequency = 5.0;
+				public static final double postMaxDistanceToTarget = 0.015;
+				public static final double postMinDistanceToTarget = 0.005;
+				public static final double postIntakeFOVRangeX = 12;
+				public static final double postIntakeFOVRangeY = 12;
+			}
 			
 		}
 		public static final class ElevatorConstants {

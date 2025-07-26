@@ -32,6 +32,7 @@ import frc.robot.Constants.EnableCurrentLimiter;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants.PostIntakeCoralCANRangeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -43,6 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private RelativeEncoder intakePIDEncoder;
 
   private CANrange intakeSensor;
+  private CANrange postIntakeSensor;
   StatusSignal<Distance> distanceToTarget;
   StatusSignal<Boolean> targetVisible;
 
@@ -68,13 +70,16 @@ public class IntakeSubsystem extends SubsystemBase {
     // Initialize the CANRange sensor with the appropriate CAN ID
     intakeSensor = new CANrange(IntakeCoralCANRangeConstants.intakeCANRangeID); // Replace '1' with the actual CAN ID of your sensor
 
+    postIntakeSensor = new CANrange(PostIntakeCoralCANRangeConstants.postIntakeCANRangeID); // Post-intake sensor
+
     // Configure the sensor for short-distance detection
     configureCANRange();
+    postConfigureCANRange();
     distanceToTarget = intakeSensor.getDistance();
     System.out.println("*** Intake initialized");
   }
 
-    private void configureCANRange() {
+  private void configureCANRange() {
     CANrangeConfiguration config = new CANrangeConfiguration();
     config.withProximityParams(new ProximityParamsConfigs()
         .withProximityThreshold(IntakeCoralCANRangeConstants.newProximityThreshold));
@@ -83,13 +88,29 @@ public class IntakeSubsystem extends SubsystemBase {
         .withUpdateFrequency(IntakeCoralCANRangeConstants.newUpdateFrequency));
     config.withFovParams(new FovParamsConfigs()
         .withFOVRangeX(IntakeCoralCANRangeConstants.intakeFOVRangeX)
-        .withFOVRangeY(IntakeCoralCANRangeConstants.intakeFOVRangeY)
-        );
+        .withFOVRangeY(IntakeCoralCANRangeConstants.intakeFOVRangeY));
     intakeSensor.getConfigurator().apply(config);
+  }
+
+  private void postConfigureCANRange() {
+    CANrangeConfiguration config = new CANrangeConfiguration();
+    config.withProximityParams(new ProximityParamsConfigs()
+        .withProximityThreshold(PostIntakeCoralCANRangeConstants.postNewProximityThreshold));
+    config.withToFParams(new ToFParamsConfigs()
+        .withUpdateMode(UpdateModeValue.LongRangeUserFreq)
+        .withUpdateFrequency(PostIntakeCoralCANRangeConstants.postNewUpdateFrequency));
+    config.withFovParams(new FovParamsConfigs()
+        .withFOVRangeX(IntakeCoralCANRangeConstants.intakeFOVRangeX)
+        .withFOVRangeY(IntakeCoralCANRangeConstants.intakeFOVRangeY));
+    postIntakeSensor.getConfigurator().apply(config);
   }
 
   public double getRange() {
     return distanceToTarget.refresh().getValueAsDouble();
+  }
+
+  public boolean isPostIntakeTargetVisible() {
+    return postIntakeSensor.getIsDetected(true).getValue();
   }
 
   private void configureIntakeMotor(SparkMax motor,  RelativeEncoder encoder, SparkClosedLoopController p) {
