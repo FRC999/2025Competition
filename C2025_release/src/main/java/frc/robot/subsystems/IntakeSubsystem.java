@@ -42,8 +42,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private SparkClosedLoopController intakePIDController;
   private RelativeEncoder intakePIDEncoder;
 
-  public static DigitalInput GPMsensors;
-
   private CANrange intakeSensor;
   StatusSignal<Distance> distanceToTarget;
   StatusSignal<Boolean> targetVisible;
