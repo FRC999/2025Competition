@@ -408,9 +408,10 @@ public class RobotContainer {
     // new JoystickButton(buttonBox, 12)
     //     .onTrue(new TeleopEjectCoralBringArmToCruise()); // TODO: Speed needs to be changed accordingly
 
-
     new Trigger(()-> buttonBox.getRawButtonPressed(12) && buttonBox.getRawAxis(1) < 0.8)
       .onTrue(new TeleopEjectCoralBringArmToCruise());
+
+      
 
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
