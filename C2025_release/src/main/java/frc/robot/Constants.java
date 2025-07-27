@@ -547,6 +547,12 @@ public final class Constants {
 
 			public static final int INTAKE_ROLLERMOTOR_CAN_ID = 59;
 			public static final boolean INTAKE_ROLLERMOTOR_INVERTED = true;
+
+			public static enum IntakeState {
+				NOCORAL,	// No coral in the intake
+				HOLD,		// Holding Coral in proper position
+				TOOFAR		// Coral is too far out, and needs to be rolled back
+			}
 			
 			public static final class IntakePIDConstants {
 
@@ -631,6 +637,17 @@ public final class Constants {
 				public static final double postMinDistanceToTarget = 0.005;
 				public static final double postIntakeFOVRangeX = 12;
 				public static final double postIntakeFOVRangeY = 12;
+				public static final double MinSignalStrengthForValidMeasurement = 2000.0 ; // signal strength 
+			}
+
+			public static final class PreIntakeCoralCANRangeConstants{
+				public static final int preIntakeCANRangeID = 57; 
+				public static final double preNewProximityThreshold = 0.2;
+				public static final double preNewUpdateFrequency = 10.0;
+				public static final double preMaxDistanceToTarget = 0.1;
+				public static final double preMinDistanceToTarget = 0.005;
+				public static final double preIntakeFOVRangeX = 6.8;
+				public static final double preIntakeFOVRangeY = 6.8;
 				public static final double MinSignalStrengthForValidMeasurement = 2000.0 ; // signal strength 
 			}
 			

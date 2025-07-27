@@ -33,6 +33,7 @@ import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.PostIntakeCoralCANRangeConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants.PreIntakeCoralCANRangeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -45,8 +46,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private CANrange intakeSensor;
   private CANrange postIntakeSensor;
+  private CANrange preIntakeSensor;
   StatusSignal<Distance> distanceToTarget;
   StatusSignal<Distance> postDistanceToTarget;
+  StatusSignal<Distance> preDistanceToTarget;
   StatusSignal<Boolean> targetVisible;
 
   public IntakeSubsystem() {
@@ -73,11 +76,17 @@ public class IntakeSubsystem extends SubsystemBase {
 
     postIntakeSensor = new CANrange(PostIntakeCoralCANRangeConstants.postIntakeCANRangeID); // Post-intake sensor
 
+    preIntakeSensor = new CANrange(PreIntakeCoralCANRangeConstants.preIntakeCANRangeID);
+
     // Configure the sensor for short-distance detection
     configureCANRange();
     postConfigureCANRange();
+    preConfigureCANRange();
+    
     distanceToTarget = intakeSensor.getDistance();
     postDistanceToTarget = postIntakeSensor.getDistance();
+    preDistanceToTarget = preIntakeSensor.getDistance();
+
     System.out.println("*** Intake initialized");
   }
 
@@ -108,6 +117,22 @@ public class IntakeSubsystem extends SubsystemBase {
         .withFOVRangeY(PostIntakeCoralCANRangeConstants.postIntakeFOVRangeY));
     postConfig.ToFParams.UpdateMode = UpdateModeValue.LongRangeUserFreq;
     postIntakeSensor.getConfigurator().apply(postConfig);
+  }
+
+  private void preConfigureCANRange() {
+    CANrangeConfiguration preConfig = new CANrangeConfiguration();
+    preConfig.withProximityParams(new ProximityParamsConfigs()
+        .withProximityThreshold(PreIntakeCoralCANRangeConstants.preNewProximityThreshold)
+        .withMinSignalStrengthForValidMeasurement(PreIntakeCoralCANRangeConstants.MinSignalStrengthForValidMeasurement)
+        );
+    preConfig.withToFParams(new ToFParamsConfigs()
+        .withUpdateMode(UpdateModeValue.ShortRangeUserFreq)
+        .withUpdateFrequency(PreIntakeCoralCANRangeConstants.preNewUpdateFrequency));
+    preConfig.withFovParams(new FovParamsConfigs()
+        .withFOVRangeX(PreIntakeCoralCANRangeConstants.preIntakeFOVRangeX)
+        .withFOVRangeY(PreIntakeCoralCANRangeConstants.preIntakeFOVRangeY));
+    preConfig.ToFParams.UpdateMode = UpdateModeValue.ShortRangeUserFreq;
+    preIntakeSensor.getConfigurator().apply(preConfig);
   }
 
   public double getRange() {
