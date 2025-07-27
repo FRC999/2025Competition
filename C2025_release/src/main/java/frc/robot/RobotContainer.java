@@ -161,6 +161,8 @@ public class RobotContainer {
   public static boolean isAllianceRed = false;
   public static boolean isReversingControllerAndIMUForRed = true;
 
+  private boolean climbEnabled = false;
+
   public static SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   public static Joystick driveStick1;
@@ -318,51 +320,97 @@ public class RobotContainer {
 
 
   public void competitionButtonBoxBinding() {
-    new JoystickButton(buttonBox, 1)
+
+    // new JoystickButton(buttonBox, 1)
+    //     .onTrue(new AlgaeToBarge());
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(1) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new AlgaeToBarge());
 
-    new JoystickButton(buttonBox, 2)
+    // new JoystickButton(buttonBox, 2)
+    //     .onTrue(new AlgaeToProcessor());
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(2) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new AlgaeToProcessor());
 
-    new JoystickButton(buttonBox, 3)
+    // new JoystickButton(buttonBox, 3)
+    //     .onTrue(new TeleopAlgaeSpitOut());
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(3) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopAlgaeSpitOut());
 
-    new JoystickButton(buttonBox, 4)
+    // new JoystickButton(buttonBox, 4)
+    //   .onTrue(new TeleopPanRobotToLeft()
+    //   .andThen(new TeleopMoveToL4RotateArm()));
+        // .onTrue(new TeleopMoveToL4RotateArm());
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(4) && buttonBox.getRawAxis(1) < 0.8)
       .onTrue(new TeleopPanRobotToLeft()
       .andThen(new TeleopMoveToL4RotateArm()));
-        // .onTrue(new TeleopMoveToL4RotateArm());
     
-    new JoystickButton(buttonBox, 5)
+    // new JoystickButton(buttonBox, 5)
+    //   .onTrue(new TeleopPanRobotToRight()
+    //   .andThen(new TeleopMoveToL4RotateArm()));
+        // .onTrue(new TeleopMoveToL4RotateArm());
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(5) && buttonBox.getRawAxis(1) < 0.8)
       .onTrue(new TeleopPanRobotToRight()
       .andThen(new TeleopMoveToL4RotateArm()));
-        // .onTrue(new TeleopMoveToL4RotateArm());
 
-    new JoystickButton(buttonBox, 6)
+    // new JoystickButton(buttonBox, 6)
+    //     .onTrue(new TeleopPanRobotToLeft()
+    //     .andThen(new TeleopMoveToL3RotateArm()));
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(6) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopPanRobotToLeft()
         .andThen(new TeleopMoveToL3RotateArm()));
 
-    new JoystickButton(buttonBox, 7)
+    // new JoystickButton(buttonBox, 7)
+    //     .onTrue(new TeleopPanRobotToRight()
+    //     .andThen(new TeleopMoveToL3RotateArm()));
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(7) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopPanRobotToRight()
         .andThen(new TeleopMoveToL3RotateArm()));
 
-    new JoystickButton(buttonBox, 8)
+    // new JoystickButton(buttonBox, 8)
+    //     .onTrue(new TeleopPanRobotToLeft()
+    //     .andThen(new TeleopMoveToL2RotateArm()));
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(8) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopPanRobotToLeft()
         .andThen(new TeleopMoveToL2RotateArm()));
 
-    new JoystickButton(buttonBox, 9)
+    // new JoystickButton(buttonBox, 9)
+    //     .onTrue(new TeleopPanRobotToRight()
+    //     .andThen(new TeleopMoveToL2RotateArm()));
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(9) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopPanRobotToRight()
         .andThen(new TeleopMoveToL2RotateArm()));
 
-    new JoystickButton(buttonBox, 10)
+    // new JoystickButton(buttonBox, 10)
+    //     .onTrue(new TeleopPanRobotToLeft()
+    //     .andThen(new TeleopMoveToL1RotateArm()));
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(10) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopPanRobotToLeft()
         .andThen(new TeleopMoveToL1RotateArm()));
 
-    new JoystickButton(buttonBox, 11)
+    // new JoystickButton(buttonBox, 11)
+    //     .onTrue(new TeleopPanRobotToRight()
+    //     .andThen(new TeleopMoveToL1RotateArm()));
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(11) && buttonBox.getRawAxis(1) < 0.8)
         .onTrue(new TeleopPanRobotToRight()
         .andThen(new TeleopMoveToL1RotateArm()));
 
-    new JoystickButton(buttonBox, 12)
-        .onTrue(new TeleopEjectCoralBringArmToCruise()); // TODO: Speed needs to be changed accordingly
+    // new JoystickButton(buttonBox, 12)
+    //     .onTrue(new TeleopEjectCoralBringArmToCruise()); // TODO: Speed needs to be changed accordingly
+
+
+    new Trigger(()-> buttonBox.getRawButtonPressed(12) && buttonBox.getRawAxis(1) < 0.8)
+      .onTrue(new TeleopEjectCoralBringArmToCruise());
 
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 

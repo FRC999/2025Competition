@@ -19,7 +19,6 @@ import frc.robot.Constants.GPMConstants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase {
    private TalonFX climberMotor;
-
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
 

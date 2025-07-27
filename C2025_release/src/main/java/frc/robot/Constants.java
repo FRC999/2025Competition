@@ -549,9 +549,35 @@ public final class Constants {
 			public static final boolean INTAKE_ROLLERMOTOR_INVERTED = true;
 
 			public static enum IntakeState {
-				NOCORAL,	// No coral in the intake
-				HOLD,		// Holding Coral in proper position
-				TOOFAR		// Coral is too far out, and needs to be rolled back
+				NO_CORAL_NOT_TRYING_TO_INTAKE( 
+					0.0
+				),
+				NO_CORAL_TRYING_TO_INTAKE(
+					0.3
+				),
+				CORAL_IN_PAN(
+					0.3
+				),
+				CORAL_MID_MOVING(
+					0.05
+				),
+				CORAL_OVERSHOT(
+					-0.07
+				),
+				CORAL_READY_TO_SHOOT(
+					0.0
+				);
+
+				private double intakePower;
+
+				IntakeState(double p) {
+					this.intakePower = p;
+				}
+
+				public double getIntakePower() {
+					return intakePower;
+				}
+
 			}
 			
 			public static final class IntakePIDConstants {
@@ -626,7 +652,7 @@ public final class Constants {
 				public static final double maxDistanceToTarget = 0.015;
 				public static final double minDistanceToTarget = 0.005;
 				public static final double intakeFOVRangeX = 10;
-				public static final double intakeFOVRangeY = 10;
+				public static final double intakeFOVRangeY = 10; // hi
 			}
 
 			public static final class PostIntakeCoralCANRangeConstants{
@@ -650,6 +676,8 @@ public final class Constants {
 				public static final double preIntakeFOVRangeY = 6.8;
 				public static final double MinSignalStrengthForValidMeasurement = 2000.0 ; // signal strength 
 			}
+
+
 			
 		}
 		public static final class ElevatorConstants {

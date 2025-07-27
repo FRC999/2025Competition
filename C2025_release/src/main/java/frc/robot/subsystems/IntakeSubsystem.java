@@ -27,11 +27,13 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.CurrentLimiter;
 import frc.robot.Constants.EnableCurrentLimiter;
 import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.GPMConstants.IntakeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeCoralCANRangeConstants;
+import frc.robot.Constants.GPMConstants.IntakeConstants.IntakeState;
 import frc.robot.Constants.GPMConstants.IntakeConstants.PostIntakeCoralCANRangeConstants;
 import frc.robot.Constants.GPMConstants.IntakeConstants.PreIntakeCoralCANRangeConstants;
 
@@ -51,6 +53,8 @@ public class IntakeSubsystem extends SubsystemBase {
   StatusSignal<Distance> postDistanceToTarget;
   StatusSignal<Distance> preDistanceToTarget;
   StatusSignal<Boolean> targetVisible;
+
+  IntakeState currentIntakeState = IntakeState.NO_CORAL_NOT_TRYING_TO_INTAKE;
 
   public IntakeSubsystem() {
 
@@ -89,6 +93,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     System.out.println("*** Intake initialized");
   }
+
 
   private void configureCANRange() {
     CANrangeConfiguration config = new CANrangeConfiguration();
@@ -220,6 +225,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean isAlgaeHeld() {
     return getOutputCurrent() >= IntakeConstants.algaeStallCurrent;
+  }
+
+  public IntakeState IntakeChangeState(IntakeState newState) {
+    runIntake(newState.getIntakePower());
+    return newState;
+  }
+
+  public IntakeState getCurrentState() {
+    return currentIntakeState;
   }
 
   @Override
