@@ -73,14 +73,14 @@ public class IntakeSubsystem extends SubsystemBase {
     // Main Motor; should not follow the other motor
     configureIntakeMotor(intakeMotor, intakePIDEncoder, intakePIDController);
 
-
+    preIntakeSensor = new CANrange(PreIntakeCoralCANRangeConstants.preIntakeCANRangeID);
 
     // Initialize the CANRange sensor with the appropriate CAN ID
     intakeSensor = new CANrange(IntakeCoralCANRangeConstants.intakeCANRangeID); // Replace '1' with the actual CAN ID of your sensor
 
     postIntakeSensor = new CANrange(PostIntakeCoralCANRangeConstants.postIntakeCANRangeID); // Post-intake sensor
 
-    preIntakeSensor = new CANrange(PreIntakeCoralCANRangeConstants.preIntakeCANRangeID);
+    
 
     // Configure the sensor for short-distance detection
     configureCANRange();
@@ -217,6 +217,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean isTargetVisible() {
     return intakeSensor.getIsDetected().getValue(); 
+  }
+
+  public boolean isPreIntakeTargetVisible() {
+    return preIntakeSensor.getIsDetected().getValue();
   }
 
   public double getOutputCurrent() {

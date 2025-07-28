@@ -52,6 +52,7 @@ import frc.robot.commands.AutoBluReverse3CoralVision;
 import frc.robot.commands.AutoBlueOneCoralVision;
 import frc.robot.commands.AutoDriveWithPP;
 import frc.robot.commands.AutoIntakeSequenceCoral;
+import frc.robot.commands.AutoIntakeSequenceCoralToPan;
 import frc.robot.commands.AutoPPCoralPlaceOnFour;
 import frc.robot.commands.AutoPPElevatorAllTheWayDown;
 import frc.robot.commands.AutoPPElevatorUpToFour;
@@ -77,6 +78,7 @@ import frc.robot.commands.IntakeAlgaeRollOutBargeCommand;
 import frc.robot.commands.IntakeAlgaeRollOutCommand;
 import frc.robot.commands.IntakeCoralAndMoveToCruisePositionSequence;
 import frc.robot.commands.IntakeCoralOutCommand;
+import frc.robot.commands.IntakeCoralToPan;
 import frc.robot.commands.IntakeShootCommand;
 import frc.robot.commands.PanLeftRightToReefTargetRobotCentric;
 import frc.robot.commands.PanToReefTarget;
@@ -313,7 +315,7 @@ public class RobotContainer {
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
     //testBargeFlick();
-    //testIntakePan();
+    testIntakePan();
     
    
   }
@@ -411,7 +413,7 @@ public class RobotContainer {
     new Trigger(()-> buttonBox.getRawButtonPressed(12) && buttonBox.getRawAxis(1) < 0.8)
       .onTrue(new TeleopEjectCoralBringArmToCruise());
 
-      
+
 
     new Trigger(() -> buttonBox.getRawAxis(1) == -1.0) //TODO: Axis value needs to be changed as necessary 
       .onTrue(new StopRobot()); 
@@ -531,6 +533,10 @@ public class RobotContainer {
     new JoystickButton(driveStick1, 12)
       .onTrue(new RunPanMotorWithSpeed(-0.2))
       .onFalse(new StopPanMotor());
+
+    new JoystickButton(xboxDriveController, 2)
+      .onTrue(new AutoIntakeSequenceCoralToPan())
+      .onFalse(new StopIntake());
 
   }
 
