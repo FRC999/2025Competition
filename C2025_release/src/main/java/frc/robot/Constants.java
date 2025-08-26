@@ -61,7 +61,8 @@ public final class Constants {
 		public static final boolean reef = true;
 		public static final boolean ll = true;
 		public static final boolean perimeter = false;
-		public static final boolean pan = true; 
+		public static final boolean pan = true;
+		public static final boolean questnav = true;
 	}
 
 	public static final class DebugTelemetrySubsystems {
@@ -76,6 +77,7 @@ public final class Constants {
 		public static final boolean reef = false;
 		public static final boolean ll = true;
 		public static final boolean perimeter = false;
+		public static final boolean questnav = true;
 	}
 
 
@@ -190,6 +192,8 @@ public final class Constants {
 		}
 
 		public static class SwerveChassis {
+
+			public static final boolean CTR_ODOMETRY_UPDATE_FROM_QUEST = true;
 
 			public static final double TRACK_WIDTH = Meters.convertFrom(18.00, Inches); // left to right
 			public static final double WHEEL_BASE = Meters.convertFrom(18.00, Inches); // front to back

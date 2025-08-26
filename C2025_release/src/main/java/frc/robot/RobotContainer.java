@@ -105,6 +105,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.PerimeterFinderSubsystem;
+import frc.robot.subsystems.QuestNavSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.PanSubsystem;
@@ -155,6 +156,7 @@ public class RobotContainer {
   public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
   public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
   public static final PanSubsystem panSubsystem = new PanSubsystem();
+  public static QuestNavSubsystem questNavSubsystem = new QuestNavSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   public static Controller xboxDriveController;

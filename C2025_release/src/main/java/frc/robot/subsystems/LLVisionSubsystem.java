@@ -37,8 +37,11 @@ public class LLVisionSubsystem extends SubsystemBase {
   private boolean bestVisible;
   private boolean bestVisibleLL4;
   private double bestCloseTag;
+  private double bestAmbiguity;
 
   private boolean backLLModeAprilTag = true;
+
+  private double maxBestAmbiguity = 0.5; // Puts pretty high standard on AprilTag position determination
 
   Map<Pose2d, Integer> allianceTagPoses;
 
@@ -174,6 +177,8 @@ public class LLVisionSubsystem extends SubsystemBase {
 
     boolean tvisible = false; // do we see AT this cycle anywhere?
     boolean tvisibleLL4 = false; // do we see AT this cycle anywhere?
+    bestAmbiguity = 100.0;
+
     for (LLCamera llcamera : LLCamera.values()) {
       String cn = llcamera.getCameraName();
       
@@ -227,11 +232,17 @@ public class LLVisionSubsystem extends SubsystemBase {
         if (pe.timestampSeconds > bestPoseTimestamp) { // update timestamps and poses for all-camera if needed
           bestPoseTimestamp = pe.timestampSeconds;
           bestPose = pe.pose;
+
+          bestAmbiguity = pe.rawFiducials[0].ambiguity;
+
         }
 
         if (ll4 && (pe.timestampSeconds > bestPoseTimestampLL4)) { // update timestamps and poses for LL4 if needed
               bestPoseTimestampLL4 = pe.timestampSeconds;
               bestPoseLL4 = pe.pose;
+
+              bestAmbiguity = pe.rawFiducials[0].ambiguity;
+
         }
       }
     } // end of loop checking whether the AT is visible
@@ -240,9 +251,20 @@ public class LLVisionSubsystem extends SubsystemBase {
     bestVisibleLL4 = tvisibleLL4;
     
     if(bestVisibleLL4) {
-      RobotContainer.driveSubsystem.addVisionMeasurement(bestPoseLL4, 
-      Utils.fpgaToCurrentTime(bestPoseTimestampLL4)
-      );
+
+
+      // Set QuestNav initial pose
+      if (! RobotContainer.questNavSubsystem.isInitialPoseSet() && bestAmbiguity < maxBestAmbiguity) {
+        RobotContainer.questNavSubsystem.resetQuestOdometry(bestPoseLL4);
+        RobotContainer.questNavSubsystem.setInitialPoseSet(true); // Tell Quest subsystem that the initial pose of Quest is set
+        RobotContainer.driveSubsystem.addVisionMeasurement(bestPoseLL4, Utils.fpgaToCurrentTime(bestPoseTimestampLL4)); // update robot odometry as well
+      }
+
+      // Only reset Quest and odometry after initial setup during the game if some button is pressed
+      //if (bestAmbiguity < maxBestAmbiguity) {
+      //  RobotContainer.driveSubsystem.addVisionMeasurement(bestPoseLL4, Utils.fpgaToCurrentTime(bestPoseTimestampLL4));
+      //}
+
     }
   }
 }
