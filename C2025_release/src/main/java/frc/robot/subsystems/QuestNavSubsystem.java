@@ -31,7 +31,7 @@ import gg.questnav.questnav.QuestNav;
 
 public class QuestNavSubsystem extends SubsystemBase {
   QuestNav questNav;
-   Transform2d ROBOT_TO_QUEST = new Transform2d(-0.32, -0.29, Rotation2d.k180deg); //Original was -0.32, -0.29
+   Transform2d ROBOT_TO_QUEST = new Transform2d(0.23, -0.26, Rotation2d.fromDegrees(-41)); //Original was -0.32, -0.29
   // Transform2d ROBOT_TO_QUEST = new Transform2d(0, 0, Rotation2d.kZero); //Original was -0.32, -0.29
   //  final Transform2d ROBOT_TO_QUEST_CHARACTERIZATION = new Transform2d(0, 0, Rotation2d.kZero); //Use for characterization
   //  final Transform2d ROBOT_TO_QUEST_NORMAL = new Transform2d(-0.32, -0.29, Rotation2d.k180deg); //Original was -0.32, -0.29
@@ -298,17 +298,21 @@ public class QuestNavSubsystem extends SubsystemBase {
           // Get the pose of the Quest
           Pose2d questPose = questFrame.questPose();
           // Get timestamp for when the data was sent
-          double timestamp = questFrame.dataTimestamp();
+          double timestamp = Utils.fpgaToCurrentTime(questFrame.dataTimestamp());
 
           // Transform by the mount pose to get your robot pose
           Pose2d robotPose = questPose.transformBy(ROBOT_TO_QUEST.inverse());
 
           // You can put some sort of filtering here if you would like!
 
-          if (robotPose.getTranslation().getDistance(RobotContainer.driveSubsystem.getPose().getTranslation()) < poseChangeTolerance) {
+          // if (robotPose.getTranslation().getDistance(RobotContainer.driveSubsystem.getPose().getTranslation()) < poseChangeTolerance) {
+            // System.out.println("******corrected");
             // Add the measurement to our estimator
             RobotContainer.driveSubsystem.addVisionMeasurement(robotPose, timestamp, QUESTNAV_STD_DEVS);
-          }
+          // }
+          // else {
+          //   System.out.println("NO");
+          // }
         }
       }
     }

@@ -317,8 +317,8 @@ public class RobotContainer {
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
     //testBargeFlick();
-    testIntakePan();
-    
+    //testIntakePan();
+    //testQuest();
    
   }
 
@@ -515,6 +515,16 @@ public class RobotContainer {
     //   .onFalse(new StopRobot());
     new JoystickButton(driveStick1, 11)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef11"))
+      .onFalse(new StopRobot());
+  }
+
+  public void testQuest() {
+    new JoystickButton(xboxDriveController, 1)
+      .onTrue(questNavSubsystem.offsetTranslationCharacterizationCommand())
+      .onFalse(new StopRobot());
+    
+      new JoystickButton(xboxDriveController, 2)
+      .onTrue(questNavSubsystem.offsetAngleCharacterizationCommand())
       .onFalse(new StopRobot());
   }
 
