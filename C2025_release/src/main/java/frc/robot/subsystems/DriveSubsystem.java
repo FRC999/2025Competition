@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.Optional;
+
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -26,16 +28,19 @@ import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.EnabledSubsystems;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.SwerveChassis;
 import frc.robot.Constants.SwerveConstants.TunerConstants;
 import frc.robot.RobotContainer;
@@ -43,6 +48,10 @@ import frc.robot.Constants.SwerveConstants.SwerveChassis.SwerveModuleConstantsEn
 
 public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> implements Subsystem {
 
+
+  // Chassis Pose for the last 0.6 seconds
+    private final TimeInterpolatableBuffer<Pose2d> poseBuffer =
+      TimeInterpolatableBuffer.createBuffer(SwerveConstants.CHASSIS_POSE_HISTORY_TIME); // ~0.6 s history for backdating
 
   public static InterpolatingDoubleTreeMap chassisAngularVelocityConversion = new InterpolatingDoubleTreeMap(); 
   /* Keep track if we've ever applied the operator perspective before or not */
@@ -606,6 +615,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     this.resetPose(pose);
   }
 
+  public void resetCTREPose(Pose2d pose) {
+    this.resetPose(pose);
+  }
+
   /* Accept the swerve drive state and telemeterize it to smartdashboard */
   public void telemeterize(SwerveDriveState state) {
     SmartDashboard.putString("P:", state.Pose.toString());
@@ -699,8 +712,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
    * @return
    */
   public Pose2d getVisionAidedOdometryPose() {
-    if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
-      return RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+    if (RobotContainer.llAprilTagSubsystem.isAprilTagVisibleBySomeCamera()) {
+      return RobotContainer.llAprilTagSubsystem.getBestPoseAllCameras();
     } else {
       return getPose();
     }
@@ -712,8 +725,8 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
    * @return
    */
   public Pose2d getInitialVisionAidedOdometryPose(Pose2d initialPose) {
-    if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
-      return RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+    if (RobotContainer.llAprilTagSubsystem.isAprilTagVisibleBySomeCamera()) {
+      return RobotContainer.llAprilTagSubsystem.getBestPoseAllCameras();
     } else {
       return initialPose;
     }
@@ -745,6 +758,10 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
     odometrySetWithVision = s;
   }
 
+  public Optional<Pose2d> getSample(double t) {
+        return poseBuffer.getSample(t);
+  }
+
 
   @Override
   public void periodic() {
@@ -764,5 +781,9 @@ public class DriveSubsystem extends SwerveDrivetrain<TalonFX,TalonFX,CANcoder> i
         // }
 
         //System.out.println("CS1: " + getChassisSpeeds());
+
+         // update history of the chassis poses, needed for odometry updates using Quest or LL
+        poseBuffer.addSample(Timer.getFPGATimestamp(), this.getPose());
+
   }
 }

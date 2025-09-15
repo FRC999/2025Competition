@@ -103,9 +103,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LLVisionSubsystem;
 import frc.robot.subsystems.PerimeterFinderSubsystem;
-import frc.robot.subsystems.QuestNavSubsystem;
 import frc.robot.subsystems.ReefFinderSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.PanSubsystem;
@@ -139,6 +137,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+import frc.robot.OdometryUpdates.*;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -154,9 +154,10 @@ public class RobotContainer {
   public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static final ReefFinderSubsystem reefFinderSubsystem = new ReefFinderSubsystem();
   public static final PerimeterFinderSubsystem perimeterFinderSubsystem = new PerimeterFinderSubsystem();
-  public static final LLVisionSubsystem llVisionSubsystem = new LLVisionSubsystem();
   public static final PanSubsystem panSubsystem = new PanSubsystem();
-  public static QuestNavSubsystem questNavSubsystem = new QuestNavSubsystem();
+  public static final QuestNavSubsystem questNavSubsystem = new QuestNavSubsystem();
+  public static final LLAprilTagSubsystem llAprilTagSubsystem = new LLAprilTagSubsystem();
+  public static final OdometryUpdatesSubsystem odometryUpdateSubsystem = new OdometryUpdatesSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   public static Controller xboxDriveController;
@@ -943,8 +944,8 @@ public class RobotContainer {
         path = path.flipPath();
       }
       Pose2d startPose = path.getStartingHolonomicPose().get();
-      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
-            startPose = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+      if (llAprilTagSubsystem.isAprilTagVisibleBySomeCamera()) {
+            startPose = llAprilTagSubsystem.getBestPoseAllCameras();
       }
       driveSubsystem.setOdometryPoseToSpecificPose(startPose); // reset odometry, as PP may not do so
 
@@ -1024,10 +1025,10 @@ public class RobotContainer {
  */
   public static Command runTrajCurLocToKnownLoc(Pose2d knownLocation, boolean assumeLocation) {
     try {
-      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
+      if (llAprilTagSubsystem.isAprilTagVisibleBySomeCamera()) {
         return (
           runTrajectory2Poses(
-            RobotContainer.llVisionSubsystem.getBestPoseAllCameras(),
+            RobotContainer.llAprilTagSubsystem.getBestPoseAllCameras(),
             knownLocation,
             true // reset odometry, since the pose determination is dynamic
           )
@@ -1060,11 +1061,11 @@ public class RobotContainer {
           new DeferredCommand(
            ()->new PrintCommand(" ==== > Left")
            .andThen(
-              new PrintCommand("***From: " + llVisionSubsystem.getBestPoseAllCameras().toString()
+              new PrintCommand("***From: " + llAprilTagSubsystem.getBestPoseAllCameras().toString()
                + " To: " +  RobotPoseConstants.visionRobotPoses.get(
                     VisionHelpers.getLeftReefName(
                       RobotPoseConstants.reefTagPoses.get(
-                        VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                        VisionHelpers.getClosestReefTagToRobot(llAprilTagSubsystem.getBestPoseAllCameras())
                         ))
                         )
               )
@@ -1079,11 +1080,11 @@ public class RobotContainer {
            ()->new PrintCommand(" ==== > Left")
            .andThen(
               RobotContainer.runTrajectory2PosesSlow(
-                llVisionSubsystem.getBestPoseAllCameras(), // if vision is not available at the start, use that pose
+                llAprilTagSubsystem.getBestPoseAllCameras(), // if vision is not available at the start, use that pose
                 RobotPoseConstants.visionRobotPoses.get(
                     VisionHelpers.getLeftReefName(
                       RobotPoseConstants.reefTagPoses.get(
-                        VisionHelpers.getClosestReefTagToRobot(llVisionSubsystem.getBestPoseAllCameras())
+                        VisionHelpers.getClosestReefTagToRobot(llAprilTagSubsystem.getBestPoseAllCameras())
                         ))
                         ),
                 false)

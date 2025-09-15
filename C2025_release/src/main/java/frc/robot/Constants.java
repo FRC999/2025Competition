@@ -82,6 +82,8 @@ public final class Constants {
 
 
 	public static class SwerveConstants {
+
+		public static final double CHASSIS_POSE_HISTORY_TIME = 0.6; //seconds
 		public static class TunerConstants {
 			public static final double steerGainsKP = 100;
 			public static final double steerGainsKI = 0;

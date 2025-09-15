@@ -89,27 +89,27 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
       //System.out.println("LL-1");
 
-      SmartDashboard.putBoolean("LL-Any-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera());
-      SmartDashboard.putBoolean("LL4-Visible", RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4());
+      SmartDashboard.putBoolean("LL-Any-Visible", RobotContainer.llAprilTagSubsystem.isAprilTagVisibleBySomeCamera());
+      SmartDashboard.putBoolean("LL4-Visible", RobotContainer.llAprilTagSubsystem.isAprilTagVisibleByLL4());
 
       //System.out.println("LL-2");
 
-      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleBySomeCamera()) {
-        Pose2d atpose = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+      if (RobotContainer.llAprilTagSubsystem.isAprilTagVisibleBySomeCamera()) {
+        Pose2d atpose = RobotContainer.llAprilTagSubsystem.getBestPoseAllCameras();
         SmartDashboard.putString("LL-Any-Pose", atpose.toString());
         SmartDashboard.putNumber("LL-ClosestAT-ID",
             RobotPoseConstants.reefTagPoses.get(VisionHelpers.getClosestReefTagToRobot(atpose)));
         SmartDashboard.putString("LL-ClosestAT-Pose", VisionHelpers.getClosestReefTagToRobot(atpose).toString());
         SmartDashboard.putString("AT-Closest-Freiendly-per-IMU",
-            RobotContainer.llVisionSubsystem.getTagPerAllianceAndIMU().toString()
+            RobotContainer.llAprilTagSubsystem.getTagPerAllianceAndIMU().toString()
                 + " " + RobotPoseConstants.redReefTagPoses
-                    .get(RobotContainer.llVisionSubsystem.getTagPerAllianceAndIMU()).toString());
+                    .get(RobotContainer.llAprilTagSubsystem.getTagPerAllianceAndIMU()).toString());
         SmartDashboard.putString("Tag17 p2d", VisionHelpers.getTagPose(17).toPose2d().toString());
         SmartDashboard.putString("Tag18 p2d", VisionHelpers.getTagPose(18).toPose2d().toString());
         SmartDashboard.putString("Tag19 p2d", VisionHelpers.getTagPose(19).toPose2d().toString());
       }
-      if (RobotContainer.llVisionSubsystem.isAprilTagVisibleByLL4()) {
-        SmartDashboard.putString("LL4-Pose", RobotContainer.llVisionSubsystem.getBestPoseLL4s().toString());
+      if (RobotContainer.llAprilTagSubsystem.isAprilTagVisibleByLL4()) {
+        SmartDashboard.putString("LL4-Pose", RobotContainer.llAprilTagSubsystem.getBestPoseLL4s().toString());
       }
     } catch (Exception e) {
       // TODO: handle exception; not sure if needed in telemetry
