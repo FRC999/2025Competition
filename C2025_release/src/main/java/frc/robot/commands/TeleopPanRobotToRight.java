@@ -27,11 +27,11 @@ public class TeleopPanRobotToRight extends SequentialCommandGroup {
           new PrintCommand("Right")
             .andThen(
               RobotContainer.runTrajectory2PosesSlow(
-                RobotContainer.llVisionSubsystem.getBestPoseAllCameras(),
+                RobotContainer.driveSubsystem.getPose(),
                 RobotPoseConstants.visionRobotPoses.get(
                   VisionHelpers.getRightReefName(
                     RobotPoseConstants.reefTagPoses.get(
-                      VisionHelpers.getClosestReefTagToRobot(RobotContainer.llVisionSubsystem.getBestPoseAllCameras())
+                      VisionHelpers.getClosestReefTagToRobot(RobotContainer.driveSubsystem.getPose())
                 ))),
             false))
       ,Set.of())

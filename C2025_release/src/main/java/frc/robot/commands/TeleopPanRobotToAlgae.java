@@ -22,19 +22,22 @@ public class TeleopPanRobotToAlgae extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DeferredCommand(
-        () -> 
-          new PrintCommand("Algae")
-            .andThen(
-              RobotContainer.runTrajectory2PosesSlow(
-                RobotContainer.llVisionSubsystem.getBestPoseAllCameras(),
-                RobotPoseConstants.visionRobotPoses.get(
-                  VisionHelpers.getAlgaeReefName(
-                    RobotPoseConstants.reefTagPoses.get(
-                      VisionHelpers.getClosestReefTagToRobot(RobotContainer.llVisionSubsystem.getBestPoseAllCameras())
-                ))),
-            false))
-      ,Set.of())
-    );
+  new DeferredCommand(
+    () -> new PrintCommand("Algae").andThen(
+      RobotContainer.runTrajectory2PosesSlow(
+        RobotContainer.driveSubsystem.getPose(),
+        RobotPoseConstants.visionRobotPoses.get(
+          VisionHelpers.getAlgaeReefName(
+            RobotPoseConstants.reefTagPoses.get(
+              VisionHelpers.getClosestReefTagToRobot(RobotContainer.driveSubsystem.getPose())
+            )
+          )
+        ),
+        /* put the boolean where it belongs: */ false
+      )
+    ),
+    Set.of(RobotContainer.driveSubsystem) // <- real requirement, infers Set<Subsystem>
+  )
+);
   }
 }

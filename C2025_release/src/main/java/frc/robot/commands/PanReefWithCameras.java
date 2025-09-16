@@ -48,7 +48,7 @@ public class PanReefWithCameras extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Pose2d robotLocation = RobotContainer.llVisionSubsystem.getBestPoseAllCameras();
+    Pose2d robotLocation = RobotContainer.driveSubsystem.getPose();
 
     double panDistance = VisionHelpers.distanceFromPoseLineY(targetPose, robotLocation);
 

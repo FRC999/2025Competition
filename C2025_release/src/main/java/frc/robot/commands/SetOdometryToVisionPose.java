@@ -23,21 +23,21 @@ public class SetOdometryToVisionPose extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DeferredCommand(
-        () -> new ConditionalCommand(
+      // new DeferredCommand(
+      //   () -> new ConditionalCommand(
 
-          new InstantCommand(() -> RobotContainer.driveSubsystem.setOdometryPoseToSpecificPose(
-                RobotContainer.llVisionSubsystem.getBestPoseAllCameras()
-              )
-            )
-            .andThen(new PrintCommand("* Pose set from vision"))
-          ,
-          new PrintCommand("* No vision pose to reset odometry")
-            .andThen(new InstantCommand(() -> RobotContainer.driveSubsystem.setOdometrySetWithVision(false)))
-            ,
-          RobotContainer.llVisionSubsystem::isAprilTagVisibleBySomeCamera
-        )
-        , Set.of())
+      //     new InstantCommand(() -> RobotContainer.driveSubsystem.setOdometryPoseToSpecificPose(
+      //           RobotContainer.driveSubsystem.getPose()
+      //         )
+      //       )
+      //       .andThen(new PrintCommand("* Pose set from vision"))
+      //     ,
+      //     new PrintCommand("* No vision pose to reset odometry")
+      //       .andThen(new InstantCommand(() -> RobotContainer.driveSubsystem.setOdometrySetWithVision(false)))
+      //       ,
+      //     RobotContainer.llVisionSubsystem::isAprilTagVisibleBySomeCamera
+      //   )
+      //   , Set.of())
     );
   }
 }

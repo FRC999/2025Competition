@@ -25,11 +25,11 @@ public class TeleopPanRightReefVision extends SequentialCommandGroup {
       new DeferredCommand(
         () -> 
         RobotContainer.runTrajectory2PosesSlow(
-          RobotContainer.llVisionSubsystem.getBestPoseAllCameras(),
+          RobotContainer.driveSubsystem.getPose(),
              RobotPoseConstants.visionRobotPoses.get(
                VisionHelpers.getRightReefName(
                   RobotPoseConstants.reefTagPoses.get(
-                    VisionHelpers.getClosestReefTagToRobot(RobotContainer.llVisionSubsystem.getBestPoseAllCameras())))),
+                    VisionHelpers.getClosestReefTagToRobot(RobotContainer.driveSubsystem.getPose())))),
                 true)
       ,Set.of())
     );
