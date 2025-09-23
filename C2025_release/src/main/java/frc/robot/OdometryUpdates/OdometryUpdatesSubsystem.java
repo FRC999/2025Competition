@@ -62,8 +62,8 @@ public class OdometryUpdatesSubsystem extends SubsystemBase {
       if (gateMeasurement(robotPose, t, /*strict*/ false, speedNow, poseNow)) {
         Matrix<N3, N1> std = QuestHelpers.questStdDev(speedNow);
         RobotContainer.driveSubsystem.addVisionMeasurement(robotPose, t, QuestNavConstants.QUESTNAV_STD_DEVS);
-        System.out.println("T");
-        System.out.println(Timer.getFPGATimestamp());
+        //System.out.println("T");
+        //System.out.println(Timer.getFPGATimestamp());
         gatePassOverrideIntermediate = false;
         // System.out.println("TEST");
       } else {
@@ -97,7 +97,7 @@ public class OdometryUpdatesSubsystem extends SubsystemBase {
     if (cn == null || cn.isBlank()) return;
 
     LimelightHelpers.PoseEstimate pe = RobotContainer.isAllianceRed
-        ? LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(cn)
+        ? LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn)
         : LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn);
     if (pe == null) return;
 
