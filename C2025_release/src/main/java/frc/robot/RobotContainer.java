@@ -86,6 +86,7 @@ import frc.robot.commands.PlaceCoralGentlyInL1;
 import frc.robot.commands.RunPanMotorWithSpeed;
 import frc.robot.commands.RunTrajectorySequenceRobotAtStartPoint;
 import frc.robot.commands.SetOdometryToVisionPose;
+import frc.robot.commands.ShwetaTest3MeterForward;
 import frc.robot.commands.ClimberStartWithSpeed;
 import frc.robot.commands.CoralPlaceOnFour;
 import frc.robot.commands.StopArm;
@@ -289,7 +290,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     try {
-      //testAuto();
+      testAuto();
       //testElevator();
       //testMohawk();
       //testAutoChoate();
@@ -311,12 +312,11 @@ public class RobotContainer {
     //testArm(); 
        //testVisionCoordoinates();
     //calibrateElevator(); 
-    competitionButtonBoxBinding();
+    //competitionButtonBoxBinding();
     XBOXControllerCompetitionBinding();
     //testElevatorSpeed();
     //testBargeFlick();
-    testIntakePan();
-    
+    //testIntakePan();
    
   }
 
@@ -513,6 +513,10 @@ public class RobotContainer {
     //   .onFalse(new StopRobot());
     new JoystickButton(driveStick1, 11)
       .onTrue(new RunTrajectorySequenceRobotAtStartPoint("Blu-BargeToReef11"))
+      .onFalse(new StopRobot());
+    
+    new JoystickButton(xboxDriveController, 1) // Button A
+      .onTrue(new ShwetaTest3MeterForward())
       .onFalse(new StopRobot());
   }
 
