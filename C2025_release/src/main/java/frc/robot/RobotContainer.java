@@ -226,11 +226,11 @@ public class RobotContainer {
     //sets the default option of the SendableChooser to the simplest autonomous command. (from touching the hub, drive until outside the tarmac zone) 
   
     autoChooser.addOption("Blue Cage 3C", new AutoBluCage());
-    autoChooser.addOption("Blue Processor 3C", new AutoBluProcessor());
+   /* autoChooser.addOption("Blue Processor 3C", new AutoBluProcessor());
     autoChooser.addOption("Blue Barge", new AutoBluBarge());
     autoChooser.addOption("Red Cage 3C", new AutoRedCage());
     autoChooser.addOption("Red Processor 3C", new AutoRedProcessor());
-    autoChooser.addOption("Red Barge", new AutoRedBarge());
+    autoChooser.addOption("Red Barge", new AutoRedBarge());*/
     SmartDashboard.putData(autoChooser);
 
   } 

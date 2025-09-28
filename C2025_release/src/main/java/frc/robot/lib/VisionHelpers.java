@@ -137,6 +137,10 @@ public class VisionHelpers {
     }
 
     public static Pose2d getClosestReefTagToRobot(Pose2d robotPose) {
+        // //Sudhamsu Test
+        // Pose2d nearestPose = robotPose.nearest(VisionHelpers.apriltagPoses);
+        // System.out.println("Nearest Pose: " + nearestPose.toString());
+        // return nearestPose;
         return robotPose.nearest(VisionHelpers.apriltagPoses);
     }
 

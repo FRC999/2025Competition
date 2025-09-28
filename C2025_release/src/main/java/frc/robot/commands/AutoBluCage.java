@@ -19,13 +19,13 @@ public class AutoBluCage extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(() -> RobotContainer.driveSubsystem.initialSetYawAndOdometryYaw(180)),
-      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeToReef11", true, false)
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-CoralTopToReef9", true, false)
         .alongWith(
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
           )
         ),
-      new TeleopEjectCoralBringArmToCruise(),
+      /*new TeleopEjectCoralBringArmToCruise(),
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef11ToCoralTop", false, false)
         .alongWith(
           new ElevatorAllTheWayDown().andThen(new AutoIntakeSequenceCoral())
@@ -46,7 +46,7 @@ public class AutoBluCage extends SequentialCommandGroup {
           new WaitCommand(0.5).andThen(
             new TeleopMoveToL4RotateArm()
             )
-        ),
+        ),*/
       new TeleopEjectCoralBringArmToCruise()
     );
   }
