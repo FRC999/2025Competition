@@ -226,7 +226,7 @@ public class RobotContainer {
     autoChooser.addOption("Blue Barge", new AutoBluBarge());
     autoChooser.addOption("Red Cage 3C", new AutoRedCage());
     autoChooser.addOption("Red Processor 3C", new AutoRedProcessor());
-    autoChooser.addOption("Red Barge", new AutoRedBarge());
+   autoChooser.addOption("Red Barge", new AutoRedBarge());
     SmartDashboard.putData(autoChooser);
 
   } 
