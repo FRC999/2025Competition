@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.613,
-        "y": 7.359
+        "x": 1.243,
+        "y": 7.2
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8781934185582208,
-        "y": 7.145698946452269
+        "x": 1.5081934185582209,
+        "y": 6.986698946452269
       },
       "isLocked": false,
       "linkedName": "CoralTop"
@@ -62,7 +62,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.271
+    "rotation": -45.0
   },
   "useDefaultConstraints": true
 }
