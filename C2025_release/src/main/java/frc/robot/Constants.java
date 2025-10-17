@@ -894,6 +894,10 @@ public final class Constants {
 
 			LLRIGHT(
 				"limelight-fr"
+			),
+
+			LL3A(
+				"limelight-l"
 			)
 			// ,
 			// LLBACK(

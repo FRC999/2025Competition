@@ -4,6 +4,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -47,7 +50,8 @@ public class AutoRedCage extends SequentialCommandGroup {
             new TeleopMoveToL4RotateArm()
             )
         ),
-      new TeleopEjectCoralBringArmToCruise()
+      new TeleopEjectCoralBringArmToCruise(),
+      new InstantCommand(()->{SmartDashboard.putNumber("AE", Timer.getTimestamp());})
     );
   }
 }
