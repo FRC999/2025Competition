@@ -31,7 +31,7 @@ public class AutoIntakeSequenceCoral extends SequentialCommandGroup {
         .raceWith(new WaitCommand(1)) // We observed this command not ending on its own sometimes, possibly because of the chain slack
       ,
       new PrintCommand("* arm at intake position"),
-      new IntakeCoralCommand(IntakeConstants.coralIntakePower),
+      new AutoIntakeCoralCommand(IntakeConstants.coralIntakePower),
       new PrintCommand("* coral in intake")
     );
   }
