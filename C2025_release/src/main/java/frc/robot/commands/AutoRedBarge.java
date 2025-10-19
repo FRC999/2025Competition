@@ -32,8 +32,8 @@ public class AutoRedBarge extends SequentialCommandGroup {
       RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-Reef6ToBargeNet", false, true),
       new WaitCommand(0.1),
       new AlgaeToBarge(),
-      new ElevatorAllTheWayDown()
-      //RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeNetToCoralStationPosition", false, true)
+      new ElevatorAllTheWayDown(),
+      RobotContainer.runTrajectoryPathPlannerWithForceResetOfStartingPose("Blu-BargeNetToCoralStationPosition", false, true)
     );
   }
 }
