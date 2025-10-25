@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -15,6 +16,7 @@ public class TeleopPanToAlgaeAndIntakeLow extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new PrintCommand("**** AlgaeLow Auto"),
       new TeleopPanRobotToAlgae()
       .alongWith(new TeleopAlgaePickupFromLow())
     );

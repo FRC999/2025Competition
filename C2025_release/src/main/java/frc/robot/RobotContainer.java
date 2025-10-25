@@ -442,11 +442,11 @@ public class RobotContainer {
     new JoystickButton(xboxDriveController, 5)
     .onTrue(new TeleopAlgaePickupFromHighAndHold()); 
 
-    new JoystickButton(xboxDriveController, 2)
-    .onTrue(new TeleopPanToAlgaeAndIntakeLow()); 
+    // new JoystickButton(xboxDriveController, 2)
+    // .onTrue(new TeleopPanToAlgaeAndIntakeLow()); 
 
-    new JoystickButton(xboxDriveController, 4)
-    .onTrue(new TeleopPanToAlgaeAndIntakeHigh()); 
+    // new JoystickButton(xboxDriveController, 4)
+    // .onTrue(new TeleopPanToAlgaeAndIntakeHigh()); 
 
     new JoystickButton(xboxDriveController, 6)
       .onTrue(new TeleopIntakeCoralAlternateSequence())
