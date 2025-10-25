@@ -553,16 +553,20 @@ public final class Constants {
 					0.0
 				),
 				NO_CORAL_TRYING_TO_INTAKE(      // No Coral is seen
-					0.3
+					0.7
+					// 0.3
 				),
 				CORAL_IN_PAN(                   // Only Pan CANrange sees coral
-					0.3
+					0.7
+					//0.3
 				),
 				CORAL_MID_MOVING(               // Mid CANrange and Pan CANrange both see coral
-					0.05
+					0.07
+					//0.5
 				),
 				CORAL_OVERSHOT(                 // Post-Intake CANrange sees coral
-					-0.07
+					-0.14
+					//-0.07
 				),
 				CORAL_READY_TO_SHOOT(           // Only Intake CANrange sees coral
 					0.0
