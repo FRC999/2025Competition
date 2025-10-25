@@ -27,7 +27,8 @@ import frc.robot.commands.TeleopPanReefLeft;
 import frc.robot.commands.TeleopPanReefRight;
 import frc.robot.commands.TeleopPanRobotToLeft;
 import frc.robot.commands.TeleopPanRobotToRight;
-import frc.robot.commands.TeleopPanToAlgaeAndIntake;
+import frc.robot.commands.TeleopPanToAlgaeAndIntakeHigh;
+import frc.robot.commands.TeleopPanToAlgaeAndIntakeLow;
 import frc.robot.commands.TeleopPigeonIMUReset;
 import frc.robot.commands.TeleopRunPanMotor;
 import frc.robot.commands.AutoBluBarge;
@@ -440,6 +441,12 @@ public class RobotContainer {
   public void XBOXControllerCompetitionBinding() {
     new JoystickButton(xboxDriveController, 5)
     .onTrue(new TeleopAlgaePickupFromHighAndHold()); 
+
+    new JoystickButton(xboxDriveController, 2)
+    .onTrue(new TeleopPanToAlgaeAndIntakeLow()); 
+
+    new JoystickButton(xboxDriveController, 4)
+    .onTrue(new TeleopPanToAlgaeAndIntakeHigh()); 
 
     new JoystickButton(xboxDriveController, 6)
       .onTrue(new TeleopIntakeCoralAlternateSequence())
