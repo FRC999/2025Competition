@@ -204,13 +204,13 @@ public class LLVisionSubsystem extends SubsystemBase {
           }
           
         }
-
+        try {
         SmartDashboard.putNumber("LL-FIDN-"+cn,pe.rawFiducials.length);
         // Skip unreliable measuremements
-        if (pe.rawFiducials.length>0) {
+        if (pe.rawFiducials.length>0) { 
           SmartDashboard.putNumber("LL-ambig-"+cn,pe.rawFiducials[0].ambiguity);
         }
-        
+      
         
         if (! (pe.rawFiducials.length>0
         // && pe.rawFiducials[0].ambiguity>0.7
@@ -218,6 +218,10 @@ public class LLVisionSubsystem extends SubsystemBase {
          ) {
           continue;
         }
+      }
+      catch (Exception e) {
+        System.out.println("***** TELEMETRY EXCEPTION");
+      }
 
         // Now that we know the measurement is reliable, remember that we're actually seeing AT
         tvisible = true;

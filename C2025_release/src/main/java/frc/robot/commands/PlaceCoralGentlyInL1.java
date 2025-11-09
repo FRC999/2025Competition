@@ -7,6 +7,7 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.GPMConstants.ArmConstants.ArmPositions;
@@ -23,9 +24,12 @@ public class PlaceCoralGentlyInL1 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new PrintCommand("**** Test 0"),
       new ArmToPositionAndHold(ArmPositions.CoralIntake),
       //new WaitCommand(0.5),
+      new PrintCommand("*** TEST 1"),
       new InstantCommand(() -> RobotContainer.intakeSubsystem.runIntake(0.25),RobotContainer.intakeSubsystem),
+      new PrintCommand("*** TEST 2"),
       new WaitCommand(1.5),
       new StopIntake(),
       new ArmToPositionAndHold(ArmPositions.CoralCruise)

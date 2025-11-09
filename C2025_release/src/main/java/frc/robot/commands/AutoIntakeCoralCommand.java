@@ -52,6 +52,6 @@ public class AutoIntakeCoralCommand extends Command {
       counter++;
     }
 
-    return counter > 0;
+    return counter > 1;
   }
 }

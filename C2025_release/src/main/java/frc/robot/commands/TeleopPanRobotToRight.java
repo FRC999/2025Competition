@@ -23,8 +23,9 @@ public class TeleopPanRobotToRight extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new DeferredCommand(
-        () -> 
-          new PrintCommand("Right")
+        () -> {
+          try {
+          return new PrintCommand("Right")
             .andThen(
               RobotContainer.runTrajectory2PosesSlow(
                 RobotContainer.llVisionSubsystem.getBestPoseAllCameras(),
@@ -33,7 +34,12 @@ public class TeleopPanRobotToRight extends SequentialCommandGroup {
                     RobotPoseConstants.reefTagPoses.get(
                       VisionHelpers.getClosestReefTagToRobot(RobotContainer.llVisionSubsystem.getBestPoseAllCameras())
                 ))),
-            false))
+            false));
+          }
+          catch (Exception e) {
+            return new PrintCommand("BAD");
+          }
+          }
       ,Set.of())
     );
   }

@@ -113,7 +113,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
       }
     } catch (Exception e) {
       // TODO: handle exception; not sure if needed in telemetry
-      //System.out.println("*** Bad things \n" + e);
+      System.out.println("*** Bad things \n" + e);
     }
   }
 
